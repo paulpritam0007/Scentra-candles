@@ -17,7 +17,7 @@ const products = [
   { id:5, name:'Strawberry Macrons Candle', image:'Strawberry Macrons Candle.jpeg', mood:'Happy', price:399, priceRange:'mid', burn:'30hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
   { id:6, name:'Rosey Heart', image:'Heart Rose.jpeg', mood:'sad', price:699, priceRange:'mid', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
   { id:7, name:'Laddoo Candles', image:'Laddoo (6pcs).jpeg', mood:'calm', price:549, priceRange:'mid', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
-  { id:8, name:'Milky Chocobar', image:'Milky chocobar.jpeg', mood:'calm', price:349, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
+  { id:8, name:'Milky Chocobar', image:'milky-chocobar.jpeg', mood:'calm', price:349, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
   { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:649, priceRange:'mid', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
   { id:10, name:'Teddy Candles', image:'Teddy Candles.jpeg', mood:'energetic', price:1099, priceRange:'premium', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
   { id:11, name:'Ocean Galaxy', image:'Ocean Galaxy.jpeg', mood:'spiritual', price:899, priceRange:'mid', burn:'48hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
@@ -218,6 +218,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
