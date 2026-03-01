@@ -10,18 +10,18 @@ document.addEventListener('mousemove', e => {
 
 /* ── PRODUCTS DATA ── */
 const products = [
-  { id:1, name:'Bourbon Vanilla', image:'images/Bourbon Vanilla.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
-  { id:2, name:'English Lavender', image:'images/English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
-  { id:3, name:'Romantic Rose', image:'images/Romantic Rose.jpeg', mood:'Romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
-  { id:4, name:'Royal Oud', image:'images/Royal Oud.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
-  { id:5, name:'Strawberry Macrons Candle', image:'images/Strawberry Macrons Candle.jpeg', mood:'Happy', price:399, priceRange:'mid', burn:'30hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
-  { id:6, name:'Rosey Heart', image:'images/Heart Rose.jpeg', mood:'sad', price:699, priceRange:'mid', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
-  { id:7, name:'Laddoo Candles', image:'images/Laddoo (6pcs).jpeg', mood:'calm', price:549, priceRange:'mid', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
-  { id:8, name:'Milky Chocobar', image:'images/Milky chocobar.jpeg', mood:'calm', price:349, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
-  { id:9, name:'Rubiks Candle', image:'images/Rubiks candle.jpeg', mood:'energetic', price:649, priceRange:'mid', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
-  { id:10, name:'Teddy Candles', image:'images/Teddy Candles.jpeg', mood:'energetic', price:1099, priceRange:'premium', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
-  { id:11, name:'Ocean Galaxy', image:'images/Ocean Galaxy.jpeg', mood:'spiritual', price:899, priceRange:'mid', burn:'48hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
-  { id:12, name:'Wooden candle', image:'images/Wooden Candles.jpeg', mood:'spiritual', price:1499, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:1, name:'Bourbon Vanilla', image:'Bourbon Vanilla.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
+  { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
+  { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'Romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
+  { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
+  { id:5, name:'Strawberry Macrons Candle', image:'Strawberry Macrons Candle.jpeg', mood:'Happy', price:399, priceRange:'mid', burn:'30hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
+  { id:6, name:'Rosey Heart', image:'Heart Rose.jpeg', mood:'sad', price:699, priceRange:'mid', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
+  { id:7, name:'Laddoo Candles', image:'Laddoo (6pcs).jpeg', mood:'calm', price:549, priceRange:'mid', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
+  { id:8, name:'Milky Chocobar', image:'Milky chocobar.jpeg', mood:'calm', price:349, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
+  { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:649, priceRange:'mid', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
+  { id:10, name:'Teddy Candles', image:'Teddy Candles.jpeg', mood:'energetic', price:1099, priceRange:'premium', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
+  { id:11, name:'Ocean Galaxy', image:'Ocean Galaxy.jpeg', mood:'spiritual', price:899, priceRange:'mid', burn:'48hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
+  { id:12, name:'Wooden candle', image:'Wooden Candles.jpeg', mood:'spiritual', price:1499, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
 ];
 
 let activeMood = 'all';
@@ -218,6 +218,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
