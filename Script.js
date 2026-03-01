@@ -23,6 +23,12 @@ const products = [
   { id:11, name:'Ocean Galaxy', image:'Ocean galaxy.jpeg', mood:'spiritual', price:899, priceRange:'mid', burn:'48hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
   { id:12, name:'Wooden candle', image:'Wooden Candles.jpeg', mood:'spiritual', price:1499, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:13, name:'Better Together', image:'better-together.jpeg', mood:'romantic', price:249, priceRange:'budget', burn:'6hr+', desc:'Beautiful male and female sculpture candle together.', color:'#fdf6e3' },
+  { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:399, priceRange:'mid', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:329, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:16, name:'Petal Peony', image:'Wooden Candles.jpeg', mood:'spiritual', price:250, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:299, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:18, name:'Wooden candle', image:'Wooden Candles.jpeg', mood:'spiritual', price:1499, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  
 ];
 
 let activeMood = 'all';
@@ -219,6 +225,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
