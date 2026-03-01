@@ -11,7 +11,7 @@ document.addEventListener('mousemove', e => {
 /* ── PRODUCTS DATA ── */
 const products = [
   { id:1, name:'Bourbon Vanilla', image:'images/Bourbon Vanilla.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
-  { id:2, name:'English Lavender', image:'Scentra/images/English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
+  { id:2, name:'English Lavender', image:'images/English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
   { id:3, name:'Romantic Rose', image:'images/Romantic Rose.jpeg', mood:'Romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
   { id:4, name:'Royal Oud', image:'images/Royal Oud.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
   { id:5, name:'Strawberry Macrons Candle', image:'images/Strawberry Macrons Candle.jpeg', mood:'Happy', price:399, priceRange:'mid', burn:'30hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
@@ -218,6 +218,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
