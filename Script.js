@@ -171,14 +171,14 @@ function initiatePayment() {
     key: 'rzp_test_YOUR_RAZORPAY_KEY', // 🔑 Replace with your Razorpay test/live key
     amount: amount,
     currency: 'INR',
-    name: 'Lumière Candles',
+    name: 'Scentra Candles',
     description: `${currentProduct.name} × ${qty}`,
     image: '🕯️',
     prefill: { name, email },
     theme: { color: '#6b1a2a' },
     handler: function(response) {
       closeModal();
-      alert(`✦ Payment successful!\nOrder ID: ${response.razorpay_payment_id}\nThank you for choosing Lumière, ${name}!`);
+      alert(`✦ Payment successful!\nOrder ID: ${response.razorpay_payment_id}\nThank you for choosing Scentra, ${name}!`);
     },
     modal: { ondismiss: () => {} }
   };
@@ -225,6 +225,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
