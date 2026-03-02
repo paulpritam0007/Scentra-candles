@@ -145,7 +145,7 @@ function renderReviews() {
 /* ── ORDER MODAL ── */
 function openModal(id) {
   currentProduct = products.find(p => p.id === id);
-  document.getElementById('modal-product-info').innerHTML = 
+  document.getElementById('modal-product-info').innerHTML = `
     <div class="modal-product-emoji">${currentProduct.emoji}</div>
     <div>
       <div class="modal-product-name">${currentProduct.name}</div>
@@ -178,7 +178,7 @@ function initiatePayment() {
     currency: 'INR',
     name: 'Scentra Candles',
     description: `${currentProduct.name} × ${qty}`,
-    image: '🕯️',
+    image: `${currentProduct.image}`,
     prefill: { name, email },
     theme: { color: '#6b1a2a' },
     handler: function(response) {
@@ -230,6 +230,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
