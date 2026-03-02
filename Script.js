@@ -53,7 +53,7 @@ function renderProducts() {
     return;
   }
   filtered.forEach(p => {
-    grid.innerHTML += 
+    grid.innerHTML += `
       <div class="product-card reveal">
         <div class="product-img" style="background:${p.color}">
           <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:0;">
@@ -128,7 +128,7 @@ function renderReviews() {
     list.innerHTML = '<div class="no-reviews">Be the first to share your experience ✦</div>';
     return;
   }
-  list.innerHTML = reviews.map(r => 
+  list.innerHTML = reviews.map(r => `
     <div class="review-card">
       <div class="review-header">
         <div class="review-avatar">${r.name[0].toUpperCase()}</div>
@@ -230,6 +230,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
