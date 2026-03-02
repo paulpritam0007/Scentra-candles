@@ -173,7 +173,7 @@ function initiatePayment() {
   const amount = currentProduct.price * qty * 100; // paise
 
   const options = {
-    key: 'rzp_test_SMDr24fJ208SUP', // 🔑 Replace with your Razorpay test/live key
+    key: 'rzp_live_SMQTjtfUT3u3zz', // 🔑 API KEY
     amount: amount,
     currency: 'INR',
     name: 'Scentra Candles',
@@ -230,6 +230,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
