@@ -29,7 +29,7 @@ const products = [
   { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:299, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:18, name:'Chai & Chill', image:'Chai biscuit Candle.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:19, name:'Daisy Vibe', image:'Daisy Vibe.jpeg', mood:'calm', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:20, name:'Cinderella Cart', image:'Cinderella's cart.jpeg', mood:'energetic', price:399, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:20, name:'Cinderella Cart', image:'Cinderellas-cart.jpeg', mood:'energetic', price:399, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:21, name:'Roses and Mogra', image:'roses-and-mogra.jpeg', mood:'spiritual', price:450, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:22, name:'Spooky Friends', image:'Spooky friends.jpeg', mood:'energetic', price:329, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:23, name:'Christmas carousel', image:'Christmas carousel.jpeg', mood:'happy', price:349, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
@@ -230,6 +230,7 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+
 
 
 
