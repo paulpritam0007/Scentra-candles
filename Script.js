@@ -365,3 +365,320 @@ if (menuToggle && mobileMenu) {
     if (window.innerWidth > 900) closeMobileMenu();
   });
 }
+/* Cart system for Scentra - append to Script.js */
+
+/* EmailJS init - replace with your keys */
+emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+const STORE_EMAIL         = 'priyashad89@gmail.com';
+
+/* Cart state */
+let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
+let selectedPaymentMethod = 'razorpay';
+
+function saveCart() {
+  localStorage.setItem('scentra_cart', JSON.stringify(cart));
+}
+
+/* Add to cart */
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+  const existing = cart.find(i => i.id === productId);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ id: product.id, name: product.name, image: product.image,
+                price: product.price, mood: product.mood, qty: 1 });
+  }
+  saveCart();
+  updateCartUI();
+  animateCartFab();
+  const btns = document.querySelectorAll('[data-cart-id="' + productId + '"]');
+  btns.forEach(btn => {
+    btn.textContent = 'Added!';
+    btn.classList.add('added');
+    setTimeout(() => { btn.textContent = '+ Add to Bag'; btn.classList.remove('added'); }, 1500);
+  });
+}
+
+/* Update cart badge and drawer */
+function updateCartUI() {
+  const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+  const totalAmt = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const badge = document.getElementById('cart-count');
+  if (badge) { badge.textContent = totalQty; badge.classList.toggle('visible', totalQty > 0); }
+  const countLabel = document.getElementById('cart-item-count');
+  if (countLabel) countLabel.textContent = totalQty > 0 ? '(' + totalQty + ')' : '';
+  const sub = document.getElementById('cart-subtotal');
+  const tot = document.getElementById('cart-total-display');
+  if (sub) sub.textContent = '\u20B9' + totalAmt;
+  if (tot) tot.textContent = '\u20B9' + totalAmt;
+  const footer = document.getElementById('cart-footer');
+  if (footer) footer.style.display = cart.length ? '' : 'none';
+  renderCartItems();
+}
+
+function renderCartItems() {
+  const list = document.getElementById('cart-items-list');
+  if (!list) return;
+  if (!cart.length) {
+    list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">\uD83D\uDD6F\uFE0F</div>Your bag is empty — add a candle to begin.</div>';
+    return;
+  }
+  list.innerHTML = cart.map(item =>
+    '<div class="cart-item">' +
+    '<img class="cart-item-img" src="' + item.image + '" alt="' + item.name + '" onerror="this.style.background=\'var(--beige)\';this.src=\'\';">' +
+    '<div class="cart-item-body">' +
+    '<div class="cart-item-name">' + item.name + '</div>' +
+    '<div class="cart-item-mood">' + item.mood + '</div>' +
+    '<div class="cart-item-controls">' +
+    '<button class="qty-btn" onclick="changeQty(' + item.id + ', -1)">\u2212</button>' +
+    '<span class="qty-num">' + item.qty + '</span>' +
+    '<button class="qty-btn" onclick="changeQty(' + item.id + ', 1)">+</button>' +
+    '</div></div>' +
+    '<div class="cart-item-price">' +
+    '<span>\u20B9' + (item.price * item.qty) + '</span>' +
+    '<button class="remove-btn" onclick="removeFromCart(' + item.id + ')">\u2715 Remove</button>' +
+    '</div></div>'
+  ).join('');
+}
+
+function changeQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else { saveCart(); updateCartUI(); }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(i => i.id !== id);
+  saveCart();
+  updateCartUI();
+}
+
+/* Cart open/close */
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function animateCartFab() {
+  const fab = document.getElementById('cart-fab');
+  if (!fab) return;
+  fab.style.transform = 'scale(1.25)';
+  setTimeout(() => { fab.style.transform = ''; }, 300);
+}
+
+/* Checkout open/close */
+function openCheckout() {
+  if (!cart.length) return;
+  closeCart();
+  populateCheckoutSummary();
+  document.getElementById('checkout-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCheckout() {
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('order-success').classList.remove('show');
+  document.getElementById('checkout-form-wrap').style.display = '';
+}
+
+function populateCheckoutSummary() {
+  const container = document.getElementById('checkout-items-rows');
+  const grandTotal = document.getElementById('checkout-grand-total');
+  if (!container) return;
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  container.innerHTML = cart.map(i =>
+    '<div class="checkout-item-row">' +
+    '<span>' + i.name + ' <span class="item-qty">\u00D7 ' + i.qty + '</span></span>' +
+    '<span>\u20B9' + (i.price * i.qty) + '</span>' +
+    '</div>'
+  ).join('');
+  if (grandTotal) grandTotal.textContent = '\u20B9' + total;
+}
+
+/* Payment method selection */
+function selectPayment(method, el) {
+  selectedPaymentMethod = method;
+  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* Form validation */
+function validateCheckout() {
+  var required = [
+    ['co-fname', 'First name'], ['co-lname', 'Last name'],
+    ['co-email', 'Email address'], ['co-phone', 'Phone number'],
+    ['co-addr1', 'Address line 1'], ['co-city', 'City'],
+    ['co-state', 'State'], ['co-pin', 'PIN code']
+  ];
+  var firstError = null;
+  var valid = true;
+  required.forEach(function(pair) {
+    var el = document.getElementById(pair[0]);
+    if (!el) return;
+    el.classList.remove('co-error');
+    if (!el.value.trim()) {
+      el.classList.add('co-error');
+      if (!firstError) firstError = pair[1];
+      valid = false;
+    }
+  });
+  var emailEl = document.getElementById('co-email');
+  if (emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+    emailEl.classList.add('co-error');
+    if (!firstError) firstError = 'valid email address';
+    valid = false;
+  }
+  var phoneEl = document.getElementById('co-phone');
+  if (phoneEl && phoneEl.value && phoneEl.value.replace(/\D/g,'').length < 10) {
+    phoneEl.classList.add('co-error');
+    if (!firstError) firstError = 'valid 10-digit phone number';
+    valid = false;
+  }
+  var pinEl = document.getElementById('co-pin');
+  if (pinEl && pinEl.value && !/^\d{6}$/.test(pinEl.value.trim())) {
+    pinEl.classList.add('co-error');
+    if (!firstError) firstError = 'valid 6-digit PIN code';
+    valid = false;
+  }
+  if (!valid) showCoError('Please enter a valid ' + firstError + '.');
+  return valid;
+}
+
+function showCoError(msg) {
+  var el = document.getElementById('co-error');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(function() { el.style.display = 'none'; }, 5000);
+}
+
+/* Place order */
+async function placeOrder() {
+  if (!validateCheckout()) return;
+  var btn     = document.getElementById('place-order-btn');
+  var label   = document.getElementById('po-label');
+  var spinner = document.getElementById('po-spinner');
+  btn.disabled = true;
+  if (label)   label.style.display   = 'none';
+  if (spinner) spinner.style.display = 'block';
+
+  var orderData = {
+    fname:     document.getElementById('co-fname').value.trim(),
+    lname:     document.getElementById('co-lname').value.trim(),
+    email:     document.getElementById('co-email').value.trim(),
+    phone:     document.getElementById('co-phone').value.trim(),
+    addr1:     document.getElementById('co-addr1').value.trim(),
+    addr2:     document.getElementById('co-addr2').value.trim(),
+    city:      document.getElementById('co-city').value.trim(),
+    state:     document.getElementById('co-state').value.trim(),
+    pin:       document.getElementById('co-pin').value.trim(),
+    country:   document.getElementById('co-country').value.trim(),
+    notes:     document.getElementById('co-notes').value.trim(),
+    payment:   selectedPaymentMethod === 'razorpay' ? 'Card / UPI (Razorpay)' : 'Cash on Delivery',
+    items:     cart,
+    total:     cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0),
+    orderId:   'SCN-' + Date.now().toString().slice(-8).toUpperCase(),
+    orderDate: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' })
+  };
+
+  var itemsList = orderData.items.map(function(i) {
+    return i.name + ' (' + i.mood + ') x ' + i.qty + ' = Rs.' + (i.price * i.qty);
+  }).join('\n');
+
+  var fullAddress = [orderData.addr1, orderData.addr2, orderData.city,
+                     orderData.state, orderData.pin, orderData.country]
+                    .filter(Boolean).join(', ');
+
+  var emailParams = {
+    to_email:       STORE_EMAIL,
+    order_id:       orderData.orderId,
+    order_date:     orderData.orderDate,
+    customer_name:  orderData.fname + ' ' + orderData.lname,
+    customer_email: orderData.email,
+    customer_phone: orderData.phone,
+    full_address:   fullAddress,
+    items_list:     itemsList,
+    order_total:    'Rs.' + orderData.total,
+    payment_method: orderData.payment,
+    order_notes:    orderData.notes || 'None',
+    reply_to:       orderData.email
+  };
+
+  try {
+    if (selectedPaymentMethod === 'razorpay') {
+      await handleRazorpayCheckout(orderData, emailParams);
+    } else {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
+      onOrderSuccess(orderData.orderId);
+    }
+  } catch (err) {
+    console.error('Order error:', err);
+    showCoError('Something went wrong. Please try again or contact us directly.');
+    btn.disabled = false;
+    if (label)   label.style.display   = '';
+    if (spinner) spinner.style.display = 'none';
+  }
+}
+
+/* Razorpay from cart checkout */
+async function handleRazorpayCheckout(orderData, emailParams) {
+  var btn     = document.getElementById('place-order-btn');
+  var label   = document.getElementById('po-label');
+  var spinner = document.getElementById('po-spinner');
+  var options = {
+    key:         'rzp_live_SMQTjtfUT3u3zz',
+    amount:      orderData.total * 100,
+    currency:    'INR',
+    name:        'Scentra Candles',
+    description: 'Order ' + orderData.orderId,
+    prefill: {
+      name:    orderData.fname + ' ' + orderData.lname,
+      email:   orderData.email,
+      contact: orderData.phone
+    },
+    theme: { color: '#6b1a2a' },
+    handler: async function(response) {
+      emailParams.payment_method = 'Card / UPI | Payment ID: ' + response.razorpay_payment_id;
+      try { await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams); }
+      catch(e) { console.warn('Email send failed but payment succeeded:', e); }
+      onOrderSuccess(orderData.orderId);
+    },
+    modal: {
+      ondismiss: function() {
+        btn.disabled = false;
+        if (label)   label.style.display   = '';
+        if (spinner) spinner.style.display = 'none';
+      }
+    }
+  };
+  var rzp = new Razorpay(options);
+  rzp.open();
+}
+
+/* Order success */
+function onOrderSuccess(orderId) {
+  cart = [];
+  saveCart();
+  updateCartUI();
+  document.getElementById('checkout-form-wrap').style.display = 'none';
+  document.getElementById('order-success').classList.add('show');
+  document.getElementById('success-order-id').textContent = orderId;
+}
+
+/* Init on load */
+updateCartUI();
