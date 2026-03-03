@@ -96,6 +96,7 @@ function populateReviewSelect() {
 /* ── REVIEWS ── */
 let selectedStars = 0;
 const REVIEWS_STORAGE_KEY = 'scentra_reviews_v1';
+const REVIEWS_PUBLIC_API = window.SCENTRA_REVIEWS_API || '';
 const reviews = [];
 
 function escapeHtml(value) {
@@ -107,10 +108,24 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
+function normalizeReview(r) {
+  const stars = Number(r?.stars);
+  const reviewDate = r?.date ? new Date(r.date) : new Date();
+  if (!r || !r.name || !r.product || !r.text || !Number.isInteger(stars) || stars < 1 || stars > 5) return null;
+  return {
+    name: String(r.name),
+    product: String(r.product),
+    text: String(r.text),
+    stars,
+    date: Number.isNaN(reviewDate.getTime()) ? new Date() : reviewDate
+  };
+}
+
 function saveReviews() {
   localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
 }
 
+function loadReviewsFromLocal() {
 function loadReviews() {
   try {
     const saved = localStorage.getItem(REVIEWS_STORAGE_KEY);
@@ -150,7 +165,7 @@ document.getElementById('star-input').addEventListener('click', e => {
   });
 });
 
-function submitReview() {
+async function submitReview() {
   const name = document.getElementById('r-name').value.trim();
   const product = document.getElementById('r-product').value;
   const text = document.getElementById('r-text').value.trim();
@@ -158,9 +173,12 @@ function submitReview() {
     alert('Please fill in all fields and select a star rating!');
     return;
   }
+  const review = { name, product, text, stars: selectedStars, date: new Date() };
+  reviews.unshift(review);
   reviews.unshift({ name, product, text, stars: selectedStars, date: new Date() });
   saveReviews();
   renderReviews();
+  await publishReview(review);
   document.getElementById('r-name').value = '';
   document.getElementById('r-text').value = '';
   document.getElementById('r-product').value = '';
