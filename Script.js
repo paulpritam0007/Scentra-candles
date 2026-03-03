@@ -67,6 +67,7 @@ function renderProducts() {
             <div class="product-burn">🕐 ${p.burn}</div>
           </div>
           <button class="btn-buy" onclick="openModal(${p.id})">Order Now</button>
+          <button class="btn-cart-add" data-cart-id="${p.id}" onclick="addToCart(${p.id})">+ Add to Bag</button>
         </div>
       </div>`;
   });
@@ -88,26 +89,12 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 /* ── POPULATE SELECT ── */
 function populateReviewSelect() {
   const sel = document.getElementById('r-product');
-  // BUG FIX: p.emoji is undefined on all products; removed it to prevent "undefined" text in options
   products.forEach(p => {
     sel.innerHTML += `<option value="${p.name}">${p.name}</option>`;
   });
 }
 
-/* ── REVIEWS (LIVE — Firebase Firestore real-time across all devices) ──
- *
- *  ONE-TIME SETUP (5 minutes, completely free):
- *  1. Go to https://console.firebase.google.com
- *  2. Click "Add project" → name it "scentra" → Create
- *  3. In the left sidebar click "Firestore Database" → "Create database"
- *     → choose "Start in test mode" → pick any region → Enable
- *  4. In the left sidebar click the ⚙️ gear → "Project settings"
- *  5. Scroll to "Your apps" → click </> (Web) → register app → copy the config
- *  6. Paste the values from that config into the FIREBASE CONFIG block below
- *
- * ── */
-
-// ── FIREBASE CONFIG — paste your values here ──────────────────────
+/* ── FIREBASE CONFIG ── */
 const FIREBASE_CONFIG = {
   apiKey:            'AIzaSyDe3alevwZR4Mb_gqaFzXA9v4Hhkliar70',
   authDomain:        'scentra-79d03.firebaseapp.com',
@@ -118,10 +105,9 @@ const FIREBASE_CONFIG = {
   appId:             '1:949284857521:web:8aeff5153d051cc3faa490',
   measurement:       'G-Q359FL862T'
 };
-// ──────────────────────────────────────────────────────────────────
 
 let selectedStars = 0;
-let db = null; // Firestore instance, set after SDK loads
+let db = null;
 
 function escapeHtml(value) {
   return String(value)
@@ -132,14 +118,11 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-/* Dynamically load the Firebase SDK then wire everything up */
 function initFirebase() {
-  // Load Firebase App + Firestore from the CDN
   const scripts = [
     'https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js',
     'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js'
   ];
-
   let loaded = 0;
   scripts.forEach(src => {
     const s = document.createElement('script');
@@ -155,9 +138,6 @@ function initFirebase() {
 function startFirestore() {
   firebase.initializeApp(FIREBASE_CONFIG);
   db = firebase.firestore();
-
-  // onSnapshot fires immediately with current data AND again whenever
-  // any device adds a new review — true real-time, no polling needed
   db.collection('reviews')
     .orderBy('date', 'desc')
     .onSnapshot(snapshot => {
@@ -168,7 +148,6 @@ function startFirestore() {
     });
 }
 
-/* Star rating click handler */
 document.getElementById('star-input').addEventListener('click', e => {
   if (!e.target.dataset.val) return;
   selectedStars = parseInt(e.target.dataset.val);
@@ -177,7 +156,6 @@ document.getElementById('star-input').addEventListener('click', e => {
   });
 });
 
-/* Submit — writes one document to Firestore; onSnapshot delivers it to all devices instantly */
 async function submitReview() {
   const name    = document.getElementById('r-name').value.trim();
   const product = document.getElementById('r-product').value;
@@ -190,10 +168,8 @@ async function submitReview() {
     alert('Reviews service is still loading — please try again in a moment.');
     return;
   }
-
   const btn = document.getElementById('submit-review-btn');
   if (btn) { btn.textContent = 'Posting…'; btn.disabled = true; }
-
   try {
     await db.collection('reviews').add({
       name,
@@ -202,8 +178,6 @@ async function submitReview() {
       stars: selectedStars,
       date: firebase.firestore.FieldValue.serverTimestamp()
     });
-
-    // Reset form
     document.getElementById('r-name').value = '';
     document.getElementById('r-text').value = '';
     document.getElementById('r-product').value = '';
@@ -224,7 +198,6 @@ function renderReviews(reviews) {
     return;
   }
   list.innerHTML = reviews.map(r => {
-    // serverTimestamp() returns a Firestore Timestamp object; convert safely
     const dateObj = r.date && r.date.toDate ? r.date.toDate() : new Date(r.date || Date.now());
     return `
     <div class="review-card">
@@ -244,7 +217,6 @@ function renderReviews(reviews) {
 /* ── ORDER MODAL ── */
 function openModal(id) {
   currentProduct = products.find(p => p.id === id);
-  // BUG FIX: removed currentProduct.emoji (undefined on all products)
   document.getElementById('modal-product-info').innerHTML = `
     <div>
       <div class="modal-product-name">${currentProduct.name}</div>
@@ -269,8 +241,7 @@ function initiatePayment() {
   const email = document.getElementById('order-email').value.trim();
   const qty = parseInt(document.getElementById('order-qty').value) || 1;
   if (!name || !email) { alert('Please enter your name and email.'); return; }
-  const amount = currentProduct.price * qty * 100; // paise
-
+  const amount = currentProduct.price * qty * 100;
   const options = {
     key: 'rzp_live_SMQTjtfUT3u3zz',
     amount: amount,
@@ -328,8 +299,6 @@ function observeReveal() {
 renderProducts();
 populateReviewSelect();
 observeReveal();
-
-// Kick off Firebase — loads SDK then opens a real-time listener
 initFirebase();
 
 /* ── HAMBURGER MENU ── */
@@ -354,26 +323,19 @@ if (menuToggle && mobileMenu) {
       document.body.style.overflow = 'hidden';
     }
   });
-
   document.addEventListener('click', (e) => {
     if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
       closeMobileMenu();
     }
   });
-
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900) closeMobileMenu();
   });
 }
-/* Cart system for Scentra - append to Script.js */
 
-/* EmailJS init - replace with your keys */
-emailjs.init('YOUR_EMAILJS_PUBLIC_KEY');
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const STORE_EMAIL         = 'priyashad89@gmail.com';
+/* ── CART SYSTEM ── */
+const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
 
-/* Cart state */
 let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
 let selectedPaymentMethod = 'razorpay';
 
@@ -381,7 +343,6 @@ function saveCart() {
   localStorage.setItem('scentra_cart', JSON.stringify(cart));
 }
 
-/* Add to cart */
 function addToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -403,7 +364,6 @@ function addToCart(productId) {
   });
 }
 
-/* Update cart badge and drawer */
 function updateCartUI() {
   const totalQty = cart.reduce((s, i) => s + i.qty, 0);
   const totalAmt = cart.reduce((s, i) => s + i.price * i.qty, 0);
@@ -413,8 +373,8 @@ function updateCartUI() {
   if (countLabel) countLabel.textContent = totalQty > 0 ? '(' + totalQty + ')' : '';
   const sub = document.getElementById('cart-subtotal');
   const tot = document.getElementById('cart-total-display');
-  if (sub) sub.textContent = '\u20B9' + totalAmt;
-  if (tot) tot.textContent = '\u20B9' + totalAmt;
+  if (sub) sub.textContent = '₹' + totalAmt;
+  if (tot) tot.textContent = '₹' + totalAmt;
   const footer = document.getElementById('cart-footer');
   if (footer) footer.style.display = cart.length ? '' : 'none';
   renderCartItems();
@@ -424,7 +384,7 @@ function renderCartItems() {
   const list = document.getElementById('cart-items-list');
   if (!list) return;
   if (!cart.length) {
-    list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">\uD83D\uDD6F\uFE0F</div>Your bag is empty — add a candle to begin.</div>';
+    list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🕯️</div>Your bag is empty — add a candle to begin.</div>';
     return;
   }
   list.innerHTML = cart.map(item =>
@@ -434,13 +394,13 @@ function renderCartItems() {
     '<div class="cart-item-name">' + item.name + '</div>' +
     '<div class="cart-item-mood">' + item.mood + '</div>' +
     '<div class="cart-item-controls">' +
-    '<button class="qty-btn" onclick="changeQty(' + item.id + ', -1)">\u2212</button>' +
+    '<button class="qty-btn" onclick="changeQty(' + item.id + ', -1)">−</button>' +
     '<span class="qty-num">' + item.qty + '</span>' +
     '<button class="qty-btn" onclick="changeQty(' + item.id + ', 1)">+</button>' +
     '</div></div>' +
     '<div class="cart-item-price">' +
-    '<span>\u20B9' + (item.price * item.qty) + '</span>' +
-    '<button class="remove-btn" onclick="removeFromCart(' + item.id + ')">\u2715 Remove</button>' +
+    '<span>₹' + (item.price * item.qty) + '</span>' +
+    '<button class="remove-btn" onclick="removeFromCart(' + item.id + ')">✕ Remove</button>' +
     '</div></div>'
   ).join('');
 }
@@ -458,9 +418,7 @@ function removeFromCart(id) {
   saveCart();
   updateCartUI();
 }
-const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
 
-/* Cart open/close */
 function openCart() {
   document.getElementById('cart-overlay').classList.add('open');
   document.getElementById('cart-drawer').classList.add('open');
@@ -480,7 +438,6 @@ function animateCartFab() {
   setTimeout(() => { fab.style.transform = ''; }, 300);
 }
 
-/* Checkout open/close */
 function openCheckout() {
   if (!cart.length) return;
   closeCart();
@@ -503,21 +460,19 @@ function populateCheckoutSummary() {
   const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
   container.innerHTML = cart.map(i =>
     '<div class="checkout-item-row">' +
-    '<span>' + i.name + ' <span class="item-qty">\u00D7 ' + i.qty + '</span></span>' +
-    '<span>\u20B9' + (i.price * i.qty) + '</span>' +
+    '<span>' + i.name + ' <span class="item-qty">× ' + i.qty + '</span></span>' +
+    '<span>₹' + (i.price * i.qty) + '</span>' +
     '</div>'
   ).join('');
-  if (grandTotal) grandTotal.textContent = '\u20B9' + total;
+  if (grandTotal) grandTotal.textContent = '₹' + total;
 }
 
-/* Payment method selection */
 function selectPayment(method, el) {
   selectedPaymentMethod = method;
   document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
   el.classList.add('selected');
 }
 
-/* Form validation */
 function validateCheckout() {
   var required = [
     ['co-fname', 'First name'], ['co-lname', 'Last name'],
@@ -568,7 +523,6 @@ function showCoError(msg) {
   setTimeout(function() { el.style.display = 'none'; }, 5000);
 }
 
-/* Place order */
 async function placeOrder() {
   if (!validateCheckout()) return;
   var btn     = document.getElementById('place-order-btn');
@@ -605,56 +559,10 @@ async function placeOrder() {
                      orderData.state, orderData.pin, orderData.country]
                     .filter(Boolean).join(', ');
 
-  var emailParams = {
-    to_email:       STORE_EMAIL,
-    order_id:       orderData.orderId,
-    order_date:     orderData.orderDate,
-    customer_name:  orderData.fname + ' ' + orderData.lname,
-    customer_email: orderData.email,
-    customer_phone: orderData.phone,
-    full_address:   fullAddress,
-    items_list:     itemsList,
-    order_total:    'Rs.' + orderData.total,
-    payment_method: orderData.payment,
-    order_notes:    orderData.notes || 'None',
-    reply_to:       orderData.email
-  };
-
   try {
     if (selectedPaymentMethod === 'razorpay') {
-      await handleRazorpayCheckout(orderData, emailParams);
+      await handleRazorpayCheckout(orderData, itemsList, fullAddress);
     } else {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams);
-      onOrderSuccess(orderData.orderId);
-    }
-  } catch (err) {
-    console.error('Order error:', err);
-    showCoError('Something went wrong. Please try again or contact us directly.');
-    btn.disabled = false;
-    if (label)   label.style.display   = '';
-    if (spinner) spinner.style.display = 'none';
-  }
-}
-
-/* Razorpay from cart checkout */
-async function handleRazorpayCheckout(orderData, emailParams) {
-  var btn     = document.getElementById('place-order-btn');
-  var label   = document.getElementById('po-label');
-  var spinner = document.getElementById('po-spinner');
-  var options = {
-    key:         'rzp_live_SMQTjtfUT3u3zz',
-    amount:      orderData.total * 100,
-    currency:    'INR',
-    name:        'Scentra Candles',
-    description: 'Order ' + orderData.orderId,
-    prefill: {
-      name:    orderData.fname + ' ' + orderData.lname,
-      email:   orderData.email,
-      contact: orderData.phone
-    },
-    theme: { color: '#6b1a2a' },
-    handler: async function(response) {
-      emailParams.payment_method = 'Card / UPI | Payment ID: ' + response.razorpay_payment_id;
       await fetch(STORE_FORM_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -672,7 +580,53 @@ async function handleRazorpayCheckout(orderData, emailParams) {
           order_notes:    orderData.notes || 'None'
         })
       });
-      catch(e) { console.warn('Email send failed but payment succeeded:', e); }
+      onOrderSuccess(orderData.orderId);
+    }
+  } catch (err) {
+    console.error('Order error:', err);
+    showCoError('Something went wrong. Please try again or contact us directly.');
+    btn.disabled = false;
+    if (label)   label.style.display   = '';
+    if (spinner) spinner.style.display = 'none';
+  }
+}
+
+async function handleRazorpayCheckout(orderData, itemsList, fullAddress) {
+  var btn     = document.getElementById('place-order-btn');
+  var label   = document.getElementById('po-label');
+  var spinner = document.getElementById('po-spinner');
+  var options = {
+    key:         'rzp_live_SMQTjtfUT3u3zz',
+    amount:      orderData.total * 100,
+    currency:    'INR',
+    name:        'Scentra Candles',
+    description: 'Order ' + orderData.orderId,
+    prefill: {
+      name:    orderData.fname + ' ' + orderData.lname,
+      email:   orderData.email,
+      contact: orderData.phone
+    },
+    theme: { color: '#6b1a2a' },
+    handler: async function(response) {
+      try {
+        await fetch(STORE_FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            subject:        'New Order - ' + orderData.orderId,
+            order_id:       orderData.orderId,
+            order_date:     orderData.orderDate,
+            customer_name:  orderData.fname + ' ' + orderData.lname,
+            customer_email: orderData.email,
+            customer_phone: orderData.phone,
+            full_address:   fullAddress,
+            items_list:     itemsList,
+            order_total:    'Rs.' + orderData.total,
+            payment_method: 'Card / UPI | Payment ID: ' + response.razorpay_payment_id,
+            order_notes:    orderData.notes || 'None'
+          })
+        });
+      } catch(e) { console.warn('Email send failed but payment succeeded:', e); }
       onOrderSuccess(orderData.orderId);
     },
     modal: {
@@ -687,7 +641,6 @@ async function handleRazorpayCheckout(orderData, emailParams) {
   rzp.open();
 }
 
-/* Order success */
 function onOrderSuccess(orderId) {
   cart = [];
   saveCart();
@@ -697,6 +650,4 @@ function onOrderSuccess(orderId) {
   document.getElementById('success-order-id').textContent = orderId;
 }
 
-/* Init on load */
 updateCartUI();
-
