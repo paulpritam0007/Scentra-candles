@@ -183,6 +183,7 @@
     letter-spacing: 0.1em;
     font-size: 0.78rem !important;
     transition: background 0.2s !important;
+    text-decoration: none;
   }
   .nav-cta:hover { background: var(--maroon-light) !important; color: #fff !important; }
 
@@ -847,3 +848,4 @@
     footer { flex-direction: column; text-align: center; padding: 30px 24px; }
 
   }
+
