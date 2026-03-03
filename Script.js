@@ -24,7 +24,7 @@ const products = [
   { id:12, name:'Petals in Pine', image:'Wooden Candles.jpeg', mood:'spiritual', price:399, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:13, name:'Better Together', image:'better-together.jpeg', mood:'romantic', price:249, priceRange:'budget', burn:'6hr+', desc:'Beautiful male and female sculpture candle together.', color:'#fdf6e3' },
   { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:250, priceRange:'budget', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:329, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:329, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:16, name:'Petal Peony', image:'petal-peony.jpeg', mood:'spiritual', price:250, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:299, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:18, name:'Chai & Chill', image:'Chai biscuit Candle.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
@@ -266,6 +266,7 @@ if (menuToggle && mobileMenu) {
     if (window.innerWidth > 900) closeMobileMenu();
   });
 }
+
 
 
 
