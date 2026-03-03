@@ -458,6 +458,7 @@ function removeFromCart(id) {
   saveCart();
   updateCartUI();
 }
+const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
 
 /* Cart open/close */
 function openCart() {
@@ -654,7 +655,23 @@ async function handleRazorpayCheckout(orderData, emailParams) {
     theme: { color: '#6b1a2a' },
     handler: async function(response) {
       emailParams.payment_method = 'Card / UPI | Payment ID: ' + response.razorpay_payment_id;
-      try { await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailParams); }
+      await fetch(STORE_FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          subject:        'New Order - ' + orderData.orderId,
+          order_id:       orderData.orderId,
+          order_date:     orderData.orderDate,
+          customer_name:  orderData.fname + ' ' + orderData.lname,
+          customer_email: orderData.email,
+          customer_phone: orderData.phone,
+          full_address:   fullAddress,
+          items_list:     itemsList,
+          order_total:    'Rs.' + orderData.total,
+          payment_method: orderData.payment,
+          order_notes:    orderData.notes || 'None'
+        })
+      });
       catch(e) { console.warn('Email send failed but payment succeeded:', e); }
       onOrderSuccess(orderData.orderId);
     },
@@ -682,3 +699,4 @@ function onOrderSuccess(orderId) {
 
 /* Init on load */
 updateCartUI();
+
