@@ -88,15 +88,15 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 /* ── POPULATE SELECT ── */
 function populateReviewSelect() {
   const sel = document.getElementById('r-product');
+  // BUG FIX: p.emoji is undefined on all products; removed it to prevent "undefined" text in options
   products.forEach(p => {
-    sel.innerHTML += `<option value="${p.name}">${p.emoji} ${p.name}</option>`;
+    sel.innerHTML += `<option value="${p.name}">${p.name}</option>`;
   });
 }
 
 /* ── REVIEWS ── */
 let selectedStars = 0;
 const REVIEWS_STORAGE_KEY = 'scentra_reviews_v1';
-const REVIEWS_PUBLIC_API = window.SCENTRA_REVIEWS_API || '';
 const reviews = [];
 
 function escapeHtml(value) {
@@ -108,24 +108,8 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-function normalizeReview(r) {
-  const stars = Number(r?.stars);
-  const reviewDate = r?.date ? new Date(r.date) : new Date();
-  if (!r || !r.name || !r.product || !r.text || !Number.isInteger(stars) || stars < 1 || stars > 5) return null;
-  return {
-    name: String(r.name),
-    product: String(r.product),
-    text: String(r.text),
-    stars,
-    date: Number.isNaN(reviewDate.getTime()) ? new Date() : reviewDate
-  };
-}
-
-function saveReviews() {
-  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
-}
-
-function loadReviewsFromLocal() {
+// BUG FIX: removed broken/unclosed loadReviewsFromLocal wrapper function
+// that swallowed loadReviews inside it, causing a syntax error
 function loadReviews() {
   try {
     const saved = localStorage.getItem(REVIEWS_STORAGE_KEY);
@@ -135,20 +119,16 @@ function loadReviews() {
 
     reviews.length = 0;
     parsed.forEach(r => {
-      const stars = Number(r?.stars);
-      const reviewDate = r?.date ? new Date(r.date) : new Date();
-      if (!r || !r.name || !r.product || !r.text || !Number.isInteger(stars) || stars < 1 || stars > 5) return;
-      reviews.push({
-        name: String(r.name),
-        product: String(r.product),
-        text: String(r.text),
-        stars,
-        date: Number.isNaN(reviewDate.getTime()) ? new Date() : reviewDate
-      });
+      const normalized = normalizeReview(r);
+      if (normalized) reviews.push(normalized);
     });
   } catch {
     reviews.length = 0;
   }
+}
+
+function saveReviews() {
+  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
 }
 
 window.addEventListener('storage', (event) => {
@@ -174,11 +154,10 @@ async function submitReview() {
     return;
   }
   const review = { name, product, text, stars: selectedStars, date: new Date() };
+  // BUG FIX: removed duplicate reviews.unshift() that added every review twice
   reviews.unshift(review);
-  reviews.unshift({ name, product, text, stars: selectedStars, date: new Date() });
   saveReviews();
   renderReviews();
-  await publishReview(review);
   document.getElementById('r-name').value = '';
   document.getElementById('r-text').value = '';
   document.getElementById('r-product').value = '';
@@ -202,15 +181,15 @@ function renderReviews() {
         </div>
       </div>
       <p class="review-text">"${escapeHtml(r.text)}"</p>
-      <p class="review-date">${r.date.toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</p>
+      <p class="review-date">${new Date(r.date).toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</p>
     </div>`).join('');
 }
 
 /* ── ORDER MODAL ── */
 function openModal(id) {
   currentProduct = products.find(p => p.id === id);
+  // BUG FIX: removed currentProduct.emoji (undefined on all products)
   document.getElementById('modal-product-info').innerHTML = `
-    <div class="modal-product-emoji">${currentProduct.emoji}</div>
     <div>
       <div class="modal-product-name">${currentProduct.name}</div>
       <div class="modal-product-price">₹${currentProduct.price} each</div>
@@ -237,7 +216,7 @@ function initiatePayment() {
   const amount = currentProduct.price * qty * 100; // paise
 
   const options = {
-    key: 'rzp_live_SMQTjtfUT3u3zz', // 🔑 API KEY
+    key: 'rzp_live_SMQTjtfUT3u3zz',
     amount: amount,
     currency: 'INR',
     name: 'Scentra Candles',
@@ -294,11 +273,11 @@ renderProducts();
 populateReviewSelect();
 loadReviews();
 renderReviews();
-
 observeReveal();
-/*Hamburger menu animation*/
-const menuToggle  = document.querySelector('.menu-toggle');
-const mobileMenu  = document.getElementById('mobile-menu');
+
+/* ── HAMBURGER MENU ── */
+const menuToggle = document.querySelector('.menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
 
 function closeMobileMenu() {
   if (!menuToggle || !mobileMenu) return;
@@ -310,49 +289,22 @@ function closeMobileMenu() {
 if (menuToggle && mobileMenu) {
   menuToggle.addEventListener('click', () => {
     const isOpen = mobileMenu.classList.contains('open');
-
     if (isOpen) {
       closeMobileMenu();
     } else {
       mobileMenu.classList.add('open');
       menuToggle.classList.add('active');
-      document.body.style.overflow = 'hidden'; // prevent background scroll
+      document.body.style.overflow = 'hidden';
     }
   });
 
-  // Close menu if user clicks outside of it
   document.addEventListener('click', (e) => {
     if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
       closeMobileMenu();
     }
   });
 
-  // Close menu on resize to desktop width
   window.addEventListener('resize', () => {
     if (window.innerWidth > 900) closeMobileMenu();
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
