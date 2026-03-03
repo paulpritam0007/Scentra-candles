@@ -95,7 +95,52 @@ function populateReviewSelect() {
 
 /* ── REVIEWS ── */
 let selectedStars = 0;
+const REVIEWS_STORAGE_KEY = 'scentra_reviews_v1';
 const reviews = [];
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function saveReviews() {
+  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+}
+
+function loadReviews() {
+  try {
+    const saved = localStorage.getItem(REVIEWS_STORAGE_KEY);
+    if (!saved) return;
+    const parsed = JSON.parse(saved);
+    if (!Array.isArray(parsed)) return;
+
+    reviews.length = 0;
+    parsed.forEach(r => {
+      const stars = Number(r?.stars);
+      const reviewDate = r?.date ? new Date(r.date) : new Date();
+      if (!r || !r.name || !r.product || !r.text || !Number.isInteger(stars) || stars < 1 || stars > 5) return;
+      reviews.push({
+        name: String(r.name),
+        product: String(r.product),
+        text: String(r.text),
+        stars,
+        date: Number.isNaN(reviewDate.getTime()) ? new Date() : reviewDate
+      });
+    });
+  } catch {
+    reviews.length = 0;
+  }
+}
+
+window.addEventListener('storage', (event) => {
+  if (event.key !== REVIEWS_STORAGE_KEY) return;
+  loadReviews();
+  renderReviews();
+});
 
 document.getElementById('star-input').addEventListener('click', e => {
   if (!e.target.dataset.val) return;
@@ -114,6 +159,7 @@ function submitReview() {
     return;
   }
   reviews.unshift({ name, product, text, stars: selectedStars, date: new Date() });
+  saveReviews();
   renderReviews();
   document.getElementById('r-name').value = '';
   document.getElementById('r-text').value = '';
@@ -131,13 +177,13 @@ function renderReviews() {
   list.innerHTML = reviews.map(r => `
     <div class="review-card">
       <div class="review-header">
-        <div class="review-avatar">${r.name[0].toUpperCase()}</div>
+        <div class="review-avatar">${escapeHtml(r.name[0].toUpperCase())}</div>
         <div class="review-meta">
-          <h4>${r.name} — <em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--text-light)">${r.product}</em></h4>
+          <h4>${escapeHtml(r.name)} — <em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--text-light)">${escapeHtml(r.product)}</em></h4>
           <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
         </div>
       </div>
-      <p class="review-text">"${r.text}"</p>
+      <p class="review-text">"${escapeHtml(r.text)}"</p>
       <p class="review-date">${r.date.toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</p>
     </div>`).join('');
 }
@@ -228,6 +274,8 @@ function observeReveal() {
 /* ── INIT ── */
 renderProducts();
 populateReviewSelect();
+loadReviews();
+renderReviews();
 
 observeReveal();
 /*Hamburger menu animation*/
