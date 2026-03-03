@@ -94,23 +94,34 @@ function populateReviewSelect() {
   });
 }
 
-/* ── REVIEWS (LIVE — real cross-device backend via JSONBin.io) ── */
+/* ── REVIEWS (LIVE — Firebase Firestore real-time across all devices) ──
+ *
+ *  ONE-TIME SETUP (5 minutes, completely free):
+ *  1. Go to https://console.firebase.google.com
+ *  2. Click "Add project" → name it "scentra" → Create
+ *  3. In the left sidebar click "Firestore Database" → "Create database"
+ *     → choose "Start in test mode" → pick any region → Enable
+ *  4. In the left sidebar click the ⚙️ gear → "Project settings"
+ *  5. Scroll to "Your apps" → click </> (Web) → register app → copy the config
+ *  6. Paste the values from that config into the FIREBASE CONFIG block below
+ *
+ * ── */
 
-// ─────────────────────────────────────────────────────────────────
-//  SETUP (one-time):
-//  1. Go to https://jsonbin.io and create a FREE account
-//  2. Click "API Keys" → copy your Master Key
-//  3. Paste it below as JSONBIN_API_KEY
-//  4. Leave JSONBIN_BIN_ID empty — the code will create a bin
-//     automatically on first page load and save the ID to localStorage
-// ─────────────────────────────────────────────────────────────────
-const JSONBIN_API_KEY = '$2a$10$9a524B9eKGikYzeTl7TvfufweWL8UIU67SGlnlTk3NrK4t9mkzGiy'; // ← replace this
-const JSONBIN_BIN_ID_KEY = 'scentra_bin_id'; // localStorage key that remembers the bin
+// ── FIREBASE CONFIG — paste your values here ──────────────────────
+const FIREBASE_CONFIG = {
+  apiKey:            'AIzaSyDe3alevwZR4Mb_gqaFzXA9v4Hhkliar70',
+  authDomain:        'scentra-79d03.firebaseapp.com',
+  databaseURL:       'https://scentra-79d03-default-rtdb.firebaseio.com',
+  projectId:         'scentra-79d03',
+  storageBucket:     'scentra-79d03.firebasestorage.app',
+  messagingSenderId: '949284857521',
+  appId:             '1:949284857521:web:8aeff5153d051cc3faa490',
+  measurement:       'G-Q359FL862T'
+};
+// ──────────────────────────────────────────────────────────────────
 
 let selectedStars = 0;
-let reviews = [];
-let lastReviewCount = 0;
-let binId = localStorage.getItem(JSONBIN_BIN_ID_KEY) || '';
+let db = null; // Firestore instance, set after SDK loads
 
 function escapeHtml(value) {
   return String(value)
@@ -121,85 +132,40 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-/* Create a new JSONBin bin on first-ever page load */
-async function createBin() {
-  const res = await fetch('https://api.jsonbin.io/v3/b', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': JSONBIN_API_KEY,
-      'X-Bin-Name': 'scentra-reviews',
-      'X-Bin-Private': 'false'
-    },
-    body: JSON.stringify({ reviews: [] })
-  });
-  if (!res.ok) throw new Error('Failed to create bin');
-  const data = await res.json();
-  binId = data.metadata.id;
-  localStorage.setItem(JSONBIN_BIN_ID_KEY, binId);
-}
+/* Dynamically load the Firebase SDK then wire everything up */
+function initFirebase() {
+  // Load Firebase App + Firestore from the CDN
+  const scripts = [
+    'https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js',
+    'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js'
+  ];
 
-/* Fetch latest reviews from JSONBin */
-async function loadReviews() {
-  if (!binId) await createBin();
-  try {
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-      headers: { 'X-Master-Key': JSONBIN_API_KEY }
-    });
-    if (!res.ok) return;
-    const data = await res.json();
-    const raw = data.record?.reviews;
-    if (!Array.isArray(raw)) return;
-    reviews = raw
-      .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
-      .map(r => ({
-        name: String(r.name),
-        product: String(r.product),
-        text: String(r.text),
-        stars: Number(r.stars),
-        date: r.date ? new Date(r.date) : new Date()
-      }));
-  } catch {
-    reviews = [];
-  }
-}
-
-/* Save the full reviews array back to JSONBin */
-async function saveReviews() {
-  if (!binId) await createBin();
-  await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': JSONBIN_API_KEY
-    },
-    body: JSON.stringify({ reviews })
+  let loaded = 0;
+  scripts.forEach(src => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = () => {
+      loaded++;
+      if (loaded === scripts.length) startFirestore();
+    };
+    document.head.appendChild(s);
   });
 }
 
-/* Poll every 6 seconds — re-render only when new reviews appear */
-async function pollReviews() {
-  if (!binId) return;
-  try {
-    const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
-      headers: { 'X-Master-Key': JSONBIN_API_KEY }
+function startFirestore() {
+  firebase.initializeApp(FIREBASE_CONFIG);
+  db = firebase.firestore();
+
+  // onSnapshot fires immediately with current data AND again whenever
+  // any device adds a new review — true real-time, no polling needed
+  db.collection('reviews')
+    .orderBy('date', 'desc')
+    .onSnapshot(snapshot => {
+      const reviews = snapshot.docs.map(doc => doc.data());
+      renderReviews(reviews);
+    }, err => {
+      console.error('Firestore listen error:', err);
     });
-    if (!res.ok) return;
-    const data = await res.json();
-    const raw = data.record?.reviews;
-    if (!Array.isArray(raw) || raw.length === lastReviewCount) return;
-    lastReviewCount = raw.length;
-    reviews = raw
-      .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
-      .map(r => ({
-        name: String(r.name),
-        product: String(r.product),
-        text: String(r.text),
-        stars: Number(r.stars),
-        date: r.date ? new Date(r.date) : new Date()
-      }));
-    renderReviews();
-  } catch { /* silent */ }
 }
 
 /* Star rating click handler */
@@ -211,7 +177,7 @@ document.getElementById('star-input').addEventListener('click', e => {
   });
 });
 
-/* Submit — fetch latest first to avoid overwriting concurrent reviews */
+/* Submit — writes one document to Firestore; onSnapshot delivers it to all devices instantly */
 async function submitReview() {
   const name    = document.getElementById('r-name').value.trim();
   const product = document.getElementById('r-product').value;
@@ -220,33 +186,47 @@ async function submitReview() {
     alert('Please fill in all fields and select a star rating!');
     return;
   }
+  if (!db) {
+    alert('Reviews service is still loading — please try again in a moment.');
+    return;
+  }
 
   const btn = document.getElementById('submit-review-btn');
   if (btn) { btn.textContent = 'Posting…'; btn.disabled = true; }
 
-  const review = { name, product, text, stars: selectedStars, date: new Date().toISOString() };
+  try {
+    await db.collection('reviews').add({
+      name,
+      product,
+      text,
+      stars: selectedStars,
+      date: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-  await loadReviews();           // get freshest list before writing
-  reviews.unshift(review);
-  await saveReviews();           // push back to JSONBin
-  lastReviewCount = reviews.length;
-  renderReviews();
-
-  document.getElementById('r-name').value = '';
-  document.getElementById('r-text').value = '';
-  document.getElementById('r-product').value = '';
-  selectedStars = 0;
-  document.querySelectorAll('#star-input span').forEach(s => s.classList.remove('active'));
-  if (btn) { btn.textContent = 'Post Review ✦'; btn.disabled = false; }
+    // Reset form
+    document.getElementById('r-name').value = '';
+    document.getElementById('r-text').value = '';
+    document.getElementById('r-product').value = '';
+    selectedStars = 0;
+    document.querySelectorAll('#star-input span').forEach(s => s.classList.remove('active'));
+  } catch (err) {
+    console.error('Failed to post review:', err);
+    alert('Could not post review — please try again.');
+  } finally {
+    if (btn) { btn.textContent = 'Post Review ✦'; btn.disabled = false; }
+  }
 }
 
-function renderReviews() {
+function renderReviews(reviews) {
   const list = document.getElementById('reviews-list');
-  if (!reviews.length) {
+  if (!reviews || !reviews.length) {
     list.innerHTML = '<div class="no-reviews">Be the first to share your experience ✦</div>';
     return;
   }
-  list.innerHTML = reviews.map(r => `
+  list.innerHTML = reviews.map(r => {
+    // serverTimestamp() returns a Firestore Timestamp object; convert safely
+    const dateObj = r.date && r.date.toDate ? r.date.toDate() : new Date(r.date || Date.now());
+    return `
     <div class="review-card">
       <div class="review-header">
         <div class="review-avatar">${escapeHtml(r.name[0].toUpperCase())}</div>
@@ -256,8 +236,9 @@ function renderReviews() {
         </div>
       </div>
       <p class="review-text">"${escapeHtml(r.text)}"</p>
-      <p class="review-date">${new Date(r.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-    </div>`).join('');
+      <p class="review-date">${dateObj.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+    </div>`;
+  }).join('');
 }
 
 /* ── ORDER MODAL ── */
@@ -348,13 +329,8 @@ renderProducts();
 populateReviewSelect();
 observeReveal();
 
-// Load live reviews on page open, then poll every 6s for reviews from other devices
-(async () => {
-  await loadReviews();
-  lastReviewCount = reviews.length;
-  renderReviews();
-  setInterval(pollReviews, 6000);
-})();
+// Kick off Firebase — loads SDK then opens a real-time listener
+initFirebase();
 
 /* ── HAMBURGER MENU ── */
 const menuToggle = document.querySelector('.menu-toggle');
