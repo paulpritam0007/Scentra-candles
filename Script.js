@@ -126,6 +126,7 @@ function saveReviews() {
 }
 
 function loadReviewsFromLocal() {
+function loadReviews() {
   try {
     const saved = localStorage.getItem(REVIEWS_STORAGE_KEY);
     if (!saved) return;
@@ -136,6 +137,14 @@ function loadReviewsFromLocal() {
     parsed.forEach(r => {
       const clean = normalizeReview(r);
       if (clean) reviews.push(clean);
+      if (!r || !r.name || !r.product || !r.text || !r.stars) return;
+      reviews.push({
+        name: String(r.name),
+        product: String(r.product),
+        text: String(r.text),
+        stars: Number(r.stars),
+        date: r.date ? new Date(r.date) : new Date()
+      });
     });
   } catch {
     reviews.length = 0;
@@ -202,6 +211,7 @@ async function submitReview() {
   }
   const review = { name, product, text, stars: selectedStars, date: new Date() };
   reviews.unshift(review);
+  reviews.unshift({ name, product, text, stars: selectedStars, date: new Date() });
   saveReviews();
   renderReviews();
   await publishReview(review);
