@@ -94,10 +94,11 @@ function populateReviewSelect() {
   });
 }
 
-/* ── REVIEWS ── */
+/* ── REVIEWS (LIVE — shared across all users) ── */
 let selectedStars = 0;
-const REVIEWS_STORAGE_KEY = 'scentra_reviews_v1';
-const reviews = [];
+const REVIEWS_KEY = 'scentra_reviews_v1';
+let reviews = [];
+let lastReviewCount = 0; // used to detect new reviews during polling
 
 function escapeHtml(value) {
   return String(value)
@@ -108,35 +109,61 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-// BUG FIX: removed broken/unclosed loadReviewsFromLocal wrapper function
-// that swallowed loadReviews inside it, causing a syntax error
-function loadReviews() {
+/* Load all reviews from shared storage (visible to every visitor) */
+async function loadReviews() {
   try {
-    const saved = localStorage.getItem(REVIEWS_STORAGE_KEY);
-    if (!saved) return;
-    const parsed = JSON.parse(saved);
+    const result = await window.storage.get(REVIEWS_KEY, true); // true = shared
+    if (!result) return;
+    const parsed = JSON.parse(result.value);
     if (!Array.isArray(parsed)) return;
-
-    reviews.length = 0;
-    parsed.forEach(r => {
-      const normalized = normalizeReview(r);
-      if (normalized) reviews.push(normalized);
-    });
+    reviews = parsed
+      .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
+      .map(r => ({
+        name: String(r.name),
+        product: String(r.product),
+        text: String(r.text),
+        stars: Number(r.stars),
+        date: r.date ? new Date(r.date) : new Date()
+      }));
   } catch {
-    reviews.length = 0;
+    reviews = [];
   }
 }
 
-function saveReviews() {
-  localStorage.setItem(REVIEWS_STORAGE_KEY, JSON.stringify(reviews));
+/* Persist the current reviews array to shared storage */
+async function saveReviews() {
+  try {
+    await window.storage.set(REVIEWS_KEY, JSON.stringify(reviews), true); // true = shared
+  } catch (err) {
+    console.error('Failed to save reviews:', err);
+  }
 }
 
-window.addEventListener('storage', (event) => {
-  if (event.key !== REVIEWS_STORAGE_KEY) return;
-  loadReviews();
-  renderReviews();
-});
+/* Poll every 5 seconds so all open tabs / other users see new reviews */
+async function pollReviews() {
+  try {
+    const result = await window.storage.get(REVIEWS_KEY, true);
+    if (!result) return;
+    const parsed = JSON.parse(result.value);
+    if (!Array.isArray(parsed)) return;
+    // Only re-render if the count changed (new review submitted by someone else)
+    if (parsed.length !== lastReviewCount) {
+      lastReviewCount = parsed.length;
+      reviews = parsed
+        .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
+        .map(r => ({
+          name: String(r.name),
+          product: String(r.product),
+          text: String(r.text),
+          stars: Number(r.stars),
+          date: r.date ? new Date(r.date) : new Date()
+        }));
+      renderReviews();
+    }
+  } catch { /* silent — polling failures are non-critical */ }
+}
 
+/* Star rating click handler */
 document.getElementById('star-input').addEventListener('click', e => {
   if (!e.target.dataset.val) return;
   selectedStars = parseInt(e.target.dataset.val);
@@ -145,24 +172,35 @@ document.getElementById('star-input').addEventListener('click', e => {
   });
 });
 
+/* Submit a new review and instantly push it to shared storage */
 async function submitReview() {
-  const name = document.getElementById('r-name').value.trim();
+  const name    = document.getElementById('r-name').value.trim();
   const product = document.getElementById('r-product').value;
-  const text = document.getElementById('r-text').value.trim();
+  const text    = document.getElementById('r-text').value.trim();
   if (!name || !product || !text || !selectedStars) {
     alert('Please fill in all fields and select a star rating!');
     return;
   }
-  const review = { name, product, text, stars: selectedStars, date: new Date() };
-  // BUG FIX: removed duplicate reviews.unshift() that added every review twice
+
+  const btn = document.getElementById('submit-review-btn');
+  if (btn) { btn.textContent = 'Posting…'; btn.disabled = true; }
+
+  const review = { name, product, text, stars: selectedStars, date: new Date().toISOString() };
+
+  // Always reload from shared storage first to avoid overwriting another user's review
+  await loadReviews();
   reviews.unshift(review);
-  saveReviews();
+  await saveReviews();
+  lastReviewCount = reviews.length;
   renderReviews();
+
+  // Reset form
   document.getElementById('r-name').value = '';
   document.getElementById('r-text').value = '';
   document.getElementById('r-product').value = '';
   selectedStars = 0;
   document.querySelectorAll('#star-input span').forEach(s => s.classList.remove('active'));
+  if (btn) { btn.textContent = 'Post Review ✦'; btn.disabled = false; }
 }
 
 function renderReviews() {
@@ -177,11 +215,11 @@ function renderReviews() {
         <div class="review-avatar">${escapeHtml(r.name[0].toUpperCase())}</div>
         <div class="review-meta">
           <h4>${escapeHtml(r.name)} — <em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--text-light)">${escapeHtml(r.product)}</em></h4>
-          <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+          <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
         </div>
       </div>
       <p class="review-text">"${escapeHtml(r.text)}"</p>
-      <p class="review-date">${new Date(r.date).toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'})}</p>
+      <p class="review-date">${new Date(r.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
     </div>`).join('');
 }
 
@@ -271,9 +309,15 @@ function observeReveal() {
 /* ── INIT ── */
 renderProducts();
 populateReviewSelect();
-loadReviews();
-renderReviews();
 observeReveal();
+
+// Load shared reviews on page open, then poll every 5s for new ones from other users
+(async () => {
+  await loadReviews();
+  lastReviewCount = reviews.length;
+  renderReviews();
+  setInterval(pollReviews, 5000);
+})();
 
 /* ── HAMBURGER MENU ── */
 const menuToggle = document.querySelector('.menu-toggle');
