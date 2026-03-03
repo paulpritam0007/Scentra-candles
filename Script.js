@@ -230,6 +230,39 @@ renderProducts();
 populateReviewSelect();
 
 observeReveal();
+/*Hamburger menu animation*/
+const menuToggle  = document.getElementById('menu-toggle');
+const mobileMenu  = document.getElementById('mobile-menu');
+
+menuToggle.addEventListener('click', () => {
+  const isOpen = mobileMenu.classList.contains('open');
+
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    mobileMenu.classList.add('open');
+    menuToggle.classList.add('active');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+  }
+});
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  menuToggle.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Close menu if user clicks outside of it
+document.addEventListener('click', (e) => {
+  if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+    closeMobileMenu();
+  }
+});
+
+// Close menu on resize to desktop width
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) closeMobileMenu();
+});
 
 
 
