@@ -848,4 +848,42 @@
     footer { flex-direction: column; text-align: center; padding: 30px 24px; }
 
   }
+/* ── ANDROID / MOBILE ONLY (max 480px) ── */
+@media (max-width: 480px) {
+
+  #home {
+    grid-template-columns: 1fr;
+    padding-top: 72px;
+  }
+
+  .hero-text {
+    padding: 36px 20px 40px 20px;  /* tight left padding for phone */
+    text-align: left;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+    text-align: left;
+    line-height: 1.1;
+  }
+
+  .hero-eyebrow {
+    text-align: left;
+  }
+
+  .hero-sub {
+    text-align: left;
+    max-width: 100%;
+    font-size: 1rem;
+  }
+
+  .hero-btns {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+}
+
 
