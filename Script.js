@@ -21,19 +21,19 @@ const products = [
   { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
   { id:10, name:'Teddy Candles', image:'Teddy Candles.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
   { id:11, name:'The Shoreline Shot', image:'Ocean galaxy.jpeg', mood:'happy', price:250, priceRange:'budget', burn:'9hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
-  { id:12, name:'Petals in Pine', image:'Wooden Candles.jpeg', mood:'spiritual', price:399, priceRange:'mid', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:12, name:'Petals in Pine', image:'Wooden Candles.jpeg', mood:'spiritual', price:399, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:13, name:'Better Together', image:'better-together.jpeg', mood:'romantic', price:249, priceRange:'budget', burn:'6hr+', desc:'Beautiful male and female sculpture candle together.', color:'#fdf6e3' },
-  { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:250, priceRange:'mid', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:250, priceRange:'budget', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:329, priceRange:'premium', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:16, name:'Petal Peony', image:'petal-peony.jpeg', mood:'spiritual', price:250, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:299, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:18, name:'Chai & Chill', image:'Chai biscuit Candle.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
   { id:19, name:'Daisy Vibe', image:'Daisy Vibe.jpeg', mood:'calm', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:20, name:'Cinderella Cart', image:'Cinderellas-cart.jpeg', mood:'energetic', price:399, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:21, name:'Roses and Mogra', image:'rose-and-mogra.jpeg', mood:'spiritual', price:450, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:22, name:'Spooky Friends', image:'Spooky friends.jpeg', mood:'energetic', price:329, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:23, name:'Christmas carousel', image:'Christmas carousel.jpeg', mood:'happy', price:349, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:24, name:'Walk the Plank', image:'walk-the-plank.jpeg', mood:'energetic', price:399, priceRange:'mid', burn:'7hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:20, name:'Cinderella Cart', image:'Cinderellas-cart.jpeg', mood:'energetic', price:399, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:21, name:'Roses and Mogra', image:'rose-and-mogra.jpeg', mood:'spiritual', price:450, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:22, name:'Spooky Friends', image:'Spooky friends.jpeg', mood:'energetic', price:329, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:23, name:'Christmas carousel', image:'Christmas carousel.jpeg', mood:'happy', price:349, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:24, name:'Walk the Plank', image:'walk-the-plank.jpeg', mood:'energetic', price:399, priceRange:'budget', burn:'7hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
 ];
 
 let activeMood = 'all';
@@ -266,6 +266,7 @@ if (menuToggle && mobileMenu) {
     if (window.innerWidth > 900) closeMobileMenu();
   });
 }
+
 
 
 
