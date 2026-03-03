@@ -94,11 +94,23 @@ function populateReviewSelect() {
   });
 }
 
-/* ── REVIEWS (LIVE — shared across all users) ── */
+/* ── REVIEWS (LIVE — real cross-device backend via JSONBin.io) ── */
+
+// ─────────────────────────────────────────────────────────────────
+//  SETUP (one-time):
+//  1. Go to https://jsonbin.io and create a FREE account
+//  2. Click "API Keys" → copy your Master Key
+//  3. Paste it below as JSONBIN_API_KEY
+//  4. Leave JSONBIN_BIN_ID empty — the code will create a bin
+//     automatically on first page load and save the ID to localStorage
+// ─────────────────────────────────────────────────────────────────
+const JSONBIN_API_KEY = '$2a$10$9a524B9eKGikYzeTl7TvfufweWL8UIU67SGlnlTk3NrK4t9mkzGiy'; // ← replace this
+const JSONBIN_BIN_ID_KEY = 'scentra_bin_id'; // localStorage key that remembers the bin
+
 let selectedStars = 0;
-const REVIEWS_KEY = 'scentra_reviews_v1';
 let reviews = [];
-let lastReviewCount = 0; // used to detect new reviews during polling
+let lastReviewCount = 0;
+let binId = localStorage.getItem(JSONBIN_BIN_ID_KEY) || '';
 
 function escapeHtml(value) {
   return String(value)
@@ -109,14 +121,36 @@ function escapeHtml(value) {
     .replace(/'/g, '&#39;');
 }
 
-/* Load all reviews from shared storage (visible to every visitor) */
+/* Create a new JSONBin bin on first-ever page load */
+async function createBin() {
+  const res = await fetch('https://api.jsonbin.io/v3/b', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': JSONBIN_API_KEY,
+      'X-Bin-Name': 'scentra-reviews',
+      'X-Bin-Private': 'false'
+    },
+    body: JSON.stringify({ reviews: [] })
+  });
+  if (!res.ok) throw new Error('Failed to create bin');
+  const data = await res.json();
+  binId = data.metadata.id;
+  localStorage.setItem(JSONBIN_BIN_ID_KEY, binId);
+}
+
+/* Fetch latest reviews from JSONBin */
 async function loadReviews() {
+  if (!binId) await createBin();
   try {
-    const result = await window.storage.get(REVIEWS_KEY, true); // true = shared
-    if (!result) return;
-    const parsed = JSON.parse(result.value);
-    if (!Array.isArray(parsed)) return;
-    reviews = parsed
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_API_KEY }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    const raw = data.record?.reviews;
+    if (!Array.isArray(raw)) return;
+    reviews = raw
       .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
       .map(r => ({
         name: String(r.name),
@@ -130,37 +164,42 @@ async function loadReviews() {
   }
 }
 
-/* Persist the current reviews array to shared storage */
+/* Save the full reviews array back to JSONBin */
 async function saveReviews() {
-  try {
-    await window.storage.set(REVIEWS_KEY, JSON.stringify(reviews), true); // true = shared
-  } catch (err) {
-    console.error('Failed to save reviews:', err);
-  }
+  if (!binId) await createBin();
+  await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Master-Key': JSONBIN_API_KEY
+    },
+    body: JSON.stringify({ reviews })
+  });
 }
 
-/* Poll every 5 seconds so all open tabs / other users see new reviews */
+/* Poll every 6 seconds — re-render only when new reviews appear */
 async function pollReviews() {
+  if (!binId) return;
   try {
-    const result = await window.storage.get(REVIEWS_KEY, true);
-    if (!result) return;
-    const parsed = JSON.parse(result.value);
-    if (!Array.isArray(parsed)) return;
-    // Only re-render if the count changed (new review submitted by someone else)
-    if (parsed.length !== lastReviewCount) {
-      lastReviewCount = parsed.length;
-      reviews = parsed
-        .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
-        .map(r => ({
-          name: String(r.name),
-          product: String(r.product),
-          text: String(r.text),
-          stars: Number(r.stars),
-          date: r.date ? new Date(r.date) : new Date()
-        }));
-      renderReviews();
-    }
-  } catch { /* silent — polling failures are non-critical */ }
+    const res = await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`, {
+      headers: { 'X-Master-Key': JSONBIN_API_KEY }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    const raw = data.record?.reviews;
+    if (!Array.isArray(raw) || raw.length === lastReviewCount) return;
+    lastReviewCount = raw.length;
+    reviews = raw
+      .filter(r => r && r.name && r.product && r.text && Number.isInteger(Number(r.stars)))
+      .map(r => ({
+        name: String(r.name),
+        product: String(r.product),
+        text: String(r.text),
+        stars: Number(r.stars),
+        date: r.date ? new Date(r.date) : new Date()
+      }));
+    renderReviews();
+  } catch { /* silent */ }
 }
 
 /* Star rating click handler */
@@ -172,7 +211,7 @@ document.getElementById('star-input').addEventListener('click', e => {
   });
 });
 
-/* Submit a new review and instantly push it to shared storage */
+/* Submit — fetch latest first to avoid overwriting concurrent reviews */
 async function submitReview() {
   const name    = document.getElementById('r-name').value.trim();
   const product = document.getElementById('r-product').value;
@@ -187,14 +226,12 @@ async function submitReview() {
 
   const review = { name, product, text, stars: selectedStars, date: new Date().toISOString() };
 
-  // Always reload from shared storage first to avoid overwriting another user's review
-  await loadReviews();
+  await loadReviews();           // get freshest list before writing
   reviews.unshift(review);
-  await saveReviews();
+  await saveReviews();           // push back to JSONBin
   lastReviewCount = reviews.length;
   renderReviews();
 
-  // Reset form
   document.getElementById('r-name').value = '';
   document.getElementById('r-text').value = '';
   document.getElementById('r-product').value = '';
@@ -311,12 +348,12 @@ renderProducts();
 populateReviewSelect();
 observeReveal();
 
-// Load shared reviews on page open, then poll every 5s for new ones from other users
+// Load live reviews on page open, then poll every 6s for reviews from other devices
 (async () => {
   await loadReviews();
   lastReviewCount = reviews.length;
   renderReviews();
-  setInterval(pollReviews, 5000);
+  setInterval(pollReviews, 6000);
 })();
 
 /* ── HAMBURGER MENU ── */
