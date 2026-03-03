@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scentra — Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f2a7bb;
+    --pink-light: #fce4ec;
+    --pink-deep: #e8799a;
+    --maroon: #6b1a2a;
+    --maroon-light: #8b2a3e;
+    --maroon-dark: #4a0f1a;
+    --beige: #f5ede0;
+    --beige-dark: #e8d9c5;
+    --beige-warm: #f9f3ea;
+    --cream: #fdf8f2;
+    --text-dark: #2c0f18;
+    --text-mid: #6b3040;
+    --text-light: #9e6370;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    overflow: hidden;
+  }
+
+  /* ── CURSOR ── */
+  body { cursor: none; }
+  #cursor {
+    width: 10px; height: 10px;
+    background: var(--maroon);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.08s;
+  }
+  #cursor-ring {
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--maroon);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.22s ease;
+    opacity: 0.45;
+  }
+
+  /* ── LAYOUT ── */
+  .auth-left {
+    width: 44%;
+    background: var(--maroon-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 48px 52px;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  /* Decorative blobs */
+  .auth-left::before {
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(242,167,187,0.18), transparent 70%);
+    top: -80px; right: -80px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .auth-left::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(232,121,154,0.12), transparent 70%);
+    bottom: 60px; left: -60px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .left-logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.8rem;
+    color: var(--pink-light);
+    text-decoration: none;
+    position: relative; z-index: 1;
+  }
+  .left-logo span { color: var(--pink-deep); }
+
+  .left-content {
+    position: relative; z-index: 1;
+  }
+  .left-eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    margin-bottom: 20px;
+  }
+  .left-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 3rem);
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 20px;
+  }
+  .left-title em { font-style: italic; color: var(--pink); }
+  .left-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    max-width: 320px;
+  }
+
+  /* Floating candle cards on left */
+  .left-cards {
+    display: flex; gap: 14px;
+    margin-top: 40px;
+    position: relative; z-index: 1;
+  }
+  .mini-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 16px 14px;
+    text-align: center;
+    flex: 1;
+    animation: floatCard 3.5s ease-in-out infinite;
+  }
+  .mini-card:nth-child(2) { animation-delay: 0.6s; }
+  .mini-card:nth-child(3) { animation-delay: 1.2s; }
+  @keyframes floatCard {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .mini-card .mc-emoji { font-size: 1.6rem; margin-bottom: 6px; }
+  .mini-card .mc-label {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.06em;
+  }
+
+  .left-footer {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.06em;
+    position: relative; z-index: 1;
+  }
+
+  /* ── RIGHT PANEL ── */
+  .auth-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  /* Soft background texture */
+  .auth-right::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(252,228,236,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 20% 80%, rgba(232,217,197,0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .auth-box {
+    width: 100%;
+    max-width: 420px;
+    position: relative; z-index: 1;
+  }
+
+  /* ── TABS ── */
+  .auth-tabs {
+    display: flex;
+    background: var(--beige);
+    border-radius: 14px;
+    padding: 4px;
+    margin-bottom: 36px;
+  }
+  .auth-tab {
+    flex: 1;
+    padding: 11px;
+    background: none;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .auth-tab.active {
+    background: var(--maroon);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(107,26,42,0.25);
+  }
+
+  /* ── PANELS ── */
+  .auth-panel { display: none; animation: panelIn 0.3s ease; }
+  .auth-panel.active { display: block; }
+  @keyframes panelIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--maroon-dark);
+    margin-bottom: 6px;
+  }
+  .panel-sub {
+    font-size: 0.83rem;
+    color: var(--text-light);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  /* ── GOOGLE BUTTON ── */
+  .btn-google {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 13px 20px;
+    background: #fff;
+    border: 1.5px solid var(--beige-dark);
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+    margin-bottom: 24px;
+    letter-spacing: 0.04em;
+  }
+  .btn-google:hover {
+    border-color: var(--pink-deep);
+    box-shadow: 0 4px 20px rgba(107,26,42,0.1);
+    transform: translateY(-1px);
+  }
+  .btn-google svg { flex-shrink: 0; }
+
+  /* ── DIVIDER ── */
+  .or-divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .or-divider::before, .or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--beige-dark);
+  }
+  .or-divider span {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  /* ── FORM ── */
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid var(--beige-dark);
+    border-radius: 12px;
+    background: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    cursor: text;
+  }
+  .form-group input:focus {
+    border-color: var(--pink-deep);
+    box-shadow: 0 0 0 3px rgba(232,121,154,0.12);
+  }
+  .form-group input.error { border-color: #c0392b; }
+
+  .input-wrap { position: relative; }
+  .toggle-pw {
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px;
+  }
+
+  /* ── FORGOT PASSWORD ── */
+  .forgot-link {
+    display: block;
+    text-align: right;
+    font-size: 0.76rem;
+    color: var(--pink-deep);
+    text-decoration: none;
+    margin-top: -8px;
+    margin-bottom: 20px;
+    transition: color 0.2s;
+  }
+  .forgot-link:hover { color: var(--maroon); }
+
+  /* ── SUBMIT BUTTON ── */
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: var(--maroon);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    margin-top: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-submit:hover {
+    background: var(--maroon-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(107,26,42,0.3);
+  }
+  .btn-submit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-submit .spinner {
+    display: none;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── PASSWORD STRENGTH ── */
+  .pw-strength {
+    display: flex; gap: 4px;
+    margin-top: 8px;
+  }
+  .pw-bar {
+    flex: 1; height: 3px;
+    background: var(--beige-dark);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+  .pw-bar.weak   { background: #e74c3c; }
+  .pw-bar.medium { background: #f39c12; }
+  .pw-bar.strong { background: #27ae60; }
+  .pw-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  /* ── CHECKBOX ── */
+  .check-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 4px;
+  }
+  .check-group input[type="checkbox"] {
+    width: 16px; height: 16px;
+    accent-color: var(--maroon);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .check-group label {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .check-group label a {
+    color: var(--pink-deep);
+    text-decoration: none;
+  }
+  .check-group label a:hover { text-decoration: underline; }
+
+  /* ── ERROR / SUCCESS TOASTS ── */
+  .toast {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+    animation: toastIn 0.3s ease;
+  }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .toast.error   { background: #fdf0ef; border: 1px solid #f5c6c3; color: #922b21; }
+  .toast.success { background: #edfaf1; border: 1px solid #a9dfbf; color: #1e8449; }
+  .toast.show { display: block; }
+
+  /* ── USER PROFILE (post-login) ── */
+  .profile-card {
+    display: none;
+    text-align: center;
+    animation: panelIn 0.4s ease;
+  }
+  .profile-card.show { display: block; }
+  .profile-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--maroon));
+    margin: 0 auto 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #fff;
+    font-weight: 700;
+    overflow: hidden;
+  }
+  .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .profile-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--maroon-dark);
+    margin-bottom: 4px;
+  }
+  .profile-email {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 6px;
+  }
+  .profile-badge {
+    display: inline-block;
+    background: var(--pink-light);
+    color: var(--maroon);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+  .profile-actions { display: flex; flex-direction: column; gap: 12px; }
+  .btn-profile-action {
+    width: 100%;
+    padding: 13px;
+    border-radius: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+  .btn-go-home {
+    background: var(--maroon);
+    color: #fff;
+    border: none;
+  }
+  .btn-go-home:hover { background: var(--maroon-light); }
+  .btn-signout {
+    background: transparent;
+    color: var(--text-mid);
+    border: 1.5px solid var(--beige-dark);
+  }
+  .btn-signout:hover { border-color: var(--maroon); color: var(--maroon); }
+
+  /* ── PREFERENCES SECTION ── */
+  .prefs-section {
+    background: var(--beige-warm);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 20px;
+    border: 1px solid var(--beige-dark);
+  }
+  .prefs-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .pref-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .pref-row:last-child { margin-bottom: 0; }
+  .pref-label { font-size: 0.82rem; color: var(--text-dark); }
+  .toggle-switch {
+    position: relative;
+    width: 38px; height: 22px;
+    cursor: pointer;
+  }
+  .toggle-switch input { display: none; }
+  .toggle-switch .slider {
+    position: absolute; inset: 0;
+    background: var(--beige-dark);
+    border-radius: 22px;
+    transition: background 0.3s;
+  }
+  .toggle-switch .slider::before {
+    content: '';
+    position: absolute;
+    width: 16px; height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px; left: 3px;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+  .toggle-switch input:checked + .slider { background: var(--maroon); }
+  .toggle-switch input:checked + .slider::before { transform: translateX(16px); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    body { flex-direction: column; overflow-y: auto; }
+    .auth-left {
+      width: 100%;
+      padding: 36px 24px 32px;
+      min-height: auto;
+    }
+    .left-cards { display: none; }
+    .left-title { font-size: 1.8rem; }
+    .auth-right { padding: 40px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ── LEFT PANEL ── -->
+<div class="auth-left">
+  <a href="Index.html" class="left-logo">Scentra<span>✦</span></a>
+
+  <div class="left-content">
+    <div class="left-eyebrow">✦ Welcome back</div>
+    <h1 class="left-title">Light your<br>world with<br><em>Scentra</em></h1>
+    <p class="left-sub">Sign in to save your preferences, track your orders, and unlock exclusive loyalty rewards.</p>
+    <div class="left-cards">
+      <div class="mini-card"><div class="mc-emoji">🛍️</div><div class="mc-label">Your Orders</div></div>
+      <div class="mini-card"><div class="mc-emoji">⭐</div><div class="mc-label">Loyalty Points</div></div>
+      <div class="mini-card"><div class="mc-emoji">🎁</div><div class="mc-label">Offers & Coupons</div></div>
+    </div>
+  </div>
+
+  <div class="left-footer">© 2023 Scentra Candles · Kolkata, India</div>
+</div>
+
+<!-- ── RIGHT PANEL ── -->
+<div class="auth-right">
+  <div class="auth-box">
+
+    <!-- Logged-in profile card (hidden until auth) -->
+    <div class="profile-card" id="profile-card">
+      <div class="profile-avatar" id="profile-avatar">S</div>
+      <div class="profile-name" id="profile-name">Scentra User</div>
+      <div class="profile-email" id="profile-email"></div>
+      <div class="profile-badge">✦ Verified Member</div>
+
+      <div class="prefs-section">
+        <div class="prefs-title">Your Preferences</div>
+        <div class="pref-row">
+          <span class="pref-label">Save browsing preferences</span>
+          <label class="toggle-switch"><input type="checkbox" id="pref-cookies" checked><span class="slider"></span></label>
+        </div>
+        <div class="pref-row">
+          <span class="pref-label">Order notifications</span>
+          <label class="toggle-switch"><input type="checkbox" id="pref-notif" checked><span class="slider"></span></label>
+        </div>
+        <div class="pref-row">
+          <span class="pref-label">Promotional emails</span>
+          <label class="toggle-switch"><input type="checkbox" id="pref-promo"><span class="slider"></span></label>
+        </div>
+        <div class="pref-row">
+          <span class="pref-label">Loyalty programme</span>
+          <label class="toggle-switch"><input type="checkbox" id="pref-loyalty" checked><span class="slider"></span></label>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <a href="Index.html" class="btn-profile-action btn-go-home">Go to Shop ✦</a>
+        <button class="btn-profile-action btn-signout" onclick="signOut()">Sign Out</button>
+      </div>
+    </div>
+
+    <!-- Auth forms (hidden after login) -->
+    <div id="auth-forms">
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login', this)">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('signup', this)">Create Account</button>
+      </div>
+
+      <!-- ── LOGIN PANEL ── -->
+      <div class="auth-panel active" id="panel-login">
+        <h2 class="panel-title">Welcome back</h2>
+        <p class="panel-sub">Sign in to your Scentra account to continue.</p>
+
+        <div class="toast" id="login-toast"></div>
+
+        <!-- Google Sign In -->
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="or-divider"><span>or sign in with email</span></div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <input type="password" id="login-password" placeholder="Your password" autocomplete="current-password">
+            <button class="toggle-pw" onclick="togglePw('login-password', this)" tabindex="-1">👁</button>
+          </div>
+        </div>
+
+        <a href="#" class="forgot-link" onclick="forgotPassword(event)">Forgot password?</a>
+
+        <button class="btn-submit" id="login-btn" onclick="signInWithEmail()">
+          <span class="btn-label">Sign In</span>
+          <span class="spinner" id="login-spinner"></span>
+        </button>
+
+        <p style="text-align:center;margin-top:20px;font-size:0.78rem;color:var(--text-light);">
+          New to Scentra?
+          <a href="#" onclick="switchTab('signup', document.querySelectorAll('.auth-tab')[1])" style="color:var(--pink-deep);text-decoration:none;">Create an account →</a>
+        </p>
+      </div>
+
+      <!-- ── SIGNUP PANEL ── -->
+      <div class="auth-panel" id="panel-signup">
+        <h2 class="panel-title">Join Scentra</h2>
+        <p class="panel-sub">Create your account and start earning loyalty rewards.</p>
+
+        <div class="toast" id="signup-toast"></div>
+
+        <button class="btn-google" onclick="signInWithGoogle()">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          Sign up with Google
+        </button>
+
+        <div class="or-divider"><span>or create with email</span></div>
+
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="signup-name" placeholder="e.g. Priya Sharma" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="signup-email" placeholder="your@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrap">
+            <input type="password" id="signup-password" placeholder="Min. 6 characters" autocomplete="new-password" oninput="checkStrength(this.value)">
+            <button class="toggle-pw" onclick="togglePw('signup-password', this)" tabindex="-1">👁</button>
+          </div>
+          <div class="pw-strength">
+            <div class="pw-bar" id="bar1"></div>
+            <div class="pw-bar" id="bar2"></div>
+            <div class="pw-bar" id="bar3"></div>
+            <div class="pw-bar" id="bar4"></div>
+          </div>
+          <div class="pw-label" id="pw-label"></div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <div class="input-wrap">
+            <input type="password" id="signup-confirm" placeholder="Re-enter password" autocomplete="new-password">
+            <button class="toggle-pw" onclick="togglePw('signup-confirm', this)" tabindex="-1">👁</button>
+          </div>
+        </div>
+
+        <div class="check-group">
+          <input type="checkbox" id="agree-terms">
+          <label for="agree-terms">I agree to the <a href="privacy-policy.html" target="_blank">Terms & Conditions</a> and consent to cookies for a personalised experience.</label><br>
+          <a href="privacy-policy.html">Terms and conditions</a>
+        </div>
+
+        <button class="btn-submit" id="signup-btn" onclick="signUpWithEmail()">
+          <span class="btn-label">Create Account</span>
+          <span class="spinner" id="signup-spinner"></span>
+        </button>
+
+        <p style="text-align:center;margin-top:20px;font-size:0.78rem;color:var(--text-light);">
+          Already have an account?
+          <a href="#" onclick="switchTab('login', document.querySelectorAll('.auth-tab')[0])" style="color:var(--pink-deep);text-decoration:none;">Sign in →</a>
+        </p>
+      </div>
+    </div><!-- end #auth-forms -->
+
+  </div><!-- end .auth-box -->
+</div><!-- end .auth-right -->
+
+
+<!-- ══════════════════════════════════════════
+     FIREBASE SDK  (modular v10)
+     Replace the firebaseConfig object below
+     with YOUR project's config from:
+     Firebase Console → Project Settings → Your Apps
+════════════════════════════════════════════ -->
+<script type="module">
+  import { initializeApp }          from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+  import { getAuth, onAuthStateChanged, signInWithPopup, GoogleAuthProvider,
+           createUserWithEmailAndPassword, signInWithEmailAndPassword,
+           updateProfile, sendPasswordResetEmail, signOut as fbSignOut }
+         from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+
+  /* ─────────────────────────────────────────────
+     🔧 REPLACE THIS WITH YOUR FIREBASE CONFIG
+     Firebase Console → Project Settings → Your Apps → SDK setup
+  ───────────────────────────────────────────── */
+  const firebaseConfig = {
+    apiKey:            "AIzaSyDe3alevwZR4Mb_gqaFzXA9v4Hhkliar70",
+    authDomain:        "scentra-79d03.firebaseapp.com",
+    projectId:         "scentra-79d03",
+    storageBucket:     "scentra-79d03.firebasestorage.app",
+    messagingSenderId: "949284857521",
+    appId:             "1:949284857521:web:8aeff5153d051cc3faa490"
+  };
+
+  const app      = initializeApp(firebaseConfig);
+  const auth     = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  /* ── Expose functions to global scope (needed for onclick handlers) ── */
+
+  // Google Sign-In / Sign-Up
+  window.signInWithGoogle = async () => {
+    try {
+      setLoading(true, 'both');
+      const result = await signInWithPopup(auth, provider);
+      // onAuthStateChanged will handle the rest
+    } catch (err) {
+      setLoading(false, 'both');
+      showToast('login-toast', firebaseError(err.code), 'error');
+      showToast('signup-toast', firebaseError(err.code), 'error');
+    }
+  };
+
+  // Email Sign-In
+  window.signInWithEmail = async () => {
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    if (!email || !password) { showToast('login-toast', 'Please fill in all fields.', 'error'); return; }
+
+    setLoading(true, 'login');
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (err) {
+      setLoading(false, 'login');
+      showToast('login-toast', firebaseError(err.code), 'error');
+    }
+  };
+
+  // Email Sign-Up
+  window.signUpWithEmail = async () => {
+    const name     = document.getElementById('signup-name').value.trim();
+    const email    = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const confirm  = document.getElementById('signup-confirm').value;
+    const agreed   = document.getElementById('agree-terms').checked;
+
+    if (!name || !email || !password || !confirm) {
+      showToast('signup-toast', 'Please fill in all fields.', 'error'); return;
+    }
+    if (password !== confirm) {
+      showToast('signup-toast', 'Passwords do not match.', 'error'); return;
+    }
+    if (password.length < 6) {
+      showToast('signup-toast', 'Password must be at least 6 characters.', 'error'); return;
+    }
+    if (!agreed) {
+      showToast('signup-toast', 'Please agree to the Terms & Conditions to continue.', 'error'); return;
+    }
+
+    setLoading(true, 'signup');
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(cred.user, { displayName: name });
+      // onAuthStateChanged fires automatically after this
+    } catch (err) {
+      setLoading(false, 'signup');
+      showToast('signup-toast', firebaseError(err.code), 'error');
+    }
+  };
+
+  // Forgot password
+  window.forgotPassword = async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    if (!email) { showToast('login-toast', 'Enter your email above first, then click Forgot Password.', 'error'); return; }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showToast('login-toast', '✦ Reset email sent! Check your inbox.', 'success');
+    } catch (err) {
+      showToast('login-toast', firebaseError(err.code), 'error');
+    }
+  };
+
+  // Sign Out
+  window.signOut = async () => {
+    savePreferences(); // save prefs before signing out
+    await fbSignOut(auth);
+  };
+
+  /* ── Auth state listener — fires on page load & after every auth change ── */
+  onAuthStateChanged(auth, (user) => {
+    setLoading(false, 'both');
+    if (user) {
+      showProfile(user);
+      loadPreferences(user.uid);
+    } else {
+      showAuthForms();
+    }
+  });
+
+  /* ─────────────────────────────────────────────
+     PREFERENCES  (saved to localStorage, keyed by UID)
+  ───────────────────────────────────────────── */
+  window.savePreferences = () => {
+    const user = auth.currentUser;
+    if (!user) return;
+    const prefs = {
+      cookies:  document.getElementById('pref-cookies')?.checked ?? true,
+      notif:    document.getElementById('pref-notif')?.checked   ?? true,
+      promo:    document.getElementById('pref-promo')?.checked   ?? false,
+      loyalty:  document.getElementById('pref-loyalty')?.checked ?? true,
+    };
+    localStorage.setItem(`scentra_prefs_${user.uid}`, JSON.stringify(prefs));
+  };
+
+  function loadPreferences(uid) {
+    const raw   = localStorage.getItem(`scentra_prefs_${uid}`);
+    const prefs = raw ? JSON.parse(raw) : { cookies: true, notif: true, promo: false, loyalty: true };
+    const set   = (id, val) => { const el = document.getElementById(id); if (el) el.checked = val; };
+    set('pref-cookies', prefs.cookies);
+    set('pref-notif',   prefs.notif);
+    set('pref-promo',   prefs.promo);
+    set('pref-loyalty', prefs.loyalty);
+
+    // Auto-save on toggle change
+    ['pref-cookies','pref-notif','pref-promo','pref-loyalty'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('change', window.savePreferences);
+    });
+  }
+
+  /* ─────────────────────────────────────────────
+     SESSION COOKIE  (lightweight, 7-day)
+  ───────────────────────────────────────────── */
+  function setSessionCookie(uid, displayName) {
+    const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `scentra_uid=${uid}; expires=${expires}; path=/; SameSite=Lax`;
+    document.cookie = `scentra_name=${encodeURIComponent(displayName || '')}; expires=${expires}; path=/; SameSite=Lax`;
+  }
+  function clearSessionCookie() {
+    document.cookie = 'scentra_uid=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'scentra_name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  }
+
+  /* ─────────────────────────────────────────────
+     UI HELPERS
+  ───────────────────────────────────────────── */
+  function showProfile(user) {
+    setSessionCookie(user.uid, user.displayName || user.email);
+
+    document.getElementById('auth-forms').style.display   = 'none';
+    document.getElementById('profile-card').classList.add('show');
+
+    const name  = user.displayName || user.email.split('@')[0];
+    const email = user.email;
+
+    document.getElementById('profile-name').textContent  = name;
+    document.getElementById('profile-email').textContent = email;
+
+    const avatarEl = document.getElementById('profile-avatar');
+    if (user.photoURL) {
+      avatarEl.innerHTML = `<img src="${user.photoURL}" alt="${name}">`;
+    } else {
+      avatarEl.textContent = name[0].toUpperCase();
+    }
+  }
+
+  function showAuthForms() {
+    clearSessionCookie();
+    document.getElementById('auth-forms').style.display   = '';
+    document.getElementById('profile-card').classList.remove('show');
+  }
+
+  function setLoading(on, which) {
+    const pairs = {
+      login:  ['login-btn',  'login-spinner'],
+      signup: ['signup-btn', 'signup-spinner'],
+    };
+    const targets = which === 'both' ? Object.values(pairs) : [pairs[which]];
+    targets.forEach(([btnId, spinnerId]) => {
+      const btn     = document.getElementById(btnId);
+      const spinner = document.getElementById(spinnerId);
+      if (!btn) return;
+      btn.disabled  = on;
+      const label   = btn.querySelector('.btn-label');
+      if (label)   label.style.display   = on ? 'none' : '';
+      if (spinner) spinner.style.display = on ? 'block' : 'none';
+    });
+  }
+
+  function showToast(id, msg, type) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = msg;
+    el.className   = `toast ${type} show`;
+    setTimeout(() => el.classList.remove('show'), 5000);
+  }
+
+  function firebaseError(code) {
+    const map = {
+      'auth/user-not-found':       'No account found with this email. Please create one.',
+      'auth/wrong-password':       'Incorrect password. Please try again.',
+      'auth/invalid-credential':   'Incorrect email or password.',
+      'auth/email-already-in-use': 'This email is already registered. Try signing in instead.',
+      'auth/weak-password':        'Password is too weak. Use at least 6 characters.',
+      'auth/invalid-email':        'Please enter a valid email address.',
+      'auth/popup-closed-by-user': 'Google sign-in was cancelled.',
+      'auth/network-request-failed':'Network error. Please check your connection.',
+      'auth/too-many-requests':    'Too many attempts. Please wait a moment and try again.',
+    };
+    return map[code] || 'Something went wrong. Please try again.';
+  }
+</script>
+
+<!-- ── Non-Firebase JS (cursor, tabs, UI helpers) ── -->
+<script>
+  /* CURSOR */
+  const cur  = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  document.addEventListener('mousemove', e => {
+    cur.style.left  = e.clientX + 'px';
+    cur.style.top   = e.clientY + 'px';
+    ring.style.left = e.clientX + 'px';
+    ring.style.top  = e.clientY + 'px';
+  });
+
+  /* TAB SWITCH */
+  function switchTab(id, btn) {
+    document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.auth-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + id).classList.add('active');
+  }
+
+  /* TOGGLE PASSWORD VISIBILITY */
+  function togglePw(inputId, btn) {
+    const input = document.getElementById(inputId);
+    input.type  = input.type === 'password' ? 'text' : 'password';
+    btn.textContent = input.type === 'password' ? '👁' : '🙈';
+  }
+
+  /* PASSWORD STRENGTH METER */
+  function checkStrength(pw) {
+    const bars  = [1,2,3,4].map(i => document.getElementById('bar' + i));
+    const label = document.getElementById('pw-label');
+    let score = 0;
+    if (pw.length >= 6)  score++;
+    if (pw.length >= 10) score++;
+    if (/[A-Z]/.test(pw) && /[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+
+    const levels = ['', 'weak', 'medium', 'medium', 'strong'];
+    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong ✦'];
+    bars.forEach((b, i) => {
+      b.className = 'pw-bar' + (i < score ? ' ' + levels[score] : '');
+    });
+    label.textContent = pw.length ? labels[score] : '';
+    label.style.color = score <= 1 ? '#e74c3c' : score <= 2 ? '#f39c12' : '#27ae60';
+  }
+</script>
+
+</body>
+</html>
