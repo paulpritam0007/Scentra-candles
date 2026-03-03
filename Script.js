@@ -135,15 +135,15 @@ function loadReviews() {
 
     reviews.length = 0;
     parsed.forEach(r => {
-      const clean = normalizeReview(r);
-      if (clean) reviews.push(clean);
-      if (!r || !r.name || !r.product || !r.text || !r.stars) return;
+      const stars = Number(r?.stars);
+      const reviewDate = r?.date ? new Date(r.date) : new Date();
+      if (!r || !r.name || !r.product || !r.text || !Number.isInteger(stars) || stars < 1 || stars > 5) return;
       reviews.push({
         name: String(r.name),
         product: String(r.product),
         text: String(r.text),
-        stars: Number(r.stars),
-        date: r.date ? new Date(r.date) : new Date()
+        stars,
+        date: Number.isNaN(reviewDate.getTime()) ? new Date() : reviewDate
       });
     });
   } catch {
@@ -151,45 +151,9 @@ function loadReviews() {
   }
 }
 
-async function loadReviewsFromPublic() {
-  if (!REVIEWS_PUBLIC_API) return;
-  try {
-    const res = await fetch(REVIEWS_PUBLIC_API, { headers: { Accept: 'application/json' } });
-    if (!res.ok) return;
-    const payload = await res.json();
-    const incoming = Array.isArray(payload) ? payload : (Array.isArray(payload?.reviews) ? payload.reviews : []);
-    if (!incoming.length) return;
-
-    const normalized = incoming.map(normalizeReview).filter(Boolean);
-    if (!normalized.length) return;
-
-    reviews.length = 0;
-    reviews.push(...normalized.sort((a, b) => b.date - a.date));
-    saveReviews();
-    renderReviews();
-  } catch {}
-}
-
-async function publishReview(review) {
-  if (!REVIEWS_PUBLIC_API) return;
-  try {
-    await fetch(REVIEWS_PUBLIC_API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(review)
-    });
-  } catch {}
-}
-
-function loadReviews() {
-  loadReviewsFromLocal();
-  renderReviews();
-  loadReviewsFromPublic();
-}
-
 window.addEventListener('storage', (event) => {
   if (event.key !== REVIEWS_STORAGE_KEY) return;
-  loadReviewsFromLocal();
+  loadReviews();
   renderReviews();
 });
 
