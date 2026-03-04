@@ -1,3 +1,20 @@
+/*Dark mode*/
+function toggleTheme() {
+  const isDark = document.body.classList.toggle('dark-mode');
+  document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+  localStorage.setItem('scentra_theme', isDark ? 'dark' : 'light');
+}
+
+// Restore saved theme on every page load
+(function applyTheme() {
+  if (localStorage.getItem('scentra_theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    document.addEventListener('DOMContentLoaded', function() {
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = '☀️';
+    });
+  }
+})();
 /* ── CURSOR ── */
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
@@ -745,6 +762,7 @@ function onOrderSuccess(orderId) {
 }
 
 updateCartUI();
+
 
 
 
