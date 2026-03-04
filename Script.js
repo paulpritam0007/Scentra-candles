@@ -1,752 +1,565 @@
-/* ── CURSOR ── */
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top = e.clientY + 'px';
-  ring.style.left = e.clientX + 'px';
-  ring.style.top = e.clientY + 'px';
-});
-
-/* ── PRODUCTS DATA ── */
-const products = [
-  { id:1, name:'Bourbon Vanilla', image:'Bourbon Vanilla.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
-  { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
-  { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'Romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
-  { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
-  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'Happy', price:529, priceRange:'mid', burn:'12hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
-  { id:6, name:'tiny love buds', image:'Heart Rose.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
-  { id:7, name:'Sweet tooth', image:'Laddoo (6pcs).jpeg', mood:'calm', price:299, priceRange:'budget', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
-  { id:8, name:'The love pillar', image:'milky-chocobar.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
-  { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
-  { id:10, name:'Teddy Candles', image:'Teddy Candles.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
-  { id:11, name:'The Shoreline Shot', image:'Ocean galaxy.jpeg', mood:'happy', price:250, priceRange:'budget', burn:'9hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
-  { id:12, name:'Petals in Pine', image:'Wooden Candles.jpeg', mood:'spiritual', price:399, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:13, name:'Better Together', image:'better-together.jpeg', mood:'romantic', price:249, priceRange:'budget', burn:'6hr+', desc:'Beautiful male and female sculpture candle together.', color:'#fdf6e3' },
-  { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:250, priceRange:'budget', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:329, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:16, name:'Petal Peony', image:'petal-peony.jpeg', mood:'spiritual', price:250, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:299, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:18, name:'Chai & Chill', image:'Chai biscuit Candle.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:19, name:'Daisy Vibe', image:'Daisy Vibe.jpeg', mood:'calm', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:20, name:'Cinderella Cart', image:'Cinderellas-cart.jpeg', mood:'energetic', price:399, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:21, name:'Roses and Mogra', image:'rose-and-mogra.jpeg', mood:'spiritual', price:450, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:22, name:'Spooky Friends', image:'Spooky friends.jpeg', mood:'energetic', price:329, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:23, name:'Christmas carousel', image:'Christmas carousel.jpeg', mood:'happy', price:349, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:24, name:'Walk the Plank', image:'walk-the-plank.jpeg', mood:'energetic', price:399, priceRange:'budget', burn:'7hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+const PRODUCTS=[
+  {id:1,name:"Bourbon Vanilla",mood:"romantic",price:199,burn:"6hr+",desc:"French Bourbon, vanilla beans & creamy woods. Vegan soy-coconut wax.",color:"#c0392b",glow:"#e8799a"},
+  {id:2,name:"English Lavender",mood:"calm",price:199,burn:"6hr+",desc:"Herbaceous rosemary, earthy sage, tonka bean & soft musk.",color:"#8e44ad",glow:"#c39bd3"},
+  {id:3,name:"Romantic Rose",mood:"romantic",price:199,burn:"6hr+",desc:"Sun-kissed citrus and fresh florals to lift your spirits.",color:"#c0392b",glow:"#f1948a"},
+  {id:4,name:"Royal Oud",mood:"spiritual",price:199,burn:"6hr+",desc:"Bergamot, lemon zest & sweet peach for your brightest days.",color:"#d4a017",glow:"#f7dc6f"},
+  {id:5,name:"Very Berry",mood:"happy",price:529,burn:"12hr",desc:"Strawberry macaron — playful, fruity & impossibly sweet.",color:"#e91e8c",glow:"#f48fb1"},
+  {id:6,name:"Tiny Love Buds",mood:"romantic",price:299,burn:"42hr",desc:"Smoky vetiver, grey amber & violet for introspective evenings.",color:"#6c3483",glow:"#bb8fce"},
+  {id:7,name:"Sweet Tooth",mood:"calm",price:299,burn:"40hr",desc:"White sage, eucalyptus & cedar for a perfectly still mind.",color:"#1e8449",glow:"#82e0aa"},
+  {id:8,name:"The Love Pillar",mood:"romantic",price:299,burn:"32hr",desc:"Sea salt, driftwood & light musk to find your inner peace.",color:"#1a5276",glow:"#7fb3d3"},
+  {id:9,name:"Rubik's Candle",mood:"energetic",price:299,burn:"38hr",desc:"Peppermint, rosemary & black pepper to ignite your energy.",color:"#ba4a00",glow:"#f0b27a"},
+  {id:10,name:"Teddy Candles",mood:"energetic",price:299,burn:"50hr",desc:"Espresso, cardamom & grapefruit — your perfect morning ritual.",color:"#922b21",glow:"#f1948a"},
+  {id:11,name:"Shoreline Shot",mood:"happy",price:250,burn:"9hr",desc:"Sacred lotus, frankincense & camphor for meditation.",color:"#0e6655",glow:"#76d7c4"},
+  {id:12,name:"Petals in Pine",mood:"spiritual",price:399,burn:"60hr",desc:"Amber, sandalwood & tuberose — a devotional experience in wax.",color:"#1d6a27",glow:"#58d68d"},
+  {id:13,name:"Better Together",mood:"romantic",price:249,burn:"6hr+",desc:"Beautiful paired sculpture candle for moments shared.",color:"#922b21",glow:"#f48fb1"},
+  {id:14,name:"Golden Petal Aroma",mood:"romantic",price:250,burn:"8hr+",desc:"Amber, sandalwood & tuberose — a devotional experience in wax.",color:"#9a7d0a",glow:"#f9e79f"},
+  {id:15,name:"Beauty & Elegance",mood:"spiritual",price:329,burn:"60hr",desc:"Refined blend of white florals and warm musk for the soul.",color:"#6c3483",glow:"#c39bd3"},
+  {id:16,name:"Petal Peony",mood:"spiritual",price:250,burn:"60hr",desc:"Soft peony petals with sandalwood warmth.",color:"#a93226",glow:"#f8c8d4"},
+  {id:17,name:"Springtime Bundle",mood:"spiritual",price:299,burn:"60hr",desc:"A garden in bloom — layered floral and green accord.",color:"#1e8449",glow:"#a9dfbf"},
+  {id:18,name:"Chai & Chill",mood:"happy",price:199,burn:"4hr+",desc:"Warm masala chai spices in melted wax form.",color:"#935116",glow:"#f0b27a"},
+  {id:19,name:"Daisy Vibe",mood:"calm",price:199,burn:"4hr+",desc:"Fresh daisy, clean cotton & light woods.",color:"#9a7d0a",glow:"#f9e79f"},
+  {id:20,name:"Cinderella Cart",mood:"energetic",price:399,burn:"4hr+",desc:"Sparkling citrus and fairy-dust musk — pure whimsy.",color:"#1a5276",glow:"#85c1e9"},
+  {id:21,name:"Roses & Mogra",mood:"spiritual",price:450,burn:"4hr+",desc:"The sacred union of rose and mogra — pure devotion.",color:"#922b21",glow:"#f1948a"},
+  {id:22,name:"Spooky Friends",mood:"energetic",price:329,burn:"4hr+",desc:"Dark woods, smoked cedar & a whisper of mystery.",color:"#1e6823",glow:"#58d68d"},
+  {id:23,name:"Christmas Carousel",mood:"happy",price:349,burn:"4hr+",desc:"Cinnamon, clove & pine — a holiday dream.",color:"#922b21",glow:"#f1948a"},
+  {id:24,name:"Walk the Plank",mood:"energetic",price:399,burn:"7hr+",desc:"Sea salt, oakmoss & driftwood for the adventurous soul.",color:"#1a5276",glow:"#7fb3d3"},
 ];
 
-let activeMood = 'all';
-let activePrice = 'all';
-let currentProduct = null;
+const FEATURED=[
+  {name:"Bourbon Vanilla",mood:"Romantic",price:199,color:"#c0392b",glow:"#e8799a"},
+  {name:"English Lavender",mood:"Calm",price:199,color:"#8e44ad",glow:"#c39bd3"},
+  {name:"Royal Oud",mood:"Spiritual",price:199,color:"#d4a017",glow:"#f7dc6f"},
+  {name:"Petals in Pine",mood:"Peaceful",price:399,color:"#27ae60",glow:"#82e0aa"},
+  {name:"Shoreline Shot",mood:"Happy",price:250,color:"#2980b9",glow:"#7fb3d3"},
+  {name:"Chai & Chill",mood:"Cozy",price:199,color:"#e67e22",glow:"#f0b27a"},
+];
 
-function renderProducts() {
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = '';
-  const filtered = products.filter(p => {
-    const moodOk = activeMood === 'all' || p.mood === activeMood;
-    const priceOk = activePrice === 'all' || p.priceRange === activePrice;
-    return moodOk && priceOk;
-  });
-  if (!filtered.length) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-family:Cormorant Garamond,serif;font-size:1.2rem;font-style:italic;color:var(--text-light);padding:60px 0;">No candles match your filters — try a different combination ✦</p>';
-    return;
-  }
-  filtered.forEach(p => {
-    grid.innerHTML += `
-      <div class="product-card reveal">
-        <div class="product-img" style="background:${p.color}">
-          <img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:0;">
-          <span class="product-mood-badge">${p.mood}</span>
-        </div>
-        <div class="product-info">
-          <div class="product-name">${p.name}</div>
-          <div class="product-desc">${p.desc}</div>
-          <div class="product-meta">
-            <div class="product-price">₹${p.price}</div>
-            <div class="product-burn">🕐 ${p.burn}</div>
-          </div>
-          <button class="btn-buy" onclick="openModal(${p.id})">Order Now</button>
-          <button class="btn-cart-add" data-cart-id="${p.id}" onclick="addToCart(${p.id})">+ Add to Bag</button>
-        </div>
-      </div>`;
-  });
-  observeReveal();
-}
-
-/* ── FILTER LOGIC ── */
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const type = btn.dataset.filter;
-    document.querySelectorAll(`.filter-btn[data-filter="${type}"]`).forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    if (type === 'mood') activeMood = btn.dataset.value;
-    if (type === 'price') activePrice = btn.dataset.value;
-    renderProducts();
-  });
-});
-
-/* ── POPULATE SELECT ── */
-function populateReviewSelect() {
-  const sel = document.getElementById('r-product');
-  products.forEach(p => {
-    sel.innerHTML += `<option value="${p.name}">${p.name}</option>`;
-  });
-}
-
-/* ── FIREBASE CONFIG ── */
-const FIREBASE_CONFIG = {
-  apiKey:            'AIzaSyDe3alevwZR4Mb_gqaFzXA9v4Hhkliar70',
-  authDomain:        'scentra-79d03.firebaseapp.com',
-  databaseURL:       'https://scentra-79d03-default-rtdb.firebaseio.com',
-  projectId:         'scentra-79d03',
-  storageBucket:     'scentra-79d03.firebasestorage.app',
-  messagingSenderId: '949284857521',
-  appId:             '1:949284857521:web:8aeff5153d051cc3faa490',
-  measurement:       'G-Q359FL862T'
+const COUPONS={
+  SCENTRA10:{discount:10,type:"percent",label:"10% off your order"},
+  WELCOME20:{discount:20,type:"percent",label:"20% off for new customers"},
+  FLAT50:{discount:50,type:"flat",label:"₹50 flat off"},
+  MOOD15:{discount:15,type:"percent",label:"15% off — special code"},
+  HOLI100:{discount:100,type:"flat",label:"₹100 off on festive orders"},
 };
 
-let selectedStars = 0;
-let db = null;
+const SEED_REVIEWS=[
+  {name:"Priya S.",product:"Bourbon Vanilla",stars:5,text:"Absolutely divine! My room smells like a luxury spa. The flame is steady and the throw is incredible.",date:"2 Jan 2025"},
+  {name:"Arjun M.",product:"Royal Oud",stars:5,text:"Bought this as a gift and the recipient was blown away. Packaging is beautiful and the scent is rich.",date:"15 Dec 2024"},
+  {name:"Shreya K.",product:"English Lavender",stars:4,text:"Perfect for winding down after work. Lavender is realistic and not overpowering. Will buy again!",date:"3 Nov 2024"},
+  {name:"Riya D.",product:"Petals in Pine",stars:5,text:"I burn this during meditation sessions. Something about it that just centers me completely.",date:"28 Oct 2024"},
+  {name:"Kabir T.",product:"Chai & Chill",stars:5,text:"Smells exactly like cutting chai on a rainy morning. Genuinely comforting — I'm obsessed.",date:"10 Oct 2024"},
+];
 
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+/* ══════════════════════════════════════════════════════
+   FLAME ENGINE
+══════════════════════════════════════════════════════ */
+const flameRAFs=new Map();
+function drawFlame(canvas,w,h,intensity,seed){
+  if(!canvas)return;
+  const ctx=canvas.getContext("2d");
+  canvas.width=w;canvas.height=h;
+  let t=(seed||0)*.8;
+  const id=canvas.id||Math.random();
+  if(flameRAFs.has(id))cancelAnimationFrame(flameRAFs.get(id));
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    const cx=w/2,by=h-4;
+    for(let l=3;l>=0;l--){
+      const sc=1-l*.19,f1=Math.sin(t*3.9+l)*(5.5*intensity),f2=Math.cos(t*2.5+l*1.7)*(3.8*intensity);
+      const fh=h*.82*sc*intensity;
+      const g=ctx.createRadialGradient(cx,by-fh*.28,1,cx,by-fh*.54,fh);
+      if(l===0){g.addColorStop(0,"rgba(255,255,255,.97)");g.addColorStop(.15,"rgba(255,228,165,.9)");g.addColorStop(.45,"rgba(232,121,154,.72)");g.addColorStop(1,"rgba(0,0,0,0)");}
+      else{const a=(0.13-l*.022)*intensity;g.addColorStop(0,`rgba(232,121,154,${a+.05})`);g.addColorStop(1,"rgba(0,0,0,0)");}
+      ctx.beginPath();
+      ctx.moveTo(cx+f1,by);
+      ctx.bezierCurveTo(cx+w*.38*sc+f2,by-fh*.33,cx+w*.19*sc+f1*.4,by-fh*.67,cx+f1*.22,by-fh);
+      ctx.bezierCurveTo(cx-w*.19*sc+f2*.4,by-fh*.67,cx-w*.38*sc+f1,by-fh*.33,cx-f1*.38,by);
+      ctx.closePath();ctx.fillStyle=g;ctx.fill();
+    }
+    t+=.043;
+    flameRAFs.set(id,requestAnimationFrame(draw));
+  }
+  draw();
 }
 
-function initFirebase() {
-  const scripts = [
-    'https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js',
-    'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js'
-  ];
-  let loaded = 0;
-  scripts.forEach(src => {
-    const s = document.createElement('script');
-    s.src = src;
-    s.onload = () => {
-      loaded++;
-      if (loaded === scripts.length) startFirestore();
-    };
-    document.head.appendChild(s);
-  });
-}
-
-function startFirestore() {
-  firebase.initializeApp(FIREBASE_CONFIG);
-  db = firebase.firestore();
-  db.collection('reviews')
-    .orderBy('date', 'desc')
-    .onSnapshot(snapshot => {
-      const reviews = snapshot.docs.map(doc => doc.data());
-      renderReviews(reviews);
-    }, err => {
-      console.error('Firestore listen error:', err);
+/* ══════════════════════════════════════════════════════
+   PARTICLES
+══════════════════════════════════════════════════════ */
+function initParticles(){
+  const c=document.getElementById("particles-canvas");
+  const ctx=c.getContext("2d");
+  let W=c.width=window.innerWidth,H=c.height=window.innerHeight;
+  const pts=Array.from({length:95},()=>({
+    x:Math.random()*W,y:H+Math.random()*H*.5,
+    vx:(Math.random()-.5)*.44,vy:-(Math.random()*.95+.22),
+    r:Math.random()*1.8+.3,a:Math.random()*.52+.1,
+    hue:[340,18,272,350][Math.floor(Math.random()*4)],
+    life:Math.random(),ml:.5+Math.random()*.5,
+    wb:Math.random()*Math.PI*2,ws:(Math.random()-.5)*.023,
+  }));
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.wb+=p.ws;p.x+=p.vx+Math.sin(p.wb)*.27;p.y+=p.vy;p.life+=.0033;
+      if(p.life>p.ml||p.y<-20){p.x=Math.random()*W;p.y=H+10;p.life=0;}
+      const alpha=p.a*Math.sin((p.life/p.ml)*Math.PI);
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${p.hue},54%,76%,${alpha})`;ctx.fill();
     });
+    requestAnimationFrame(tick);
+  }
+  tick();
+  window.addEventListener("resize",()=>{W=c.width=window.innerWidth;H=c.height=window.innerHeight;});
 }
 
-document.getElementById('star-input').addEventListener('click', e => {
-  if (!e.target.dataset.val) return;
-  selectedStars = parseInt(e.target.dataset.val);
-  document.querySelectorAll('#star-input span').forEach((s, i) => {
-    s.classList.toggle('active', i < selectedStars);
-  });
+/* ══════════════════════════════════════════════════════
+   MAGNETIC CURSOR
+══════════════════════════════════════════════════════ */
+const dot=document.getElementById("cursor-dot"),ring=document.getElementById("cursor-ring");
+const pos={x:-200,y:-200},rp={x:-200,y:-200};
+window.addEventListener("mousemove",e=>{pos.x=e.clientX;pos.y=e.clientY;});
+(function loop(){
+  rp.x+=(pos.x-rp.x)*.11;rp.y+=(pos.y-rp.y)*.11;
+  dot.style.transform=`translate(${pos.x-5}px,${pos.y-5}px)`;
+  ring.style.transform=`translate(${rp.x-18}px,${rp.y-18}px)`;
+  requestAnimationFrame(loop);
+})();
+
+/* ══════════════════════════════════════════════════════
+   MORPH WORD
+══════════════════════════════════════════════════════ */
+const WORDS=["Romance","Calm","Energy","Spirit","Longing","Bliss"];
+let wi=0,morphTimeout;
+function morphNext(){
+  const el=document.getElementById("morph-word");
+  if(!el)return;
+  el.classList.remove("in");el.classList.add("out");
+  morphTimeout=setTimeout(()=>{wi=(wi+1)%WORDS.length;el.textContent=WORDS[wi];el.classList.remove("out");el.classList.add("in");morphTimeout=setTimeout(morphNext,2400);},480);
+}
+setTimeout(morphNext,2400);
+
+/* ══════════════════════════════════════════════════════
+   COUNTER
+══════════════════════════════════════════════════════ */
+function animateCounter(el){
+  const to=parseInt(el.dataset.count),suffix=el.dataset.suffix||"";
+  let n=0;const step=Math.ceil(to/50);
+  const iv=setInterval(()=>{n+=step;if(n>=to){el.textContent=to+suffix;clearInterval(iv);}else el.textContent=n+suffix;},26);
+}
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);counterObs.unobserve(e.target);}});
+},{threshold:.2});
+document.querySelectorAll("[data-count]").forEach(el=>counterObs.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   NAV SCROLL
+══════════════════════════════════════════════════════ */
+const nav=document.getElementById("main-nav");
+window.addEventListener("scroll",()=>{
+  nav.classList.toggle("scrolled",window.scrollY>60);
 });
 
-async function submitReview() {
-  const name    = document.getElementById('r-name').value.trim();
-  const product = document.getElementById('r-product').value;
-  const text    = document.getElementById('r-text').value.trim();
-  if (!name || !product || !text || !selectedStars) {
-    alert('Please fill in all fields and select a star rating!');
-    return;
-  }
-  if (!db) {
-    alert('Reviews service is still loading — please try again in a moment.');
-    return;
-  }
-  const btn = document.getElementById('submit-review-btn');
-  if (btn) { btn.textContent = 'Posting…'; btn.disabled = true; }
-  try {
-    await db.collection('reviews').add({
-      name,
-      product,
-      text,
-      stars: selectedStars,
-      date: firebase.firestore.FieldValue.serverTimestamp()
+/* ══════════════════════════════════════════════════════
+   HAMBURGER
+══════════════════════════════════════════════════════ */
+let menuOpen=false;
+document.getElementById("hamburger").onclick=()=>{
+  menuOpen=!menuOpen;
+  document.getElementById("mobile-menu").style.display=menuOpen?"block":"none";
+};
+function closeMobile(){menuOpen=false;document.getElementById("mobile-menu").style.display="none";}
+
+/* ══════════════════════════════════════════════════════
+   PARALLAX HERO
+══════════════════════════════════════════════════════ */
+const heroGrid=document.getElementById("hero-grid");
+window.addEventListener("scroll",()=>{
+  heroGrid.style.transform=`translateY(${window.scrollY*.07}px)`;
+});
+
+/* ══════════════════════════════════════════════════════
+   HERO CARDS (3D Tilt)
+══════════════════════════════════════════════════════ */
+function buildHeroCards(){
+  const grid=document.getElementById("hero-cards");
+  const cols=[[0,1],[2,3],[4,5]];
+  cols.forEach((pair,ci)=>{
+    const col=document.createElement("div");col.className="cards-col";
+    if(ci===1)col.style.marginTop="26px";
+    pair.forEach((fi,ri)=>{
+      const c=FEATURED[fi];
+      const wrap=document.createElement("div");wrap.className="tilt-card";
+      wrap.style.animation=`cardIn .7s cubic-bezier(.16,1,.3,1) ${.46+(fi*.1)}s forwards`;
+      wrap.innerHTML=`
+        <div class="tilt-inner" id="tilt-${fi}">
+          <div class="tilt-shimmer"></div>
+          <div style="display:flex;justify-content:center;height:54px;margin-bottom:6px"><canvas id="hc-flame-${fi}" width="38" height="54"></canvas></div>
+          <div class="tilt-candle-body" style="width:26px;height:42px;background:linear-gradient(180deg,${c.color}ee,${c.color}77);box-shadow:0 0 16px ${c.glow}35">
+            <div class="tilt-candle-shine"></div>
+          </div>
+          <div class="tilt-name">${c.name}</div>
+          <div class="tilt-mood" style="color:${c.glow}">${c.mood}</div>
+          <div class="tilt-price">₹${c.price}</div>
+        </div>`;
+      col.appendChild(wrap);
+      // Flame
+      setTimeout(()=>{drawFlame(document.getElementById(`hc-flame-${fi}`),38,54,.65,fi);},200+fi*60);
+      // 3D tilt
+      const inner=()=>document.getElementById(`tilt-${fi}`);
+      wrap.addEventListener("mousemove",e=>{
+        const rect=wrap.getBoundingClientRect();
+        const x=((e.clientX-rect.left)/rect.width-.5)*22;
+        const y=((e.clientY-rect.top)/rect.height-.5)*-22;
+        inner().style.transform=`rotateY(${x}deg) rotateX(${y}deg) translateZ(18px)`;
+        inner().style.transition="transform .08s ease-out";
+        inner().style.borderColor=c.glow+"55";
+        inner().style.boxShadow=`0 28px 56px rgba(0,0,0,.55),0 0 36px ${c.glow}28`;
+        drawFlame(document.getElementById(`hc-flame-${fi}`),38,54,1.4,fi);
+      });
+      wrap.addEventListener("mouseleave",()=>{
+        inner().style.transform="";inner().style.transition="all .5s cubic-bezier(.16,1,.3,1)";
+        inner().style.borderColor="rgba(255,255,255,.07)";inner().style.boxShadow="0 6px 22px rgba(0,0,0,.3)";
+        drawFlame(document.getElementById(`hc-flame-${fi}`),38,54,.65,fi);
+      });
     });
-    document.getElementById('r-name').value = '';
-    document.getElementById('r-text').value = '';
-    document.getElementById('r-product').value = '';
-    selectedStars = 0;
-    document.querySelectorAll('#star-input span').forEach(s => s.classList.remove('active'));
-  } catch (err) {
-    console.error('Failed to post review:', err);
-    alert('Could not post review — please try again.');
-  } finally {
-    if (btn) { btn.textContent = 'Post Review ✦'; btn.disabled = false; }
-  }
+    grid.appendChild(col);
+  });
 }
 
-function renderReviews(reviews) {
-  const list = document.getElementById('reviews-list');
-  if (!reviews || !reviews.length) {
-    list.innerHTML = '<div class="no-reviews">Be the first to share your experience ✦</div>';
-    return;
-  }
-  list.innerHTML = reviews.map(r => {
-    const dateObj = r.date && r.date.toDate ? r.date.toDate() : new Date(r.date || Date.now());
-    return `
-    <div class="review-card">
-      <div class="review-header">
-        <div class="review-avatar">${escapeHtml(r.name[0].toUpperCase())}</div>
-        <div class="review-meta">
-          <h4>${escapeHtml(r.name)} — <em style="font-family:Cormorant Garamond,serif;font-style:italic;color:var(--text-light)">${escapeHtml(r.product)}</em></h4>
-          <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5 - r.stars)}</div>
+/* ══════════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════════ */
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");}});
+},{threshold:.1});
+["about-header","about-left","about-right","shop-header","reviews-header","contact-header","contact-grid"].forEach(id=>{
+  const el=document.getElementById(id);if(el)revealObs.observe(el);
+});
+
+/* ══════════════════════════════════════════════════════
+   SHOP
+══════════════════════════════════════════════════════ */
+let cart=[];
+let currentMood="All";
+
+function renderShop(){
+  const grid=document.getElementById("shop-grid");
+  const filtered=currentMood==="All"?PRODUCTS:PRODUCTS.filter(p=>p.mood===currentMood);
+  grid.innerHTML="";
+  filtered.forEach((p,i)=>{
+    const inCart=cart.some(c=>c.id===p.id);
+    const card=document.createElement("div");
+    card.className="product-card";
+    card.style.cssText=`opacity:0;animation:cardIn .6s cubic-bezier(.16,1,.3,1) ${i*.04}s forwards`;
+    card.innerHTML=`
+      <div class="product-img" style="background:linear-gradient(135deg,${p.color}22,${p.color}0e)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+          <canvas id="pc-flame-${p.id}" width="42" height="62"></canvas>
+          <div style="width:23px;height:36px;background:linear-gradient(180deg,${p.color}dd,${p.color}66);border-radius:3px 3px 5px 5px;box-shadow:0 0 12px ${p.glow}33"></div>
+        </div>
+        <span class="product-mood-tag" style="color:${p.glow};border:1px solid ${p.glow}28">${p.mood}</span>
+        ${inCart?`<span class="product-incart">In bag</span>`:""}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-row">
+          <span class="product-price">₹${p.price}</span>
+          <span class="product-burn">🕐 ${p.burn}</span>
+        </div>
+        <button class="btn-add" id="add-${p.id}" onclick="addToCart(${p.id})" style="color:${p.glow};border:1.5px solid ${p.glow}44">+ Add to Bag</button>
+      </div>`;
+    grid.appendChild(card);
+    setTimeout(()=>drawFlame(document.getElementById(`pc-flame-${p.id}`),42,62,.68,p.id),100+i*20);
+    // Hover flame
+    card.addEventListener("mouseenter",()=>drawFlame(document.getElementById(`pc-flame-${p.id}`),42,62,1.2,p.id));
+    card.addEventListener("mouseleave",()=>drawFlame(document.getElementById(`pc-flame-${p.id}`),42,62,.68,p.id));
+  });
+}
+
+document.getElementById("mood-filters").addEventListener("click",e=>{
+  if(!e.target.classList.contains("mood-btn"))return;
+  document.querySelectorAll(".mood-btn").forEach(b=>b.classList.remove("active"));
+  e.target.classList.add("active");
+  currentMood=e.target.dataset.mood;
+  renderShop();
+});
+
+// Populate review product select
+function populateSelect(){
+  const sel=document.getElementById("rev-product");
+  PRODUCTS.forEach(p=>{const o=document.createElement("option");o.value=p.name;o.textContent=p.name;sel.appendChild(o);});
+}
+
+/* ══════════════════════════════════════════════════════
+   CART
+══════════════════════════════════════════════════════ */
+function addToCart(id){
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(i=>i.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCartUI();renderShop();
+  const btn=document.getElementById(`add-${id}`);
+  if(btn){btn.textContent="✓ Added!";btn.classList.add("added");setTimeout(()=>{btn.textContent="+ Add to Bag";btn.classList.remove("added");},1400);}
+}
+
+function changeQty(id,delta){
+  const i=cart.findIndex(x=>x.id===id);if(i<0)return;
+  cart[i].qty+=delta;if(cart[i].qty<=0)cart.splice(i,1);
+  updateCartUI();renderShop();renderCartItems();
+}
+
+function removeItem(id){cart=cart.filter(x=>x.id!==id);updateCartUI();renderShop();renderCartItems();}
+
+function updateCartUI(){
+  const total=cart.reduce((s,i)=>s+i.qty,0);
+  const badge=document.getElementById("cart-badge");
+  badge.textContent=total;badge.style.display=total>0?"flex":"none";
+  document.getElementById("cart-item-count").textContent=`(${cart.reduce((s,i)=>s+i.qty,0)} items)`;
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById("cart-subtotal-val").textContent=`₹${sub}`;
+  document.getElementById("cart-total-val").textContent=`₹${sub}`;
+  document.getElementById("cart-footer").style.display=cart.length?"block":"none";
+  document.getElementById("cart-empty").style.display=cart.length?"none":"flex";
+}
+
+function renderCartItems(){
+  const list=document.getElementById("cart-items-list");
+  // Clear non-empty children
+  [...list.children].forEach(c=>{if(!c.id||c.id!=="cart-empty")c.remove();});
+  if(!cart.length){document.getElementById("cart-empty").style.display="flex";return;}
+  document.getElementById("cart-empty").style.display="none";
+  cart.forEach(item=>{
+    const div=document.createElement("div");div.className="cart-item";
+    div.innerHTML=`
+      <div class="cart-item-img" style="background:linear-gradient(135deg,${item.color}44,${item.color}1a)">
+        <canvas id="ci-flame-${item.id}" width="28" height="40"></canvas>
+      </div>
+      <div style="flex:1">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-mood" style="color:${item.glow||'#e8799a'}">${item.mood}</div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
         </div>
       </div>
-      <p class="review-text">"${escapeHtml(r.text)}"</p>
-      <p class="review-date">${dateObj.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
+        <span class="cart-item-price">₹${item.price*item.qty}</span>
+        <button class="btn-remove" onclick="removeItem(${item.id})">✕ Remove</button>
+      </div>`;
+    list.insertBefore(div,document.getElementById("cart-empty"));
+    setTimeout(()=>drawFlame(document.getElementById(`ci-flame-${item.id}`),28,40,.7,item.id),80);
+  });
+}
+
+function openCart(){
+  renderCartItems();
+  document.getElementById("cart-overlay").classList.add("open");
+  document.getElementById("cart-drawer").classList.add("open");
+}
+function closeCart(){
+  document.getElementById("cart-overlay").classList.remove("open");
+  document.getElementById("cart-drawer").classList.remove("open");
+}
+document.getElementById("cart-open-btn").onclick=openCart;
+
+// Cart empty flame
+setTimeout(()=>drawFlame(document.getElementById("cart-empty-flame"),52,76,.55,99),300);
+
+/* ══════════════════════════════════════════════════════
+   CHECKOUT
+══════════════════════════════════════════════════════ */
+let appliedCoupon=null;
+let selectedPay="razorpay";
+
+function calcTotal(){
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  let disc=0;
+  if(appliedCoupon){disc=appliedCoupon.type==="percent"?Math.round(sub*appliedCoupon.discount/100):Math.min(appliedCoupon.discount,sub);}
+  return{sub,disc,total:Math.max(0,sub-disc)};
+}
+
+function openCheckout(){
+  closeCart();
+  appliedCoupon=null;selectedPay="razorpay";
+  renderCheckout();
+  document.getElementById("checkout-modal").classList.add("open");
+}
+function closeCheckout(){document.getElementById("checkout-modal").classList.remove("open");}
+
+function renderCheckout(){
+  const{sub,disc,total}=calcTotal();
+  const box=document.getElementById("modal-box");
+  box.innerHTML=`
+    <div class="modal-header">
+      <div class="modal-title">Checkout</div>
+      <div class="modal-sub">Complete your order below</div>
+      <button class="btn-modal-close" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary">
+        <div style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:9px">Your Order</div>
+        ${cart.map(i=>`<div class="order-row"><span>${i.name} <span style="color:rgba(255,255,255,.28);font-size:.75rem">×${i.qty}</span></span><span>₹${i.price*i.qty}</span></div>`).join("")}
+        ${appliedCoupon?`<div style="display:flex;justify-content:space-between;padding:7px 0;font-size:.78rem;color:#82e0aa"><span>Discount (${appliedCoupon.code})</span><span>−₹${disc}</span></div>`:""}
+        <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-val">₹${total}</span></div>
+      </div>
+      <!-- Coupon -->
+      <div style="margin-bottom:18px">
+        <div style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:9px">Coupon Code</div>
+        <div class="coupon-row">
+          <input class="coupon-input ${appliedCoupon?"valid":""}" id="coupon-field" value="${appliedCoupon?appliedCoupon.code:""}" placeholder="Enter coupon code" ${appliedCoupon?"readonly":""} oninput="this.value=this.value.toUpperCase()"/>
+          ${appliedCoupon
+            ?`<button class="btn-remove-coupon" onclick="removeCoupon()">✕ Remove</button>`
+            :`<button class="btn-coupon" onclick="applyCoupon()">Apply</button>`}
+        </div>
+        <div id="coupon-msg"></div>
+      </div>
+      <!-- Delivery -->
+      <div class="section-sep">Delivery Details<div class="section-sep-line"></div></div>
+      <div class="checkout-fields">
+        <div class="field-group"><label class="field-label">First Name</label><input class="field-input" id="f-fname" placeholder="Priya"/></div>
+        <div class="field-group"><label class="field-label">Last Name</label><input class="field-input" id="f-lname" placeholder="Sharma"/></div>
+        <div class="field-group span2"><label class="field-label">Email</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"/></div>
+        <div class="field-group span2"><label class="field-label">Phone</label><input class="field-input" id="f-phone" type="tel" placeholder="+91 98765 43210"/></div>
+        <div class="field-group span2"><label class="field-label">Address Line 1</label><input class="field-input" id="f-addr1" placeholder="House / Flat No., Street"/></div>
+        <div class="field-group span2"><label class="field-label">Address Line 2</label><input class="field-input" id="f-addr2" placeholder="Landmark (optional)"/></div>
+        <div class="field-group"><label class="field-label">City</label><input class="field-input" id="f-city" placeholder="Kolkata"/></div>
+        <div class="field-group"><label class="field-label">State</label><input class="field-input" id="f-state" placeholder="West Bengal"/></div>
+        <div class="field-group"><label class="field-label">PIN Code</label><input class="field-input" id="f-pin" placeholder="700001"/></div>
+      </div>
+      <div style="margin-bottom:18px"><label class="field-label">Order Notes (optional)</label><textarea class="field-input" id="f-notes" rows="3" placeholder="Any special instructions…" style="resize:vertical"></textarea></div>
+      <!-- Payment -->
+      <div class="section-sep">Payment Method<div class="section-sep-line"></div></div>
+      <div class="payment-options">
+        <div class="pay-option ${selectedPay==="razorpay"?"active":""}" onclick="selectPay('razorpay')">
+          <div class="pay-icon">💳</div><div class="pay-label">Card / UPI</div>
+        </div>
+        <div class="pay-option ${selectedPay==="cod"?"active":""}" onclick="selectPay('cod')">
+          <div class="pay-icon">💵</div><div class="pay-label">Cash on Delivery</div>
+        </div>
+      </div>
+      <button class="btn-place-order" id="btn-place" onclick="placeOrder()">Place Order ✦  ₹${total}</button>
+      <p class="checkout-secure">🔒 Secure checkout · Handcrafted in Kolkata</p>
     </div>`;
-  }).join('');
 }
 
-/* ── ORDER MODAL ── */
-function openModal(id) {
-  currentProduct = products.find(p => p.id === id);
-  document.getElementById('modal-product-info').innerHTML = `
-    <div>
-      <div class="modal-product-name">${currentProduct.name}</div>
-      <div class="modal-product-price">₹${currentProduct.price} each</div>
-    </div>`;
-  document.getElementById('order-qty').value = 1;
-  updateTotal();
-  document.getElementById('order-modal').classList.add('open');
+function applyCoupon(){
+  const code=(document.getElementById("coupon-field").value||"").trim().toUpperCase();
+  const msg=document.getElementById("coupon-msg");
+  if(!code){msg.className="coupon-msg err";msg.textContent="Please enter a coupon code.";return;}
+  const c=COUPONS[code];
+  if(!c){appliedCoupon=null;msg.className="coupon-msg err";msg.textContent="Invalid coupon code. Try again.";return;}
+  appliedCoupon={code,...c};renderCheckout();
+  setTimeout(()=>{const m=document.getElementById("coupon-msg");if(m){m.className="coupon-msg ok";m.textContent=`✦ ${c.label} applied!`;}},50);
 }
+function removeCoupon(){appliedCoupon=null;renderCheckout();}
+function selectPay(m){selectedPay=m;document.querySelectorAll(".pay-option").forEach(el=>el.classList.remove("active"));event.currentTarget.classList.add("active");}
 
-function closeModal() {
-  document.getElementById('order-modal').classList.remove('open');
-}
-
-function updateTotal() {
-  const qty = parseInt(document.getElementById('order-qty').value) || 1;
-  document.getElementById('order-total').textContent = `= ₹${currentProduct.price * qty}`;
-}
-
-function initiatePayment() {
-  const name = document.getElementById('order-name').value.trim();
-  const email = document.getElementById('order-email').value.trim();
-  const qty = parseInt(document.getElementById('order-qty').value) || 1;
-  if (!name || !email) { alert('Please enter your name and email.'); return; }
-  const amount = currentProduct.price * qty * 100;
-  const options = {
-    key: 'rzp_live_SMQTjtfUT3u3zz',
-    amount: amount,
-    currency: 'INR',
-    name: 'Scentra Candles',
-    description: `${currentProduct.name} × ${qty}`,
-    image: `${currentProduct.image}`,
-    prefill: { name, email },
-    theme: { color: '#6b1a2a' },
-    handler: function(response) {
-      closeModal();
-      alert(`✦ Payment successful!\nOrder ID: ${response.razorpay_payment_id}\nThank you for choosing Scentra, ${name}!`);
-    },
-    modal: { ondismiss: () => {} }
-  };
-  const rzp = new Razorpay(options);
-  rzp.open();
-}
-
-/* ── CONTACT FORM ── */
-document.getElementById('contact-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = this.querySelector('.btn-contact');
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-  try {
-    const res = await fetch(this.action, {
-      method: 'POST',
-      body: new FormData(this),
-      headers: { Accept: 'application/json' }
-    });
-    if (res.ok) {
-      this.reset();
-      document.getElementById('contact-success').style.display = 'block';
-      btn.textContent = 'Message Sent ✦';
-    } else {
-      btn.textContent = 'Try Again';
-      btn.disabled = false;
-    }
-  } catch {
-    btn.textContent = 'Try Again';
-    btn.disabled = false;
+function placeOrder(){
+  const fields={fname:"first name",lname:"last name",email:"email",phone:"phone",addr1:"address",city:"city",state:"state",pin:"PIN code"};
+  for(const[k,l] of Object.entries(fields)){
+    const v=(document.getElementById(`f-${k}`)?.value||"").trim();
+    if(!v){alert(`Please enter your ${l}.`);return;}
   }
+  const email=document.getElementById("f-email").value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert("Please enter a valid email.");return;}
+  const phone=document.getElementById("f-phone").value.replace(/\D/g,"");
+  if(phone.length<10){alert("Please enter a valid 10-digit phone number.");return;}
+  const pin=document.getElementById("f-pin").value.trim();
+  if(!/^\d{6}$/.test(pin)){alert("Please enter a valid 6-digit PIN code.");return;}
+
+  const btn=document.getElementById("btn-place");
+  btn.disabled=true;btn.innerHTML=`<div class="spinner"></div>Processing…`;
+  setTimeout(()=>{
+    const oid="SCN-"+Date.now().toString().slice(-8).toUpperCase();
+    cart=[];updateCartUI();renderShop();
+    const box=document.getElementById("modal-box");
+    box.innerHTML=`
+      <div class="order-success">
+        <div class="success-flame-wrap"><canvas id="success-flame" width="52" height="76"></canvas></div>
+        <div class="success-title">Order Placed! ✦</div>
+        <p class="success-body">Thank you for your order. We'll reach out soon with updates.</p>
+        <div class="success-order-id">Order ID: <strong>${oid}</strong></div>
+        <br>
+        <button class="btn-back-shop" onclick="closeCheckout()">Back to Shop ✦</button>
+      </div>`;
+    setTimeout(()=>drawFlame(document.getElementById("success-flame"),52,76,1.2,42),100);
+  },1900);
+}
+
+/* ══════════════════════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════════════════════ */
+let reviewStars=0;
+let reviews=[...SEED_REVIEWS];
+
+document.getElementById("star-input").addEventListener("click",e=>{
+  if(!e.target.classList.contains("star-btn"))return;
+  reviewStars=parseInt(e.target.dataset.star);
+  document.querySelectorAll(".star-btn").forEach((b,i)=>b.classList.toggle("active",i<reviewStars));
 });
 
-/* ── SCROLL REVEAL ── */
-function observeReveal() {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
-}
-
-/* ── INIT ── */
-renderProducts();
-populateReviewSelect();
-observeReveal();
-initFirebase();
-
-/* ── HAMBURGER MENU ── */
-const menuToggle = document.querySelector('.menu-toggle');
-const mobileMenu = document.getElementById('mobile-menu');
-
-function closeMobileMenu() {
-  if (!menuToggle || !mobileMenu) return;
-  mobileMenu.classList.remove('open');
-  menuToggle.classList.remove('active');
-  document.body.style.overflow = '';
-}
-
-if (menuToggle && mobileMenu) {
-  menuToggle.addEventListener('click', () => {
-    const isOpen = mobileMenu.classList.contains('open');
-    if (isOpen) {
-      closeMobileMenu();
-    } else {
-      mobileMenu.classList.add('open');
-      menuToggle.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  });
-  document.addEventListener('click', (e) => {
-    if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
-      closeMobileMenu();
-    }
-  });
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 900) closeMobileMenu();
+function renderReviews(){
+  const list=document.getElementById("reviews-list");
+  list.innerHTML="";
+  reviews.forEach((r,i)=>{
+    const div=document.createElement("div");div.className="review-card";
+    div.style.animationDelay=`${i*.07}s`;
+    div.innerHTML=`
+      <div style="display:flex;align-items:center;gap:13px;margin-bottom:11px">
+        <div class="review-avatar">${r.name[0]}</div>
+        <div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.82);font-weight:500">${r.name} <em style="font-family:'Cormorant Garamond',serif;font-size:.88rem;color:rgba(255,255,255,.32);font-style:italic">— ${r.product}</em></div>
+          <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</div>
+        </div>
+      </div>
+      <p class="review-text">"${r.text}"</p>
+      <p class="review-date">${r.date}</p>`;
+    list.appendChild(div);
+    setTimeout(()=>div.classList.add("visible"),i*80);
   });
 }
 
-/* ── CART SYSTEM ── */
-const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
-/* ── COUPON CODES ── */
-const COUPONS = {
-  'SCENTRA10':  { discount: 10, type: 'percent',  label: '10% off your order' },
-  'WELCOME20':  { discount: 20, type: 'percent',  label: '20% off for new customers' },
-  'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
-  'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
-  'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
-};
-
-let appliedCoupon = null;
-
-function applyCoupon() {
-  const input = document.getElementById('co-coupon');
-  const code  = input.value.trim().toUpperCase();
-  const msgEl = document.getElementById('coupon-msg');
-  const rowEl = document.getElementById('coupon-discount-row');
-  const totalEl = document.getElementById('checkout-grand-total');
-
-  if (!code) {
-    showCouponMsg('Please enter a coupon code.', 'error');
-    return;
-  }
-
-  const coupon = COUPONS[code];
-
-  if (!coupon) {
-    appliedCoupon = null;
-    input.classList.add('co-error');
-    showCouponMsg('Invalid coupon code. Please try again.', 'error');
-    rowEl.style.display = 'none';
-    recalcTotal();
-    return;
-  }
-
-  // Valid coupon
-  appliedCoupon = { code, ...coupon };
-  input.classList.remove('co-error');
-  input.classList.add('coupon-valid');
-  input.readOnly = true;
-
-  // Show success message
-  showCouponMsg('✦ ' + coupon.label + ' applied!', 'success');
-
-  // Show discount row
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const discountAmt = coupon.type === 'percent'
-    ? Math.round(subtotal * coupon.discount / 100)
-    : Math.min(coupon.discount, subtotal);
-
-  document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
-  rowEl.style.display = 'flex';
-
-  recalcTotal();
+function submitReview(){
+  const name=document.getElementById("rev-name").value.trim();
+  const text=document.getElementById("rev-text").value.trim();
+  const product=document.getElementById("rev-product").value;
+  if(!name||!text||!product||!reviewStars){alert("Please fill all fields and pick a star rating.");return;}
+  reviews.unshift({name,text,product,stars:reviewStars,date:new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})});
+  renderReviews();
+  document.getElementById("rev-name").value="";document.getElementById("rev-text").value="";
+  document.getElementById("rev-product").value="";reviewStars=0;
+  document.querySelectorAll(".star-btn").forEach(b=>b.classList.remove("active"));
+  const btn=document.getElementById("btn-submit-review");
+  btn.textContent="✦ Thank you for your review!";btn.classList.add("ok");
+  setTimeout(()=>{btn.textContent="Post Review ✦";btn.classList.remove("ok");},3200);
 }
 
-function removeCoupon() {
-  appliedCoupon = null;
-  const input = document.getElementById('co-coupon');
-  input.value   = '';
-  input.readOnly = false;
-  input.classList.remove('coupon-valid', 'co-error');
-  document.getElementById('coupon-msg').style.display = 'none';
-  document.getElementById('coupon-discount-row').style.display = 'none';
-  recalcTotal();
+/* ══════════════════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════════════════ */
+function sendContact(e){
+  e.preventDefault();
+  const btn=document.getElementById("btn-send");
+  btn.textContent="✦ Message sent! We'll reply soon.";btn.classList.add("sent");
+  document.getElementById("contact-form").reset();
+  setTimeout(()=>{btn.textContent="Send Message ✦";btn.classList.remove("sent");},4000);
 }
 
-function recalcTotal() {
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  let discount = 0;
-  if (appliedCoupon) {
-    discount = appliedCoupon.type === 'percent'
-      ? Math.round(subtotal * appliedCoupon.discount / 100)
-      : Math.min(appliedCoupon.discount, subtotal);
-  }
-  const final = Math.max(0, subtotal - discount);
-  const el = document.getElementById('checkout-grand-total');
-  if (el) el.textContent = '₹' + final;
-}
-
-function showCouponMsg(msg, type) {
-  const el = document.getElementById('coupon-msg');
-  if (!el) return;
-  el.textContent  = msg;
-  el.className    = 'coupon-msg ' + type;
-  el.style.display = 'block';
-}
-
-let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
-let selectedPaymentMethod = 'razorpay';
-
-function saveCart() {
-  localStorage.setItem('scentra_cart', JSON.stringify(cart));
-}
-
-function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
-  if (!product) return;
-  const existing = cart.find(i => i.id === productId);
-  if (existing) {
-    existing.qty += 1;
-  } else {
-    cart.push({ id: product.id, name: product.name, image: product.image,
-                price: product.price, mood: product.mood, qty: 1 });
-  }
-  saveCart();
-  updateCartUI();
-  animateCartFab();
-  const btns = document.querySelectorAll('[data-cart-id="' + productId + '"]');
-  btns.forEach(btn => {
-    btn.textContent = 'Added!';
-    btn.classList.add('added');
-    setTimeout(() => { btn.textContent = '+ Add to Bag'; btn.classList.remove('added'); }, 1500);
-  });
-}
-
-function updateCartUI() {
-  const totalQty = cart.reduce((s, i) => s + i.qty, 0);
-  const totalAmt = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  const badge = document.getElementById('cart-count');
-  if (badge) { badge.textContent = totalQty; badge.classList.toggle('visible', totalQty > 0); }
-  const countLabel = document.getElementById('cart-item-count');
-  if (countLabel) countLabel.textContent = totalQty > 0 ? '(' + totalQty + ')' : '';
-  const sub = document.getElementById('cart-subtotal');
-  const tot = document.getElementById('cart-total-display');
-  if (sub) sub.textContent = '₹' + totalAmt;
-  if (tot) tot.textContent = '₹' + totalAmt;
-  const footer = document.getElementById('cart-footer');
-  if (footer) footer.style.display = cart.length ? '' : 'none';
-  renderCartItems();
-}
-
-function renderCartItems() {
-  const list = document.getElementById('cart-items-list');
-  if (!list) return;
-  if (!cart.length) {
-    list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🕯️</div>Your bag is empty — add a candle to begin.</div>';
-    return;
-  }
-  list.innerHTML = cart.map(item =>
-    '<div class="cart-item">' +
-    '<img class="cart-item-img" src="' + item.image + '" alt="' + item.name + '" onerror="this.style.background=\'var(--beige)\';this.src=\'\';">' +
-    '<div class="cart-item-body">' +
-    '<div class="cart-item-name">' + item.name + '</div>' +
-    '<div class="cart-item-mood">' + item.mood + '</div>' +
-    '<div class="cart-item-controls">' +
-    '<button class="qty-btn" onclick="changeQty(' + item.id + ', -1)">−</button>' +
-    '<span class="qty-num">' + item.qty + '</span>' +
-    '<button class="qty-btn" onclick="changeQty(' + item.id + ', 1)">+</button>' +
-    '</div></div>' +
-    '<div class="cart-item-price">' +
-    '<span>₹' + (item.price * item.qty) + '</span>' +
-    '<button class="remove-btn" onclick="removeFromCart(' + item.id + ')">✕ Remove</button>' +
-    '</div></div>'
-  ).join('');
-}
-
-function changeQty(id, delta) {
-  const item = cart.find(i => i.id === id);
-  if (!item) return;
-  item.qty += delta;
-  if (item.qty <= 0) removeFromCart(id);
-  else { saveCart(); updateCartUI(); }
-}
-
-function removeFromCart(id) {
-  cart = cart.filter(i => i.id !== id);
-  saveCart();
-  updateCartUI();
-}
-
-function openCart() {
-  document.getElementById('cart-overlay').classList.add('open');
-  document.getElementById('cart-drawer').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCart() {
-  document.getElementById('cart-overlay').classList.remove('open');
-  document.getElementById('cart-drawer').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function animateCartFab() {
-  const fab = document.getElementById('cart-fab');
-  if (!fab) return;
-  fab.style.transform = 'scale(1.25)';
-  setTimeout(() => { fab.style.transform = ''; }, 300);
-}
-
-function openCheckout() {
-  if (!cart.length) return;
-  closeCart();
-  populateCheckoutSummary();
-  recalcTotal();        
-  document.getElementById('checkout-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCheckout() {
-  document.getElementById('checkout-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-  document.getElementById('order-success').classList.remove('show');
-  document.getElementById('checkout-form-wrap').style.display = '';
-}
-
-function populateCheckoutSummary() {
-  const container = document.getElementById('checkout-items-rows');
-  const grandTotal = document.getElementById('checkout-grand-total');
-  if (!container) return;
-  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  container.innerHTML = cart.map(i =>
-    '<div class="checkout-item-row">' +
-    '<span>' + i.name + ' <span class="item-qty">× ' + i.qty + '</span></span>' +
-    '<span>₹' + (i.price * i.qty) + '</span>' +
-    '</div>'
-  ).join('');
-  if (grandTotal) grandTotal.textContent = '₹' + total;
-}
-
-function selectPayment(method, el) {
-  selectedPaymentMethod = method;
-  document.querySelectorAll('.pay-method').forEach(m => m.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function validateCheckout() {
-  var required = [
-    ['co-fname', 'First name'], ['co-lname', 'Last name'],
-    ['co-email', 'Email address'], ['co-phone', 'Phone number'],
-    ['co-addr1', 'Address line 1'], ['co-city', 'City'],
-    ['co-state', 'State'], ['co-pin', 'PIN code']
-  ];
-  var firstError = null;
-  var valid = true;
-  required.forEach(function(pair) {
-    var el = document.getElementById(pair[0]);
-    if (!el) return;
-    el.classList.remove('co-error');
-    if (!el.value.trim()) {
-      el.classList.add('co-error');
-      if (!firstError) firstError = pair[1];
-      valid = false;
-    }
-  });
-  var emailEl = document.getElementById('co-email');
-  if (emailEl && emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
-    emailEl.classList.add('co-error');
-    if (!firstError) firstError = 'valid email address';
-    valid = false;
-  }
-  var phoneEl = document.getElementById('co-phone');
-  if (phoneEl && phoneEl.value && phoneEl.value.replace(/\D/g,'').length < 10) {
-    phoneEl.classList.add('co-error');
-    if (!firstError) firstError = 'valid 10-digit phone number';
-    valid = false;
-  }
-  var pinEl = document.getElementById('co-pin');
-  if (pinEl && pinEl.value && !/^\d{6}$/.test(pinEl.value.trim())) {
-    pinEl.classList.add('co-error');
-    if (!firstError) firstError = 'valid 6-digit PIN code';
-    valid = false;
-  }
-  if (!valid) showCoError('Please enter a valid ' + firstError + '.');
-  return valid;
-}
-
-function showCoError(msg) {
-  var el = document.getElementById('co-error');
-  if (!el) return;
-  el.textContent = msg;
-  el.style.display = 'block';
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  setTimeout(function() { el.style.display = 'none'; }, 5000);
-}
-
-async function placeOrder() {
-  if (!validateCheckout()) return;
-  var btn     = document.getElementById('place-order-btn');
-  var label   = document.getElementById('po-label');
-  var spinner = document.getElementById('po-spinner');
-  btn.disabled = true;
-  if (label)   label.style.display   = 'none';
-  if (spinner) spinner.style.display = 'block';
-
-  var orderData = {
-    fname:     document.getElementById('co-fname').value.trim(),
-    lname:     document.getElementById('co-lname').value.trim(),
-    email:     document.getElementById('co-email').value.trim(),
-    phone:     document.getElementById('co-phone').value.trim(),
-    addr1:     document.getElementById('co-addr1').value.trim(),
-    addr2:     document.getElementById('co-addr2').value.trim(),
-    city:      document.getElementById('co-city').value.trim(),
-    state:     document.getElementById('co-state').value.trim(),
-    pin:       document.getElementById('co-pin').value.trim(),
-    country:   document.getElementById('co-country').value.trim(),
-    notes:     document.getElementById('co-notes').value.trim(),
-    payment:   selectedPaymentMethod === 'razorpay' ? 'Card / UPI (Razorpay)' : 'Cash on Delivery',
-    items:     cart,
-    total:     (function() {
-  var sub = cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
-  if (!appliedCoupon) return sub;
-  var disc = appliedCoupon.type === 'percent'
-    ? Math.round(sub * appliedCoupon.discount / 100)
-    : Math.min(appliedCoupon.discount, sub);
-  return Math.max(0, sub - disc);
-})(),
-    orderId:   'SCN-' + Date.now().toString().slice(-8).toUpperCase(),
-    orderDate: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' })
-  };
-
-  var itemsList = orderData.items.map(function(i) {
-    return i.name + ' (' + i.mood + ') x ' + i.qty + ' = Rs.' + (i.price * i.qty);
-  }).join('\n');
-
-  var fullAddress = [orderData.addr1, orderData.addr2, orderData.city,
-                     orderData.state, orderData.pin, orderData.country]
-                    .filter(Boolean).join(', ');
-
-  try {
-    if (selectedPaymentMethod === 'razorpay') {
-      await handleRazorpayCheckout(orderData, itemsList, fullAddress);
-    } else {
-      await fetch(STORE_FORM_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          subject:        'New Order - ' + orderData.orderId,
-          order_id:       orderData.orderId,
-          order_date:     orderData.orderDate,
-          customer_name:  orderData.fname + ' ' + orderData.lname,
-          customer_email: orderData.email,
-          customer_phone: orderData.phone,
-          full_address:   fullAddress,
-          items_list:     itemsList,
-          order_total:    'Rs.' + orderData.total,
-          payment_method: orderData.payment,
-          order_notes:    orderData.notes || 'None'
-        })
-      });
-      onOrderSuccess(orderData.orderId);
-    }
-  } catch (err) {
-    console.error('Order error:', err);
-    showCoError('Something went wrong. Please try again or contact us directly.');
-    btn.disabled = false;
-    if (label)   label.style.display   = '';
-    if (spinner) spinner.style.display = 'none';
-  }
-}
-
-async function handleRazorpayCheckout(orderData, itemsList, fullAddress) {
-  var btn     = document.getElementById('place-order-btn');
-  var label   = document.getElementById('po-label');
-  var spinner = document.getElementById('po-spinner');
-  var options = {
-    key:         'rzp_live_SMQTjtfUT3u3zz',
-    amount:      orderData.total * 100,
-    currency:    'INR',
-    name:        'Scentra Candles',
-    description: 'Order ' + orderData.orderId,
-    prefill: {
-      name:    orderData.fname + ' ' + orderData.lname,
-      email:   orderData.email,
-      contact: orderData.phone
-    },
-    theme: { color: '#6b1a2a' },
-    handler: async function(response) {
-      try {
-        await fetch(STORE_FORM_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-          body: JSON.stringify({
-            subject:        'New Order - ' + orderData.orderId,
-            order_id:       orderData.orderId,
-            order_date:     orderData.orderDate,
-            customer_name:  orderData.fname + ' ' + orderData.lname,
-            customer_email: orderData.email,
-            customer_phone: orderData.phone,
-            full_address:   fullAddress,
-            items_list:     itemsList,
-            order_total:    'Rs.' + orderData.total,
-            payment_method: 'Card / UPI | Payment ID: ' + response.razorpay_payment_id,
-            order_notes:    orderData.notes || 'None'
-          })
-        });
-      } catch(e) { console.warn('Email send failed but payment succeeded:', e); }
-      onOrderSuccess(orderData.orderId);
-    },
-    modal: {
-      ondismiss: function() {
-        btn.disabled = false;
-        if (label)   label.style.display   = '';
-        if (spinner) spinner.style.display = 'none';
-      }
-    }
-  };
-  var rzp = new Razorpay(options);
-  rzp.open();
-}
-
-function onOrderSuccess(orderId) {
-  cart = [];
-  saveCart();
-  updateCartUI();
-  document.getElementById('checkout-form-wrap').style.display = 'none';
-  document.getElementById('order-success').classList.add('show');
-  document.getElementById('success-order-id').textContent = orderId;
-}
-
-updateCartUI();
-
-
-
-
-
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+window.addEventListener("DOMContentLoaded",()=>{
+  initParticles();
+  drawFlame(document.getElementById("ambient-flame"),185,280,.52,3);
+  setTimeout(()=>drawFlame(document.getElementById("about-flame"),84,128,1.1,7),400);
+  buildHeroCards();
+  renderShop();
+  populateSelect();
+  renderReviews();
+});
