@@ -13,6 +13,184 @@
     --text-mid: #6b3040;
     --text-light: #9e6370;
   }
+#theme-toggle {
+  background: none;
+  border: 1.5px solid var(--beige-dark);
+  border-radius: 40px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: none;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+#theme-toggle:hover {
+  border-color: var(--pink-deep);
+  background: var(--pink-light);
+  transform: rotate(20deg) scale(1.1);
+}
+body.dark-mode #theme-toggle {
+  border-color: rgba(255,255,255,0.15);
+}
+body.dark-mode #theme-toggle:hover {
+  border-color: #e8799a;
+  background: rgba(232,121,154,0.12);
+}
+
+/* Dark Mode — CSS Variable Overrides */
+body.dark-mode {
+  --pink:         #f2a7bb;
+  --pink-light:   rgba(242,167,187,0.12);
+  --pink-deep:    #e8799a;
+  --maroon:       #e8799a;
+  --maroon-light: #f2a7bb;
+  --maroon-dark:  #f8d0dc;
+  --beige:        #1e0d12;
+  --beige-dark:   #2a1018;
+  --beige-warm:   #160a0e;
+  --cream:        #0e0608;
+  --text-dark:    #f5dde4;
+  --text-mid:     #d4a0b0;
+  --text-light:   #a87080;
+  background:     #0e0608;
+  color:          #f5dde4;
+}
+
+/* Nav */
+body.dark-mode nav {
+  background: rgba(14,6,8,0.96);
+  border-bottom-color: rgba(255,255,255,0.055);
+}
+
+/* Hero blobs */
+body.dark-mode .blob1 { background: rgba(107,26,42,0.5); }
+body.dark-mode .blob2 { background: rgba(74,15,26,0.4); }
+
+/* Hero cards */
+body.dark-mode .hero-candle-card {
+  background: #1e0d14;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+
+/* About */
+body.dark-mode #about             { background: #130810; }
+body.dark-mode .about-img-wrap    { background: linear-gradient(135deg, rgba(107,26,42,.55), rgba(74,15,26,.4)); }
+body.dark-mode .stat-card         { background: #1e0d14; box-shadow: 0 4px 20px rgba(0,0,0,.4); }
+body.dark-mode .value-item        { background: #1e0d14; box-shadow: 0 2px 12px rgba(0,0,0,.3); }
+body.dark-mode .value-icon        { background: rgba(232,121,154,.12); }
+
+/* Shop */
+body.dark-mode #pricing           { background: #0e0608; }
+body.dark-mode .filter-sep        { background: rgba(255,255,255,0.08); }
+body.dark-mode .filter-btn        { border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.45); }
+body.dark-mode .filter-btn:hover,
+body.dark-mode .filter-btn.active { background: #e8799a; border-color: #e8799a; color: #fff; }
+body.dark-mode .product-card      { background: #1e0d14; box-shadow: 0 4px 24px rgba(0,0,0,.45); }
+body.dark-mode .product-card:hover{ box-shadow: 0 16px 50px rgba(0,0,0,.6); }
+body.dark-mode .product-mood-badge{ background: rgba(14,6,8,.85); color: #f2a7bb; }
+body.dark-mode .product-burn      { background: rgba(255,255,255,.07); color: rgba(255,255,255,.4); }
+body.dark-mode .btn-buy           { background: #6b1a2a; }
+body.dark-mode .btn-buy:hover     { background: #8b2a3e; }
+body.dark-mode .btn-cart-add {
+  background: transparent !important;
+  color: #e8799a !important;
+  border: 1.5px solid rgba(232,121,154,.35) !important;
+}
+
+/* Reviews */
+body.dark-mode #reviews             { background: #130810; }
+body.dark-mode .review-form-wrap    { background: #1e0d14; box-shadow: 0 4px 30px rgba(0,0,0,.4); }
+body.dark-mode .review-card         { background: #1e0d14; box-shadow: 0 3px 16px rgba(0,0,0,.35); }
+body.dark-mode .review-form-wrap .form-group input,
+body.dark-mode .review-form-wrap .form-group textarea,
+body.dark-mode .review-form-wrap .form-group select {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.1);
+  color: #f5dde4;
+}
+body.dark-mode .star-input span     { color: rgba(255,255,255,.15); }
+body.dark-mode .star-input span.active { color: #e8a030; }
+
+/* Contact — already dark, just tweak */
+body.dark-mode #contact             { background: #08030a; }
+
+/* Footer */
+body.dark-mode footer               { background: #050205; }
+
+/* Modal */
+body.dark-mode .modal {
+  background: #1a080f;
+  box-shadow: 0 40px 100px rgba(0,0,0,.7);
+}
+body.dark-mode .modal-product-info  { background: rgba(255,255,255,.06); }
+body.dark-mode .modal .form-group input {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.1);
+  color: #f5dde4;
+}
+body.dark-mode .modal-close         { color: rgba(255,255,255,.4); }
+
+/* Cart Drawer */
+body.dark-mode #cart-drawer {
+  background: linear-gradient(180deg,#130810,#0e0608);
+  border-left-color: rgba(255,255,255,.07);
+}
+body.dark-mode .cart-item           { border-bottom-color: rgba(255,255,255,.055); }
+body.dark-mode .cart-item-name      { color: rgba(255,255,255,.86); }
+body.dark-mode .cart-empty          { color: rgba(255,255,255,.3); }
+body.dark-mode .qty-btn {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.65);
+}
+body.dark-mode .remove-btn          { color: rgba(255,255,255,.25); }
+body.dark-mode .remove-btn:hover    { color: #f1948a; }
+
+/* Checkout Overlay */
+body.dark-mode #checkout-overlay > div,
+body.dark-mode .checkout-inner {
+  background: #1a080f;
+  border-color: rgba(255,255,255,.07);
+}
+body.dark-mode .co-input,
+body.dark-mode .co-textarea,
+body.dark-mode .co-select {
+  background: rgba(255,255,255,.05) !important;
+  border-color: rgba(255,255,255,.1) !important;
+  color: #f5dde4 !important;
+}
+body.dark-mode .pay-method {
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.09);
+  color: rgba(255,255,255,.5);
+}
+body.dark-mode .pay-method.selected {
+  border-color: rgba(232,121,154,.5);
+  background: rgba(232,121,154,.1);
+  color: #f2a7bb;
+}
+
+/* Smooth theme transition for everything */
+body, body * {
+  transition:
+    background-color 0.35s ease,
+    border-color     0.35s ease,
+    color            0.25s ease,
+    box-shadow       0.35s ease;
+}
+/* But don't slow down hover/transform animations */
+.btn-primary, .btn-outline, .btn-buy, .product-card,
+.hero-candle-card, .filter-btn, #theme-toggle {
+  transition:
+    background-color 0.2s ease,
+    border-color     0.2s ease,
+    color            0.2s ease,
+    transform        0.2s ease,
+    box-shadow       0.2s ease !important;
+}
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1521,6 +1699,7 @@
   padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
 }
 .remove-coupon-btn:hover { background: rgba(192,57,43,0.08); }
+
 
 
 
