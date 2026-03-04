@@ -55,27 +55,7 @@
 </div>
 
 <!-- HOME -->
-<section id="home">
-  <div class="hero-bg-blob blob1"></div>
-  <div class="hero-bg-blob blob2"></div>
-  <div class="hero-text">
-    <div class="hero-eyebrow">✦ Handcrafted with love</div>
-    <h1 class="hero-title">Light a Candle<br>for Every <em>Mood</em></h1>
-    <p class="hero-sub">From tender romance to quiet solitude, each Scentra candle is poured to match the texture of a feeling.</p>
-    <div class="hero-btns">
-      <a href="#pricing" class="btn-primary">Shop Now</a>
-      <a href="#about" class="btn-outline">Our Story</a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="candle-showcase">
-      <div class="hero-candle-card"><div class="hcc-emoji">🕯️</div><div class="hcc-label">Rose & Oud</div><div class="hcc-mood">Romantic</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌸</div><div class="hcc-label">Citrus Joy</div><div class="hcc-mood">Happiness</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌧️</div><div class="hcc-label">Rain & Musk</div><div class="hcc-mood">Melancholy</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌿</div><div class="hcc-label">Sage & Cedar</div><div class="hcc-mood">Calm</div></div>
-    </div>
-  </div>
-</section>
+<div id="scentra-root"></div>
 
 <!-- ABOUT -->
 <section id="about">
@@ -384,7 +364,20 @@
 </div>
 
 <script src="Script.js"></script>
-  <script src="Script.js"></script>
+  <!-- React via CDN -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<!-- Babel to compile JSX in browser -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<!-- Your React component -->
+<script type="text/babel" src="ScentralComplete.jsx"></script>
+
+<!-- Mount it -->
+<script type="text/babel">
+  const root = ReactDOM.createRoot(document.getElementById('scentra-root'));
+  root.render(React.createElement(App));
+</script>
 </body>
 </html>
 
