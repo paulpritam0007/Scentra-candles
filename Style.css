@@ -1469,6 +1469,59 @@
   .co-form-grid { grid-template-columns: 1fr; }
   .payment-methods { flex-direction: column; }
 }
+.coupon-row {
+  display: flex; gap: 10px; align-items: center; margin-bottom: 8px;
+}
+.coupon-row input {
+  flex: 1; padding: 11px 14px;
+  border: 1.5px solid var(--beige-dark); border-radius: 10px;
+  background: #fff; font-family: 'Jost', sans-serif;
+  font-size: 0.88rem; letter-spacing: 0.08em;
+  color: var(--text-dark); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s; cursor: text;
+  text-transform: uppercase;
+}
+.coupon-row input:focus {
+  border-color: var(--pink-deep);
+  box-shadow: 0 0 0 3px rgba(232,121,154,0.1);
+}
+.coupon-row input.co-error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.08);
+}
+.coupon-row input.coupon-valid {
+  border-color: #27ae60; background: #f0fff4;
+  box-shadow: 0 0 0 3px rgba(39,174,96,0.1);
+  color: #1e8449; font-weight: 600;
+}
+.btn-apply-coupon {
+  padding: 11px 20px; background: var(--maroon); color: #fff;
+  border: none; border-radius: 10px; font-family: 'Jost', sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.2s, transform 0.15s; flex-shrink: 0;
+}
+.btn-apply-coupon:hover { background: var(--maroon-light); transform: translateY(-1px); }
+.coupon-msg {
+  font-size: 0.8rem; padding: 9px 14px;
+  border-radius: 8px; margin-bottom: 10px; font-weight: 500;
+}
+.coupon-msg.success { background: #edfaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+.coupon-msg.error   { background: #fdf0ef; color: #922b21; border: 1px solid #f5c6c3; }
+.coupon-discount-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.84rem; color: var(--text-dark);
+  padding: 8px 12px; background: #edfaf1;
+  border-radius: 8px; border: 1px solid #a9dfbf; margin-bottom: 12px;
+}
+.coupon-discount-row span:last-child { color: #27ae60; font-weight: 700; }
+.remove-coupon-btn {
+  background: none; border: none; font-size: 0.72rem;
+  color: #922b21; cursor: pointer; margin-left: 8px;
+  padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
+}
+.remove-coupon-btn:hover { background: rgba(192,57,43,0.08); }
+
 
 
 
