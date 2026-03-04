@@ -1,247 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JLEBV8JP9X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Scentra Candles — Light a Candle for Every Mood</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#06000b;overflow-x:hidden;font-family:'Jost',sans-serif;color:#fff;cursor:none!important}
+*{cursor:none!important}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(232,121,154,.4);border-radius:4px}
+input,textarea,select{font-family:'Jost',sans-serif;color-scheme:dark}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.22)}
+a{text-decoration:none;color:inherit}
+button{font-family:'Jost',sans-serif}
 
-  gtag('config', 'G-JLEBV8JP9X');
-</script>
-<meta charset="UTF-8">
-<meta name="description" content="Handcrafted soy candles in Kolkata. Mood-based fragrances for romance, calm, happiness and relaxation. Shop Scentra candles online.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scentra | Candles for Every Mood</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<link rel="icon" type="image/png" href="logo.jpeg">
-<link rel="stylesheet" href="Style.css">
+/* ══════════════════════════════════════════
+   CUSTOM CURSOR
+══════════════════════════════════════════ */
+#cursor-dot{position:fixed;top:0;left:0;width:10px;height:10px;background:#e8799a;border-radius:50%;pointer-events:none;z-index:99999;will-change:transform;box-shadow:0 0 8px #e8799a,0 0 22px rgba(232,121,154,.55);transform:translate(-200px,-200px)}
+#cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid rgba(242,167,187,.4);border-radius:50%;pointer-events:none;z-index:99998;will-change:transform;transform:translate(-200px,-200px)}
+
+/* ══════════════════════════════════════════
+   KEYFRAMES
+══════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);filter:blur(6px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes titleSlide{from{opacity:0;transform:translateY(54px) skewY(2.5deg)}to{opacity:1;transform:translateY(0) skewY(0)}}
+@keyframes lineGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes rotateSlow{to{transform:rotate(360deg)}}
+@keyframes rotateRev{to{transform:rotate(-360deg)}}
+@keyframes blobDrift{0%,100%{transform:translate(0,0) scale(1);opacity:.45}33%{transform:translate(32px,-22px) scale(1.07);opacity:.6}66%{transform:translate(-20px,16px) scale(.95);opacity:.35}}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 8px #e8799a,0 0 18px rgba(232,121,154,.5)}50%{box-shadow:0 0 18px #e8799a,0 0 40px rgba(232,121,154,.75),0 0 60px rgba(232,121,154,.25)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(36px) scale(.87)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes scrollBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes noiseShift{0%{transform:translate(0,0)}25%{transform:translate(-2%,-1%)}50%{transform:translate(1%,2%)}75%{transform:translate(-1%,1%)}100%{transform:translate(0,0)}}
+@keyframes modalIn{from{opacity:0;transform:scale(.93) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes successPop{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes badgeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes revealUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-44px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInRight{from{opacity:0;transform:translateX(44px)}to{opacity:1;transform:translateX(0)}}
+
+/* ══════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 60px;transition:all .4s ease;animation:fadeIn .8s ease .1s both}
+nav.scrolled{background:rgba(6,0,11,.93);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.055)}
+.nav-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:#fff;letter-spacing:.03em}
+.nav-logo span{color:#e8799a}
+.nav-links{display:flex;gap:36px;list-style:none;align-items:center;animation:fadeIn .8s ease .3s both}
+.nav-links a{font-size:.73rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);transition:color .2s,letter-spacing .2s}
+.nav-links a:hover{color:#f2a7bb;letter-spacing:.18em}
+.cart-btn{position:relative;background:transparent;border:1px solid rgba(255,255,255,.14);border-radius:40px;padding:8px 22px;color:rgba(255,255,255,.65);font-size:.72rem;letter-spacing:.12em;display:flex;align-items:center;gap:8px;transition:all .25s}
+.cart-btn:hover{border-color:rgba(242,167,187,.45);color:#f2a7bb;background:rgba(242,167,187,.07)}
+.cart-badge{position:absolute;top:-7px;right:-7px;width:18px;height:18px;background:#e8799a;border-radius:50%;font-size:.58rem;font-weight:700;display:flex;align-items:center;justify-content:center;color:#fff;animation:successPop .3s ease}
+.hamburger{display:none;flex-direction:column;gap:5px;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:rgba(255,255,255,.7);border-radius:2px;transition:all .3s}
+.mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(6,0,11,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.06);z-index:999;animation:fadeIn .2s ease}
+.mobile-menu a{display:block;padding:15px 40px;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);border-bottom:1px solid rgba(255,255,255,.04)}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+#home{position:relative;min-height:100vh;background:#06000b;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 72% 62% at 14% 44%,rgba(107,26,42,.62) 0%,transparent 68%),radial-gradient(ellipse 52% 72% at 84% 14%,rgba(74,15,26,.46) 0%,transparent 62%),radial-gradient(ellipse 88% 44% at 50% 108%,rgba(18,2,8,1) 0%,transparent 52%),linear-gradient(158deg,#110007 0%,#1b020e 38%,#07000f 100%)}
+.hero-noise{position:absolute;inset:-18%;width:136%;height:136%;z-index:2;opacity:.03;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:190px;animation:noiseShift 7s steps(4) infinite}
+#particles-canvas{position:absolute;inset:0;pointer-events:none;z-index:1}
+.hero-rings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:1}
+.ring-slow{animation:rotateSlow 38s linear infinite}
+.ring-rev{position:absolute;top:0;left:0;animation:rotateRev 24s linear infinite}
+.blob{position:absolute;border-radius:50%;pointer-events:none;z-index:1}
+.hero-grid{position:relative;z-index:10;display:grid;grid-template-columns:1fr 1fr;min-height:100vh;max-width:1440px;margin:0 auto;padding:0 60px;align-items:center;gap:60px;will-change:transform}
+.hero-left{display:flex;flex-direction:column;padding:120px 0 82px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:34px;opacity:0;animation:fadeUp .65s cubic-bezier(.16,1,.3,1) .18s forwards}
+.hero-eyebrow-line{width:28px;height:1px;background:linear-gradient(90deg,transparent,#e8799a)}
+.hero-eyebrow-text{font-size:.65rem;letter-spacing:.34em;text-transform:uppercase;color:rgba(242,167,187,.58);font-weight:300}
+.hero-eyebrow-dot{width:5px;height:5px;background:#e8799a;border-radius:50%;animation:dotPulse 2.5s ease-in-out infinite}
+.title-overflow{overflow:hidden;margin-bottom:4px}
+.title-line{display:block;font-family:'Playfair Display',serif;font-size:clamp(2.9rem,5.3vw,5.8rem);line-height:1;color:#fff;letter-spacing:-.015em;opacity:0}
+.title-line-1{animation:titleSlide .9s cubic-bezier(.16,1,.3,1) .32s forwards}
+.title-line-2{animation:titleSlide .9s cubic-bezier(.16,1,.3,1) .48s forwards}
+.title-morph-wrap{overflow:hidden;margin-bottom:28px}
+.title-morph{display:block;font-family:'Playfair Display',serif;font-size:clamp(2.9rem,5.3vw,5.8rem);line-height:1.1;opacity:0;animation:titleSlide .9s cubic-bezier(.16,1,.3,1) .64s forwards}
+.morph-word{display:inline-block;font-style:italic;background:linear-gradient(135deg,#f2a7bb 0%,#e8799a 45%,#c0392b 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;transition:all .47s cubic-bezier(.16,1,.3,1);min-width:220px}
+.morph-word.out{opacity:0;transform:translateY(-18px) scale(.88);filter:blur(9px)}
+.morph-word.in{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+.hero-divider{height:1px;background:linear-gradient(90deg,#e8799a,rgba(232,121,154,.08));margin-bottom:26px;transform-origin:left;transform:scaleX(0);animation:lineGrow 1.1s cubic-bezier(.16,1,.3,1) .9s forwards}
+.hero-body{font-family:'Cormorant Garamond',serif;font-size:clamp(.96rem,1.3vw,1.18rem);color:rgba(255,255,255,.34);line-height:1.84;max-width:400px;margin-bottom:42px;font-weight:300;opacity:0;animation:fadeUp .7s ease 1.06s forwards}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px;opacity:0;animation:fadeUp .7s ease 1.2s forwards}
+.btn-primary{padding:14px 40px;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);color:#fff;border:none;border-radius:50px;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;transition:transform .3s,box-shadow .3s}
+.btn-primary:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 22px 55px rgba(232,121,154,.42)}
+.btn-ghost{padding:14px 32px;background:transparent;color:rgba(255,255,255,.42);border:1px solid rgba(255,255,255,.1);border-radius:50px;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;display:inline-block;backdrop-filter:blur(8px);transition:all .3s}
+.btn-ghost:hover{color:#f2a7bb;border-color:rgba(242,167,187,.32);background:rgba(242,167,187,.05);transform:translateY(-3px)}
+.hero-stats{display:flex;gap:44px;padding-top:28px;border-top:1px solid rgba(255,255,255,.052);opacity:0;animation:fadeUp .7s ease 1.36s forwards}
+.stat-val{font-family:'Playfair Display',serif;font-size:clamp(1.35rem,2.2vw,1.85rem);color:#f2a7bb;font-weight:700;line-height:1;filter:drop-shadow(0 0 12px rgba(242,167,187,.3))}
+.stat-lbl{font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:rgba(255,255,255,.2);font-weight:300;margin-top:4px}
+.hero-right{position:relative;display:flex;align-items:center;justify-content:center;padding:120px 0 82px}
+.ambient-flame{position:absolute;top:50%;left:50%;transform:translate(-50%,-54%);z-index:1;pointer-events:none;opacity:.19;filter:blur(3px)}
+.hero-tag{position:absolute;background:rgba(255,255,255,.038);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.07);border-radius:30px;padding:7px 18px;font-size:.62rem;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;z-index:4;opacity:0;animation:badgeFloat 4s ease-in-out infinite,fadeUp .6s ease forwards}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;max-width:490px;position:relative;z-index:2}
+.cards-col{display:flex;flex-direction:column;gap:14px}
+.tilt-card{perspective:580px;opacity:0}
+.tilt-inner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:18px 14px 15px;transition:all .5s cubic-bezier(.16,1,.3,1);box-shadow:0 6px 22px rgba(0,0,0,.3);backdrop-filter:blur(16px);position:relative;overflow:hidden;transform-style:preserve-3d}
+.tilt-inner:hover{background:rgba(255,255,255,.09);box-shadow:0 28px 56px rgba(0,0,0,.55)}
+.tilt-shimmer{position:absolute;inset:0;background:linear-gradient(108deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 62%);transform:translateX(-120%);transition:transform .55s ease;pointer-events:none}
+.tilt-inner:hover .tilt-shimmer{transform:translateX(120%)}
+.tilt-candle-body{margin:8px auto 10px;border-radius:3px 3px 5px 5px;position:relative}
+.tilt-candle-shine{position:absolute;top:0;left:0;right:0;height:36%;background:linear-gradient(180deg,rgba(255,255,255,.18),transparent);border-radius:3px 3px 0 0}
+.tilt-name{font-family:'Playfair Display',serif;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.92);text-align:center;margin-bottom:2px;line-height:1.2}
+.tilt-mood{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;text-align:center;margin-bottom:6px;opacity:.85}
+.tilt-price{font-family:'Playfair Display',serif;font-size:.92rem;font-weight:700;color:#fff;text-align:center}
+.scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;opacity:0;animation:fadeUp .7s ease 2.1s forwards;z-index:10}
+.scroll-text{font-size:.54rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.16)}
+.scroll-line{width:1px;height:34px;background:linear-gradient(180deg,rgba(232,121,154,.52),transparent);animation:scrollBounce 2s ease-in-out infinite}
+.hero-fade-bottom{position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(transparent,#06000b);pointer-events:none;z-index:8}
+
+/* ══════════════════════════════════════════
+   SECTIONS COMMON
+══════════════════════════════════════════ */
+.section-label{display:inline-block;font-size:.67rem;letter-spacing:.28em;text-transform:uppercase;color:#e8799a;background:rgba(232,121,154,.09);padding:5px 16px;border-radius:40px;margin-bottom:18px}
+.section-heading{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.3vw,3.1rem);color:#fff;margin-bottom:14px}
+.section-divider{width:46px;height:2px;background:linear-gradient(90deg,#e8799a,rgba(232,121,154,.08));border-radius:2px;margin:0 auto}
+.section-center{text-align:center;margin-bottom:56px;opacity:0;transform:translateY(28px);transition:all .8s ease}
+.section-center.visible{opacity:1;transform:none}
+
+/* ══════════════════════════════════════════
+   ABOUT
+══════════════════════════════════════════ */
+#about{background:linear-gradient(135deg,#0c000f 0%,#180208 50%,#09000e 100%);padding:120px 80px;position:relative;overflow:hidden}
+.about-grid{max-width:1220px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+.about-left{opacity:0;transform:translateX(-44px);transition:all .95s cubic-bezier(.16,1,.3,1)}
+.about-left.visible{opacity:1;transform:none}
+.about-right{opacity:0;transform:translateX(44px);transition:all .95s cubic-bezier(.16,1,.3,1) .2s}
+.about-right.visible{opacity:1;transform:none}
+.about-visual{background:linear-gradient(135deg,rgba(107,26,42,.58),rgba(74,15,26,.38));border-radius:28px 28px 76px 28px;height:460px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.055);overflow:hidden;box-shadow:0 44px 100px rgba(0,0,0,.52);position:relative}
+.about-est{position:absolute;bottom:-18px;right:-18px;width:108px;height:108px;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 18px 48px rgba(107,26,42,.52);font-family:'Playfair Display',serif;font-size:.7rem;color:rgba(255,255,255,.7);text-align:center;line-height:1.6}
+.about-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+.about-stat{background:rgba(255,255,255,.035);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.055);backdrop-filter:blur(12px)}
+.about-stat-val{font-family:'Playfair Display',serif;font-size:1.85rem;color:#f2a7bb;font-weight:700}
+.about-stat-lbl{font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.06em;margin-top:4px}
+.about-story-label{display:inline-block;font-size:.67rem;letter-spacing:.28em;text-transform:uppercase;color:#e8799a;background:rgba(232,121,154,.09);padding:5px 16px;border-radius:40px;margin-bottom:20px}
+.about-h2{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.3vw,3.1rem);color:#fff;line-height:1.14;margin-bottom:18px}
+.about-h2 em{font-style:italic;color:#f2a7bb}
+.about-accent-line{width:48px;height:2px;background:linear-gradient(90deg,#e8799a,rgba(232,121,154,.08));margin-bottom:30px;border-radius:2px}
+.about-body{font-family:'Cormorant Garamond',serif;font-size:1.06rem;color:rgba(255,255,255,.42);line-height:1.86;margin-bottom:26px;font-weight:300}
+.about-body strong{color:rgba(255,255,255,.68)}
+.about-body em{color:#f2a7bb}
+.feature-item{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.028);border-radius:14px;padding:16px;border:1px solid rgba(255,255,255,.048);margin-bottom:11px;backdrop-filter:blur(8px)}
+.feature-icon{width:44px;height:44px;background:rgba(232,121,154,.11);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.feature-title{font-family:'Cormorant Garamond',serif;font-size:1.02rem;color:rgba(255,255,255,.82);margin-bottom:3px}
+.feature-text{font-size:.8rem;color:rgba(255,255,255,.32);line-height:1.6}
+
+/* ══════════════════════════════════════════
+   SHOP
+══════════════════════════════════════════ */
+#shop{background:linear-gradient(180deg,#06000b 0%,#0c000f 100%);padding:100px 60px;position:relative}
+.mood-filters{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-bottom:44px}
+.mood-btn{padding:8px 21px;border-radius:38px;border:1.5px solid rgba(255,255,255,.11);background:transparent;color:rgba(255,255,255,.42);font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.08em;transition:all .22s}
+.mood-btn.active,.mood-btn:hover{border-color:#e8799a;background:rgba(232,121,154,.14);color:#f2a7bb}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:22px;max-width:1320px;margin:0 auto}
+.product-card{background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.055);border-radius:22px;overflow:hidden;transition:all .42s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(12px)}
+.product-card:hover{background:rgba(255,255,255,.062);transform:translateY(-9px) scale(1.012);box-shadow:0 26px 60px rgba(0,0,0,.44)}
+.product-img{height:174px;display:flex;align-items:center;justify-content:center;position:relative;border-bottom:1px solid rgba(255,255,255,.044)}
+.product-mood-tag{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.46);backdrop-filter:blur(8px);padding:3px 11px;border-radius:28px;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.product-incart{position:absolute;top:10px;right:10px;background:rgba(232,121,154,.18);border:1px solid rgba(232,121,154,.38);border-radius:18px;padding:3px 9px;font-size:.58rem;color:#f2a7bb;letter-spacing:.07em}
+.product-body{padding:18px}
+.product-name{font-family:'Playfair Display',serif;font-size:1.04rem;color:rgba(255,255,255,.9);margin-bottom:6px}
+.product-desc{font-size:.76rem;color:rgba(255,255,255,.28);line-height:1.62;margin-bottom:13px;min-height:40px}
+.product-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}
+.product-price{font-family:'Playfair Display',serif;font-size:1.25rem;color:#f2a7bb;font-weight:700}
+.product-burn{font-size:.63rem;color:rgba(255,255,255,.28);background:rgba(255,255,255,.048);padding:3px 9px;border-radius:18px}
+.btn-add{width:100%;padding:10px;background:transparent;border-radius:11px;font-family:'Jost',sans-serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;transition:all .25s}
+.btn-add.added{background:rgba(39,174,96,.13)!important;color:#82e0aa!important;border-color:rgba(39,174,96,.4)!important}
+
+/* ══════════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════════ */
+#reviews{background:linear-gradient(135deg,#0c000f 0%,#06000b 100%);padding:100px 60px;position:relative}
+.reviews-grid{display:grid;grid-template-columns:1fr 1.45fr;gap:54px;align-items:start;max-width:1220px;margin:0 auto}
+.review-form-wrap{background:rgba(255,255,255,.028);border-radius:24px;padding:34px;border:1px solid rgba(255,255,255,.062);backdrop-filter:blur(12px);position:sticky;top:88px}
+.stars-input{display:flex;gap:5px;margin-bottom:18px}
+.star-btn{font-size:1.9rem;color:rgba(255,255,255,.14);transition:color .15s,transform .15s;background:none;border:none}
+.star-btn.active{color:#f39c12;transform:scale(1.12)}
+.form-group{margin-bottom:12px}
+.form-label{display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:5px}
+.form-input,.form-textarea,.form-select{width:100%;padding:10px 13px;border:1.5px solid rgba(255,255,255,.09);border-radius:10px;background:rgba(255,255,255,.045);font-family:'Jost',sans-serif;font-size:.84rem;color:#fff;outline:none}
+.form-textarea{resize:vertical;line-height:1.5}
+.form-select{background:#180208}
+.btn-submit{width:100%;padding:13px;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);color:#fff;border:none;border-radius:12px;font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;transition:all .3s}
+.btn-submit.ok{background:rgba(39,174,96,.18)!important;color:#82e0aa!important;border:1px solid rgba(39,174,96,.4)!important}
+.reviews-list{display:flex;flex-direction:column;gap:16px}
+.review-card{background:rgba(255,255,255,.028);border-radius:20px;padding:22px;border:1px solid rgba(255,255,255,.055);backdrop-filter:blur(10px);opacity:0}
+.review-card.visible{animation:cardIn .5s ease forwards}
+.review-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;flex-shrink:0}
+.review-stars{color:#f39c12;font-size:13px;letter-spacing:1px}
+.review-text{font-family:'Cormorant Garamond',serif;font-size:.98rem;color:rgba(255,255,255,.42);line-height:1.72;font-style:italic}
+.review-date{font-size:.66rem;color:rgba(255,255,255,.18);margin-top:7px}
+
+/* ══════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════ */
+#contact{background:linear-gradient(135deg,#04000a 0%,#0c000f 100%);padding:100px 60px;position:relative}
+.contact-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:76px;align-items:start;max-width:1220px;margin:0 auto;opacity:0;transform:translateY(28px);transition:all .8s ease .2s}
+.contact-grid.visible{opacity:1;transform:none}
+.contact-info-item{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.028);padding:18px;border-radius:16px;border:1px solid rgba(255,255,255,.055);margin-bottom:14px}
+.contact-icon{width:44px;height:44px;background:rgba(232,121,154,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.contact-info-label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#e8799a;margin-bottom:4px}
+.contact-info-text{font-size:.84rem;color:rgba(255,255,255,.42);line-height:1.56;white-space:pre-line}
+.social-links{display:flex;gap:14px;padding-top:4px}
+.social-link{font-size:.7rem;color:rgba(242,167,187,.5);border-bottom:1px solid rgba(242,167,187,.22);padding-bottom:1px;letter-spacing:.07em;transition:color .2s}
+.social-link:hover{color:#f2a7bb}
+.contact-form{background:rgba(255,255,255,.028);border-radius:24px;padding:38px;border:1px solid rgba(255,255,255,.062);backdrop-filter:blur(12px)}
+.btn-send{width:100%;padding:14px;background:linear-gradient(135deg,#e8799a,#c0392b);color:#fff;border:none;border-radius:12px;font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;transition:all .25s}
+.btn-send.sent{background:rgba(39,174,96,.15)!important;color:#82e0aa!important;border:1px solid rgba(39,174,96,.38)!important}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+footer{background:#020006;padding:36px 60px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;border-top:1px solid rgba(255,255,255,.044)}
+.footer-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:rgba(255,255,255,.5)}
+.footer-logo span{color:#e8799a}
+footer p{font-size:.72rem;color:rgba(255,255,255,.18)}
+footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
+
+/* ══════════════════════════════════════════
+   CART DRAWER
+══════════════════════════════════════════ */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.56);backdrop-filter:blur(5px);z-index:2000;opacity:0;pointer-events:none;transition:opacity .32s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;width:415px;max-width:100vw;height:100vh;background:linear-gradient(180deg,#0c000f,#06000b);border-left:1px solid rgba(255,255,255,.07);z-index:2001;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);box-shadow:-16px 0 64px rgba(0,0,0,.4)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.cart-title{font-family:'Playfair Display',serif;font-size:1.28rem;color:#fff}
+.cart-count{font-size:.72rem;font-family:'Jost',sans-serif;color:rgba(255,255,255,.32);font-weight:300}
+.btn-close{width:34px;height:34px;background:rgba(255,255,255,.055);border:none;border-radius:9px;font-size:1rem;color:rgba(255,255,255,.45);display:flex;align-items:center;justify-content:center}
+.cart-items{flex:1;overflow-y:auto;padding:12px 24px}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;padding-bottom:60px}
+.cart-empty p{font-family:'Cormorant Garamond',serif;font-size:1.04rem;font-style:italic;color:rgba(255,255,255,.24);text-align:center}
+.cart-item{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.052)}
+.cart-item-img{width:56px;height:56px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.055)}
+.cart-item-name{font-family:'Playfair Display',serif;font-size:.88rem;color:rgba(255,255,255,.86);margin-bottom:2px}
+.cart-item-mood{font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-bottom:8px}
+.qty-controls{display:flex;align-items:center;gap:7px}
+.qty-btn{width:25px;height:25px;background:rgba(255,255,255,.062);border:none;border-radius:7px;color:rgba(255,255,255,.65);font-size:.88rem;display:flex;align-items:center;justify-content:center}
+.qty-val{font-size:.82rem;color:#fff;min-width:18px;text-align:center}
+.cart-item-price{font-family:'Playfair Display',serif;font-size:.95rem;color:#f2a7bb;font-weight:700}
+.btn-remove{background:none;border:none;font-size:.7rem;color:rgba(255,255,255,.22);transition:color .2s}
+.btn-remove:hover{color:#f1948a}
+.cart-footer{padding:16px 24px 24px;border-top:1px solid rgba(255,255,255,.062);background:rgba(0,0,0,.18)}
+.cart-subtotal,.cart-shipping{display:flex;justify-content:space-between;margin-bottom:5px}
+.cart-subtotal{font-size:.76rem;color:rgba(255,255,255,.32)}
+.cart-shipping{font-size:.74rem;color:rgba(255,255,255,.22);margin-bottom:11px;padding-bottom:11px;border-bottom:1px solid rgba(255,255,255,.062)}
+.cart-total{display:flex;justify-content:space-between;font-family:'Playfair Display',serif;font-size:1.08rem;color:#fff;font-weight:700;margin-bottom:14px}
+.cart-total span:last-child{color:#f2a7bb}
+.btn-checkout{width:100%;padding:13px;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);color:#fff;border:none;border-radius:13px;font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:9px;transition:all .22s}
+.btn-checkout:hover{background:linear-gradient(135deg,#8b2a3e,#a0364e);transform:translateY(-2px)}
+.btn-continue{width:100%;background:none;border:none;color:rgba(255,255,255,.22);font-family:'Jost',sans-serif;font-size:.68rem;letter-spacing:.12em;transition:color .2s}
+.btn-continue:hover{color:#f2a7bb}
+
+/* ══════════════════════════════════════════
+   CHECKOUT MODAL
+══════════════════════════════════════════ */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);z-index:3000;display:flex;align-items:center;justify-content:center;padding:20px;display:none}
+.modal-overlay.open{display:flex}
+.modal-box{background:linear-gradient(180deg,#0e0012,#080010);border-radius:28px;width:100%;max-width:570px;max-height:92vh;overflow-y:auto;box-shadow:0 44px 110px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.07);position:relative;animation:modalIn .35s cubic-bezier(.16,1,.3,1)}
+.modal-header{padding:24px 28px 16px;border-bottom:1px solid rgba(255,255,255,.062);position:sticky;top:0;background:#0e0012;z-index:1}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.42rem;color:#fff;margin-bottom:3px}
+.modal-sub{font-size:.74rem;color:rgba(255,255,255,.28)}
+.btn-modal-close{position:absolute;top:20px;right:24px;width:34px;height:34px;background:rgba(255,255,255,.055);border:none;border-radius:9px;font-size:1rem;color:rgba(255,255,255,.38);display:flex;align-items:center;justify-content:center}
+.modal-body{padding:20px 28px 30px}
+.order-summary{background:rgba(255,255,255,.028);border-radius:14px;padding:14px;margin-bottom:20px;border:1px solid rgba(255,255,255,.055)}
+.order-row{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:rgba(255,255,255,.62);padding:5px 0;border-bottom:1px dashed rgba(255,255,255,.055)}
+.order-total-row{display:flex;justify-content:space-between;padding-top:9px;margin-top:3px;border-top:1.5px solid rgba(255,255,255,.07)}
+.order-total-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.32)}
+.order-total-val{font-family:'Playfair Display',serif;font-size:1.12rem;color:#f2a7bb;font-weight:700}
+.coupon-row{display:flex;gap:9px}
+.coupon-input{flex:1;padding:9px 12px;border:1.5px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(255,255,255,.038);font-family:'Jost',sans-serif;font-size:.82rem;color:#fff;outline:none;letter-spacing:.08em;text-transform:uppercase}
+.coupon-input.valid{border-color:rgba(39,174,96,.5);background:rgba(39,174,96,.07);color:#82e0aa}
+.coupon-input.invalid{border-color:rgba(231,76,60,.5)}
+.btn-coupon{padding:9px 18px;background:rgba(107,26,42,.55);border:1px solid rgba(232,121,154,.28);border-radius:9px;color:#f2a7bb;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.09em;white-space:nowrap}
+.btn-remove-coupon{padding:9px 14px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.28);border-radius:9px;color:#f1948a;font-family:'Jost',sans-serif;font-size:.7rem;letter-spacing:.09em;white-space:nowrap}
+.coupon-msg{margin-top:7px;font-size:.74rem;padding:7px 11px;border-radius:8px}
+.coupon-msg.ok{background:rgba(39,174,96,.09);color:#82e0aa;border:1px solid rgba(39,174,96,.28)}
+.coupon-msg.err{background:rgba(231,76,60,.09);color:#f1948a;border:1px solid rgba(231,76,60,.28)}
+.section-sep{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-sep-line{flex:1;height:1px;background:rgba(255,255,255,.055)}
+.checkout-fields{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:12px}
+.field-group{margin-bottom:0}
+.field-group.span2{grid-column:span 2}
+.field-label{display:block;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.26);margin-bottom:5px}
+.field-input{width:100%;padding:9px 12px;border:1.5px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(255,255,255,.038);font-family:'Jost',sans-serif;font-size:.82rem;color:#fff;outline:none}
+.field-select{width:100%;padding:9px 12px;border:1.5px solid rgba(255,255,255,.08);border-radius:9px;background:#0e0012;font-family:'Jost',sans-serif;font-size:.82rem;color:#fff;outline:none}
+.payment-options{display:flex;gap:9px;margin-bottom:20px}
+.pay-option{flex:1;padding:11px 8px;border:1.5px solid rgba(255,255,255,.07);border-radius:12px;background:rgba(255,255,255,.028);text-align:center;transition:all .2s}
+.pay-option.active{border-color:rgba(232,121,154,.4);background:rgba(232,121,154,.09)}
+.pay-icon{font-size:1.25rem;margin-bottom:3px}
+.pay-label{font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.38)}
+.pay-option.active .pay-label{color:#f2a7bb}
+.btn-place-order{width:100%;padding:14px;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);color:#fff;border:none;border-radius:13px;font-family:'Jost',sans-serif;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-place-order:disabled{background:rgba(107,26,42,.45)}
+.spinner{width:17px;height:17px;border:2px solid rgba(255,255,255,.28);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.checkout-secure{text-align:center;font-size:.66rem;color:rgba(255,255,255,.18);margin-top:11px}
+.order-success{text-align:center;padding:56px 38px;animation:successPop .5s ease}
+.success-flame-wrap{width:82px;height:82px;background:linear-gradient(135deg,rgba(107,26,42,.6),rgba(74,15,26,.4));border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center}
+.success-title{font-family:'Playfair Display',serif;font-size:1.75rem;color:#fff;margin-bottom:10px}
+.success-body{font-family:'Cormorant Garamond',serif;font-size:1.06rem;color:rgba(255,255,255,.38);line-height:1.75;font-style:italic;max-width:320px;margin:0 auto 28px}
+.success-order-id{background:rgba(255,255,255,.038);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:11px 22px;font-size:.74rem;color:rgba(255,255,255,.38);letter-spacing:.06em;margin-bottom:30px;display:inline-block}
+.success-order-id strong{color:#f2a7bb;font-family:'Playfair Display',serif}
+.btn-back-shop{padding:14px 42px;background:linear-gradient(135deg,#6b1a2a,#8b2a3e);color:#fff;border:none;border-radius:50px;font-family:'Jost',sans-serif;font-size:.74rem;letter-spacing:.15em;text-transform:uppercase;margin-top:16px}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:900px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero-grid{grid-template-columns:1fr;padding:0 24px}
+  .hero-right{display:none}
+  .hero-left{padding:110px 0 70px}
+  .hero-stats{gap:24px}
+  #about{padding:80px 24px}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  #shop{padding:80px 24px}
+  .shop-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+  #reviews{padding:80px 24px}
+  .reviews-grid{grid-template-columns:1fr}
+  .review-form-wrap{position:static}
+  #contact{padding:80px 24px}
+  .contact-grid{grid-template-columns:1fr;gap:40px}
+  footer{padding:28px 24px}
+}
+@media(max-width:600px){
+  .hero-stats{gap:20px}
+  .checkout-fields{grid-template-columns:1fr}
+  .field-group.span2{grid-column:span 1}
+}
+</style>
 </head>
 <body>
 
 <!-- CURSOR -->
-<div id="cursor"></div>
+<div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">Scentra<span>✦</span></div>
-   <!--Destop nav-->
-  <ul class="nav-links">
+<nav id="main-nav">
+  <a href="#home" class="nav-logo">Scentra<span>✦</span></a>
+  <ul class="nav-links" id="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#pricing">Shop</a></li>
+    <li><a href="#shop">Shop</a></li>
     <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
-    <li><a href="login.html" class="nav-cta">My Account</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li>
+      <button class="cart-btn" id="cart-open-btn">
+        🛍
+        <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+      </button>
+    </li>
   </ul>
-  <!--Hamburger button-->
-  <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
+  <button class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
-<!--Mobile dropdown(seperate from nav, so it slides below it)-->
-<div class="nav-links-mobile" id="mobile-menu">
-  <a href="#home" onclick="closeMobileMenu()">Home</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#pricing" onclick="closeMobileMenu()">Shop</a>
-  <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
-  <a href="#contact" onclick=closeMobileMenu()">Contact Us</a>
-  <a href="login.html" onclick="closeMobileMenu()" class="nav-cta-mobile">My Account</a>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#home" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#shop" onclick="closeMobile()">Shop</a>
+  <a href="#reviews" onclick="closeMobile()">Reviews</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
 
-<!-- HOME -->
+<!-- HERO -->
 <section id="home">
-  <div class="hero-bg-blob blob1"></div>
-  <div class="hero-bg-blob blob2"></div>
-  <div class="hero-text">
-    <div class="hero-eyebrow">✦ Handcrafted with love</div>
-    <h1 class="hero-title">Light a Candle<br>for Every <em>Mood</em></h1>
-    <p class="hero-sub">From tender romance to quiet solitude, each Scentra candle is poured to match the texture of a feeling.</p>
-    <div class="hero-btns">
-      <a href="#pricing" class="btn-primary">Shop Now</a>
-      <a href="#about" class="btn-outline">Our Story</a>
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <canvas id="particles-canvas"></canvas>
+  <div class="hero-rings">
+    <div class="ring-slow">
+      <svg width="880" height="880" viewBox="0 0 880 880" fill="none">
+        <circle cx="440" cy="440" r="410" stroke="rgba(242,167,187,.038)" stroke-width="1" stroke-dasharray="5 15"/>
+        <circle cx="440" cy="440" r="365" stroke="rgba(232,121,154,.052)" stroke-width=".6" stroke-dasharray="2 19"/>
+        <circle cx="440" cy="440" r="320" stroke="rgba(107,26,42,.09)" stroke-width="1" stroke-dasharray="1 10"/>
+      </svg>
+    </div>
+    <div class="ring-rev">
+      <svg width="880" height="880" viewBox="0 0 880 880" fill="none">
+        <circle cx="440" cy="440" r="288" stroke="rgba(242,167,187,.042)" stroke-width=".5" stroke-dasharray="3 22"/>
+      </svg>
     </div>
   </div>
-  <div class="hero-visual">
-    <div class="candle-showcase">
-      <div class="hero-candle-card"><div class="hcc-emoji">🕯️</div><div class="hcc-label">Rose & Oud</div><div class="hcc-mood">Romantic</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌸</div><div class="hcc-label">Citrus Joy</div><div class="hcc-mood">Happiness</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌧️</div><div class="hcc-label">Rain & Musk</div><div class="hcc-mood">Melancholy</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌿</div><div class="hcc-label">Sage & Cedar</div><div class="hcc-mood">Calm</div></div>
+  <div class="blob" style="left:-7%;top:7%;width:600px;height:600px;background:radial-gradient(circle,rgba(107,26,42,.64),transparent 70%);animation:blobDrift 9s ease-in-out infinite"></div>
+  <div class="blob" style="left:67%;top:54%;width:370px;height:370px;background:radial-gradient(circle,rgba(232,121,154,.1),transparent 70%);animation:blobDrift 11s ease-in-out 2s infinite"></div>
+  <div class="blob" style="left:37%;top:-6%;width:460px;height:460px;background:radial-gradient(circle,rgba(55,10,22,.5),transparent 70%);animation:blobDrift 13s ease-in-out 4s infinite"></div>
+
+  <div class="hero-grid" id="hero-grid">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span class="hero-eyebrow-text">Handcrafted with love · Kolkata</span>
+        <div class="hero-eyebrow-dot"></div>
+      </div>
+      <div class="title-overflow"><span class="title-line title-line-1">Light a Candle</span></div>
+      <div class="title-overflow"><span class="title-line title-line-2">for Every</span></div>
+      <div class="title-morph-wrap">
+        <span class="title-morph"><span class="morph-word in" id="morph-word">Romance</span></span>
+      </div>
+      <div class="hero-divider"></div>
+      <p class="hero-body">From tender romance to quiet solitude — each Scentra candle is poured to match the texture of a feeling. Pure soy wax. Natural wicks. No shortcuts.</p>
+      <div class="hero-ctas">
+        <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({behavior:'smooth'})">Shop Now ✦</button>
+        <a href="#about" class="btn-ghost">Our Story</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-val" data-count="24" data-suffix="+">0+</div><div class="stat-lbl">Candle Moods</div></div>
+        <div><div class="stat-val" data-count="100" data-suffix="%">0%</div><div class="stat-lbl">Pure Soy Wax</div></div>
+        <div><div class="stat-val" data-count="50" data-suffix="+">0+</div><div class="stat-lbl">Happy Souls</div></div>
+      </div>
+    </div>
+    <!-- RIGHT -->
+    <div class="hero-right">
+      <div class="ambient-flame"><canvas id="ambient-flame"></canvas></div>
+      <div class="hero-tag" style="top:5%;left:-5%;animation-delay:1.5s">🌹 Romantic</div>
+      <div class="hero-tag" style="top:6%;right:-1%;animation-delay:1.9s">✨ Spiritual</div>
+      <div class="hero-tag" style="bottom:5%;left:7%;animation-delay:2.2s">🌿 100% Soy</div>
+      <div class="cards-grid" id="hero-cards"></div>
     </div>
   </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-text">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+  <div class="hero-fade-bottom"></div>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-visual reveal">
-    <div class="about-img-wrap">
-      <img src="MD image.jpeg" height="700">
-      <div class="about-accent">Est.<br>2023<br>✦ Pure<br>Soy</div>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-label">Mood Collections</div></div>
-      <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Happy Customers</div></div>
-      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Natural Soy Wax</div></div>
-      <div class="stat-card"><div class="stat-num">6hrs+</div><div class="stat-label">Avg. Burn Time</div></div>
-    </div>
+  <div style="position:absolute;top:8%;right:-4%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.38),transparent 70%);pointer-events:none"></div>
+  <div style="position:absolute;bottom:4%;left:-2%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(74,15,26,.28),transparent 70%);pointer-events:none"></div>
+  <div class="section-center" id="about-header">
+    <span class="section-label">Our Story</span>
+    <h2 class="section-heading" style="margin-bottom:0">Scent is the language of the <em style="font-style:italic;color:#f2a7bb">soul</em></h2>
   </div>
-  <div class="about-text reveal">
-    <span class="section-tag">Our Story</span>
-    <h2 class="section-title">Scent is the language<br>of the <em>soul</em></h2>
-    <div class="divider"></div>
-    <p class="section-sub"><strong>Hello Consumer!</strong><br> My name is <em> Priyasha Dutta </em><br> Managing Director | Founder of Scentra Candles  <br>Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment turning an ordinary evening into something special.</p>
-    <div class="about-values">
-      <div class="value-item">
-        <div class="value-icon">🌿</div>
-        <div class="value-text"><h4>100% Natural Ingredients</h4><p>Every candle is crafted with pure soy wax, natural wicks, and premium fragrance oils no synthetics, no shortcuts.</p></div>
+  <div class="about-grid">
+    <div class="about-left" id="about-left">
+      <div style="position:relative">
+        <div class="about-visual">
+          <div style="text-align:center;position:relative;z-index:1">
+            <div style="display:flex;justify-content:center;margin-bottom:20px"><canvas id="about-flame"></canvas></div>
+            <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:1.7rem;color:rgba(255,255,255,.12);letter-spacing:.05em">est. 2023</div>
+          </div>
+          <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(242,167,187,.04),transparent 60%)"></div>
+        </div>
+        <div class="about-est">Est.<br>2023<br><span style="color:#e8799a;font-size:1rem">✦</span></div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">🎨</div>
-        <div class="value-text"><h4>Mood-Matched Scents</h4><p>Our master perfumer curates each fragrance to resonate with specific emotional states, creating a genuine sensory experience.</p></div>
+      <div class="about-stats-grid">
+        <div class="about-stat"><div class="about-stat-val" data-count="12" data-suffix="+">24+</div><div class="about-stat-lbl">Mood Collections</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="50" data-suffix="+">50+</div><div class="about-stat-lbl">Happy Customers</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="100" data-suffix="%">100%</div><div class="about-stat-lbl">Natural Soy Wax</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="6" data-suffix="hr+">6hr+</div><div class="about-stat-lbl">Avg. Burn Time</div></div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">💝</div>
-        <div class="value-text"><h4>Handpoured with Care</h4><p>Each candle is poured in small batches by hand, ensuring consistency and the kind of quality only human attention can provide.</p></div>
+    </div>
+    <div class="about-right" id="about-right">
+      <p class="about-body"><strong>Hello!</strong> My name is <em>Priyasha Dutta</em>, Managing Director & Founder of Scentra Candles. Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment.</p>
+      <div class="feature-item">
+        <div class="feature-icon">🌿</div>
+        <div><div class="feature-title">100% Natural Ingredients</div><p class="feature-text">Every candle is crafted with pure soy wax, natural wicks, and premium fragrance oils — no synthetics, no shortcuts.</p></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎨</div>
+        <div><div class="feature-title">Mood-Matched Scents</div><p class="feature-text">Our perfumer curates each fragrance to resonate with specific emotional states, creating a genuine sensory experience.</p></div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💝</div>
+        <div><div class="feature-title">Handpoured with Care</div><p class="feature-text">Each candle is poured in small batches by hand, ensuring consistency and the quality only human attention provides.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing">
-  <div class="reveal">
-    <span class="section-tag">Our Collection</span>
-    <h2 class="section-title">Find Your Candle</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Sort by mood, price, or let your heart decide. Every candle tells a story.</p>
+<!-- SHOP -->
+<section id="shop">
+  <div style="position:absolute;top:18%;left:3%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.22),transparent 70%);pointer-events:none"></div>
+  <div class="section-center" id="shop-header" style="max-width:1320px;margin-left:auto;margin-right:auto">
+    <span class="section-label">Our Collection</span>
+    <h2 class="section-heading">Find Your Candle</h2>
+    <div class="section-divider" style="margin-bottom:18px"></div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:rgba(255,255,255,.32);max-width:440px;margin:0 auto;font-weight:300">Sort by mood or let your heart decide. Every candle tells a story.</p>
   </div>
-  <div class="filter-bar reveal">
-    <span class="filter-label">Mood:</span>
-    <div class="filter-group" id="mood-filters">
-      <button class="filter-btn active" data-filter="mood" data-value="all">All</button>
-      <button class="filter-btn" data-filter="mood" data-value="romantic">Romantic</button>
-      <button class="filter-btn" data-filter="mood" data-value="happy">Happy</button>
-      <button class="filter-btn" data-filter="mood" data-value="sad">Sad</button>
-      <button class="filter-btn" data-filter="mood" data-value="calm">Calm</button>
-      <button class="filter-btn" data-filter="mood" data-value="energetic">Energetic</button>
-      <button class="filter-btn" data-filter="mood" data-value="spiritual">Spiritual</button>
-    </div>
-    <div class="filter-sep"></div>
-    <span class="filter-label">Price:</span>
-    <div class="filter-group" id="price-filters">
-      <button class="filter-btn active" data-filter="price" data-value="all">All</button>
-      <button class="filter-btn" data-filter="price" data-value="budget">Under ₹200</button>
-      <button class="filter-btn" data-filter="price" data-value="budget">₹300-₹500</button>
-      <button class="filter-btn" data-filter="price" data-value="mid">₹500–₹1000</button>
-      <button class="filter-btn" data-filter="price" data-value="premium">₹1000+</button>
-    </div>
+  <div class="mood-filters" id="mood-filters">
+    <button class="mood-btn active" data-mood="All">All ✦</button>
+    <button class="mood-btn" data-mood="romantic">Romantic</button>
+    <button class="mood-btn" data-mood="calm">Calm</button>
+    <button class="mood-btn" data-mood="happy">Happy</button>
+    <button class="mood-btn" data-mood="energetic">Energetic</button>
+    <button class="mood-btn" data-mood="spiritual">Spiritual</button>
   </div>
-  <div class="products-grid" id="products-grid">
-    <!-- Cards injected by JS -->
-  </div>
+  <div class="shop-grid" id="shop-grid"></div>
 </section>
 
 <!-- REVIEWS -->
 <section id="reviews">
-  <div class="reveal">
-    <span class="section-tag">Customer Love</span>
-    <h2 class="section-title">What people are saying</h2>
-    <div class="divider"></div>
+  <div style="position:absolute;bottom:8%;right:4%;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.18),transparent 70%);pointer-events:none"></div>
+  <div class="section-center" id="reviews-header">
+    <span class="section-label">Customer Love</span>
+    <h2 class="section-heading">What people are saying</h2>
+    <div class="section-divider"></div>
   </div>
-  <div class="reviews-layout">
+  <div class="reviews-grid">
     <div class="review-form-wrap">
-      <h3>Leave a Review</h3>
-      <p>Share your experience with our candles</p>
-      <div class="star-input" id="star-input">
-        <span data-val="1">★</span>
-        <span data-val="2">★</span>
-        <span data-val="3">★</span>
-        <span data-val="4">★</span>
-        <span data-val="5">★</span>
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:6px">Leave a Review</h3>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.28);margin-bottom:22px">Share your experience with our candles</p>
+      <div class="stars-input" id="star-input">
+        <button class="star-btn" data-star="1">★</button>
+        <button class="star-btn" data-star="2">★</button>
+        <button class="star-btn" data-star="3">★</button>
+        <button class="star-btn" data-star="4">★</button>
+        <button class="star-btn" data-star="5">★</button>
       </div>
       <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" id="r-name" placeholder="e.g. Priya Sharma">
+        <label class="form-label">Your Name</label>
+        <input class="form-input" id="rev-name" type="text" placeholder="Priya Sharma"/>
       </div>
       <div class="form-group">
-        <label>Product</label>
-        <select id="r-product">
-          <option value="">Select a candle...</option>
+        <label class="form-label">Your Review</label>
+        <textarea class="form-textarea" id="rev-text" rows="3" placeholder="Tell us about your experience…"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label">Product</label>
+        <select class="form-select" id="rev-product">
+          <option value="">Select a candle…</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Your Review</label>
-        <textarea id="r-text" placeholder="Tell us about your experience…"></textarea>
-      </div>
-      <button class="btn-primary" onclick="submitReview()" style="width:100%;cursor:none;">Submit Review</button>
+      <button class="btn-submit" id="btn-submit-review" onclick="submitReview()">Post Review ✦</button>
     </div>
-    <div id="reviews-list" class="review-list">
-      <div class="no-reviews">Be the one of trusted to share your experience ✦</div>
-    </div>
+    <div class="reviews-list" id="reviews-list"></div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="reveal">
-    <span class="section-tag">Get In Touch</span>
-    <h2 class="section-title">We'd love to hear<br>from you</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Questions, custom orders, or just want to say "Hello! we're here."</p>
+  <div style="position:absolute;top:18%;left:8%;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.28),transparent 70%);pointer-events:none"></div>
+  <div class="section-center" id="contact-header">
+    <span class="section-label">Get In Touch</span>
+    <h2 class="section-heading">We'd love to hear<br>from <em style="font-style:italic;color:#f2a7bb">you</em></h2>
+    <div class="section-divider"></div>
   </div>
-  <div class="contact-layout">
-    <div class="contact-info reveal">
-      <div class="contact-item">
-        <div class="contact-item-icon">📍</div>
-        <div><h4>Studio</h4><p>Barrackpore<br>Kolkata, West Bengal 700122</p></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">📧</div>
-        <div><h4>Email</h4><p>priyashad89@gmail.com</p></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">📞</div>
-        <div><h4>Phone</h4><p>+91 8240xxxxxx</p></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">🕐</div>
-        <div><h4>Hours</h4><p>Mon–Sat: 10am – 7pm<br>Sunday: 11am – 5pm</p></div>
-      </div>
+  <div class="contact-grid" id="contact-grid">
+    <div>
+      <div class="contact-info-item"><div class="contact-icon">📍</div><div><div class="contact-info-label">Studio</div><p class="contact-info-text">3A, Rabindrapally near Bose Variety Stores, Kolkata, West Bengal 700122</p></div></div>
+      <div class="contact-info-item"><div class="contact-icon">📧</div><div><div class="contact-info-label">Email</div><p class="contact-info-text">priyashad89@gmail.com</p></div></div>
+      <div class="contact-info-item"><div class="contact-icon">📞</div><div><div class="contact-info-label">Phone</div><p class="contact-info-text">+91 8240xxxxxx</p></div></div>
+      <div class="contact-info-item"><div class="contact-icon">🕐</div><div><div class="contact-info-label">Hours</div><p class="contact-info-text">Mon–Sat: 10am–7pm&#10;Sunday: 11am–5pm</p></div></div>
       <div class="social-links">
-                <a href="ttps://www.instagram.com/scentra_candle?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="font-size:0.75rem;color:rgba(242,167,187,0.6);text-decoration:none;border-bottom:1px solid rgba(242,167,187,0.25);padding-bottom:1px;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='rgba(242,167,187,1)'" onmouseout="this.style.color='rgba(242,167,187,0.6)'">Instagram↗</a>
-                <a href="https://www.linkedin.com/company/scentra-candles/about/?viewAsMember=true" style="font-size:0.75rem;color:rgba(242,167,187,0.6);text-decoration:none;border-bottom:1px solid rgba(242,167,187,0.25);padding-bottom:1px;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='rgba(242,167,187,1)'" onmouseout="this.style.color='rgba(242,167,187,0.6)'">LinkedIN↗</a>
-            </div>
+        <a href="https://www.instagram.com/scentra_candle" target="_blank" rel="noopener" class="social-link">Instagram ↗</a>
+        <a href="https://www.linkedin.com/company/scentra-candles" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+      </div>
     </div>
-    <form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/xykdqggb" method="POST">
+    <form class="contact-form" id="contact-form" onsubmit="sendContact(event)">
+      <div class="form-group"><label class="form-label">Your Name</label><input required class="form-input" id="c-name" type="text" placeholder="Full name"/></div>
+      <div class="form-group"><label class="form-label">Email</label><input required class="form-input" id="c-email" type="email" placeholder="your@email.com"/></div>
       <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" name="name" placeholder="Full name" required>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="your@email.com" required>
-      </div>
-      <div class="form-group">
-        <label>Subject</label>
-        <select name="subject">
-          <option>General Enquiry</option>
-          <option>Custom Order</option>
-          <option>Bulk Order</option>
-          <option>Feedback</option>
+        <label class="form-label">Subject</label>
+        <select class="form-select" id="c-subject">
+          <option>General Enquiry</option><option>Custom Order</option><option>Bulk Order</option><option>Feedback</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea name="message" placeholder="How can we help you?" rows="4" required></textarea>
-      </div>
-      <button type="submit" class="btn-contact">Send Message ✦</button>
-      <div class="form-success" id="contact-success">✦ Thank you! We'll get back to you within 24 hours.</div>
+      <div class="form-group"><label class="form-label">Message</label><textarea required class="form-textarea" id="c-msg" rows="4" placeholder="How can we help you?"></textarea></div>
+      <button type="submit" class="btn-send" id="btn-send">Send Message ✦</button>
     </form>
   </div>
 </section>
@@ -249,153 +588,604 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Scentra<span>✦</span></div>
-  <p>© 2023 Scentra Candles. Handcrafted with love in Kolkata, West Bengal, India.</p>
-  <p style="color:rgba(255,255,255,0.25);font-size:0.72rem;">Pure soy · Natural wicks · No synthetics<br>Made with ❤️ by <em>Pritam Paul</em></p>
-  <a href="privacy-policy.html" target="_blank" rel="noopener" style="font-size:0.75rem;color:rgba(242,167,187,0.6);text-decoration:none;border-bottom:1px solid rgba(242,167,187,0.25);padding-bottom:1px;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='rgba(242,167,187,1)'" onmouseout="this.style.color='rgba(242,167,187,0.6)'">Terms &amp; Privacy Policy ↗</a>
+  <p>© 2023 Scentra Candles. Handcrafted with love in Kolkata, India.</p>
+  <small>Pure soy · Natural wicks · Made with ❤️</small>
 </footer>
 
-<!-- ORDER MODAL -->
-<div class="modal-overlay" id="order-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h3>Order Candle</h3>
-    <p style="font-size:0.83rem;color:var(--text-light);margin-bottom:0">Complete your purchase securely via Razorpay</p>
-    <div class="modal-product-info" id="modal-product-info"></div>
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" id="order-name" placeholder="Full name">
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="order-email" placeholder="your@email.com">
-    </div>
-    <div class="qty-input">
-      <label>Quantity:</label>
-      <input type="number" id="order-qty" value="1" min="1" max="20" onchange="updateTotal()">
-      <span id="order-total" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--maroon);"></span>
-    </div>
-    <button class="btn-pay" onclick="initiatePayment()">Pay with Razorpay ✦</button>
-    <p class="pay-note">🔒 Secured by Razorpay · 100% safe & encrypted</p>
-  </div>
-</div>
-  <!-- ── CART FAB ── -->
-<button class="cart-fab" id="cart-fab" onclick="openCart()">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
-    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-    <line x1="3" y1="6" x2="21" y2="6"/>
-    <path d="M16 10a4 4 0 01-8 0"/>
-  </svg>
-  <span class="cart-count" id="cart-count">0</span>
-</button>
-
-<!-- ── CART OVERLAY ── -->
+<!-- CART DRAWER -->
 <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
-
-<!-- ── CART DRAWER ── -->
 <div class="cart-drawer" id="cart-drawer">
   <div class="cart-header">
-    <h2>Your Bag <span id="cart-item-count"></span></h2>
-    <button class="cart-close" onclick="closeCart()">✕</button>
+    <h2 class="cart-title">Your Bag <span class="cart-count" id="cart-item-count">(0 items)</span></h2>
+    <button class="btn-close" onclick="closeCart()">✕</button>
   </div>
   <div class="cart-items" id="cart-items-list">
-    <div class="cart-empty">
-      <div class="cart-empty-icon">🕯️</div>
-      Your bag is empty. Add items to begin.
+    <div class="cart-empty" id="cart-empty">
+      <canvas id="cart-empty-flame"></canvas>
+      <p>Your bag is empty —<br>add a candle to begin.</p>
     </div>
   </div>
-  <div class="cart-footer" id="cart-footer" style="display:none;">
-    <div class="cart-summary">
-      <div class="cart-summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0</span></div>
-      <div class="cart-summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
-      <div class="cart-summary-row total"><span>Total</span><span id="cart-total-display">₹0</span></div>
-    </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cart-subtotal-val">₹0</span></div>
+    <div class="cart-shipping"><span>Shipping</span><span>Calculated at checkout</span></div>
+    <div class="cart-total"><span>Total</span><span id="cart-total-val">₹0</span></div>
     <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout ✦</button>
-    <button class="cart-continue" onclick="closeCart()">← Continue Shopping</button>
+    <button class="btn-continue" onclick="closeCart()">← Continue Shopping</button>
   </div>
 </div>
 
-<!-- ── CHECKOUT MODAL ── -->
-<div class="checkout-overlay" id="checkout-overlay">
-  <div class="checkout-modal">
-    <div class="order-success" id="order-success">
-      <div class="success-icon">🕯️</div>
-      <h3>Order Placed!</h3>
-      <p>Thank you! We've received your order and will be in touch shortly.</p>
-      <div class="order-id-badge">Order ID: <strong id="success-order-id">—</strong></div>
-      <button class="btn-checkout" onclick="closeCheckout()" style="max-width:220px;margin:0 auto;">Back to Shop ✦</button>
-    </div>
-    <div id="checkout-form-wrap">
-      <div class="checkout-header">
-        <h2>Checkout</h2>
-        <p>Complete your order details below</p>
-        <button class="checkout-close" onclick="closeCheckout()">✕</button>
-      </div>
-      <div class="checkout-body">
-        <div class="checkout-items-summary">
-          <h4>Your Order</h4>
-          <div id="checkout-items-rows"></div>
-          <div class="checkout-total-row">
-            <span>Total</span>
-            <span id="checkout-grand-total">₹0</span>
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkout-modal">
+  <div class="modal-box" id="modal-box">
+    <!-- Dynamic content injected by JS -->
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════════════ */
+const PRODUCTS=[
+  {id:1,name:"Bourbon Vanilla",mood:"romantic",price:199,burn:"6hr+",desc:"French Bourbon, vanilla beans & creamy woods. Vegan soy-coconut wax.",color:"#c0392b",glow:"#e8799a"},
+  {id:2,name:"English Lavender",mood:"calm",price:199,burn:"6hr+",desc:"Herbaceous rosemary, earthy sage, tonka bean & soft musk.",color:"#8e44ad",glow:"#c39bd3"},
+  {id:3,name:"Romantic Rose",mood:"romantic",price:199,burn:"6hr+",desc:"Sun-kissed citrus and fresh florals to lift your spirits.",color:"#c0392b",glow:"#f1948a"},
+  {id:4,name:"Royal Oud",mood:"spiritual",price:199,burn:"6hr+",desc:"Bergamot, lemon zest & sweet peach for your brightest days.",color:"#d4a017",glow:"#f7dc6f"},
+  {id:5,name:"Very Berry",mood:"happy",price:529,burn:"12hr",desc:"Strawberry macaron — playful, fruity & impossibly sweet.",color:"#e91e8c",glow:"#f48fb1"},
+  {id:6,name:"Tiny Love Buds",mood:"romantic",price:299,burn:"42hr",desc:"Smoky vetiver, grey amber & violet for introspective evenings.",color:"#6c3483",glow:"#bb8fce"},
+  {id:7,name:"Sweet Tooth",mood:"calm",price:299,burn:"40hr",desc:"White sage, eucalyptus & cedar for a perfectly still mind.",color:"#1e8449",glow:"#82e0aa"},
+  {id:8,name:"The Love Pillar",mood:"romantic",price:299,burn:"32hr",desc:"Sea salt, driftwood & light musk to find your inner peace.",color:"#1a5276",glow:"#7fb3d3"},
+  {id:9,name:"Rubik's Candle",mood:"energetic",price:299,burn:"38hr",desc:"Peppermint, rosemary & black pepper to ignite your energy.",color:"#ba4a00",glow:"#f0b27a"},
+  {id:10,name:"Teddy Candles",mood:"energetic",price:299,burn:"50hr",desc:"Espresso, cardamom & grapefruit — your perfect morning ritual.",color:"#922b21",glow:"#f1948a"},
+  {id:11,name:"Shoreline Shot",mood:"happy",price:250,burn:"9hr",desc:"Sacred lotus, frankincense & camphor for meditation.",color:"#0e6655",glow:"#76d7c4"},
+  {id:12,name:"Petals in Pine",mood:"spiritual",price:399,burn:"60hr",desc:"Amber, sandalwood & tuberose — a devotional experience in wax.",color:"#1d6a27",glow:"#58d68d"},
+  {id:13,name:"Better Together",mood:"romantic",price:249,burn:"6hr+",desc:"Beautiful paired sculpture candle for moments shared.",color:"#922b21",glow:"#f48fb1"},
+  {id:14,name:"Golden Petal Aroma",mood:"romantic",price:250,burn:"8hr+",desc:"Amber, sandalwood & tuberose — a devotional experience in wax.",color:"#9a7d0a",glow:"#f9e79f"},
+  {id:15,name:"Beauty & Elegance",mood:"spiritual",price:329,burn:"60hr",desc:"Refined blend of white florals and warm musk for the soul.",color:"#6c3483",glow:"#c39bd3"},
+  {id:16,name:"Petal Peony",mood:"spiritual",price:250,burn:"60hr",desc:"Soft peony petals with sandalwood warmth.",color:"#a93226",glow:"#f8c8d4"},
+  {id:17,name:"Springtime Bundle",mood:"spiritual",price:299,burn:"60hr",desc:"A garden in bloom — layered floral and green accord.",color:"#1e8449",glow:"#a9dfbf"},
+  {id:18,name:"Chai & Chill",mood:"happy",price:199,burn:"4hr+",desc:"Warm masala chai spices in melted wax form.",color:"#935116",glow:"#f0b27a"},
+  {id:19,name:"Daisy Vibe",mood:"calm",price:199,burn:"4hr+",desc:"Fresh daisy, clean cotton & light woods.",color:"#9a7d0a",glow:"#f9e79f"},
+  {id:20,name:"Cinderella Cart",mood:"energetic",price:399,burn:"4hr+",desc:"Sparkling citrus and fairy-dust musk — pure whimsy.",color:"#1a5276",glow:"#85c1e9"},
+  {id:21,name:"Roses & Mogra",mood:"spiritual",price:450,burn:"4hr+",desc:"The sacred union of rose and mogra — pure devotion.",color:"#922b21",glow:"#f1948a"},
+  {id:22,name:"Spooky Friends",mood:"energetic",price:329,burn:"4hr+",desc:"Dark woods, smoked cedar & a whisper of mystery.",color:"#1e6823",glow:"#58d68d"},
+  {id:23,name:"Christmas Carousel",mood:"happy",price:349,burn:"4hr+",desc:"Cinnamon, clove & pine — a holiday dream.",color:"#922b21",glow:"#f1948a"},
+  {id:24,name:"Walk the Plank",mood:"energetic",price:399,burn:"7hr+",desc:"Sea salt, oakmoss & driftwood for the adventurous soul.",color:"#1a5276",glow:"#7fb3d3"},
+];
+
+const FEATURED=[
+  {name:"Bourbon Vanilla",mood:"Romantic",price:199,color:"#c0392b",glow:"#e8799a"},
+  {name:"English Lavender",mood:"Calm",price:199,color:"#8e44ad",glow:"#c39bd3"},
+  {name:"Royal Oud",mood:"Spiritual",price:199,color:"#d4a017",glow:"#f7dc6f"},
+  {name:"Petals in Pine",mood:"Peaceful",price:399,color:"#27ae60",glow:"#82e0aa"},
+  {name:"Shoreline Shot",mood:"Happy",price:250,color:"#2980b9",glow:"#7fb3d3"},
+  {name:"Chai & Chill",mood:"Cozy",price:199,color:"#e67e22",glow:"#f0b27a"},
+];
+
+const COUPONS={
+  SCENTRA10:{discount:10,type:"percent",label:"10% off your order"},
+  WELCOME20:{discount:20,type:"percent",label:"20% off for new customers"},
+  FLAT50:{discount:50,type:"flat",label:"₹50 flat off"},
+  MOOD15:{discount:15,type:"percent",label:"15% off — special code"},
+  HOLI100:{discount:100,type:"flat",label:"₹100 off on festive orders"},
+};
+
+const SEED_REVIEWS=[
+  {name:"Priya S.",product:"Bourbon Vanilla",stars:5,text:"Absolutely divine! My room smells like a luxury spa. The flame is steady and the throw is incredible.",date:"2 Jan 2025"},
+  {name:"Priyasha D..",product:"Royal Oud",stars:5,text:"Bought this as a gift and the recipient was blown away. Packaging is beautiful and the scent is rich.",date:"15 Dec 2024"},
+  {name:"Pritam P..",product:"English Lavender",stars:4,text:"Perfect for winding down after work. Lavender is realistic and not overpowering. Will buy again!",date:"3 Nov 2024"},
+  {name:"Suparna D.",product:"Petals in Pine",stars:5,text:"I burn this during meditation sessions. Something about it that just centers me completely.",date:"28 Oct 2024"},
+  {name:"Arghya D..",product:"Chai & Chill",stars:5,text:"Smells exactly like cutting chai on a rainy morning. Genuinely comforting — I'm obsessed.",date:"10 Oct 2024"},
+];
+
+/* ══════════════════════════════════════════════════════
+   FLAME ENGINE
+══════════════════════════════════════════════════════ */
+const flameRAFs=new Map();
+function drawFlame(canvas,w,h,intensity,seed){
+  if(!canvas)return;
+  const ctx=canvas.getContext("2d");
+  canvas.width=w;canvas.height=h;
+  let t=(seed||0)*.8;
+  const id=canvas.id||Math.random();
+  if(flameRAFs.has(id))cancelAnimationFrame(flameRAFs.get(id));
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    const cx=w/2,by=h-4;
+    for(let l=3;l>=0;l--){
+      const sc=1-l*.19,f1=Math.sin(t*3.9+l)*(5.5*intensity),f2=Math.cos(t*2.5+l*1.7)*(3.8*intensity);
+      const fh=h*.82*sc*intensity;
+      const g=ctx.createRadialGradient(cx,by-fh*.28,1,cx,by-fh*.54,fh);
+      if(l===0){g.addColorStop(0,"rgba(255,255,255,.97)");g.addColorStop(.15,"rgba(255,228,165,.9)");g.addColorStop(.45,"rgba(232,121,154,.72)");g.addColorStop(1,"rgba(0,0,0,0)");}
+      else{const a=(0.13-l*.022)*intensity;g.addColorStop(0,`rgba(232,121,154,${a+.05})`);g.addColorStop(1,"rgba(0,0,0,0)");}
+      ctx.beginPath();
+      ctx.moveTo(cx+f1,by);
+      ctx.bezierCurveTo(cx+w*.38*sc+f2,by-fh*.33,cx+w*.19*sc+f1*.4,by-fh*.67,cx+f1*.22,by-fh);
+      ctx.bezierCurveTo(cx-w*.19*sc+f2*.4,by-fh*.67,cx-w*.38*sc+f1,by-fh*.33,cx-f1*.38,by);
+      ctx.closePath();ctx.fillStyle=g;ctx.fill();
+    }
+    t+=.043;
+    flameRAFs.set(id,requestAnimationFrame(draw));
+  }
+  draw();
+}
+
+/* ══════════════════════════════════════════════════════
+   PARTICLES
+══════════════════════════════════════════════════════ */
+function initParticles(){
+  const c=document.getElementById("particles-canvas");
+  const ctx=c.getContext("2d");
+  let W=c.width=window.innerWidth,H=c.height=window.innerHeight;
+  const pts=Array.from({length:95},()=>({
+    x:Math.random()*W,y:H+Math.random()*H*.5,
+    vx:(Math.random()-.5)*.44,vy:-(Math.random()*.95+.22),
+    r:Math.random()*1.8+.3,a:Math.random()*.52+.1,
+    hue:[340,18,272,350][Math.floor(Math.random()*4)],
+    life:Math.random(),ml:.5+Math.random()*.5,
+    wb:Math.random()*Math.PI*2,ws:(Math.random()-.5)*.023,
+  }));
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.wb+=p.ws;p.x+=p.vx+Math.sin(p.wb)*.27;p.y+=p.vy;p.life+=.0033;
+      if(p.life>p.ml||p.y<-20){p.x=Math.random()*W;p.y=H+10;p.life=0;}
+      const alpha=p.a*Math.sin((p.life/p.ml)*Math.PI);
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=`hsla(${p.hue},54%,76%,${alpha})`;ctx.fill();
+    });
+    requestAnimationFrame(tick);
+  }
+  tick();
+  window.addEventListener("resize",()=>{W=c.width=window.innerWidth;H=c.height=window.innerHeight;});
+}
+
+/* ══════════════════════════════════════════════════════
+   MAGNETIC CURSOR
+══════════════════════════════════════════════════════ */
+const dot=document.getElementById("cursor-dot"),ring=document.getElementById("cursor-ring");
+const pos={x:-200,y:-200},rp={x:-200,y:-200};
+window.addEventListener("mousemove",e=>{pos.x=e.clientX;pos.y=e.clientY;});
+(function loop(){
+  rp.x+=(pos.x-rp.x)*.11;rp.y+=(pos.y-rp.y)*.11;
+  dot.style.transform=`translate(${pos.x-5}px,${pos.y-5}px)`;
+  ring.style.transform=`translate(${rp.x-18}px,${rp.y-18}px)`;
+  requestAnimationFrame(loop);
+})();
+
+/* ══════════════════════════════════════════════════════
+   MORPH WORD
+══════════════════════════════════════════════════════ */
+const WORDS=["Romance","Calm","Energy","Spirit","Longing","Bliss"];
+let wi=0,morphTimeout;
+function morphNext(){
+  const el=document.getElementById("morph-word");
+  if(!el)return;
+  el.classList.remove("in");el.classList.add("out");
+  morphTimeout=setTimeout(()=>{wi=(wi+1)%WORDS.length;el.textContent=WORDS[wi];el.classList.remove("out");el.classList.add("in");morphTimeout=setTimeout(morphNext,2400);},480);
+}
+setTimeout(morphNext,2400);
+
+/* ══════════════════════════════════════════════════════
+   COUNTER
+══════════════════════════════════════════════════════ */
+function animateCounter(el){
+  const to=parseInt(el.dataset.count),suffix=el.dataset.suffix||"";
+  let n=0;const step=Math.ceil(to/50);
+  const iv=setInterval(()=>{n+=step;if(n>=to){el.textContent=to+suffix;clearInterval(iv);}else el.textContent=n+suffix;},26);
+}
+const counterObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);counterObs.unobserve(e.target);}});
+},{threshold:.2});
+document.querySelectorAll("[data-count]").forEach(el=>counterObs.observe(el));
+
+/* ══════════════════════════════════════════════════════
+   NAV SCROLL
+══════════════════════════════════════════════════════ */
+const nav=document.getElementById("main-nav");
+window.addEventListener("scroll",()=>{
+  nav.classList.toggle("scrolled",window.scrollY>60);
+});
+
+/* ══════════════════════════════════════════════════════
+   HAMBURGER
+══════════════════════════════════════════════════════ */
+let menuOpen=false;
+document.getElementById("hamburger").onclick=()=>{
+  menuOpen=!menuOpen;
+  document.getElementById("mobile-menu").style.display=menuOpen?"block":"none";
+};
+function closeMobile(){menuOpen=false;document.getElementById("mobile-menu").style.display="none";}
+
+/* ══════════════════════════════════════════════════════
+   PARALLAX HERO
+══════════════════════════════════════════════════════ */
+const heroGrid=document.getElementById("hero-grid");
+window.addEventListener("scroll",()=>{
+  heroGrid.style.transform=`translateY(${window.scrollY*.07}px)`;
+});
+
+/* ══════════════════════════════════════════════════════
+   HERO CARDS (3D Tilt)
+══════════════════════════════════════════════════════ */
+function buildHeroCards(){
+  const grid=document.getElementById("hero-cards");
+  const cols=[[0,1],[2,3],[4,5]];
+  cols.forEach((pair,ci)=>{
+    const col=document.createElement("div");col.className="cards-col";
+    if(ci===1)col.style.marginTop="26px";
+    pair.forEach((fi,ri)=>{
+      const c=FEATURED[fi];
+      const wrap=document.createElement("div");wrap.className="tilt-card";
+      wrap.style.animation=`cardIn .7s cubic-bezier(.16,1,.3,1) ${.46+(fi*.1)}s forwards`;
+      wrap.innerHTML=`
+        <div class="tilt-inner" id="tilt-${fi}">
+          <div class="tilt-shimmer"></div>
+          <div style="display:flex;justify-content:center;height:54px;margin-bottom:6px"><canvas id="hc-flame-${fi}" width="38" height="54"></canvas></div>
+          <div class="tilt-candle-body" style="width:26px;height:42px;background:linear-gradient(180deg,${c.color}ee,${c.color}77);box-shadow:0 0 16px ${c.glow}35">
+            <div class="tilt-candle-shine"></div>
           </div>
+          <div class="tilt-name">${c.name}</div>
+          <div class="tilt-mood" style="color:${c.glow}">${c.mood}</div>
+          <div class="tilt-price">₹${c.price}</div>
+        </div>`;
+      col.appendChild(wrap);
+      // Flame
+      setTimeout(()=>{drawFlame(document.getElementById(`hc-flame-${fi}`),38,54,.65,fi);},200+fi*60);
+      // 3D tilt
+      const inner=()=>document.getElementById(`tilt-${fi}`);
+      wrap.addEventListener("mousemove",e=>{
+        const rect=wrap.getBoundingClientRect();
+        const x=((e.clientX-rect.left)/rect.width-.5)*22;
+        const y=((e.clientY-rect.top)/rect.height-.5)*-22;
+        inner().style.transform=`rotateY(${x}deg) rotateX(${y}deg) translateZ(18px)`;
+        inner().style.transition="transform .08s ease-out";
+        inner().style.borderColor=c.glow+"55";
+        inner().style.boxShadow=`0 28px 56px rgba(0,0,0,.55),0 0 36px ${c.glow}28`;
+        drawFlame(document.getElementById(`hc-flame-${fi}`),38,54,1.4,fi);
+      });
+      wrap.addEventListener("mouseleave",()=>{
+        inner().style.transform="";inner().style.transition="all .5s cubic-bezier(.16,1,.3,1)";
+        inner().style.borderColor="rgba(255,255,255,.07)";inner().style.boxShadow="0 6px 22px rgba(0,0,0,.3)";
+        drawFlame(document.getElementById(`hc-flame-${fi}`),38,54,.65,fi);
+      });
+    });
+    grid.appendChild(col);
+  });
+}
+
+/* ══════════════════════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════════════════════ */
+const revealObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");}});
+},{threshold:.1});
+["about-header","about-left","about-right","shop-header","reviews-header","contact-header","contact-grid"].forEach(id=>{
+  const el=document.getElementById(id);if(el)revealObs.observe(el);
+});
+
+/* ══════════════════════════════════════════════════════
+   SHOP
+══════════════════════════════════════════════════════ */
+let cart=[];
+let currentMood="All";
+
+function renderShop(){
+  const grid=document.getElementById("shop-grid");
+  const filtered=currentMood==="All"?PRODUCTS:PRODUCTS.filter(p=>p.mood===currentMood);
+  grid.innerHTML="";
+  filtered.forEach((p,i)=>{
+    const inCart=cart.some(c=>c.id===p.id);
+    const card=document.createElement("div");
+    card.className="product-card";
+    card.style.cssText=`opacity:0;animation:cardIn .6s cubic-bezier(.16,1,.3,1) ${i*.04}s forwards`;
+    card.innerHTML=`
+      <div class="product-img" style="background:linear-gradient(135deg,${p.color}22,${p.color}0e)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+          <canvas id="pc-flame-${p.id}" width="42" height="62"></canvas>
+          <div style="width:23px;height:36px;background:linear-gradient(180deg,${p.color}dd,${p.color}66);border-radius:3px 3px 5px 5px;box-shadow:0 0 12px ${p.glow}33"></div>
         </div>
-        <div class="checkout-section-label">Delivery Details</div>
-        <div class="co-form-grid">
-          <div class="co-group"><label>First Name *</label><input type="text" id="co-fname" placeholder="Priya"></div>
-          <div class="co-group"><label>Last Name *</label><input type="text" id="co-lname" placeholder="Sharma"></div>
-          <div class="co-group full"><label>Email Address *</label><input type="email" id="co-email" placeholder="your@email.com"></div>
-          <div class="co-group full"><label>Phone Number *</label><input type="tel" id="co-phone" placeholder="+91 98765 43210"></div>
-          <div class="co-group full"><label>Address Line 1 *</label><input type="text" id="co-addr1" placeholder="House / Flat No., Street Name"></div>
-          <div class="co-group full"><label>Address Line 2</label><input type="text" id="co-addr2" placeholder="Landmark, Area (optional)"></div>
-          <div class="co-group"><label>City *</label><input type="text" id="co-city" placeholder="Kolkata"></div>
-          <div class="co-group"><label>State *</label><input type="text" id="co-state" placeholder="West Bengal"></div>
-          <div class="co-group"><label>PIN Code *</label><input type="text" id="co-pin" placeholder="700001" maxlength="6"></div>
-          <div class="co-group"><label>Country</label><input type="text" id="co-country" value="India" readonly style="background:var(--beige-warm);"></div>
-          <div class="co-group full"><label>Order Notes (optional)</label><textarea id="co-notes" placeholder="Any special instructions…"></textarea></div>
+        <span class="product-mood-tag" style="color:${p.glow};border:1px solid ${p.glow}28">${p.mood}</span>
+        ${inCart?`<span class="product-incart">In bag</span>`:""}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-row">
+          <span class="product-price">₹${p.price}</span>
+          <span class="product-burn">🕐 ${p.burn}</span>
         </div>
-        <div class="checkout-section-label">Coupon Code</div>
+        <button class="btn-add" id="add-${p.id}" onclick="addToCart(${p.id})" style="color:${p.glow};border:1.5px solid ${p.glow}44">+ Add to Bag</button>
+      </div>`;
+    grid.appendChild(card);
+    setTimeout(()=>drawFlame(document.getElementById(`pc-flame-${p.id}`),42,62,.68,p.id),100+i*20);
+    // Hover flame
+    card.addEventListener("mouseenter",()=>drawFlame(document.getElementById(`pc-flame-${p.id}`),42,62,1.2,p.id));
+    card.addEventListener("mouseleave",()=>drawFlame(document.getElementById(`pc-flame-${p.id}`),42,62,.68,p.id));
+  });
+}
+
+document.getElementById("mood-filters").addEventListener("click",e=>{
+  if(!e.target.classList.contains("mood-btn"))return;
+  document.querySelectorAll(".mood-btn").forEach(b=>b.classList.remove("active"));
+  e.target.classList.add("active");
+  currentMood=e.target.dataset.mood;
+  renderShop();
+});
+
+// Populate review product select
+function populateSelect(){
+  const sel=document.getElementById("rev-product");
+  PRODUCTS.forEach(p=>{const o=document.createElement("option");o.value=p.name;o.textContent=p.name;sel.appendChild(o);});
+}
+
+/* ══════════════════════════════════════════════════════
+   CART
+══════════════════════════════════════════════════════ */
+function addToCart(id){
+  const p=PRODUCTS.find(x=>x.id===id);if(!p)return;
+  const ex=cart.find(i=>i.id===id);
+  if(ex)ex.qty++;else cart.push({...p,qty:1});
+  updateCartUI();renderShop();
+  const btn=document.getElementById(`add-${id}`);
+  if(btn){btn.textContent="✓ Added!";btn.classList.add("added");setTimeout(()=>{btn.textContent="+ Add to Bag";btn.classList.remove("added");},1400);}
+}
+
+function changeQty(id,delta){
+  const i=cart.findIndex(x=>x.id===id);if(i<0)return;
+  cart[i].qty+=delta;if(cart[i].qty<=0)cart.splice(i,1);
+  updateCartUI();renderShop();renderCartItems();
+}
+
+function removeItem(id){cart=cart.filter(x=>x.id!==id);updateCartUI();renderShop();renderCartItems();}
+
+function updateCartUI(){
+  const total=cart.reduce((s,i)=>s+i.qty,0);
+  const badge=document.getElementById("cart-badge");
+  badge.textContent=total;badge.style.display=total>0?"flex":"none";
+  document.getElementById("cart-item-count").textContent=`(${cart.reduce((s,i)=>s+i.qty,0)} items)`;
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  document.getElementById("cart-subtotal-val").textContent=`₹${sub}`;
+  document.getElementById("cart-total-val").textContent=`₹${sub}`;
+  document.getElementById("cart-footer").style.display=cart.length?"block":"none";
+  document.getElementById("cart-empty").style.display=cart.length?"none":"flex";
+}
+
+function renderCartItems(){
+  const list=document.getElementById("cart-items-list");
+  // Clear non-empty children
+  [...list.children].forEach(c=>{if(!c.id||c.id!=="cart-empty")c.remove();});
+  if(!cart.length){document.getElementById("cart-empty").style.display="flex";return;}
+  document.getElementById("cart-empty").style.display="none";
+  cart.forEach(item=>{
+    const div=document.createElement("div");div.className="cart-item";
+    div.innerHTML=`
+      <div class="cart-item-img" style="background:linear-gradient(135deg,${item.color}44,${item.color}1a)">
+        <canvas id="ci-flame-${item.id}" width="28" height="40"></canvas>
+      </div>
+      <div style="flex:1">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-mood" style="color:${item.glow||'#e8799a'}">${item.mood}</div>
+        <div class="qty-controls">
+          <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
+        <span class="cart-item-price">₹${item.price*item.qty}</span>
+        <button class="btn-remove" onclick="removeItem(${item.id})">✕ Remove</button>
+      </div>`;
+    list.insertBefore(div,document.getElementById("cart-empty"));
+    setTimeout(()=>drawFlame(document.getElementById(`ci-flame-${item.id}`),28,40,.7,item.id),80);
+  });
+}
+
+function openCart(){
+  renderCartItems();
+  document.getElementById("cart-overlay").classList.add("open");
+  document.getElementById("cart-drawer").classList.add("open");
+}
+function closeCart(){
+  document.getElementById("cart-overlay").classList.remove("open");
+  document.getElementById("cart-drawer").classList.remove("open");
+}
+document.getElementById("cart-open-btn").onclick=openCart;
+
+// Cart empty flame
+setTimeout(()=>drawFlame(document.getElementById("cart-empty-flame"),52,76,.55,99),300);
+
+/* ══════════════════════════════════════════════════════
+   CHECKOUT
+══════════════════════════════════════════════════════ */
+let appliedCoupon=null;
+let selectedPay="razorpay";
+
+function calcTotal(){
+  const sub=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  let disc=0;
+  if(appliedCoupon){disc=appliedCoupon.type==="percent"?Math.round(sub*appliedCoupon.discount/100):Math.min(appliedCoupon.discount,sub);}
+  return{sub,disc,total:Math.max(0,sub-disc)};
+}
+
+function openCheckout(){
+  closeCart();
+  appliedCoupon=null;selectedPay="razorpay";
+  renderCheckout();
+  document.getElementById("checkout-modal").classList.add("open");
+}
+function closeCheckout(){document.getElementById("checkout-modal").classList.remove("open");}
+
+function renderCheckout(){
+  const{sub,disc,total}=calcTotal();
+  const box=document.getElementById("modal-box");
+  box.innerHTML=`
+    <div class="modal-header">
+      <div class="modal-title">Checkout</div>
+      <div class="modal-sub">Complete your order below</div>
+      <button class="btn-modal-close" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="order-summary">
+        <div style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:9px">Your Order</div>
+        ${cart.map(i=>`<div class="order-row"><span>${i.name} <span style="color:rgba(255,255,255,.28);font-size:.75rem">×${i.qty}</span></span><span>₹${i.price*i.qty}</span></div>`).join("")}
+        ${appliedCoupon?`<div style="display:flex;justify-content:space-between;padding:7px 0;font-size:.78rem;color:#82e0aa"><span>Discount (${appliedCoupon.code})</span><span>−₹${disc}</span></div>`:""}
+        <div class="order-total-row"><span class="order-total-label">Total</span><span class="order-total-val">₹${total}</span></div>
+      </div>
+      <!-- Coupon -->
+      <div style="margin-bottom:18px">
+        <div style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:9px">Coupon Code</div>
         <div class="coupon-row">
-            <input type="text" id="co-coupon" placeholder="Enter coupon code" autocomplete="off">
-            <button class="btn-apply-coupon" onclick="applyCoupon()">Apply</button>
+          <input class="coupon-input ${appliedCoupon?"valid":""}" id="coupon-field" value="${appliedCoupon?appliedCoupon.code:""}" placeholder="Enter coupon code" ${appliedCoupon?"readonly":""} oninput="this.value=this.value.toUpperCase()"/>
+          ${appliedCoupon
+            ?`<button class="btn-remove-coupon" onclick="removeCoupon()">✕ Remove</button>`
+            :`<button class="btn-coupon" onclick="applyCoupon()">Apply</button>`}
         </div>
-        <div id="coupon-msg" class="coupon-msg" style="display:none;"></div>
-        <div id="coupon-discount-row" class="coupon-discount-row" style="display:none;">
-            <span>Discount <button onclick="removeCoupon()" class="remove-coupon-btn">✕ Remove</button></span>
-            <span id="coupon-discount-amount">−₹0</span>
-        </div>
-        <div class="checkout-section-label">Payment Method</div>
-        <div class="payment-methods">
-          <div class="pay-method selected" onclick="selectPayment('razorpay', this)">
-            <div class="pm-icon">💳</div>
-            <div class="pm-label">Card / UPI</div>
-          </div>
-        </div>
-        <div id="co-error" style="display:none;margin-top:14px;padding:12px 16px;background:#fdf0ef;border:1px solid #f5c6c3;border-radius:10px;font-size:0.82rem;color:#922b21;"></div>
-        <button class="btn-place-order" id="place-order-btn" onclick="placeOrder()">
-          <span id="po-label">Place Order ✦</span>
-          <span class="po-spinner" id="po-spinner"></span>
-        </button>
-        <p style="text-align:center;font-size:0.72rem;color:var(--text-light);margin-top:12px;">
-          🔒 Secured · By ordering you agree to our <a href="privacy-policy.html" target="_blank" style="color:var(--pink-deep);">Terms & Conditions</a>
-        </p>
+        <div id="coupon-msg"></div>
       </div>
-    </div>
-  </div>
-</div>
+      <!-- Delivery -->
+      <div class="section-sep">Delivery Details<div class="section-sep-line"></div></div>
+      <div class="checkout-fields">
+        <div class="field-group"><label class="field-label">First Name</label><input class="field-input" id="f-fname" placeholder="Priya"/></div>
+        <div class="field-group"><label class="field-label">Last Name</label><input class="field-input" id="f-lname" placeholder="Sharma"/></div>
+        <div class="field-group span2"><label class="field-label">Email</label><input class="field-input" id="f-email" type="email" placeholder="your@email.com"/></div>
+        <div class="field-group span2"><label class="field-label">Phone</label><input class="field-input" id="f-phone" type="tel" placeholder="+91 98765 43210"/></div>
+        <div class="field-group span2"><label class="field-label">Address Line 1</label><input class="field-input" id="f-addr1" placeholder="House / Flat No., Street"/></div>
+        <div class="field-group span2"><label class="field-label">Address Line 2</label><input class="field-input" id="f-addr2" placeholder="Landmark (optional)"/></div>
+        <div class="field-group"><label class="field-label">City</label><input class="field-input" id="f-city" placeholder="Kolkata"/></div>
+        <div class="field-group"><label class="field-label">State</label><input class="field-input" id="f-state" placeholder="West Bengal"/></div>
+        <div class="field-group"><label class="field-label">PIN Code</label><input class="field-input" id="f-pin" placeholder="700001"/></div>
+      </div>
+      <div style="margin-bottom:18px"><label class="field-label">Order Notes (optional)</label><textarea class="field-input" id="f-notes" rows="3" placeholder="Any special instructions…" style="resize:vertical"></textarea></div>
+      <!-- Payment -->
+      <div class="section-sep">Payment Method<div class="section-sep-line"></div></div>
+      <div class="payment-options">
+        <div class="pay-option ${selectedPay==="razorpay"?"active":""}" onclick="selectPay('razorpay')">
+          <div class="pay-icon">💳</div><div class="pay-label">Card / UPI</div>
+        </div>
+        <div class="pay-option ${selectedPay==="cod"?"active":""}" onclick="selectPay('cod')">
+          <div class="pay-icon">💵</div><div class="pay-label">Cash on Delivery</div>
+        </div>
+      </div>
+      <button class="btn-place-order" id="btn-place" onclick="placeOrder()">Place Order ✦  ₹${total}</button>
+      <p class="checkout-secure">🔒 Secure checkout · Handcrafted in Kolkata</p>
+    </div>`;
+}
 
-<script src="Script.js"></script>
-  <script src="Script.js"></script>
+function applyCoupon(){
+  const code=(document.getElementById("coupon-field").value||"").trim().toUpperCase();
+  const msg=document.getElementById("coupon-msg");
+  if(!code){msg.className="coupon-msg err";msg.textContent="Please enter a coupon code.";return;}
+  const c=COUPONS[code];
+  if(!c){appliedCoupon=null;msg.className="coupon-msg err";msg.textContent="Invalid coupon code. Try again.";return;}
+  appliedCoupon={code,...c};renderCheckout();
+  setTimeout(()=>{const m=document.getElementById("coupon-msg");if(m){m.className="coupon-msg ok";m.textContent=`✦ ${c.label} applied!`;}},50);
+}
+function removeCoupon(){appliedCoupon=null;renderCheckout();}
+function selectPay(m){selectedPay=m;document.querySelectorAll(".pay-option").forEach(el=>el.classList.remove("active"));event.currentTarget.classList.add("active");}
+
+function placeOrder(){
+  const fields={fname:"first name",lname:"last name",email:"email",phone:"phone",addr1:"address",city:"city",state:"state",pin:"PIN code"};
+  for(const[k,l] of Object.entries(fields)){
+    const v=(document.getElementById(`f-${k}`)?.value||"").trim();
+    if(!v){alert(`Please enter your ${l}.`);return;}
+  }
+  const email=document.getElementById("f-email").value;
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert("Please enter a valid email.");return;}
+  const phone=document.getElementById("f-phone").value.replace(/\D/g,"");
+  if(phone.length<10){alert("Please enter a valid 10-digit phone number.");return;}
+  const pin=document.getElementById("f-pin").value.trim();
+  if(!/^\d{6}$/.test(pin)){alert("Please enter a valid 6-digit PIN code.");return;}
+
+  const btn=document.getElementById("btn-place");
+  btn.disabled=true;btn.innerHTML=`<div class="spinner"></div>Processing…`;
+  setTimeout(()=>{
+    const oid="SCN-"+Date.now().toString().slice(-8).toUpperCase();
+    cart=[];updateCartUI();renderShop();
+    const box=document.getElementById("modal-box");
+    box.innerHTML=`
+      <div class="order-success">
+        <div class="success-flame-wrap"><canvas id="success-flame" width="52" height="76"></canvas></div>
+        <div class="success-title">Order Placed! ✦</div>
+        <p class="success-body">Thank you for your order. We'll reach out soon with updates.</p>
+        <div class="success-order-id">Order ID: <strong>${oid}</strong></div>
+        <br>
+        <button class="btn-back-shop" onclick="closeCheckout()">Back to Shop ✦</button>
+      </div>`;
+    setTimeout(()=>drawFlame(document.getElementById("success-flame"),52,76,1.2,42),100);
+  },1900);
+}
+
+/* ══════════════════════════════════════════════════════
+   REVIEWS
+══════════════════════════════════════════════════════ */
+let reviewStars=0;
+let reviews=[...SEED_REVIEWS];
+
+document.getElementById("star-input").addEventListener("click",e=>{
+  if(!e.target.classList.contains("star-btn"))return;
+  reviewStars=parseInt(e.target.dataset.star);
+  document.querySelectorAll(".star-btn").forEach((b,i)=>b.classList.toggle("active",i<reviewStars));
+});
+
+function renderReviews(){
+  const list=document.getElementById("reviews-list");
+  list.innerHTML="";
+  reviews.forEach((r,i)=>{
+    const div=document.createElement("div");div.className="review-card";
+    div.style.animationDelay=`${i*.07}s`;
+    div.innerHTML=`
+      <div style="display:flex;align-items:center;gap:13px;margin-bottom:11px">
+        <div class="review-avatar">${r.name[0]}</div>
+        <div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.82);font-weight:500">${r.name} <em style="font-family:'Cormorant Garamond',serif;font-size:.88rem;color:rgba(255,255,255,.32);font-style:italic">— ${r.product}</em></div>
+          <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5-r.stars)}</div>
+        </div>
+      </div>
+      <p class="review-text">"${r.text}"</p>
+      <p class="review-date">${r.date}</p>`;
+    list.appendChild(div);
+    setTimeout(()=>div.classList.add("visible"),i*80);
+  });
+}
+
+function submitReview(){
+  const name=document.getElementById("rev-name").value.trim();
+  const text=document.getElementById("rev-text").value.trim();
+  const product=document.getElementById("rev-product").value;
+  if(!name||!text||!product||!reviewStars){alert("Please fill all fields and pick a star rating.");return;}
+  reviews.unshift({name,text,product,stars:reviewStars,date:new Date().toLocaleDateString("en-IN",{day:"numeric",month:"long",year:"numeric"})});
+  renderReviews();
+  document.getElementById("rev-name").value="";document.getElementById("rev-text").value="";
+  document.getElementById("rev-product").value="";reviewStars=0;
+  document.querySelectorAll(".star-btn").forEach(b=>b.classList.remove("active"));
+  const btn=document.getElementById("btn-submit-review");
+  btn.textContent="✦ Thank you for your review!";btn.classList.add("ok");
+  setTimeout(()=>{btn.textContent="Post Review ✦";btn.classList.remove("ok");},3200);
+}
+
+/* ══════════════════════════════════════════════════════
+   CONTACT
+══════════════════════════════════════════════════════ */
+function sendContact(e){
+  e.preventDefault();
+  const btn=document.getElementById("btn-send");
+  btn.textContent="✦ Message sent! We'll reply soon.";btn.classList.add("sent");
+  document.getElementById("contact-form").reset();
+  setTimeout(()=>{btn.textContent="Send Message ✦";btn.classList.remove("sent");},4000);
+}
+
+/* ══════════════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════════════ */
+window.addEventListener("DOMContentLoaded",()=>{
+  initParticles();
+  drawFlame(document.getElementById("ambient-flame"),185,280,.52,3);
+  setTimeout(()=>drawFlame(document.getElementById("about-flame"),84,128,1.1,7),400);
+  buildHeroCards();
+  renderShop();
+  populateSelect();
+  renderReviews();
+});
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
