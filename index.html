@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JLEBV8JP9X"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Scentra Candles — Light a Candle for Every Mood</title>
@@ -29,16 +23,6 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.22)}
 a{text-decoration:none;color:inherit}
 button{font-family:'Jost',sans-serif}
 
-  gtag('config', 'G-JLEBV8JP9X');
-</script>
-<meta charset="UTF-8">
-<meta name="description" content="Handcrafted soy candles in Kolkata. Mood-based fragrances for romance, calm, happiness and relaxation. Shop Scentra candles online.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scentra | Candles for Every Mood</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<link rel="icon" type="image/png" href="logo.jpeg">
-<link rel="stylesheet" href="Style.css">
 /* ══════════════════════════════════════════
    CUSTOM CURSOR
 ══════════════════════════════════════════ */
@@ -367,25 +351,17 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
 <body>
 
 <!-- CURSOR -->
-<div id="cursor"></div>
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">Scentra<span>✦</span></div>
-   <!--Destop nav-->
-  <ul class="nav-links">
 <nav id="main-nav">
   <a href="#home" class="nav-logo">Scentra<span>✦</span></a>
   <ul class="nav-links" id="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#pricing">Shop</a></li>
     <li><a href="#shop">Shop</a></li>
     <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
-    <li><a href="login.html" class="nav-cta">My Account</a></li>
     <li><a href="#contact">Contact</a></li>
     <li>
       <button class="cart-btn" id="cart-open-btn">
@@ -394,24 +370,10 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
       </button>
     </li>
   </ul>
-  <!--Hamburger button-->
-  <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
-    <span></span>
-    <span></span>
-    <span></span>
-</button>
   <button class="hamburger" id="hamburger">
     <span></span><span></span><span></span>
   </button>
 </nav>
-<!--Mobile dropdown(seperate from nav, so it slides below it)-->
-<div class="nav-links-mobile" id="mobile-menu">
-  <a href="#home" onclick="closeMobileMenu()">Home</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#pricing" onclick="closeMobileMenu()">Shop</a>
-  <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
-  <a href="#contact" onclick=closeMobileMenu()">Contact Us</a>
-  <a href="login.html" onclick="closeMobileMenu()" class="nav-cta-mobile">My Account</a>
 <div class="mobile-menu" id="mobile-menu">
   <a href="#home" onclick="closeMobile()">Home</a>
   <a href="#about" onclick="closeMobile()">About</a>
@@ -420,18 +382,8 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
   <a href="#contact" onclick="closeMobile()">Contact</a>
 </div>
 
-<!-- HOME -->
 <!-- HERO -->
 <section id="home">
-  <div class="hero-bg-blob blob1"></div>
-  <div class="hero-bg-blob blob2"></div>
-  <div class="hero-text">
-    <div class="hero-eyebrow">✦ Handcrafted with love</div>
-    <h1 class="hero-title">Light a Candle<br>for Every <em>Mood</em></h1>
-    <p class="hero-sub">From tender romance to quiet solitude, each Scentra candle is poured to match the texture of a feeling.</p>
-    <div class="hero-btns">
-      <a href="#pricing" class="btn-primary">Shop Now</a>
-      <a href="#about" class="btn-outline">Our Story</a>
   <div class="hero-bg"></div>
   <div class="hero-noise"></div>
   <canvas id="particles-canvas"></canvas>
@@ -449,12 +401,6 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
       </svg>
     </div>
   </div>
-  <div class="hero-visual">
-    <div class="candle-showcase">
-      <div class="hero-candle-card"><div class="hcc-emoji">🕯️</div><div class="hcc-label">Rose & Oud</div><div class="hcc-mood">Romantic</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌸</div><div class="hcc-label">Citrus Joy</div><div class="hcc-mood">Happiness</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌧️</div><div class="hcc-label">Rain & Musk</div><div class="hcc-mood">Melancholy</div></div>
-      <div class="hero-candle-card"><div class="hcc-emoji">🌿</div><div class="hcc-label">Sage & Cedar</div><div class="hcc-mood">Calm</div></div>
   <div class="blob" style="left:-7%;top:7%;width:600px;height:600px;background:radial-gradient(circle,rgba(107,26,42,.64),transparent 70%);animation:blobDrift 9s ease-in-out infinite"></div>
   <div class="blob" style="left:67%;top:54%;width:370px;height:370px;background:radial-gradient(circle,rgba(232,121,154,.1),transparent 70%);animation:blobDrift 11s ease-in-out 2s infinite"></div>
   <div class="blob" style="left:37%;top:-6%;width:460px;height:460px;background:radial-gradient(circle,rgba(55,10,22,.5),transparent 70%);animation:blobDrift 13s ease-in-out 4s infinite"></div>
@@ -503,32 +449,12 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-visual reveal">
-    <div class="about-img-wrap">
-      <img src="MD image.jpeg" height="700">
-      <div class="about-accent">Est.<br>2023<br>✦ Pure<br>Soy</div>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-label">Mood Collections</div></div>
-      <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Happy Customers</div></div>
-      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Natural Soy Wax</div></div>
-      <div class="stat-card"><div class="stat-num">6hrs+</div><div class="stat-label">Avg. Burn Time</div></div>
-    </div>
   <div style="position:absolute;top:8%;right:-4%;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.38),transparent 70%);pointer-events:none"></div>
   <div style="position:absolute;bottom:4%;left:-2%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(74,15,26,.28),transparent 70%);pointer-events:none"></div>
   <div class="section-center" id="about-header">
     <span class="section-label">Our Story</span>
     <h2 class="section-heading" style="margin-bottom:0">Scent is the language of the <em style="font-style:italic;color:#f2a7bb">soul</em></h2>
   </div>
-  <div class="about-text reveal">
-    <span class="section-tag">Our Story</span>
-    <h2 class="section-title">Scent is the language<br>of the <em>soul</em></h2>
-    <div class="divider"></div>
-    <p class="section-sub"><strong>Hello Consumer!</strong><br> My name is <em> Priyasha Dutta </em><br> Managing Director | Founder of Scentra Candles  <br>Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment turning an ordinary evening into something special.</p>
-    <div class="about-values">
-      <div class="value-item">
-        <div class="value-icon">🌿</div>
-        <div class="value-text"><h4>100% Natural Ingredients</h4><p>Every candle is crafted with pure soy wax, natural wicks, and premium fragrance oils no synthetics, no shortcuts.</p></div>
   <div class="about-grid">
     <div class="about-left" id="about-left">
       <div style="position:relative">
@@ -541,18 +467,12 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
         </div>
         <div class="about-est">Est.<br>2023<br><span style="color:#e8799a;font-size:1rem">✦</span></div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">🎨</div>
-        <div class="value-text"><h4>Mood-Matched Scents</h4><p>Our master perfumer curates each fragrance to resonate with specific emotional states, creating a genuine sensory experience.</p></div>
       <div class="about-stats-grid">
-        <div class="about-stat"><div class="about-stat-val" data-count="12" data-suffix="+">24+</div><div class="about-stat-lbl">Mood Collections</div></div>
-        <div class="about-stat"><div class="about-stat-val" data-count="50" data-suffix="+">50+</div><div class="about-stat-lbl">Happy Customers</div></div>
-        <div class="about-stat"><div class="about-stat-val" data-count="100" data-suffix="%">100%</div><div class="about-stat-lbl">Natural Soy Wax</div></div>
-        <div class="about-stat"><div class="about-stat-val" data-count="6" data-suffix="hr+">6hr+</div><div class="about-stat-lbl">Avg. Burn Time</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="12" data-suffix="+">0+</div><div class="about-stat-lbl">Mood Collections</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="50" data-suffix="+">0+</div><div class="about-stat-lbl">Happy Customers</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="100" data-suffix="%">0%</div><div class="about-stat-lbl">Natural Soy Wax</div></div>
+        <div class="about-stat"><div class="about-stat-val" data-count="6" data-suffix="hr+">0hr+</div><div class="about-stat-lbl">Avg. Burn Time</div></div>
       </div>
-      <div class="value-item">
-        <div class="value-icon">💝</div>
-        <div class="value-text"><h4>Handpoured with Care</h4><p>Each candle is poured in small batches by hand, ensuring consistency and the kind of quality only human attention can provide.</p></div>
     </div>
     <div class="about-right" id="about-right">
       <p class="about-body"><strong>Hello!</strong> My name is <em>Priyasha Dutta</em>, Managing Director & Founder of Scentra Candles. Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment.</p>
@@ -572,13 +492,6 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing">
-  <div class="reveal">
-    <span class="section-tag">Our Collection</span>
-    <h2 class="section-title">Find Your Candle</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Sort by mood, price, or let your heart decide. Every candle tells a story.</p>
 <!-- SHOP -->
 <section id="shop">
   <div style="position:absolute;top:18%;left:3%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.22),transparent 70%);pointer-events:none"></div>
@@ -588,29 +501,6 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
     <div class="section-divider" style="margin-bottom:18px"></div>
     <p style="font-family:'Cormorant Garamond',serif;font-size:1.08rem;color:rgba(255,255,255,.32);max-width:440px;margin:0 auto;font-weight:300">Sort by mood or let your heart decide. Every candle tells a story.</p>
   </div>
-  <div class="filter-bar reveal">
-    <span class="filter-label">Mood:</span>
-    <div class="filter-group" id="mood-filters">
-      <button class="filter-btn active" data-filter="mood" data-value="all">All</button>
-      <button class="filter-btn" data-filter="mood" data-value="romantic">Romantic</button>
-      <button class="filter-btn" data-filter="mood" data-value="happy">Happy</button>
-      <button class="filter-btn" data-filter="mood" data-value="sad">Sad</button>
-      <button class="filter-btn" data-filter="mood" data-value="calm">Calm</button>
-      <button class="filter-btn" data-filter="mood" data-value="energetic">Energetic</button>
-      <button class="filter-btn" data-filter="mood" data-value="spiritual">Spiritual</button>
-    </div>
-    <div class="filter-sep"></div>
-    <span class="filter-label">Price:</span>
-    <div class="filter-group" id="price-filters">
-      <button class="filter-btn active" data-filter="price" data-value="all">All</button>
-      <button class="filter-btn" data-filter="price" data-value="budget">Under ₹200</button>
-      <button class="filter-btn" data-filter="price" data-value="budget">₹300-₹500</button>
-      <button class="filter-btn" data-filter="price" data-value="mid">₹500–₹1000</button>
-      <button class="filter-btn" data-filter="price" data-value="premium">₹1000+</button>
-    </div>
-  </div>
-  <div class="products-grid" id="products-grid">
-    <!-- Cards injected by JS -->
   <div class="mood-filters" id="mood-filters">
     <button class="mood-btn active" data-mood="All">All ✦</button>
     <button class="mood-btn" data-mood="romantic">Romantic</button>
@@ -624,27 +514,14 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
 
 <!-- REVIEWS -->
 <section id="reviews">
-  <div class="reveal">
-    <span class="section-tag">Customer Love</span>
-    <h2 class="section-title">What people are saying</h2>
-    <div class="divider"></div>
   <div style="position:absolute;bottom:8%;right:4%;width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.18),transparent 70%);pointer-events:none"></div>
   <div class="section-center" id="reviews-header">
     <span class="section-label">Customer Love</span>
     <h2 class="section-heading">What people are saying</h2>
     <div class="section-divider"></div>
   </div>
-  <div class="reviews-layout">
   <div class="reviews-grid">
     <div class="review-form-wrap">
-      <h3>Leave a Review</h3>
-      <p>Share your experience with our candles</p>
-      <div class="star-input" id="star-input">
-        <span data-val="1">★</span>
-        <span data-val="2">★</span>
-        <span data-val="3">★</span>
-        <span data-val="4">★</span>
-        <span data-val="5">★</span>
       <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:6px">Leave a Review</h3>
       <p style="font-size:.78rem;color:rgba(255,255,255,.28);margin-bottom:22px">Share your experience with our candles</p>
       <div class="stars-input" id="star-input">
@@ -655,32 +532,19 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
         <button class="star-btn" data-star="5">★</button>
       </div>
       <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" id="r-name" placeholder="e.g. Priya Sharma">
         <label class="form-label">Your Name</label>
         <input class="form-input" id="rev-name" type="text" placeholder="Priya Sharma"/>
       </div>
       <div class="form-group">
-        <label>Product</label>
-        <select id="r-product">
-          <option value="">Select a candle...</option>
-        </select>
         <label class="form-label">Your Review</label>
         <textarea class="form-textarea" id="rev-text" rows="3" placeholder="Tell us about your experience…"></textarea>
       </div>
-      <div class="form-group">
-        <label>Your Review</label>
-        <textarea id="r-text" placeholder="Tell us about your experience…"></textarea>
       <div class="form-group" style="margin-bottom:16px">
         <label class="form-label">Product</label>
         <select class="form-select" id="rev-product">
           <option value="">Select a candle…</option>
         </select>
       </div>
-      <button class="btn-primary" onclick="submitReview()" style="width:100%;cursor:none;">Submit Review</button>
-    </div>
-    <div id="reviews-list" class="review-list">
-      <div class="no-reviews">Be the one of trusted to share your experience ✦</div>
       <button class="btn-submit" id="btn-submit-review" onclick="submitReview()">Post Review ✦</button>
     </div>
     <div class="reviews-list" id="reviews-list"></div>
@@ -689,35 +553,12 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="reveal">
-    <span class="section-tag">Get In Touch</span>
-    <h2 class="section-title">We'd love to hear<br>from you</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Questions, custom orders, or just want to say "Hello! we're here."</p>
   <div style="position:absolute;top:18%;left:8%;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(107,26,42,.28),transparent 70%);pointer-events:none"></div>
   <div class="section-center" id="contact-header">
     <span class="section-label">Get In Touch</span>
     <h2 class="section-heading">We'd love to hear<br>from <em style="font-style:italic;color:#f2a7bb">you</em></h2>
     <div class="section-divider"></div>
   </div>
-  <div class="contact-layout">
-    <div class="contact-info reveal">
-      <div class="contact-item">
-        <div class="contact-item-icon">📍</div>
-        <div><h4>Studio</h4><p>Barrackpore<br>Kolkata, West Bengal 700122</p></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">📧</div>
-        <div><h4>Email</h4><p>priyashad89@gmail.com</p></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">📞</div>
-        <div><h4>Phone</h4><p>+91 8240xxxxxx</p></div>
-      </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">🕐</div>
-        <div><h4>Hours</h4><p>Mon–Sat: 10am – 7pm<br>Sunday: 11am – 5pm</p></div>
-      </div>
   <div class="contact-grid" id="contact-grid">
     <div>
       <div class="contact-info-item"><div class="contact-icon">📍</div><div><div class="contact-info-label">Studio</div><p class="contact-info-text">3A, Rabindrapally near Bose Variety Stores, Kolkata, West Bengal 700122</p></div></div>
@@ -725,18 +566,6 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
       <div class="contact-info-item"><div class="contact-icon">📞</div><div><div class="contact-info-label">Phone</div><p class="contact-info-text">+91 8240xxxxxx</p></div></div>
       <div class="contact-info-item"><div class="contact-icon">🕐</div><div><div class="contact-info-label">Hours</div><p class="contact-info-text">Mon–Sat: 10am–7pm&#10;Sunday: 11am–5pm</p></div></div>
       <div class="social-links">
-                <a href="ttps://www.instagram.com/scentra_candle?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" style="font-size:0.75rem;color:rgba(242,167,187,0.6);text-decoration:none;border-bottom:1px solid rgba(242,167,187,0.25);padding-bottom:1px;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='rgba(242,167,187,1)'" onmouseout="this.style.color='rgba(242,167,187,0.6)'">Instagram↗</a>
-                <a href="https://www.linkedin.com/company/scentra-candles/about/?viewAsMember=true" style="font-size:0.75rem;color:rgba(242,167,187,0.6);text-decoration:none;border-bottom:1px solid rgba(242,167,187,0.25);padding-bottom:1px;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='rgba(242,167,187,1)'" onmouseout="this.style.color='rgba(242,167,187,0.6)'">LinkedIN↗</a>
-            </div>
-    </div>
-    <form class="contact-form reveal" id="contact-form" action="https://formspree.io/f/xykdqggb" method="POST">
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" name="name" placeholder="Full name" required>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="your@email.com" required>
         <a href="https://www.instagram.com/scentra_candle" target="_blank" rel="noopener" class="social-link">Instagram ↗</a>
         <a href="https://www.linkedin.com/company/scentra-candles" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
       </div>
@@ -745,23 +574,11 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
       <div class="form-group"><label class="form-label">Your Name</label><input required class="form-input" id="c-name" type="text" placeholder="Full name"/></div>
       <div class="form-group"><label class="form-label">Email</label><input required class="form-input" id="c-email" type="email" placeholder="your@email.com"/></div>
       <div class="form-group">
-        <label>Subject</label>
-        <select name="subject">
-          <option>General Enquiry</option>
-          <option>Custom Order</option>
-          <option>Bulk Order</option>
-          <option>Feedback</option>
         <label class="form-label">Subject</label>
         <select class="form-select" id="c-subject">
           <option>General Enquiry</option><option>Custom Order</option><option>Bulk Order</option><option>Feedback</option>
         </select>
       </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea name="message" placeholder="How can we help you?" rows="4" required></textarea>
-      </div>
-      <button type="submit" class="btn-contact">Send Message ✦</button>
-      <div class="form-success" id="contact-success">✦ Thank you! We'll get back to you within 24 hours.</div>
       <div class="form-group"><label class="form-label">Message</label><textarea required class="form-textarea" id="c-msg" rows="4" placeholder="How can we help you?"></textarea></div>
       <button type="submit" class="btn-send" id="btn-send">Send Message ✦</button>
     </form>
@@ -771,107 +588,32 @@ footer small{font-size:.66rem;color:rgba(255,255,255,.14)}
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Scentra<span>✦</span></div>
-  <p>© 2023 Scentra Candles. Handcrafted with love in Kolkata, West Bengal, India.</p>
-  <p style="color:rgba(255,255,255,0.25);font-size:0.72rem;">Pure soy · Natural wicks · No synthetics<br>Made with ❤️ by <em>Pritam Paul</em></p>
-  <a href="privacy-policy.html" target="_blank" rel="noopener" style="font-size:0.75rem;color:rgba(242,167,187,0.6);text-decoration:none;border-bottom:1px solid rgba(242,167,187,0.25);padding-bottom:1px;letter-spacing:0.08em;transition:color 0.2s;" onmouseover="this.style.color='rgba(242,167,187,1)'" onmouseout="this.style.color='rgba(242,167,187,0.6)'">Terms &amp; Privacy Policy ↗</a>
   <p>© 2023 Scentra Candles. Handcrafted with love in Kolkata, India.</p>
   <small>Pure soy · Natural wicks · Made with ❤️</small>
 </footer>
 
-<!-- ORDER MODAL -->
-<div class="modal-overlay" id="order-modal">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <h3>Order Candle</h3>
-    <p style="font-size:0.83rem;color:var(--text-light);margin-bottom:0">Complete your purchase securely via Razorpay</p>
-    <div class="modal-product-info" id="modal-product-info"></div>
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" id="order-name" placeholder="Full name">
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="order-email" placeholder="your@email.com">
-    </div>
-    <div class="qty-input">
-      <label>Quantity:</label>
-      <input type="number" id="order-qty" value="1" min="1" max="20" onchange="updateTotal()">
-      <span id="order-total" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--maroon);"></span>
-    </div>
-    <button class="btn-pay" onclick="initiatePayment()">Pay with Razorpay ✦</button>
-    <p class="pay-note">🔒 Secured by Razorpay · 100% safe & encrypted</p>
-  </div>
-</div>
-  <!-- ── CART FAB ── -->
-<button class="cart-fab" id="cart-fab" onclick="openCart()">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
-    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-    <line x1="3" y1="6" x2="21" y2="6"/>
-    <path d="M16 10a4 4 0 01-8 0"/>
-  </svg>
-  <span class="cart-count" id="cart-count">0</span>
-</button>
-
-<!-- ── CART OVERLAY ── -->
 <!-- CART DRAWER -->
 <div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
-
-<!-- ── CART DRAWER ── -->
 <div class="cart-drawer" id="cart-drawer">
   <div class="cart-header">
-    <h2>Your Bag <span id="cart-item-count"></span></h2>
-    <button class="cart-close" onclick="closeCart()">✕</button>
     <h2 class="cart-title">Your Bag <span class="cart-count" id="cart-item-count">(0 items)</span></h2>
     <button class="btn-close" onclick="closeCart()">✕</button>
   </div>
   <div class="cart-items" id="cart-items-list">
-    <div class="cart-empty">
-      <div class="cart-empty-icon">🕯️</div>
-      Your bag is empty. Add items to begin.
     <div class="cart-empty" id="cart-empty">
       <canvas id="cart-empty-flame"></canvas>
       <p>Your bag is empty —<br>add a candle to begin.</p>
     </div>
   </div>
-  <div class="cart-footer" id="cart-footer" style="display:none;">
-    <div class="cart-summary">
-      <div class="cart-summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0</span></div>
-      <div class="cart-summary-row"><span>Shipping</span><span>Calculated at checkout</span></div>
-      <div class="cart-summary-row total"><span>Total</span><span id="cart-total-display">₹0</span></div>
-    </div>
   <div class="cart-footer" id="cart-footer" style="display:none">
     <div class="cart-subtotal"><span>Subtotal</span><span id="cart-subtotal-val">₹0</span></div>
     <div class="cart-shipping"><span>Shipping</span><span>Calculated at checkout</span></div>
     <div class="cart-total"><span>Total</span><span id="cart-total-val">₹0</span></div>
     <button class="btn-checkout" onclick="openCheckout()">Proceed to Checkout ✦</button>
-    <button class="cart-continue" onclick="closeCart()">← Continue Shopping</button>
     <button class="btn-continue" onclick="closeCart()">← Continue Shopping</button>
   </div>
 </div>
 
-<!-- ── CHECKOUT MODAL ── -->
-<div class="checkout-overlay" id="checkout-overlay">
-  <div class="checkout-modal">
-    <div class="order-success" id="order-success">
-      <div class="success-icon">🕯️</div>
-      <h3>Order Placed!</h3>
-      <p>Thank you! We've received your order and will be in touch shortly.</p>
-      <div class="order-id-badge">Order ID: <strong id="success-order-id">—</strong></div>
-      <button class="btn-checkout" onclick="closeCheckout()" style="max-width:220px;margin:0 auto;">Back to Shop ✦</button>
-    </div>
-    <div id="checkout-form-wrap">
-      <div class="checkout-header">
-        <h2>Checkout</h2>
-        <p>Complete your order details below</p>
-        <button class="checkout-close" onclick="closeCheckout()">✕</button>
-      </div>
-      <div class="checkout-body">
-        <div class="checkout-items-summary">
-          <h4>Your Order</h4>
-          <div id="checkout-items-rows"></div>
-          <div class="checkout-total-row">
-            <span>Total</span>
-            <span id="checkout-grand-total">₹0</span>
 <!-- CHECKOUT MODAL -->
 <div class="modal-overlay" id="checkout-modal">
   <div class="modal-box" id="modal-box">
@@ -929,10 +671,10 @@ const COUPONS={
 
 const SEED_REVIEWS=[
   {name:"Priya S.",product:"Bourbon Vanilla",stars:5,text:"Absolutely divine! My room smells like a luxury spa. The flame is steady and the throw is incredible.",date:"2 Jan 2025"},
-  {name:"Priyasha D..",product:"Royal Oud",stars:5,text:"Bought this as a gift and the recipient was blown away. Packaging is beautiful and the scent is rich.",date:"15 Dec 2024"},
-  {name:"Pritam P..",product:"English Lavender",stars:4,text:"Perfect for winding down after work. Lavender is realistic and not overpowering. Will buy again!",date:"3 Nov 2024"},
-  {name:"Suparna D.",product:"Petals in Pine",stars:5,text:"I burn this during meditation sessions. Something about it that just centers me completely.",date:"28 Oct 2024"},
-  {name:"Arghya D..",product:"Chai & Chill",stars:5,text:"Smells exactly like cutting chai on a rainy morning. Genuinely comforting — I'm obsessed.",date:"10 Oct 2024"},
+  {name:"Arjun M.",product:"Royal Oud",stars:5,text:"Bought this as a gift and the recipient was blown away. Packaging is beautiful and the scent is rich.",date:"15 Dec 2024"},
+  {name:"Shreya K.",product:"English Lavender",stars:4,text:"Perfect for winding down after work. Lavender is realistic and not overpowering. Will buy again!",date:"3 Nov 2024"},
+  {name:"Riya D.",product:"Petals in Pine",stars:5,text:"I burn this during meditation sessions. Something about it that just centers me completely.",date:"28 Oct 2024"},
+  {name:"Kabir T.",product:"Chai & Chill",stars:5,text:"Smells exactly like cutting chai on a rainy morning. Genuinely comforting — I'm obsessed.",date:"10 Oct 2024"},
 ];
 
 /* ══════════════════════════════════════════════════════
@@ -1142,29 +884,6 @@ function renderShop(){
           <canvas id="pc-flame-${p.id}" width="42" height="62"></canvas>
           <div style="width:23px;height:36px;background:linear-gradient(180deg,${p.color}dd,${p.color}66);border-radius:3px 3px 5px 5px;box-shadow:0 0 12px ${p.glow}33"></div>
         </div>
-        <div class="checkout-section-label">Delivery Details</div>
-        <div class="co-form-grid">
-          <div class="co-group"><label>First Name *</label><input type="text" id="co-fname" placeholder="Priya"></div>
-          <div class="co-group"><label>Last Name *</label><input type="text" id="co-lname" placeholder="Sharma"></div>
-          <div class="co-group full"><label>Email Address *</label><input type="email" id="co-email" placeholder="your@email.com"></div>
-          <div class="co-group full"><label>Phone Number *</label><input type="tel" id="co-phone" placeholder="+91 98765 43210"></div>
-          <div class="co-group full"><label>Address Line 1 *</label><input type="text" id="co-addr1" placeholder="House / Flat No., Street Name"></div>
-          <div class="co-group full"><label>Address Line 2</label><input type="text" id="co-addr2" placeholder="Landmark, Area (optional)"></div>
-          <div class="co-group"><label>City *</label><input type="text" id="co-city" placeholder="Kolkata"></div>
-          <div class="co-group"><label>State *</label><input type="text" id="co-state" placeholder="West Bengal"></div>
-          <div class="co-group"><label>PIN Code *</label><input type="text" id="co-pin" placeholder="700001" maxlength="6"></div>
-          <div class="co-group"><label>Country</label><input type="text" id="co-country" value="India" readonly style="background:var(--beige-warm);"></div>
-          <div class="co-group full"><label>Order Notes (optional)</label><textarea id="co-notes" placeholder="Any special instructions…"></textarea></div>
-        </div>
-        <div class="checkout-section-label">Coupon Code</div>
-        <div class="coupon-row">
-            <input type="text" id="co-coupon" placeholder="Enter coupon code" autocomplete="off">
-            <button class="btn-apply-coupon" onclick="applyCoupon()">Apply</button>
-        </div>
-        <div id="coupon-msg" class="coupon-msg" style="display:none;"></div>
-        <div id="coupon-discount-row" class="coupon-discount-row" style="display:none;">
-            <span>Discount <button onclick="removeCoupon()" class="remove-coupon-btn">✕ Remove</button></span>
-            <span id="coupon-discount-amount">−₹0</span>
         <span class="product-mood-tag" style="color:${p.glow};border:1px solid ${p.glow}28">${p.mood}</span>
         ${inCart?`<span class="product-incart">In bag</span>`:""}
       </div>
@@ -1175,12 +894,6 @@ function renderShop(){
           <span class="product-price">₹${p.price}</span>
           <span class="product-burn">🕐 ${p.burn}</span>
         </div>
-        <div class="checkout-section-label">Payment Method</div>
-        <div class="payment-methods">
-          <div class="pay-method selected" onclick="selectPayment('razorpay', this)">
-            <div class="pm-icon">💳</div>
-            <div class="pm-label">Card / UPI</div>
-          </div>
         <button class="btn-add" id="add-${p.id}" onclick="addToCart(${p.id})" style="color:${p.glow};border:1.5px solid ${p.glow}44">+ Add to Bag</button>
       </div>`;
     grid.appendChild(card);
@@ -1257,18 +970,7 @@ function renderCartItems(){
           <span class="qty-val">${item.qty}</span>
           <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
         </div>
-        <div id="co-error" style="display:none;margin-top:14px;padding:12px 16px;background:#fdf0ef;border:1px solid #f5c6c3;border-radius:10px;font-size:0.82rem;color:#922b21;"></div>
-        <button class="btn-place-order" id="place-order-btn" onclick="placeOrder()">
-          <span id="po-label">Place Order ✦</span>
-          <span class="po-spinner" id="po-spinner"></span>
-        </button>
-        <p style="text-align:center;font-size:0.72rem;color:var(--text-light);margin-top:12px;">
-          🔒 Secured · By ordering you agree to our <a href="privacy-policy.html" target="_blank" style="color:var(--pink-deep);">Terms & Conditions</a>
-        </p>
       </div>
-    </div>
-  </div>
-</div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:16px">
         <span class="cart-item-price">₹${item.price*item.qty}</span>
         <button class="btn-remove" onclick="removeItem(${item.id})">✕ Remove</button>
@@ -1278,10 +980,6 @@ function renderCartItems(){
   });
 }
 
-<script src="Script.js"></script>
-  <script src="Script.js"></script>
-</body>
-</html>
 function openCart(){
   renderCartItems();
   document.getElementById("cart-overlay").classList.add("open");
