@@ -353,6 +353,16 @@
           <div class="co-group"><label>Country</label><input type="text" id="co-country" value="India" readonly style="background:var(--beige-warm);"></div>
           <div class="co-group full"><label>Order Notes (optional)</label><textarea id="co-notes" placeholder="Any special instructions…"></textarea></div>
         </div>
+        <div class="checkout-section-label">Coupon Code</div>
+        <div class="coupon-row">
+            <input type="text" id="co-coupon" placeholder="Enter coupon code" autocomplete="off">
+            <button class="btn-apply-coupon" onclick="applyCoupon()">Apply</button>
+        </div>
+        <div id="coupon-msg" class="coupon-msg" style="display:none;"></div>
+        <div id="coupon-discount-row" class="coupon-discount-row" style="display:none;">
+            <span>Discount <button onclick="removeCoupon()" class="remove-coupon-btn">✕ Remove</button></span>
+            <span id="coupon-discount-amount">−₹0</span>
+        </div>
         <div class="checkout-section-label">Payment Method</div>
         <div class="payment-methods">
           <div class="pay-method selected" onclick="selectPayment('razorpay', this)">
