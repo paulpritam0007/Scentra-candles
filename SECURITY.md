@@ -2,8 +2,7 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Scentra project are currently being supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
@@ -14,8 +13,9 @@ currently being supported with security updates.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+If you get a suspicious kind of texts, calls, or anything from Scentra Candles. Do Contact us.
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+Go to Our Official Website:
+1.Scentracandles.vercel.app
+2.Go to Navigation Bar, and Click on Contact Us.
+3.Tell us your problem and we will get back to you within 24-48 business days.
