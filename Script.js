@@ -335,6 +335,92 @@ if (menuToggle && mobileMenu) {
 
 /* ── CART SYSTEM ── */
 const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
+/* ── COUPON CODES ── */
+const COUPONS = {
+  'SCENTRA10':  { discount: 10, type: 'percent',  label: '10% off your order' },
+  'WELCOME20':  { discount: 20, type: 'percent',  label: '20% off for new customers' },
+  'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
+  'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
+  'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
+};
+
+let appliedCoupon = null;
+
+function applyCoupon() {
+  const input = document.getElementById('co-coupon');
+  const code  = input.value.trim().toUpperCase();
+  const msgEl = document.getElementById('coupon-msg');
+  const rowEl = document.getElementById('coupon-discount-row');
+  const totalEl = document.getElementById('checkout-grand-total');
+
+  if (!code) {
+    showCouponMsg('Please enter a coupon code.', 'error');
+    return;
+  }
+
+  const coupon = COUPONS[code];
+
+  if (!coupon) {
+    appliedCoupon = null;
+    input.classList.add('co-error');
+    showCouponMsg('Invalid coupon code. Please try again.', 'error');
+    rowEl.style.display = 'none';
+    recalcTotal();
+    return;
+  }
+
+  // Valid coupon
+  appliedCoupon = { code, ...coupon };
+  input.classList.remove('co-error');
+  input.classList.add('coupon-valid');
+  input.readOnly = true;
+
+  // Show success message
+  showCouponMsg('✦ ' + coupon.label + ' applied!', 'success');
+
+  // Show discount row
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const discountAmt = coupon.type === 'percent'
+    ? Math.round(subtotal * coupon.discount / 100)
+    : Math.min(coupon.discount, subtotal);
+
+  document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
+  rowEl.style.display = 'flex';
+
+  recalcTotal();
+}
+
+function removeCoupon() {
+  appliedCoupon = null;
+  const input = document.getElementById('co-coupon');
+  input.value   = '';
+  input.readOnly = false;
+  input.classList.remove('coupon-valid', 'co-error');
+  document.getElementById('coupon-msg').style.display = 'none';
+  document.getElementById('coupon-discount-row').style.display = 'none';
+  recalcTotal();
+}
+
+function recalcTotal() {
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  let discount = 0;
+  if (appliedCoupon) {
+    discount = appliedCoupon.type === 'percent'
+      ? Math.round(subtotal * appliedCoupon.discount / 100)
+      : Math.min(appliedCoupon.discount, subtotal);
+  }
+  const final = Math.max(0, subtotal - discount);
+  const el = document.getElementById('checkout-grand-total');
+  if (el) el.textContent = '₹' + final;
+}
+
+function showCouponMsg(msg, type) {
+  const el = document.getElementById('coupon-msg');
+  if (!el) return;
+  el.textContent  = msg;
+  el.className    = 'coupon-msg ' + type;
+  el.style.display = 'block';
+}
 
 let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
 let selectedPaymentMethod = 'razorpay';
@@ -442,6 +528,7 @@ function openCheckout() {
   if (!cart.length) return;
   closeCart();
   populateCheckoutSummary();
+  recalcTotal();        
   document.getElementById('checkout-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -546,7 +633,14 @@ async function placeOrder() {
     notes:     document.getElementById('co-notes').value.trim(),
     payment:   selectedPaymentMethod === 'razorpay' ? 'Card / UPI (Razorpay)' : 'Cash on Delivery',
     items:     cart,
-    total:     cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0),
+    total:     (function() {
+  var sub = cart.reduce(function(s, i) { return s + i.price * i.qty; }, 0);
+  if (!appliedCoupon) return sub;
+  var disc = appliedCoupon.type === 'percent'
+    ? Math.round(sub * appliedCoupon.discount / 100)
+    : Math.min(appliedCoupon.discount, sub);
+  return Math.max(0, sub - disc);
+})(),
     orderId:   'SCN-' + Date.now().toString().slice(-8).toUpperCase(),
     orderDate: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' })
   };
@@ -651,3 +745,4 @@ function onOrderSuccess(orderId) {
 }
 
 updateCartUI();
+
