@@ -855,11 +855,11 @@ let mx=0,my=0,rx=0,ry=0;
 window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.transform=`translate(${mx-5}px,${my-5}px)`});
 (function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.transform=`translate(${rx-17}px,${ry-17}px)`;requestAnimationFrame(loop)})();
 
-/* ══ MEMBERS ══ */
-const MEMBERS=[
-  {email:'priyashad89@gmail.com',password:'Scentra@Admin2025',code:'SCN-ADMN-0000',name:'Priyasha Dutta',role:'Founder & Admin',memberId:'SCN-ADMN-0000'},
-  {email:'dev@scentra.in',password:'Dev@Scentra2025',code:'SCN-DEV-0001',name:'Lead Developer',role:'Developer — Full Stack',memberId:'SCN-DEV-0001'},
-];
+/* ══ MEMBERS ══
+   No credentials stored here anymore.
+   Login is verified by /api/login (Vercel serverless).
+   Credentials live only in Vercel Environment Variables.
+══════════════════════════════════════════════════════ */
 let CU=null;
 
 /* ══ PERSISTENCE HELPERS ══
@@ -946,13 +946,36 @@ function doLogin(){
   ['l-email','l-pass','l-code'].forEach(id=>document.getElementById(id).classList.remove('err'));
   const btn=document.getElementById('lbtn');
   document.getElementById('llbl').style.display='none';document.getElementById('lspin').style.display='block';btn.disabled=true;
-  setTimeout(()=>{
-    const u=MEMBERS.find(m=>m.email.toLowerCase()===email&&m.password===pass&&m.code===code);
-    if(!u){document.getElementById('llbl').style.display='block';document.getElementById('lspin').style.display='none';btn.disabled=false;showErr(MEMBERS.find(m=>m.email.toLowerCase()===email)?'Incorrect password or access code.':'No member account found for this email.');return}
-    CU=u;
-    saveSession(u.email); // ← persist login
-    bootDashboard(u);
-  },1500);
+
+  // Call the Vercel serverless function — credentials never checked in browser
+  fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password: pass, code })
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('llbl').style.display='block';
+    document.getElementById('lspin').style.display='none';
+    btn.disabled=false;
+    if(data.success){
+      CU = data.user;
+      saveSession(data.user.email);
+      savePortalData({ savedUser: data.user }); // store safe user object for auto-login
+      bootDashboard(data.user);
+    } else {
+      showErr(data.emailExists
+        ? 'Incorrect password or access code. Please check and try again.'
+        : 'No member account found for this email address.'
+      );
+    }
+  })
+  .catch(()=>{
+    document.getElementById('llbl').style.display='block';
+    document.getElementById('lspin').style.display='none';
+    btn.disabled=false;
+    showErr('Connection error. Please try again.');
+  });
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('login-page').style.display!=='none')doLogin()});
 
@@ -1359,9 +1382,11 @@ function showToast(msg,duration){
 /* ══ AUTO-LOGIN ON PAGE LOAD ══ */
 (function checkAutoLogin(){
   var savedEmail=getSession();
-  if(savedEmail){
-    var u=MEMBERS.find(function(m){return m.email.toLowerCase()===savedEmail.toLowerCase()});
-    if(u){u._autoLogin=true;CU=u;bootDashboard(u);return;}
+  var savedUser=loadPortalData().savedUser;
+  if(savedEmail && savedUser && savedUser.email && savedUser.email.toLowerCase()===savedEmail.toLowerCase()){
+    savedUser._autoLogin=true;
+    CU=savedUser;
+    bootDashboard(savedUser);
   }
 })();
 </script>
