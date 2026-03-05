@@ -3,1128 +3,836 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Scentra Members— Member Portal</title>
+<title>Scentra — Members Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
-
-<!-- Apply dark mode BEFORE paint to prevent flash -->
-<script>
-(function(){
-  if(localStorage.getItem('scentra_theme')==='dark')
-    document.documentElement.classList.add('dark-mode');
-})();
-</script>
-
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script>(function(){if(localStorage.getItem('scentra_theme')==='dark')document.documentElement.classList.add('dark-mode');})();</script>
 <style>
-/* ══════════════════════════════
-   HOMEPAGE LIGHT PALETTE (default)
-══════════════════════════════ */
+/* ══════════════════════════════ PALETTE ══════════════════════════════ */
 :root{
-  /* Backgrounds */
-  --bg:       #fdf8f2;
-  --bg2:      #f9f3ea;
-  --bg3:      #f5ede0;
-  --sidebar-bg: rgba(253,248,242,0.97);
-  --topbar-bg: rgba(253,248,242,0.94);
-
-  /* Surfaces */
-  --surface:  rgba(107,26,42,.045);
-  --surface2: rgba(107,26,42,.08);
-  --surface3: #ffffff;
-
-  /* Borders */
-  --border:   rgba(107,26,42,.1);
-  --border2:  rgba(107,26,42,.2);
-
-  /* Brand */
-  --maroon:   #6b1a2a;
-  --maroon2:  #8b2a3e;
-  --maroon3:  #4a0f1a;
-  --pink:     #e8799a;
-  --pink2:    #f2a7bb;
-  --pink3:    rgba(232,121,154,.14);
-  --pink4:    #fce4ec;
-
-  /* Accent tones */
-  --gold:     #8a6520;
-  --gold2:    rgba(138,101,32,.1);
-  --gold3:    #c9a84c;
-
-  /* Text */
-  --text:     #2c0f18;
-  --text2:    #6b3040;
-  --text3:    #9e6370;
-
-  /* Status */
-  --green:    #2e7d52;
-  --green2:   rgba(46,125,82,.1);
-  --red:      #c0392b;
-  --red2:     rgba(192,57,43,.1);
-  --amber:    #7d5a0a;
-  --amber2:   rgba(125,90,10,.1);
-  --blue:     #1a5276;
-  --blue2:    rgba(26,82,118,.1);
-
-  /* Utility */
-  --r:  16px;
-  --r2: 12px;
-  --shadow: 0 8px 40px rgba(107,26,42,.12);
-  --shadow2:0 2px 12px rgba(107,26,42,.07);
+  --bg:#fdf8f2; --bg2:#f9f3ea; --bg3:#f5ede0;
+  --sidebar-bg:rgba(253,248,242,.97); --topbar-bg:rgba(253,248,242,.94);
+  --surface:rgba(107,26,42,.04); --surface2:rgba(107,26,42,.075); --surface3:#ffffff;
+  --border:rgba(107,26,42,.1); --border2:rgba(107,26,42,.2);
+  --maroon:#6b1a2a; --maroon2:#8b2a3e; --maroon3:#4a0f1a;
+  --pink:#e8799a; --pink2:#f2a7bb; --pink3:rgba(232,121,154,.14); --pink4:#fce4ec;
+  --gold:#8a6520; --gold2:rgba(138,101,32,.1); --gold3:#c9a84c;
+  --text:#2c0f18; --text2:#6b3040; --text3:#9e6370;
+  --green:#2e7d52; --green2:rgba(46,125,82,.1);
+  --red:#c0392b; --red2:rgba(192,57,43,.1);
+  --amber:#7d5a0a; --amber2:rgba(125,90,10,.1);
+  --blue:#1a5276; --blue2:rgba(26,82,118,.1);
+  --purple:#5b2c8a; --purple2:rgba(91,44,138,.1);
+  --code-bg:rgba(107,26,42,.05); --code-border:rgba(107,26,42,.12);
+  --r:16px; --r2:12px;
+  --shadow:0 8px 40px rgba(107,26,42,.12); --shadow2:0 2px 12px rgba(107,26,42,.07);
 }
-
-/* ══════════════════════════════
-   DARK MODE OVERRIDES
-   Reads localStorage 'scentra_theme'
-   Written by the homepage toggle
-══════════════════════════════ */
 html.dark-mode{
-  --bg:       #0e0608;
-  --bg2:      #130810;
-  --bg3:      #1a0018;
-  --sidebar-bg: rgba(18,0,16,.97);
-  --topbar-bg: rgba(11,0,7,.93);
-
-  --surface:  rgba(255,255,255,.038);
-  --surface2: rgba(255,255,255,.065);
-  --surface3: rgba(255,255,255,.04);
-
-  --border:   rgba(255,255,255,.07);
-  --border2:  rgba(255,255,255,.13);
-
-  --maroon:   #e8799a;
-  --maroon2:  #f2a7bb;
-  --maroon3:  #f8d0dc;
-  --pink:     #e8799a;
-  --pink2:    #f2a7bb;
-  --pink3:    rgba(232,121,154,.13);
-  --pink4:    rgba(232,121,154,.08);
-
-  --gold:     #c9a84c;
-  --gold2:    rgba(201,168,76,.12);
-  --gold3:    #e8d48a;
-
-  --text:     #f5dde4;
-  --text2:    rgba(245,221,228,.56);
-  --text3:    rgba(245,221,228,.3);
-
-  --green:    #4caf80;
-  --green2:   rgba(76,175,128,.12);
-  --red:      #e57373;
-  --red2:     rgba(229,115,115,.12);
-  --amber:    #e8a030;
-  --amber2:   rgba(232,160,48,.12);
-  --blue:     #6eb5e8;
-  --blue2:    rgba(110,181,232,.12);
-
-  --shadow:  0 8px 40px rgba(0,0,0,.5);
-  --shadow2: 0 2px 12px rgba(0,0,0,.35);
+  --bg:#0e0608; --bg2:#130810; --bg3:#1a0018;
+  --sidebar-bg:rgba(18,0,16,.97); --topbar-bg:rgba(11,0,7,.93);
+  --surface:rgba(255,255,255,.038); --surface2:rgba(255,255,255,.065); --surface3:rgba(255,255,255,.04);
+  --border:rgba(255,255,255,.07); --border2:rgba(255,255,255,.13);
+  --maroon:#e8799a; --maroon2:#f2a7bb; --maroon3:#f8d0dc;
+  --pink:#e8799a; --pink2:#f2a7bb; --pink3:rgba(232,121,154,.13); --pink4:rgba(232,121,154,.08);
+  --gold:#c9a84c; --gold2:rgba(201,168,76,.12); --gold3:#e8d48a;
+  --text:#f5dde4; --text2:rgba(245,221,228,.56); --text3:rgba(245,221,228,.3);
+  --green:#4caf80; --green2:rgba(76,175,128,.12);
+  --red:#e57373; --red2:rgba(229,115,115,.12);
+  --amber:#e8a030; --amber2:rgba(232,160,48,.12);
+  --blue:#6eb5e8; --blue2:rgba(110,181,232,.12);
+  --purple:#b39ddb; --purple2:rgba(179,157,219,.12);
+  --code-bg:rgba(0,0,0,.3); --code-border:rgba(255,255,255,.1);
+  --shadow:0 8px 40px rgba(0,0,0,.5); --shadow2:0 2px 12px rgba(0,0,0,.35);
 }
 
-/* ══════════════════════════════
-   RESET
-══════════════════════════════ */
+/* ══════════════════════════════ RESET ══════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:'Jost',sans-serif;
-  background:var(--bg);color:var(--text);
-  overflow-x:hidden;cursor:none;min-height:100vh;
-  transition:background .35s ease,color .25s ease;
-}
+body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;cursor:none;min-height:100vh;transition:background .35s,color .25s}
 *{cursor:none!important}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:rgba(107,26,42,.3);border-radius:4px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:rgba(107,26,42,.3);border-radius:4px}
 a{color:inherit;text-decoration:none}
-button{font-family:'Jost',sans-serif}
-input,textarea,select{font-family:'Jost',sans-serif}
+button,input,textarea,select{font-family:'Jost',sans-serif}
 input::placeholder,textarea::placeholder{color:var(--text3)}
+body *{transition:background-color .3s,border-color .3s,color .22s,box-shadow .3s}
+.no-trans,.no-trans *{transition:none!important}
 
-/* Smooth theme transitions */
-body,body *{
-  transition:
-    background-color .3s ease,
-    border-color     .3s ease,
-    color            .22s ease,
-    box-shadow       .3s ease;
-}
-/* Don't slow down hover anims */
-.nav-item,.card,.btn-login,.announcement,.resource-item,
-#cd,#cr,.loyalty-bar-fill{transition-duration:.15s!important}
-
-/* ══════════════════════════════
-   CURSOR
-══════════════════════════════ */
-#cd{
-  position:fixed;width:10px;height:10px;
-  background:var(--pink);border-radius:50%;
-  pointer-events:none;z-index:99999;
-  transform:translate(-200px,-200px);
-  box-shadow:0 0 8px var(--pink),0 0 20px rgba(232,121,154,.35);
-}
-#cr{
-  position:fixed;width:34px;height:34px;
-  border:1.5px solid rgba(107,26,42,.35);border-radius:50%;
-  pointer-events:none;z-index:99998;
-  transform:translate(-200px,-200px);
-}
+/* ══════════════════════════════ CURSOR ══════════════════════════════ */
+#cd{position:fixed;width:10px;height:10px;background:var(--pink);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-200px,-200px);box-shadow:0 0 8px var(--pink),0 0 20px rgba(232,121,154,.35)}
+#cr{position:fixed;width:34px;height:34px;border:1.5px solid rgba(107,26,42,.35);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-200px,-200px)}
 html.dark-mode #cr{border-color:rgba(232,121,154,.35)}
 
-/* ══════════════════════════════
-   KEYFRAMES
-══════════════════════════════ */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ══════════════════════════════ ANIMATIONS ══════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
-@keyframes notifDrop{from{opacity:0;transform:translateY(-12px) scale(.95)}to{opacity:1;transform:none}}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes notifDrop{from{opacity:0;transform:translateY(-10px) scale(.95)}to{opacity:1;transform:none}}
 @keyframes badgePop{0%{transform:scale(0)}70%{transform:scale(1.2)}100%{transform:scale(1)}}
-@keyframes glow-light{0%,100%{box-shadow:0 0 18px rgba(107,26,42,.12)}50%{box-shadow:0 0 36px rgba(107,26,42,.24)}}
-@keyframes glow-dark {0%,100%{box-shadow:0 0 18px rgba(201,168,76,.18)}50%{box-shadow:0 0 36px rgba(201,168,76,.38)}}
+@keyframes newFeaturePulse{0%,100%{box-shadow:0 0 0 0 rgba(232,121,154,.4)}70%{box-shadow:0 0 0 10px rgba(232,121,154,0)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes codeTyping{from{width:0}to{width:100%}}
+@keyframes blinkCursor{0%,100%{opacity:1}50%{opacity:0}}
 
-/* ══════════════════════════════
-   LOGIN PAGE
-══════════════════════════════ */
+/* ══════════════════════════════ LOGIN ══════════════════════════════ */
 #login-page{
-  display:flex;align-items:center;justify-content:center;
-  min-height:100vh;position:relative;overflow:hidden;
-  background:
-    radial-gradient(ellipse 80% 70% at 15% 50%,rgba(252,228,236,.8),transparent 65%),
-    radial-gradient(ellipse 60% 80% at 85% 20%,rgba(232,217,197,.7),transparent 60%),
-    linear-gradient(160deg,#fdf8f2 0%,#f9f3ea 50%,#fdf8f2 100%);
+  display:flex;align-items:center;justify-content:center;min-height:100vh;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 70% at 15% 50%,rgba(252,228,236,.8),transparent 65%),
+             radial-gradient(ellipse 60% 80% at 85% 20%,rgba(232,217,197,.7),transparent 60%),
+             linear-gradient(160deg,#fdf8f2 0%,#f9f3ea 50%,#fdf8f2 100%);
 }
 html.dark-mode #login-page{
-  background:
-    radial-gradient(ellipse 80% 70% at 15% 50%,rgba(107,26,42,.55),transparent 65%),
-    radial-gradient(ellipse 60% 80% at 85% 20%,rgba(74,15,26,.4),transparent 60%),
-    linear-gradient(160deg,#0d0009 0%,#130010 50%,#08000d 100%);
+  background:radial-gradient(ellipse 80% 70% at 15% 50%,rgba(107,26,42,.55),transparent 65%),
+             radial-gradient(ellipse 60% 80% at 85% 20%,rgba(74,15,26,.4),transparent 60%),
+             linear-gradient(160deg,#0d0009 0%,#130010 50%,#08000d 100%);
 }
-
-.login-blob{position:absolute;border-radius:50%;pointer-events:none;filter:blur(72px)}
+.lb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(72px)}
 .lb1{width:600px;height:600px;background:radial-gradient(circle,rgba(232,121,154,.28),transparent 70%);top:-120px;left:-120px;animation:pulse 6s ease-in-out infinite}
 .lb2{width:420px;height:420px;background:radial-gradient(circle,rgba(107,26,42,.12),transparent 70%);bottom:-80px;right:-80px;animation:pulse 8s ease-in-out 2s infinite}
 html.dark-mode .lb1{background:radial-gradient(circle,rgba(107,26,42,.52),transparent 70%)}
 html.dark-mode .lb2{background:radial-gradient(circle,rgba(232,121,154,.1),transparent 70%)}
 
 .login-card{
-  position:relative;z-index:10;
-  width:100%;max-width:460px;margin:24px;
-  background:rgba(255,255,255,.78);
-  border:1px solid rgba(107,26,42,.12);
-  border-radius:28px;padding:48px 44px;
-  backdrop-filter:blur(24px);
-  box-shadow:0 44px 110px rgba(107,26,42,.14);
-  animation:fadeUp .8s cubic-bezier(.16,1,.3,1) both;
+  position:relative;z-index:10;width:100%;max-width:460px;margin:24px;
+  background:rgba(255,255,255,.82);border:1px solid rgba(107,26,42,.12);
+  border-radius:28px;padding:48px 44px;backdrop-filter:blur(24px);
+  box-shadow:0 44px 110px rgba(107,26,42,.14);animation:fadeUp .8s cubic-bezier(.16,1,.3,1) both;
 }
-html.dark-mode .login-card{
-  background:rgba(255,255,255,.032);
-  border-color:rgba(255,255,255,.08);
-  box-shadow:0 44px 110px rgba(0,0,0,.6);
-}
-
-.login-eyebrow{
-  font-size:.64rem;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--pink);margin-bottom:10px;
-  display:flex;align-items:center;gap:8px;
-}
+html.dark-mode .login-card{background:rgba(255,255,255,.032);border-color:rgba(255,255,255,.08);box-shadow:0 44px 110px rgba(0,0,0,.6)}
+.login-eyebrow{font-size:.64rem;letter-spacing:.32em;text-transform:uppercase;color:var(--pink);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .login-eyebrow::before{content:'';display:block;width:22px;height:1px;background:var(--pink)}
 .login-title{font-family:'Playfair Display',serif;font-size:2.1rem;color:var(--text);margin-bottom:6px;line-height:1.15}
 .login-title em{font-style:italic;color:var(--maroon)}
 html.dark-mode .login-title em{color:var(--pink)}
-.login-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text3);margin-bottom:36px;font-weight:300;line-height:1.6}
-
-.login-field{margin-bottom:16px}
-.login-field label{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
-.login-input-wrap{position:relative}
-.login-input{
-  width:100%;padding:12px 44px 12px 16px;
-  background:rgba(107,26,42,.04);
-  border:1.5px solid rgba(107,26,42,.14);
-  border-radius:12px;color:var(--text);font-size:.9rem;outline:none;
-}
-html.dark-mode .login-input{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.09)}
-.login-input:focus{border-color:var(--maroon);background:rgba(107,26,42,.06)}
-html.dark-mode .login-input:focus{border-color:rgba(232,121,154,.5);background:rgba(232,121,154,.04)}
-.login-input.err{border-color:var(--red)!important}
-.input-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.35;pointer-events:none}
-.toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:.8rem;color:var(--text3);opacity:.7;padding:2px}
-.toggle-pw:hover{opacity:1}
-
-.access-code-hint{
-  display:flex;align-items:flex-start;gap:10px;
-  background:rgba(138,101,32,.08);border:1px solid rgba(138,101,32,.2);
-  border-radius:11px;padding:12px 14px;margin-bottom:20px;
-  font-size:.78rem;color:var(--gold);line-height:1.55;
-}
-html.dark-mode .access-code-hint{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.2);color:rgba(201,168,76,.85)}
-.access-code-hint strong{color:var(--gold)}
-html.dark-mode .access-code-hint strong{color:#c9a84c}
-.hint-icon{font-size:1rem;flex-shrink:0;margin-top:1px}
-
-.btn-login{
-  width:100%;padding:14px;
-  background:linear-gradient(135deg,var(--maroon),var(--maroon2));
-  color:#fff;border:none;border-radius:13px;
-  font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
-  margin-bottom:14px;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-}
+.login-sub{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--text3);margin-bottom:32px;font-weight:300;line-height:1.6}
+.lf{margin-bottom:15px}
+.lf label{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.liw{position:relative}
+.li{width:100%;padding:12px 44px 12px 16px;background:rgba(107,26,42,.04);border:1.5px solid rgba(107,26,42,.14);border-radius:12px;color:var(--text);font-size:.9rem;outline:none}
+html.dark-mode .li{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.09)}
+.li:focus{border-color:var(--maroon);background:rgba(107,26,42,.06)}
+html.dark-mode .li:focus{border-color:rgba(232,121,154,.5);background:rgba(232,121,154,.04)}
+.li.err{border-color:var(--red)!important}
+.ii{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:1rem;opacity:.35;pointer-events:none}
+.tpw{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:.8rem;color:var(--text3);opacity:.7;padding:2px}
+.code-hint{display:flex;align-items:flex-start;gap:10px;background:rgba(138,101,32,.08);border:1px solid rgba(138,101,32,.2);border-radius:11px;padding:12px 14px;margin-bottom:18px;font-size:.78rem;color:var(--gold);line-height:1.55}
+html.dark-mode .code-hint{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.2);color:rgba(201,168,76,.85)}
+.code-hint strong{color:var(--gold)}
+.login-err{background:var(--red2);border:1px solid rgba(192,57,43,.25);border-radius:10px;padding:10px 14px;font-size:.8rem;color:var(--red);margin-bottom:14px;display:none;text-align:center}
+.btn-login{width:100%;padding:14px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:#fff;border:none;border-radius:13px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px}
 .btn-login:hover{background:linear-gradient(135deg,#8b2a3e,#a8364e);transform:translateY(-2px);box-shadow:0 14px 36px rgba(107,26,42,.35)}
 .btn-login:disabled{opacity:.55;transform:none;box-shadow:none}
-.login-spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.lspinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.login-note{text-align:center;font-size:.7rem;color:var(--text3);margin-top:8px}
+.login-note a{color:var(--maroon);border-bottom:1px solid rgba(107,26,42,.3)}
+html.dark-mode .login-note a{color:var(--pink);border-bottom-color:rgba(232,121,154,.3)}
 
-.login-err{
-  background:var(--red2);border:1px solid rgba(192,57,43,.25);
-  border-radius:10px;padding:10px 14px;font-size:.8rem;color:var(--red);
-  margin-bottom:14px;display:none;text-align:center;
-}
-.login-footer-note{text-align:center;font-size:.7rem;color:var(--text3);margin-top:8px}
-.login-footer-note a{color:var(--maroon);border-bottom:1px solid rgba(107,26,42,.3)}
-html.dark-mode .login-footer-note a{color:var(--pink);border-bottom-color:rgba(232,121,154,.3)}
-
-/* ══════════════════════════════
-   DASHBOARD LAYOUT
-══════════════════════════════ */
+/* ══════════════════════════════ DASHBOARD SHELL ══════════════════════════════ */
 #dashboard{display:none;min-height:100vh;background:var(--bg)}
-
-/* Sidebar */
-.sidebar{
-  position:fixed;top:0;left:0;bottom:0;width:248px;
-  background:var(--sidebar-bg);
-  border-right:1px solid var(--border);
-  backdrop-filter:blur(20px);
-  z-index:200;display:flex;flex-direction:column;
-  box-shadow:2px 0 20px rgba(107,26,42,.06);
-  transition:transform .3s ease;
-}
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:252px;background:var(--sidebar-bg);border-right:1px solid var(--border);backdrop-filter:blur(20px);z-index:200;display:flex;flex-direction:column;box-shadow:2px 0 20px rgba(107,26,42,.06);transition:transform .3s ease}
 html.dark-mode .sidebar{box-shadow:2px 0 20px rgba(0,0,0,.3)}
-
-.sidebar-logo{padding:28px 24px 20px;border-bottom:1px solid var(--border)}
-.sidebar-logo-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--maroon)}
-html.dark-mode .sidebar-logo-name{color:var(--text)}
-.sidebar-logo-name span{color:var(--pink)}
-.sidebar-badge{
-  display:inline-flex;align-items:center;gap:5px;margin-top:6px;
-  font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--gold);background:var(--gold2);
-  border:1px solid rgba(138,101,32,.2);padding:3px 10px;border-radius:20px;
-}
-html.dark-mode .sidebar-badge{color:#c9a84c;border-color:rgba(201,168,76,.2)}
-.sidebar-badge::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
-
-.sidebar-nav{flex:1;padding:18px 12px;overflow-y:auto}
-.nav-section-label{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text3);padding:12px 12px 6px}
-.nav-item{
-  display:flex;align-items:center;gap:11px;
-  padding:10px 14px;border-radius:11px;
-  font-size:.82rem;color:var(--text2);
-  margin-bottom:3px;transition:all .18s;position:relative;
-}
-.nav-item:hover{background:var(--surface2);color:var(--text)}
-.nav-item.active{
-  background:rgba(107,26,42,.1);color:var(--maroon);
-  border:1px solid rgba(107,26,42,.18);
-}
-html.dark-mode .nav-item.active{background:rgba(232,121,154,.13);color:var(--pink);border-color:rgba(232,121,154,.18)}
-.nav-item.active::before{
-  content:'';position:absolute;left:0;top:20%;bottom:20%;
-  width:3px;background:var(--maroon);border-radius:0 3px 3px 0;
-}
-html.dark-mode .nav-item.active::before{background:var(--pink)}
-.nav-icon{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
-.nav-badge{
-  margin-left:auto;background:var(--maroon);color:#fff;
-  font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:20px;
-  animation:badgePop .4s ease;
-}
-html.dark-mode .nav-badge{background:var(--pink)}
-
-.sidebar-user{
-  padding:16px;border-top:1px solid var(--border);
-  display:flex;align-items:center;gap:11px;
-}
-.sidebar-avatar{
-  width:36px;height:36px;border-radius:50%;
-  background:linear-gradient(135deg,var(--maroon),var(--maroon2));
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;flex-shrink:0;
-}
-.sidebar-uname{font-size:.82rem;color:var(--text);font-weight:500}
-.sidebar-role{font-size:.65rem;color:var(--text3);letter-spacing:.06em}
-.btn-signout{
-  margin-left:auto;background:none;
-  border:1px solid var(--border);border-radius:8px;
-  padding:5px 10px;font-size:.66rem;color:var(--text3);
-}
-.btn-signout:hover{border-color:var(--red);color:var(--red)}
-
-/* Main */
-.main{margin-left:248px;min-height:100vh}
-
-/* Topbar */
-.topbar{
-  position:sticky;top:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 36px;height:64px;
-  background:var(--topbar-bg);
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(16px);
-}
-.topbar-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--maroon)}
-html.dark-mode .topbar-title{color:var(--text)}
-.topbar-right{display:flex;align-items:center;gap:14px}
-.topbar-time{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:var(--text3)}
-.btn-notif{
-  position:relative;background:var(--surface);
-  border:1px solid var(--border);border-radius:10px;
-  width:38px;height:38px;
-  display:flex;align-items:center;justify-content:center;font-size:1rem;
-}
+.sl{padding:26px 22px 18px;border-bottom:1px solid var(--border)}
+.sl-name{font-family:'Playfair Display',serif;font-style:italic;font-size:1.5rem;color:var(--maroon)}
+html.dark-mode .sl-name{color:var(--text)}
+.sl-name span{color:var(--pink)}
+.sl-badge{display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);background:var(--gold2);border:1px solid rgba(138,101,32,.2);padding:3px 10px;border-radius:20px}
+html.dark-mode .sl-badge{border-color:rgba(201,168,76,.2)}
+.sl-badge::before{content:'';width:5px;height:5px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+.snav{flex:1;padding:16px 10px;overflow-y:auto}
+.snl{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text3);padding:12px 12px 5px}
+.ni{display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:11px;font-size:.82rem;color:var(--text2);margin-bottom:2px;transition:all .18s;position:relative}
+.ni:hover{background:var(--surface2);color:var(--text)}
+.ni.active{background:rgba(107,26,42,.1);color:var(--maroon);border:1px solid rgba(107,26,42,.18)}
+html.dark-mode .ni.active{background:rgba(232,121,154,.13);color:var(--pink);border-color:rgba(232,121,154,.18)}
+.ni.active::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:3px;background:var(--maroon);border-radius:0 3px 3px 0}
+html.dark-mode .ni.active::before{background:var(--pink)}
+.nic{font-size:1rem;width:20px;text-align:center;flex-shrink:0}
+.nb{margin-left:auto;background:var(--maroon);color:#fff;font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:20px;animation:badgePop .4s ease}
+html.dark-mode .nb{background:var(--pink)}
+.su{padding:14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sav{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--maroon),var(--maroon2));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:.95rem;color:#fff;font-weight:700;flex-shrink:0}
+.sun{font-size:.82rem;color:var(--text);font-weight:500}
+.sur{font-size:.65rem;color:var(--text3);letter-spacing:.06em}
+.bso{margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:.66rem;color:var(--text3)}
+.bso:hover{border-color:var(--red);color:var(--red)}
+.main{margin-left:252px;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 34px;height:64px;background:var(--topbar-bg);border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
+.tb-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--maroon)}
+html.dark-mode .tb-title{color:var(--text)}
+.tb-right{display:flex;align-items:center;gap:12px;position:relative}
+.tb-clock{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:var(--text3)}
+.btn-notif{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1rem}
 .btn-notif:hover{background:var(--surface2);border-color:var(--border2)}
-.notif-dot{position:absolute;top:8px;right:8px;width:7px;height:7px;background:var(--maroon);border-radius:50%;animation:pulse 2s infinite}
-html.dark-mode .notif-dot{background:var(--pink)}
+.ndot{position:absolute;top:8px;right:8px;width:7px;height:7px;background:var(--maroon);border-radius:50%;animation:pulse 2s infinite}
+html.dark-mode .ndot{background:var(--pink)}
+.pc{padding:30px 34px;display:none;animation:fadeUp .45s ease both}
+.pc.active{display:block}
 
-/* Page */
-.page-content{padding:32px 36px;display:none;animation:fadeUp .5s ease both}
-.page-content.active{display:block}
-
-/* ══════════════════════════════
-   CARDS & GRIDS
-══════════════════════════════ */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-
-.card{
-  background:var(--surface3);border:1px solid var(--border);
-  border-radius:var(--r);padding:22px;
-  box-shadow:var(--shadow2);
-}
+/* ══════════════════════════════ CARDS & GRID ══════════════════════════════ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:var(--surface3);border:1px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--shadow2)}
 html.dark-mode .card{background:var(--surface)}
 .card:hover{border-color:var(--border2)}
-.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:4px}
-.card-sub{font-size:.76rem;color:var(--text3);line-height:1.55}
-
-.stat-card{
-  background:var(--surface3);border:1px solid var(--border);
-  border-radius:var(--r);padding:22px 24px;
-  box-shadow:var(--shadow2);
-}
-html.dark-mode .stat-card{background:var(--surface)}
-.stat-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:14px}
-.stat-val{font-family:'Playfair Display',serif;font-size:1.85rem;color:var(--maroon);font-weight:700;line-height:1}
-html.dark-mode .stat-val{color:var(--text)}
-.stat-lbl{font-size:.7rem;color:var(--text3);letter-spacing:.08em;margin-top:5px;text-transform:uppercase}
-.stat-change{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;margin-top:9px;padding:2px 9px;border-radius:20px}
-.stat-change.up{background:var(--green2);color:var(--green)}
-.stat-change.neutral{background:var(--blue2);color:var(--blue)}
-
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
-.sec-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--text)}
-.sec-label{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--maroon);background:var(--pink3);padding:4px 12px;border-radius:20px}
-html.dark-mode .sec-label{color:var(--pink)}
-
-.tag{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:20px;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.ct{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--text);margin-bottom:4px}
+.cs{font-size:.76rem;color:var(--text3);line-height:1.55}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.st{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--text)}
+.sl2{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--maroon);background:var(--pink3);padding:4px 12px;border-radius:20px}
+html.dark-mode .sl2{color:var(--pink)}
+.tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;font-weight:500}
 .tag-new{background:var(--green2);color:var(--green)}
 .tag-update{background:var(--blue2);color:var(--blue)}
 .tag-urgent{background:var(--red2);color:var(--red)}
 .tag-info{background:var(--amber2);color:var(--amber)}
-.tag-loyalty{background:var(--gold2);color:var(--gold)}
+.tag-feature{background:var(--purple2);color:var(--purple)}
+.tag-bug{background:var(--red2);color:var(--red)}
+.tag-design{background:var(--pink3);color:var(--maroon)}
+html.dark-mode .tag-design{color:var(--pink)}
+.stat-card{background:var(--surface3);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;box-shadow:var(--shadow2)}
+html.dark-mode .stat-card{background:var(--surface)}
+.sic{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:12px}
+.sv{font-family:'Playfair Display',serif;font-size:1.85rem;color:var(--maroon);font-weight:700;line-height:1}
+html.dark-mode .sv{color:var(--text)}
+.slbl{font-size:.68rem;color:var(--text3);letter-spacing:.08em;margin-top:4px;text-transform:uppercase}
+.sch{display:inline-flex;align-items:center;gap:4px;font-size:.68rem;margin-top:8px;padding:2px 9px;border-radius:20px}
+.sch.up{background:var(--green2);color:var(--green)}
+.sch.neutral{background:var(--blue2);color:var(--blue)}
+.sch.dev{background:var(--purple2);color:var(--purple)}
 
-/* ══════════════════════════════
-   ANNOUNCEMENTS
-══════════════════════════════ */
-.announcement{
-  background:var(--surface3);border:1px solid var(--border);
-  border-radius:var(--r);padding:22px;margin-bottom:14px;
-  position:relative;overflow:hidden;
-  box-shadow:var(--shadow2);
+/* ══════════════════════════════ NEW FEATURE BANNER ══════════════════════════════ */
+.new-feature-banner{
+  background:linear-gradient(135deg,rgba(107,26,42,.08),rgba(232,121,154,.1),rgba(107,26,42,.06));
+  border:1.5px solid rgba(232,121,154,.35);border-radius:18px;padding:24px 28px;
+  margin-bottom:28px;position:relative;overflow:hidden;
+  animation:newFeaturePulse 3s ease-in-out infinite,fadeUp .5s ease both;
 }
-html.dark-mode .announcement{background:var(--surface)}
-.announcement:hover{border-color:var(--border2);transform:translateX(4px)}
-.announcement-stripe{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
-.announcement-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px}
-.announcement-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:4px}
-.announcement-body{font-size:.82rem;color:var(--text2);line-height:1.65}
-.announcement-meta{display:flex;align-items:center;gap:12px;margin-top:12px;flex-wrap:wrap}
-.announcement-date{font-size:.68rem;color:var(--text3);font-family:'Cormorant Garamond',serif;font-style:italic}
-.announcement-from{font-size:.68rem;color:var(--text3)}
-.announcement-unread{width:8px;height:8px;background:var(--maroon);border-radius:50%;flex-shrink:0;animation:pulse 2s infinite}
-html.dark-mode .announcement-unread{background:var(--pink)}
+html.dark-mode .new-feature-banner{background:linear-gradient(135deg,rgba(232,121,154,.08),rgba(107,26,42,.2),rgba(232,121,154,.06));border-color:rgba(232,121,154,.4)}
+.new-feature-banner::before{content:'';position:absolute;top:0;right:0;width:200px;height:100%;background:radial-gradient(ellipse at right,rgba(232,121,154,.12),transparent 70%);pointer-events:none}
+.nfb-eyebrow{display:flex;align-items:center;gap:8px;font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:8px}
+.nfb-dot{width:7px;height:7px;background:var(--pink);border-radius:50%;animation:pulse 1.5s infinite}
+.nfb-title{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--text);margin-bottom:6px}
+.nfb-desc{font-size:.84rem;color:var(--text2);line-height:1.65;max-width:680px}
+.nfb-meta{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.nfb-version{font-size:.68rem;background:var(--pink3);color:var(--maroon);padding:3px 12px;border-radius:20px;letter-spacing:.08em}
+html.dark-mode .nfb-version{color:var(--pink)}
+.nfb-date{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:var(--text3)}
+.nfb-type{font-size:.65rem;background:var(--purple2);color:var(--purple);padding:3px 10px;border-radius:20px}
 
-/* ══════════════════════════════
-   LOYALTY CARD
-══════════════════════════════ */
-.loyalty-card{
-  background:linear-gradient(135deg,#fdf0f3,#f5e6d8,#fdf0f3);
-  border:1px solid rgba(107,26,42,.2);
-  border-radius:22px;padding:28px;position:relative;overflow:hidden;
-  animation:glow-light 4s ease-in-out infinite;
-  box-shadow:0 10px 40px rgba(107,26,42,.12);
+/* ══════════════════════════════ FEATURE LOG ══════════════════════════════ */
+.feature-item{
+  background:var(--surface3);border:1px solid var(--border);border-radius:var(--r2);
+  padding:18px 20px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start;
+  box-shadow:var(--shadow2);transition:border-color .2s,transform .2s;
 }
-html.dark-mode .loyalty-card{
-  background:linear-gradient(135deg,#1a0018,#2a0a22,#1a0018);
-  border-color:rgba(201,168,76,.25);
-  animation:glow-dark 4s ease-in-out infinite;
-  box-shadow:none;
-}
-.loyalty-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(108deg,transparent 38%,rgba(107,26,42,.05) 50%,transparent 62%);
-  pointer-events:none;
-}
-html.dark-mode .loyalty-card::before{background:linear-gradient(108deg,transparent 38%,rgba(201,168,76,.06) 50%,transparent 62%)}
-.loyalty-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
-.loyalty-card-logo{font-family:'Playfair Display',serif;font-style:italic;font-size:1.3rem;color:var(--maroon)}
-html.dark-mode .loyalty-card-logo{color:var(--gold3)}
-.loyalty-card-tier{
-  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--maroon);background:rgba(107,26,42,.1);
-  border:1px solid rgba(107,26,42,.22);padding:4px 12px;border-radius:20px;
-}
-html.dark-mode .loyalty-card-tier{color:#c9a84c;background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.22)}
-.loyalty-card-member{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--text);margin-bottom:4px}
-.loyalty-card-id{font-size:.7rem;color:var(--text3);letter-spacing:.12em}
-html.dark-mode .loyalty-card-id{color:rgba(201,168,76,.6)}
-.loyalty-points-wrap{display:flex;align-items:flex-end;gap:6px;margin:18px 0 6px}
-.loyalty-points-val{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--maroon);font-weight:700;line-height:1}
-html.dark-mode .loyalty-points-val{color:#c9a84c}
-.loyalty-points-lbl{font-size:.72rem;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
-.loyalty-bar-wrap{margin-top:16px}
-.loyalty-bar-meta{display:flex;justify-content:space-between;font-size:.68rem;color:var(--text3);margin-bottom:6px}
-.loyalty-bar-track{height:6px;background:rgba(107,26,42,.1);border-radius:6px;overflow:hidden}
-html.dark-mode .loyalty-bar-track{background:rgba(255,255,255,.07)}
-.loyalty-bar-fill{height:100%;background:linear-gradient(90deg,var(--maroon),var(--maroon2));border-radius:6px;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
-html.dark-mode .loyalty-bar-fill{background:linear-gradient(90deg,#c9a84c,#e8d48a)}
-.loyalty-perks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.perk-item{
-  background:rgba(107,26,42,.05);border:1px solid rgba(107,26,42,.1);
-  border-radius:11px;padding:13px;display:flex;gap:10px;align-items:flex-start;
-}
-html.dark-mode .perk-item{background:rgba(255,255,255,.04);border-color:rgba(201,168,76,.12)}
-.perk-icon{font-size:1.1rem}
-.perk-title{font-size:.78rem;color:var(--text);margin-bottom:2px}
-.perk-desc{font-size:.68rem;color:var(--text3);line-height:1.5}
+html.dark-mode .feature-item{background:var(--surface)}
+.feature-item:hover{border-color:var(--border2);transform:translateX(4px)}
+.feature-item.new{border-left:3px solid var(--pink)}
+.feature-item.update{border-left:3px solid var(--blue)}
+.feature-item.bug{border-left:3px solid var(--red)}
+.fi-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;border:1px solid var(--border)}
+.fi-title{font-family:'Playfair Display',serif;font-size:.94rem;color:var(--text);margin-bottom:3px}
+.fi-desc{font-size:.78rem;color:var(--text3);line-height:1.55;margin-bottom:8px}
+.fi-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.fi-date{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:var(--text3)}
 
-/* ══════════════════════════════
-   TERMS
-══════════════════════════════ */
-.terms-doc{
-  background:var(--surface3);border:1px solid var(--border);
-  border-radius:var(--r);overflow:hidden;
-  box-shadow:var(--shadow2);
+/* ══════════════════════════════ REQUEST BOARD ══════════════════════════════ */
+.request-card{
+  background:var(--surface3);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px;margin-bottom:16px;box-shadow:var(--shadow2);transition:all .22s;
 }
-html.dark-mode .terms-doc{background:var(--surface)}
-.terms-doc-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.terms-doc-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text)}
-.terms-doc-version{font-size:.68rem;color:var(--text3);background:var(--surface2);padding:3px 10px;border-radius:20px}
-.terms-doc-body{padding:24px;font-size:.82rem;color:var(--text2);line-height:1.8;max-height:340px;overflow-y:auto}
-.terms-doc-body h4{font-family:'Playfair Display',serif;font-size:.96rem;color:var(--text);margin:18px 0 8px}
-.terms-doc-body h4:first-child{margin-top:0}
-.terms-doc-body p{margin-bottom:12px}
-.terms-doc-body ul{padding-left:18px;margin-bottom:12px}
-.terms-doc-body li{margin-bottom:5px;color:var(--text2)}
-.terms-doc-footer{padding:14px 24px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.terms-effective{font-size:.7rem;color:var(--text3)}
-.btn-accept{padding:8px 22px;background:var(--green2);border:1px solid rgba(46,125,82,.3);border-radius:9px;color:var(--green);font-size:.72rem;letter-spacing:.08em}
-.btn-accept:hover{background:rgba(46,125,82,.18)}
-.btn-accepted{padding:8px 22px;background:var(--green2);border:1px solid rgba(46,125,82,.3);border-radius:9px;color:var(--green);font-size:.72rem;display:inline-flex;align-items:center;gap:6px;cursor:default!important}
+html.dark-mode .request-card{background:var(--surface)}
+.request-card:hover{border-color:var(--border2)}
+.rc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:10px}
+.rc-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text);margin-bottom:4px}
+.rc-body{font-size:.82rem;color:var(--text2);line-height:1.68;margin-bottom:14px}
+.rc-meta{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.rc-from{font-size:.7rem;color:var(--text3)}
+.rc-date{font-family:'Cormorant Garamond',serif;font-size:.85rem;font-style:italic;color:var(--text3)}
+.rc-priority{font-size:.62rem;padding:2px 9px;border-radius:20px}
+.rc-actions{display:flex;gap:8px;flex-wrap:wrap}
+.rc-btn{display:flex;align-items:center;gap:6px;padding:8px 18px;border-radius:10px;font-size:.72rem;letter-spacing:.06em;border:1.5px solid;transition:all .18s;font-weight:500}
+.rc-btn.approve{background:var(--green2);border-color:rgba(46,125,82,.3);color:var(--green)}
+.rc-btn.approve:hover{background:rgba(46,125,82,.2)}
+.rc-btn.reject{background:var(--red2);border-color:rgba(192,57,43,.25);color:var(--red)}
+.rc-btn.reject:hover{background:rgba(192,57,43,.18)}
+.rc-btn.discuss{background:var(--amber2);border-color:rgba(125,90,10,.25);color:var(--amber)}
+html.dark-mode .rc-btn.discuss{border-color:rgba(232,160,48,.25);color:var(--amber)}
+.rc-btn.discuss:hover{background:rgba(125,90,10,.16)}
+html.dark-mode .rc-btn.discuss:hover{background:rgba(232,160,48,.16)}
+.rc-btn.voted{opacity:.55;cursor:not-allowed!important}
+.rc-status{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:10px;font-size:.72rem;font-weight:500}
+.rc-status.approved{background:var(--green2);color:var(--green)}
+.rc-status.rejected{background:var(--red2);color:var(--red)}
+.rc-status.discussed{background:var(--amber2);color:var(--amber)}
+html.dark-mode .rc-status.discussed{color:var(--amber)}
+.rc-stripe{width:3px;flex-shrink:0;border-radius:3px;margin:-22px 0 -22px -22px;align-self:stretch}
+.rc-stripe-wrap{display:flex;gap:18px}
 
-/* ══════════════════════════════
-   UPDATES
-══════════════════════════════ */
-.update-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
-.update-item:last-child{border-bottom:none}
-.update-img{
-  width:60px;height:60px;border-radius:12px;
-  background:linear-gradient(135deg,rgba(107,26,42,.15),rgba(74,15,26,.1));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.5rem;flex-shrink:0;border:1px solid var(--border);
+/* ══════════════════════════════ DEVELOPER TOOLKIT ══════════════════════════════ */
+.dev-section{margin-bottom:28px}
+.code-block{
+  background:var(--code-bg);border:1px solid var(--code-border);
+  border-radius:12px;overflow:hidden;margin-bottom:14px;
 }
-html.dark-mode .update-img{background:linear-gradient(135deg,rgba(107,26,42,.5),rgba(74,15,26,.4))}
-.update-title{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--text);margin-bottom:3px}
-.update-desc{font-size:.76rem;color:var(--text3);line-height:1.55;margin-bottom:6px}
-.update-date{font-size:.66rem;color:var(--text3);font-family:'Cormorant Garamond',serif;font-style:italic}
+.cb-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--code-border);background:rgba(107,26,42,.03)}
+html.dark-mode .cb-header{background:rgba(0,0,0,.2)}
+.cb-lang{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--text3);letter-spacing:.08em}
+.cb-copy{font-size:.66rem;color:var(--maroon);background:none;border:none;display:flex;align-items:center;gap:5px}
+html.dark-mode .cb-copy{color:var(--pink)}
+.cb-copy:hover{opacity:.75}
+.cb-body{padding:16px;font-family:'JetBrains Mono',monospace;font-size:.8rem;line-height:1.7;color:var(--text2);overflow-x:auto;white-space:pre}
+.syntax-key{color:var(--maroon)}html.dark-mode .syntax-key{color:#e8799a}
+.syntax-str{color:var(--green)}html.dark-mode .syntax-str{color:#4caf80}
+.syntax-num{color:var(--blue)}html.dark-mode .syntax-num{color:#6eb5e8}
+.syntax-cmt{color:var(--text3);font-style:italic}
+.syntax-fn{color:var(--purple)}html.dark-mode .syntax-fn{color:#b39ddb}
 
-/* ══════════════════════════════
-   RESOURCES
-══════════════════════════════ */
-.resource-item{
-  display:flex;align-items:center;gap:14px;
-  padding:14px 18px;
-  background:var(--surface3);border:1px solid var(--border);
-  border-radius:var(--r2);margin-bottom:10px;
-  box-shadow:var(--shadow2);
+.env-row{display:flex;align-items:center;gap:12px;padding:11px 16px;background:var(--surface3);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem}
+html.dark-mode .env-row{background:var(--surface)}
+.env-key{color:var(--maroon);flex-shrink:0;min-width:160px}
+html.dark-mode .env-key{color:var(--pink)}
+.env-val{color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.env-masked{letter-spacing:.12em;color:var(--text3)}
+.env-reveal{background:none;border:1px solid var(--border);border-radius:6px;padding:2px 8px;font-size:.62rem;color:var(--text3);margin-left:auto;flex-shrink:0}
+.env-reveal:hover{border-color:var(--maroon);color:var(--maroon)}
+html.dark-mode .env-reveal:hover{border-color:var(--pink);color:var(--pink)}
+
+.api-endpoint{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;background:var(--surface3);border:1px solid var(--border);border-radius:11px;margin-bottom:10px;
 }
-html.dark-mode .resource-item{background:var(--surface)}
-.resource-item:hover{background:var(--surface2);border-color:var(--border2);transform:translateX(5px)}
-.resource-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.resource-name{font-size:.86rem;color:var(--text);margin-bottom:2px}
-.resource-desc{font-size:.72rem;color:var(--text3)}
-.resource-arrow{margin-left:auto;color:var(--text3);font-size:.8rem}
-.resource-item:hover .resource-arrow{transform:translateX(4px);color:var(--maroon)}
-html.dark-mode .resource-item:hover .resource-arrow{color:var(--pink)}
+html.dark-mode .api-endpoint{background:var(--surface)}
+.api-endpoint:hover{border-color:var(--border2)}
+.api-method{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:3px 9px;border-radius:6px;flex-shrink:0;font-weight:500}
+.method-get{background:var(--green2);color:var(--green)}
+.method-post{background:var(--blue2);color:var(--blue)}
+.method-put{background:var(--amber2);color:var(--amber)}
+.method-delete{background:var(--red2);color:var(--red)}
+.api-path{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--text2)}
+.api-desc{margin-left:auto;font-size:.72rem;color:var(--text3)}
+.api-status{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.api-status.live{background:var(--green);animation:pulse 2s infinite}
+.api-status.pending{background:var(--amber)}
 
-/* ══════════════════════════════
-   EVENTS
-══════════════════════════════ */
-.event-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
-.event-item:last-child{border-bottom:none}
-.event-date-box{width:48px;text-align:center;flex-shrink:0}
-.event-day{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--maroon);line-height:1;font-weight:700}
-html.dark-mode .event-day{color:var(--pink)}
-.event-month{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
-.event-name{font-size:.88rem;color:var(--text);margin-bottom:3px}
-.event-detail{font-size:.74rem;color:var(--text3);line-height:1.5}
+.perf-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.perf-label{font-size:.78rem;color:var(--text2);min-width:130px}
+.perf-bar-track{flex:1;height:8px;background:var(--surface2);border-radius:8px;overflow:hidden}
+.perf-bar-fill{height:100%;border-radius:8px;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.perf-val{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--text3);min-width:44px;text-align:right}
 
-/* ══════════════════════════════
-   SIDEBAR TOGGLE (mobile)
-══════════════════════════════ */
-.sidebar-toggle{
-  display:none;position:fixed;top:14px;left:14px;z-index:300;
-  width:40px;height:40px;background:var(--bg3);
-  border:1px solid var(--border);border-radius:10px;
-  align-items:center;justify-content:center;flex-direction:column;gap:5px;
-}
-.sidebar-toggle span{display:block;width:18px;height:2px;background:var(--text2);border-radius:2px}
+.checklist-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.checklist-item:last-child{border-bottom:none}
+.ci-check{width:20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;margin-top:1px}
+.ci-check.done{background:var(--green2);color:var(--green)}
+.ci-check.todo{background:var(--surface2);color:var(--text3);border:1.5px solid var(--border2)}
+.ci-check.wip{background:var(--amber2);color:var(--amber)}
+.ci-title{font-size:.84rem;color:var(--text);margin-bottom:2px}
+.ci-desc{font-size:.73rem;color:var(--text3);line-height:1.5}
 
-/* ══════════════════════════════
-   NOTIFICATION PANEL
-══════════════════════════════ */
-.notif-panel{
-  position:absolute;top:56px;right:0;width:320px;
-  background:var(--bg2);border:1px solid var(--border2);
-  border-radius:16px;box-shadow:var(--shadow);z-index:500;
-  overflow:hidden;display:none;animation:notifDrop .25s ease both;
-}
+/* ══════════════════════════════ ANNOUNCEMENTS ══════════════════════════════ */
+.ann{background:var(--surface3);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:14px;position:relative;overflow:hidden;box-shadow:var(--shadow2)}
+html.dark-mode .ann{background:var(--surface)}
+.ann:hover{border-color:var(--border2);transform:translateX(3px)}
+.ann-stripe{position:absolute;left:0;top:0;bottom:0;width:3px}
+.ann-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:9px}
+.ann-title{font-family:'Playfair Display',serif;font-size:.98rem;color:var(--text);margin-bottom:3px}
+.ann-body{font-size:.82rem;color:var(--text2);line-height:1.65}
+.ann-meta{display:flex;align-items:center;gap:12px;margin-top:11px;flex-wrap:wrap}
+.ann-date{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:var(--text3)}
+.ann-unread{width:8px;height:8px;background:var(--maroon);border-radius:50%;flex-shrink:0;animation:pulse 2s infinite}
+html.dark-mode .ann-unread{background:var(--pink)}
+
+/* ══════════════════════════════ ROADMAP ══════════════════════════════ */
+.roadmap-phase{margin-bottom:28px}
+.phase-header{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.phase-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.phase-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--text)}
+.phase-badge{font-size:.62rem;padding:2px 10px;border-radius:20px}
+.roadmap-item{display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-bottom:1px solid var(--border)}
+.roadmap-item:last-child{border-bottom:none}
+.ri-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text3);min-width:28px;margin-top:2px}
+.ri-title{font-size:.86rem;color:var(--text);margin-bottom:3px}
+.ri-desc{font-size:.74rem;color:var(--text3);line-height:1.5}
+
+/* ══════════════════════════════ NOTIFICATIONS ══════════════════════════════ */
+.notif-panel{position:absolute;top:54px;right:0;width:320px;background:var(--bg2);border:1px solid var(--border2);border-radius:16px;box-shadow:var(--shadow);z-index:500;overflow:hidden;display:none;animation:notifDrop .25s ease both}
 html.dark-mode .notif-panel{background:#1a0018}
 .notif-panel.open{display:block}
-.notif-panel-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.notif-panel-title{font-size:.82rem;font-weight:500;color:var(--text)}
-.notif-panel-clear{font-size:.68rem;color:var(--maroon);background:none;border:none}
-html.dark-mode .notif-panel-clear{color:var(--pink)}
-.notif-item{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;gap:11px}
-.notif-item:hover{background:var(--surface2)}
-.notif-item:last-child{border-bottom:none}
-.notif-item-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
-.notif-item-title{font-size:.8rem;color:var(--text);margin-bottom:2px}
-.notif-item-time{font-size:.66rem;color:var(--text3)}
+.np-head{padding:13px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.np-title{font-size:.82rem;font-weight:500;color:var(--text)}
+.np-clear{font-size:.68rem;color:var(--maroon);background:none;border:none}
+html.dark-mode .np-clear{color:var(--pink)}
+.ni2{padding:13px 17px;border-bottom:1px solid var(--border);display:flex;gap:10px;transition:background .15s}
+.ni2:hover{background:var(--surface2)}
+.ni2:last-child{border-bottom:none}
+.ni2-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.ni2-title{font-size:.79rem;color:var(--text);margin-bottom:2px}
+.ni2-time{font-size:.65rem;color:var(--text3)}
 
-/* ══════════════════════════════
-   RESPONSIVE
-══════════════════════════════ */
+/* ══════════════════════════════ MOBILE ══════════════════════════════ */
+.stoggle{display:none;position:fixed;top:14px;left:14px;z-index:300;width:40px;height:40px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;align-items:center;justify-content:center;flex-direction:column;gap:5px}
+.stoggle span{display:block;width:18px;height:2px;background:var(--text2);border-radius:2px}
 @media(max-width:900px){
-  .sidebar{transform:translateX(-100%)}
-  .sidebar.mobile-open{transform:translateX(0)}
-  .sidebar-toggle{display:flex}
-  .main{margin-left:0}
-  .topbar{padding:0 20px 0 64px}
-  .page-content{padding:24px 20px}
-  .grid-4,.grid-3{grid-template-columns:1fr 1fr}
-  .grid-2{grid-template-columns:1fr}
-  .loyalty-perks{grid-template-columns:1fr}
-  .login-card{padding:36px 28px}
+  .sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.stoggle{display:flex}.main{margin-left:0}.topbar{padding:0 18px 0 62px}.pc{padding:22px 18px}.g4,.g3{grid-template-columns:1fr 1fr}.g2{grid-template-columns:1fr}
 }
-@media(max-width:540px){
-  .grid-4,.grid-3,.grid-2{grid-template-columns:1fr}
-}
-</style>
-</head>
+@media(max-width:540px){.g4,.g3,.g2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div id="cd"></div><div id="cr"></div>
 
-<!-- CURSOR -->
-<div id="cd"></div>
-<div id="cr"></div>
-
-<!-- ══════════════════════════════════════════
-     LOGIN PAGE
-══════════════════════════════════════════ -->
+<!-- ════════════════════════ LOGIN ════════════════════════ -->
 <div id="login-page">
-  <div class="login-blob lb1"></div>
-  <div class="login-blob lb2"></div>
-
+  <div class="lb lb1"></div><div class="lb lb2"></div>
   <div class="login-card">
     <div class="login-eyebrow">Scentra Candles</div>
     <h1 class="login-title">Members<br><em>Portal</em></h1>
-    <p class="login-sub">Exclusive access for Scentra partners, stockists & team members.</p>
-
-    <div class="login-field">
-      <label>Work Email</label>
-      <div class="login-input-wrap">
-        <input class="login-input" id="l-email" type="email" placeholder="you@partner.com" autocomplete="email"/>
-        <span class="input-icon">✉</span>
-      </div>
-    </div>
-
-    <div class="login-field">
-      <label>Password</label>
-      <div class="login-input-wrap">
-        <input class="login-input" id="l-pass" type="password" placeholder="Enter your password" autocomplete="current-password"/>
-        <button class="toggle-pw" onclick="togglePw('l-pass',this)">👁</button>
-      </div>
-    </div>
-
-    <div class="login-field" style="margin-bottom:12px">
-      <label>Scentra Access Code</label>
-      <div class="login-input-wrap">
-        <input class="login-input" id="l-code" type="text" placeholder="e.g. SCN-XXXX-XXXX" autocomplete="off" maxlength="14" style="letter-spacing:.1em;text-transform:uppercase" oninput="formatCode(this)"/>
-        <span class="input-icon">🔑</span>
-      </div>
-    </div>
-
-    <div class="access-code-hint">
-      <span class="hint-icon">✦</span>
-      <span>Your unique <strong style="color:var(--gold)">Scentra Access Code</strong> is issued by our Developer and sent directly to your registered email when onboarded as a collaborator.</span>
-    </div>
-
-    <div class="login-err" id="login-err"></div>
-
-    <button class="btn-login" id="btn-login" onclick="doLogin()">
-      <span id="login-label">Enter Dashboard ✦</span>
-      <div class="login-spinner" id="login-spinner"></div>
-    </button>
-    <p class="login-footer-note">Access issues? Email <a href="mailto:priyashad89@gmail.com">priyashad89@gmail.com</a></p>
+    <p class="login-sub">Exclusive access for Scentra developers, admins & core team.</p>
+    <div class="lf"><label>Work Email</label><div class="liw"><input class="li" id="l-email" type="email" placeholder="you@scentra.in" autocomplete="email"/><span class="ii">✉</span></div></div>
+    <div class="lf"><label>Password</label><div class="liw"><input class="li" id="l-pass" type="password" placeholder="Enter your password" autocomplete="current-password"/><button class="tpw" onclick="togglePw()">👁</button></div></div>
+    <div class="lf" style="margin-bottom:12px"><label>Scentra Access Code</label><div class="liw"><input class="li" id="l-code" type="text" placeholder="e.g. SCN-XXXX-XXXX" autocomplete="off" maxlength="14" style="letter-spacing:.1em;text-transform:uppercase" oninput="fmtCode(this)"/><span class="ii">🔑</span></div></div>
+    <div class="code-hint"><span style="flex-shrink:0;margin-top:1px">✦</span><span>Your <strong>Scentra Access Code</strong> is issued by Priyasha Dutta and delivered to your registered email on onboarding.</span></div>
+    <div class="login-err" id="lerr"></div>
+    <button class="btn-login" id="lbtn" onclick="doLogin()"><span id="llbl">Enter Portal ✦</span><div class="lspinner" id="lspin"></div></button>
+    <p class="login-note">Access issues? Email <a href="mailto:priyashad89@gmail.com">priyashad89@gmail.com</a></p>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     DASHBOARD
-══════════════════════════════════════════ -->
+<!-- ════════════════════════ DASHBOARD ════════════════════════ -->
 <div id="dashboard">
-
-  <!-- Sidebar -->
-  <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="stoggle" onclick="toggleSidebar()"><span></span><span></span><span></span></button>
 
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <div class="sidebar-logo-name">Scentra<span>✦</span></div>
-      <div class="sidebar-badge">Collaborator Portal</div>
+    <div class="sl">
+      <div class="sl-name">Scentra<span>✦</span></div>
+      <div class="sl-badge">Members Portal</div>
     </div>
+    <nav class="snav">
+      <div class="snl">Overview</div>
+      <a class="ni active" onclick="showPage('overview',this)"><span class="nic">🏠</span> Dashboard</a>
+      <a class="ni" onclick="showPage('features',this)"><span class="nic">✨</span> New Features <span class="nb" id="nf-badge">2</span></a>
+      <a class="ni" onclick="showPage('announcements',this)"><span class="nic">📢</span> Announcements <span class="nb" id="ann-badge">3</span></a>
 
-    <nav class="sidebar-nav">
-      <div class="nav-section-label">Overview</div>
-      <a class="nav-item active" onclick="showPage('overview',this)">
-        <span class="nav-icon">🏠</span> Dashboard
-      </a>
-      <a class="nav-item" onclick="showPage('announcements',this)">
-        <span class="nav-icon">📢</span> Announcements
-        <span class="nav-badge" id="ann-badge">3</span>
-      </a>
+      <div class="snl">Admin Tools</div>
+      <a class="ni" onclick="showPage('requests',this)"><span class="nic">📋</span> Request Board <span class="nb" id="req-badge">4</span></a>
+      <a class="ni" onclick="showPage('roadmap',this)"><span class="nic">🗺</span> Roadmap</a>
 
-      <div class="nav-section-label">My Membership</div>
-      <a class="nav-item" onclick="showPage('loyalty',this)">
-        <span class="nav-icon">🏅</span> Loyalty Card
-      </a>
-      <a class="nav-item" onclick="showPage('updates',this)">
-        <span class="nav-icon">🆕</span> Product Updates
-      </a>
-      <a class="nav-item" onclick="showPage('terms',this)">
-        <span class="nav-icon">📋</span> Terms & Policies
-        <span class="nav-badge" id="terms-badge">1</span>
-      </a>
+      <div class="snl">Developer</div>
+      <a class="ni" onclick="showPage('devkit',this)"><span class="nic">⚙️</span> Dev Toolkit</a>
+      <a class="ni" onclick="showPage('api',this)"><span class="nic">🔌</span> API Reference</a>
+      <a class="ni" onclick="showPage('notes',this)"><span class="nic">📝</span> Dev Notes</a>
 
-      <div class="nav-section-label">Resources</div>
-      <a class="nav-item" onclick="showPage('resources',this)">
-        <span class="nav-icon">📁</span> Brand Assets
-      </a>
-      <a class="nav-item" onclick="showPage('events',this)">
-        <span class="nav-icon">📅</span> Events & Launches
-      </a>
-      <a class="nav-item" onclick="showPage('contact',this)">
-        <span class="nav-icon">💬</span> Contact Scentra
-      </a>
+      <div class="snl">Site</div>
+      <a class="ni" onclick="showPage('changelog',this)"><span class="nic">📜</span> Changelog</a>
+      <a class="ni" onclick="showPage('contact',this)"><span class="nic">💬</span> Contact Admin</a>
     </nav>
-
-    <div class="sidebar-user">
-      <div class="sidebar-avatar" id="sb-avatar">C</div>
-      <div>
-        <div class="sidebar-uname" id="sb-name">Collaborator</div>
-        <div class="sidebar-role" id="sb-role">Partner Member</div>
-      </div>
-      <button class="btn-signout" onclick="signOut()">↩ Out</button>
+    <div class="su">
+      <div class="sav" id="sb-av">D</div>
+      <div><div class="sun" id="sb-name">Member</div><div class="sur" id="sb-role">Developer</div></div>
+      <button class="bso" onclick="signOut()">↩ Out</button>
     </div>
   </aside>
 
-  <!-- Main -->
   <div class="main">
-
-    <!-- Topbar -->
     <div class="topbar">
-      <div class="topbar-title" id="topbar-title">Dashboard</div>
-      <div class="topbar-right" style="position:relative">
-        <div class="topbar-time" id="topbar-clock"></div>
-        <button class="btn-notif" id="btn-notif" onclick="toggleNotif()">
-          🔔 <div class="notif-dot"></div>
-        </button>
-        <!-- Notification panel -->
+      <div class="tb-title" id="tb-title">Dashboard</div>
+      <div class="tb-right">
+        <div class="tb-clock" id="tb-clock"></div>
+        <button class="btn-notif" id="btn-notif" onclick="toggleNotif()">🔔<div class="ndot"></div></button>
         <div class="notif-panel" id="notif-panel">
-          <div class="notif-panel-head">
-            <span class="notif-panel-title">Notifications</span>
-            <button class="notif-panel-clear" onclick="clearNotifs()">Clear all</button>
-          </div>
+          <div class="np-head"><span class="np-title">Notifications</span><button class="np-clear" onclick="clearNotifs()">Clear all</button></div>
           <div id="notif-list"></div>
         </div>
       </div>
     </div>
 
-    <!-- ── OVERVIEW PAGE ── -->
-    <div class="page-content active" id="page-overview">
-      <div style="margin-bottom:28px;animation:fadeUp .5s ease both">
-        <div style="font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:6px">Welcome back</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--text)" id="welcome-name">Hello, Collaborator ✦</h2>
-        <p style="font-size:.84rem;color:var(--text3);margin-top:6px" id="welcome-date"></p>
+    <!-- ══ OVERVIEW ══ -->
+    <div class="pc active" id="page-overview">
+      <div style="margin-bottom:24px;animation:fadeUp .4s ease both">
+        <div style="font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--maroon);margin-bottom:5px">Welcome back</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.85rem;color:var(--text)" id="welcome-name">Hello ✦</h2>
+        <p style="font-size:.82rem;color:var(--text3);margin-top:4px" id="welcome-date"></p>
       </div>
 
-      <!-- Stat cards -->
-      <div class="grid-4" style="margin-bottom:28px">
-        <div class="stat-card" style="animation:fadeUp .5s ease .05s both">
-          <div class="stat-icon" style="background:var(--pink3)">📢</div>
-          <div class="stat-val">3</div>
-          <div class="stat-lbl">New Announcements</div>
-          <div class="stat-change up">↑ This week</div>
-        </div>
-        <div class="stat-card" style="animation:fadeUp .5s ease .1s both">
-          <div class="stat-icon" style="background:var(--gold2)">🏅</div>
-          <div class="stat-val" id="ov-points">740</div>
-          <div class="stat-lbl">Loyalty Points</div>
-          <div class="stat-change up">↑ +80 pts</div>
-        </div>
-        <div class="stat-card" style="animation:fadeUp .5s ease .15s both">
-          <div class="stat-icon" style="background:var(--blue2)">🆕</div>
-          <div class="stat-val">5</div>
-          <div class="stat-lbl">Product Updates</div>
-          <div class="stat-change neutral">This month</div>
-        </div>
-        <div class="stat-card" style="animation:fadeUp .5s ease .2s both">
-          <div class="stat-icon" style="background:var(--green2)">📅</div>
-          <div class="stat-val">2</div>
-          <div class="stat-lbl">Upcoming Events</div>
-          <div class="stat-change up">↑ Next 30 days</div>
+      <!-- Latest new feature banner — first thing visible -->
+      <div class="new-feature-banner" id="ov-latest-feature">
+        <div class="nfb-eyebrow"><div class="nfb-dot"></div> Just Deployed</div>
+        <div class="nfb-title" id="ov-nf-title">Loading...</div>
+        <div class="nfb-desc" id="ov-nf-desc"></div>
+        <div class="nfb-meta">
+          <span class="nfb-version" id="ov-nf-ver"></span>
+          <span class="nfb-type" id="ov-nf-type"></span>
+          <span class="nfb-date" id="ov-nf-date"></span>
+          <a onclick="showPage('features',null)" style="font-size:.74rem;color:var(--maroon);border-bottom:1px solid rgba(107,26,42,.3);margin-left:auto">View all features →</a>
         </div>
       </div>
 
-      <div class="grid-2">
-        <!-- Recent announcements -->
-        <div style="animation:fadeUp .5s ease .25s both">
-          <div class="sec-head">
-            <span class="sec-title">Recent Announcements</span>
-            <span class="sec-label">3 unread</span>
-          </div>
+      <!-- Stats -->
+      <div class="g4" style="margin-bottom:26px">
+        <div class="stat-card" style="animation:fadeUp .45s ease .05s both">
+          <div class="sic" style="background:var(--pink3)">✨</div>
+          <div class="sv" id="ov-nf-count">0</div>
+          <div class="slbl">New Features</div>
+          <div class="sch up">↑ This sprint</div>
+        </div>
+        <div class="stat-card" style="animation:fadeUp .45s ease .1s both">
+          <div class="sic" style="background:var(--purple2)">📋</div>
+          <div class="sv" id="ov-req-count">0</div>
+          <div class="slbl">Open Requests</div>
+          <div class="sch neutral">From admin</div>
+        </div>
+        <div class="stat-card" style="animation:fadeUp .45s ease .15s both">
+          <div class="sic" style="background:var(--blue2)">🐛</div>
+          <div class="sv">2</div>
+          <div class="slbl">Open Issues</div>
+          <div class="sch up">↓ -1 resolved</div>
+        </div>
+        <div class="stat-card" style="animation:fadeUp .45s ease .2s both">
+          <div class="sic" style="background:var(--green2)">✅</div>
+          <div class="sv">18</div>
+          <div class="slbl">Tasks Closed</div>
+          <div class="sch dev">This month</div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div style="animation:fadeUp .45s ease .25s both">
+          <div class="sh"><span class="st">Pending Requests</span><span class="sl2" id="ov-pending-lbl">from admin</span></div>
+          <div id="ov-requests"></div>
+          <a onclick="showPage('requests',null)" style="font-size:.75rem;color:var(--maroon);border-bottom:1px solid rgba(107,26,42,.3);padding-bottom:1px;display:inline-block;margin-top:4px">View all →</a>
+        </div>
+        <div style="animation:fadeUp .45s ease .3s both">
+          <div class="sh"><span class="st">Recent Announcements</span></div>
           <div id="ov-announcements"></div>
-          <a onclick="showPage('announcements',null)" style="font-size:.76rem;color:var(--pink);border-bottom:1px solid rgba(232,121,154,.3);padding-bottom:1px;margin-top:4px;display:inline-block">View all →</a>
-        </div>
-
-        <!-- Quick actions + upcoming -->
-        <div style="animation:fadeUp .5s ease .3s both">
-          <div class="sec-head"><span class="sec-title">Quick Actions</span></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:24px">
-            <button onclick="showPage('loyalty',null)" style="background:var(--gold2);border:1px solid rgba(201,168,76,.22);border-radius:13px;padding:16px;text-align:left;transition:all .2s" onmouseover="this.style.background='rgba(201,168,76,.18)'" onmouseout="this.style.background='var(--gold2)'">
-              <div style="font-size:1.4rem;margin-bottom:6px">🏅</div>
-              <div style="font-size:.78rem;color:var(--gold);font-weight:500">My Loyalty Card</div>
-            </button>
-            <button onclick="showPage('terms',null)" style="background:var(--blue2);border:1px solid rgba(110,181,232,.22);border-radius:13px;padding:16px;text-align:left;transition:all .2s" onmouseover="this.style.background='rgba(110,181,232,.18)'" onmouseout="this.style.background='var(--blue2)'">
-              <div style="font-size:1.4rem;margin-bottom:6px">📋</div>
-              <div style="font-size:.78rem;color:var(--blue);font-weight:500">Review Terms</div>
-            </button>
-            <button onclick="showPage('resources',null)" style="background:var(--green2);border:1px solid rgba(76,175,128,.22);border-radius:13px;padding:16px;text-align:left;transition:all .2s" onmouseover="this.style.background='rgba(76,175,128,.18)'" onmouseout="this.style.background='var(--green2)'">
-              <div style="font-size:1.4rem;margin-bottom:6px">📁</div>
-              <div style="font-size:.78rem;color:var(--green);font-weight:500">Brand Assets</div>
-            </button>
-            <button onclick="showPage('contact',null)" style="background:var(--pink3);border:1px solid rgba(232,121,154,.22);border-radius:13px;padding:16px;text-align:left;transition:all .2s" onmouseover="this.style.background='rgba(232,121,154,.18)'" onmouseout="this.style.background='var(--pink3)'">
-              <div style="font-size:1.4rem;margin-bottom:6px">💬</div>
-              <div style="font-size:.78rem;color:var(--pink);font-weight:500">Contact Us</div>
-            </button>
+          <div style="margin-top:20px">
+            <div class="sh"><span class="st">Dev Checklist</span></div>
+            <div id="ov-checklist"></div>
           </div>
-          <div class="sec-head"><span class="sec-title">Upcoming</span></div>
-          <div id="ov-events"></div>
         </div>
       </div>
     </div>
 
-    <!-- ── ANNOUNCEMENTS PAGE ── -->
-    <div class="page-content" id="page-announcements">
-      <div class="sec-head" style="margin-bottom:28px">
-        <div>
-          <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:4px">Member Board</div>
-          <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Announcements</h2>
-        </div>
-        <div style="font-size:.76rem;color:var(--text3);font-family:'Cormorant Garamond',serif;font-style:italic" id="ann-count"></div>
+    <!-- ══ NEW FEATURES ══ -->
+    <div class="pc" id="page-features">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:4px">Site Updates</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">New Features & Updates</h2>
+        <p style="font-size:.82rem;color:var(--text3);margin-top:5px">Every feature added to the Scentra website, logged here the moment it deploys.</p>
       </div>
-      <div id="announcements-list"></div>
-    </div>
-
-    <!-- ── LOYALTY PAGE ── -->
-    <div class="page-content" id="page-loyalty">
-      <div style="margin-bottom:28px">
-        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Member Rewards</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Your Loyalty Card</h2>
-      </div>
-      <div class="grid-2">
+      <div class="g2">
         <div>
-          <!-- The card -->
-          <div class="loyalty-card" style="margin-bottom:20px">
-            <div class="loyalty-card-header">
-              <div>
-                <div class="loyalty-card-logo">Scentra✦</div>
-                <div style="font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,168,76,.45);margin-top:2px">Member Card</div>
-              </div>
-              <div class="loyalty-card-tier" id="lc-tier">Gold Partner</div>
-            </div>
-            <div class="loyalty-card-member" id="lc-name">Collaborator</div>
-            <div class="loyalty-card-id" id="lc-id">MEMBER ID: SCN-COLLAB-0001</div>
-            <div class="loyalty-points-wrap">
-              <div class="loyalty-points-val" id="lc-points">740</div>
-              <div class="loyalty-points-lbl">Points</div>
-            </div>
-            <div class="loyalty-bar-wrap">
-              <div class="loyalty-bar-meta">
-                <span>Progress to Platinum</span><span id="lc-bar-pct">74%</span>
-              </div>
-              <div class="loyalty-bar-track"><div class="loyalty-bar-fill" id="lc-bar" style="width:0%"></div></div>
-            </div>
-          </div>
-          <!-- How to earn -->
-          <div class="card">
-            <div class="card-title" style="margin-bottom:14px">How to Earn Points</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
-                <div style="display:flex;gap:10px;align-items:center"><span>🛍</span><span style="font-size:.82rem;color:var(--text2)">Purchase any order</span></div>
-                <span style="font-size:.78rem;color:var(--gold);font-weight:600">+10 pts / ₹100</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
-                <div style="display:flex;gap:10px;align-items:center"><span>⭐</span><span style="font-size:.82rem;color:var(--text2)">Leave a product review</span></div>
-                <span style="font-size:.78rem;color:var(--gold);font-weight:600">+25 pts</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
-                <div style="display:flex;gap:10px;align-items:center"><span>👥</span><span style="font-size:.82rem;color:var(--text2)">Refer a new collaborator</span></div>
-                <span style="font-size:.78rem;color:var(--gold);font-weight:600">+100 pts</span>
-              </div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0">
-                <div style="display:flex;gap:10px;align-items:center"><span>🎂</span><span style="font-size:.82rem;color:var(--text2)">Birthday bonus (annual)</span></div>
-                <span style="font-size:.78rem;color:var(--gold);font-weight:600">+200 pts</span>
-              </div>
-            </div>
-          </div>
+          <div class="sh"><span class="st">Feature Log</span><span class="sl2">Latest first</span></div>
+          <div id="feature-list"></div>
         </div>
-        <!-- Perks column -->
         <div>
           <div class="card" style="margin-bottom:16px">
-            <div class="card-title" style="margin-bottom:16px">Your Active Perks</div>
-            <div class="loyalty-perks" style="margin-top:0">
-              <div class="perk-item"><span class="perk-icon">💸</span><div><div class="perk-title">10% off all orders</div><div class="perk-desc">Applied automatically at checkout</div></div></div>
-              <div class="perk-item"><span class="perk-icon">🚀</span><div><div class="perk-title">Priority dispatch</div><div class="perk-desc">Orders shipped within 24 hours</div></div></div>
-              <div class="perk-item"><span class="perk-icon">🎁</span><div><div class="perk-title">Quarterly gift</div><div class="perk-desc">Exclusive candle sent every 3 months</div></div></div>
-              <div class="perk-item"><span class="perk-icon">🛍</span><div><div class="perk-title">Early access</div><div class="perk-desc">Shop new launches 48h before public</div></div></div>
-              <div class="perk-item"><span class="perk-icon">📦</span><div><div class="perk-title">Free shipping</div><div class="perk-desc">On all orders, no minimum</div></div></div>
-              <div class="perk-item"><span class="perk-icon">🎨</span><div><div class="perk-title">Custom label</div><div class="perk-desc">Your branding on bulk orders</div></div></div>
+            <div class="ct" style="margin-bottom:14px">Filter by Type</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px" id="feature-filters">
+              <button class="tag tag-new" onclick="filterFeatures('all',this)" style="padding:5px 14px">All</button>
+              <button class="tag tag-feature" onclick="filterFeatures('feature',this)" style="padding:5px 14px">Feature</button>
+              <button class="tag tag-update" onclick="filterFeatures('update',this)" style="padding:5px 14px">Update</button>
+              <button class="tag tag-bug" onclick="filterFeatures('bug',this)" style="padding:5px 14px">Bug Fix</button>
+              <button class="tag tag-design" onclick="filterFeatures('design',this)" style="padding:5px 14px">Design</button>
             </div>
           </div>
           <div class="card">
-            <div class="card-title" style="margin-bottom:4px">Tier Benefits</div>
-            <div class="card-sub" style="margin-bottom:16px">You are currently on <strong style="color:var(--gold)">Gold</strong> tier</div>
+            <div class="ct" style="margin-bottom:14px">Tech Stack</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)"><span style="font-size:.82rem;color:var(--text2)">Frontend</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--maroon)">HTML · CSS · Vanilla JS</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)"><span style="font-size:.82rem;color:var(--text2)">Backend</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--maroon)">Java Spring Boot</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)"><span style="font-size:.82rem;color:var(--text2)">Payments</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--maroon)">Razorpay</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)"><span style="font-size:.82rem;color:var(--text2)">Auth</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--maroon)">Firebase Auth</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><span style="font-size:.82rem;color:var(--text2)">Forms</span><span style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--maroon)">Formspree</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ANNOUNCEMENTS ══ -->
+    <div class="pc" id="page-announcements">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:4px">Member Board</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Announcements</h2>
+      </div>
+      <div style="max-width:780px" id="ann-list"></div>
+    </div>
+
+    <!-- ══ REQUEST BOARD ══ -->
+    <div class="pc" id="page-requests">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);margin-bottom:4px">Admin → Dev</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Request Board</h2>
+        <p style="font-size:.82rem;color:var(--text3);margin-top:5px">Requests, change ideas and feature asks written directly by the admin. Respond to each one.</p>
+      </div>
+      <div class="g2">
+        <div id="req-list"></div>
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:14px">Request Summary</div>
+            <div id="req-summary"></div>
+          </div>
+          <div class="card">
+            <div class="ct" style="margin-bottom:4px">How It Works</div>
+            <div class="cs" style="margin-bottom:14px;line-height:1.7">Admin posts requests here — feature ideas, change asks, things to fix. You review and respond with one of three actions.</div>
             <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border-radius:10px;padding:10px 14px"><span style="font-size:.78rem;color:var(--text3)">🥉 Bronze</span><span style="font-size:.7rem;color:var(--text3)">0–249 pts</span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border-radius:10px;padding:10px 14px"><span style="font-size:.78rem;color:rgba(192,192,192,.8)">🥈 Silver</span><span style="font-size:.7rem;color:var(--text3)">250–499 pts</span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:10px;padding:10px 14px"><span style="font-size:.78rem;color:var(--gold);font-weight:600">🥇 Gold ← You</span><span style="font-size:.7rem;color:var(--gold)">500–999 pts</span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border-radius:10px;padding:10px 14px"><span style="font-size:.78rem;color:var(--text3)">💎 Platinum</span><span style="font-size:.7rem;color:var(--text3)">1000+ pts</span></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;background:var(--green2);border-radius:10px;padding:11px 14px"><span>✅</span><div><div style="font-size:.8rem;color:var(--green);font-weight:500">Approve</div><div style="font-size:.72rem;color:var(--text3);margin-top:2px">You'll build it. Added to roadmap.</div></div></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;background:var(--red2);border-radius:10px;padding:11px 14px"><span>❌</span><div><div style="font-size:.8rem;color:var(--red);font-weight:500">Reject</div><div style="font-size:.72rem;color:var(--text3);margin-top:2px">Not feasible or out of scope.</div></div></div>
+              <div style="display:flex;gap:10px;align-items:flex-start;background:var(--amber2);border-radius:10px;padding:11px 14px"><span>🗓</span><div><div style="font-size:.8rem;color:var(--amber);font-weight:500">Will Discuss Later</div><div style="font-size:.72rem;color:var(--text3);margin-top:2px">Needs more planning or resources.</div></div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── UPDATES PAGE ── -->
-    <div class="page-content" id="page-updates">
-      <div style="margin-bottom:28px">
-        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:4px">What's New</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Product Updates</h2>
+    <!-- ══ ROADMAP ══ -->
+    <div class="pc" id="page-roadmap">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:4px">Development Plan</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Site Roadmap</h2>
       </div>
-      <div class="grid-2">
+      <div class="g2">
+        <div id="roadmap-list"></div>
         <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:14px">Sprint Progress</div>
+            <div id="perf-bars"></div>
+          </div>
           <div class="card">
-            <div class="card-title" style="margin-bottom:16px">Latest Updates</div>
-            <div id="updates-list"></div>
+            <div class="ct" style="margin-bottom:14px">Dev Checklist</div>
+            <div id="checklist-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DEV TOOLKIT ══ -->
+    <div class="pc" id="page-devkit">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);margin-bottom:4px">Developer</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Dev Toolkit</h2>
+      </div>
+      <div class="g2">
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:14px">⚙️ Quick Snippets</div>
+            <div class="code-block">
+              <div class="cb-header"><span class="cb-lang">JavaScript — Razorpay Init</span><button class="cb-copy" onclick="copyCode(this,'razorpay')">⎘ Copy</button></div>
+              <div class="cb-body" id="code-razorpay"><span class="syntax-key">const</span> options = {
+  <span class="syntax-str">key</span>: <span class="syntax-str">"rzp_live_SMQTjtfUT3u3zz"</span>,
+  <span class="syntax-str">amount</span>: price * <span class="syntax-num">100</span>,
+  <span class="syntax-str">currency</span>: <span class="syntax-str">"INR"</span>,
+  <span class="syntax-str">name</span>: <span class="syntax-str">"Scentra Candles"</span>,
+  <span class="syntax-str">handler</span>: <span class="syntax-fn">function</span>(response) {
+    <span class="syntax-cmt">// handle success</span>
+  }
+};
+<span class="syntax-key">new</span> Razorpay(options).<span class="syntax-fn">open</span>();</div>
+            </div>
+            <div class="code-block">
+              <div class="cb-header"><span class="cb-lang">JavaScript — Scroll Reveal</span><button class="cb-copy" onclick="copyCode(this,'scroll')">⎘ Copy</button></div>
+              <div class="cb-body" id="code-scroll"><span class="syntax-key">function</span> <span class="syntax-fn">observeReveal</span>() {
+  <span class="syntax-key">const</span> obs = <span class="syntax-key">new</span> IntersectionObserver(
+    entries => entries.<span class="syntax-fn">forEach</span>(e => {
+      <span class="syntax-key">if</span> (e.isIntersecting) {
+        e.target.classList.<span class="syntax-fn">add</span>(<span class="syntax-str">'visible'</span>);
+        obs.<span class="syntax-fn">unobserve</span>(e.target);
+      }
+    }), { threshold: <span class="syntax-num">0.1</span> }
+  );
+  document.<span class="syntax-fn">querySelectorAll</span>(<span class="syntax-str">'.reveal:not(.visible)'</span>)
+    .<span class="syntax-fn">forEach</span>(el => obs.<span class="syntax-fn">observe</span>(el));
+}</div>
+            </div>
+            <div class="code-block">
+              <div class="cb-header"><span class="cb-lang">CSS — Dark Mode Toggle</span><button class="cb-copy" onclick="copyCode(this,'darkmode')">⎘ Copy</button></div>
+              <div class="cb-body" id="code-darkmode"><span class="syntax-fn">function</span> <span class="syntax-fn">toggleTheme</span>() {
+  document.body.<span class="syntax-fn">classList</span>.<span class="syntax-fn">toggle</span>(<span class="syntax-str">'dark-mode'</span>);
+  <span class="syntax-key">const</span> isDark = document.body
+    .classList.<span class="syntax-fn">contains</span>(<span class="syntax-str">'dark-mode'</span>);
+  localStorage.<span class="syntax-fn">setItem</span>(<span class="syntax-str">'scentra_theme'</span>,
+    isDark ? <span class="syntax-str">'dark'</span> : <span class="syntax-str">'light'</span>);
+}</div>
+            </div>
           </div>
         </div>
         <div>
           <div class="card" style="margin-bottom:16px">
-            <div class="card-title" style="margin-bottom:14px">Upcoming Launches 🚀</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div style="background:var(--surface2);border-radius:12px;padding:14px;border-left:3px solid var(--pink)">
-                <div style="font-size:.88rem;color:var(--text);margin-bottom:3px">Monsoon Collection</div>
-                <div style="font-size:.74rem;color:var(--text3)">Petrichor · Wet earth · Rain musk · 4 new scents</div>
-                <div style="font-size:.68rem;color:var(--pink);margin-top:6px">Launch: July 2025</div>
-              </div>
-              <div style="background:var(--surface2);border-radius:12px;padding:14px;border-left:3px solid var(--gold)">
-                <div style="font-size:.88rem;color:var(--text);margin-bottom:3px">Festive Gift Sets</div>
-                <div style="font-size:.74rem;color:var(--text3)">Curated gift boxes for Diwali season · Premium packaging</div>
-                <div style="font-size:.68rem;color:var(--gold);margin-top:6px">Launch: October 2025</div>
-              </div>
-              <div style="background:var(--surface2);border-radius:12px;padding:14px;border-left:3px solid var(--green)">
-                <div style="font-size:.88rem;color:var(--text);margin-bottom:3px">Travel Tins Series</div>
-                <div style="font-size:.74rem;color:var(--text3)">Compact 50g tins · Perfect for gifting · 8 scents</div>
-                <div style="font-size:.68rem;color:var(--green);margin-top:6px">Launch: August 2025</div>
-              </div>
+            <div class="ct" style="margin-bottom:14px">🔑 Environment Config</div>
+            <div class="env-row"><span class="env-key">RAZORPAY_KEY</span><span class="env-val">rzp_live_SMQTjtfUT3u3zz</span></div>
+            <div class="env-row"><span class="env-key">FORMSPREE_ENDPOINT</span><span class="env-val">https://formspree.io/f/xykdqggb</span></div>
+            <div class="env-row"><span class="env-key">FIREBASE_PROJECT</span><span class="env-val">scentra-candles</span></div>
+            <div class="env-row"><span class="env-key">FIREBASE_API_KEY</span><span class="env-val env-masked" id="fbkey">••••••••••••••••••••••</span><button class="env-reveal" onclick="revealKey('fbkey','AIzaSyExample123')">Reveal</button></div>
+            <div class="env-row"><span class="env-key">ADMIN_EMAIL</span><span class="env-val">priyashad89@gmail.com</span></div>
+            <div class="env-row"><span class="env-key">INSTAGRAM_HANDLE</span><span class="env-val">@scentra_candle</span></div>
+          </div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:4px">📐 CSS Variables Reference</div>
+            <div class="cs" style="margin-bottom:14px">Key tokens used across the entire site</div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="width:18px;height:18px;border-radius:4px;background:#6b1a2a;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--maroon)">--maroon: #6b1a2a</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="width:18px;height:18px;border-radius:4px;background:#e8799a;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--maroon)">--pink: #e8799a</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="width:18px;height:18px;border-radius:4px;background:#fdf8f2;border:1px solid rgba(107,26,42,.15);flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--maroon)">--bg: #fdf8f2</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)"><div style="width:18px;height:18px;border-radius:4px;background:#2c0f18;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--maroon)">--text: #2c0f18</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:7px 0"><div style="width:18px;height:18px;border-radius:4px;background:#f2a7bb;flex-shrink:0"></div><span style="font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--maroon)">--pink2: #f2a7bb</span></div>
             </div>
           </div>
           <div class="card">
-            <div class="card-title" style="margin-bottom:14px">Discontinued / Restocked</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)"><span style="font-size:.82rem;color:var(--text2)">Petrichor Dreams</span><span class="tag tag-new">Restocked</span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)"><span style="font-size:.82rem;color:var(--text2)">Midnight Jasmine</span><span class="tag tag-urgent">Discontinued</span></div>
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 0"><span style="font-size:.82rem;color:var(--text2)">Chai & Cardamom</span><span class="tag tag-info">Low Stock</span></div>
+            <div class="ct" style="margin-bottom:14px">📁 File Structure</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--text2);line-height:1.9">
+              <div style="color:var(--maroon)">scentra/</div>
+              <div style="padding-left:16px">├── index.html <span style="color:var(--text3);font-style:italic">← main site</span></div>
+              <div style="padding-left:16px">├── collaborators.html <span style="color:var(--text3);font-style:italic">← this file</span></div>
+              <div style="padding-left:16px">├── login.html <span style="color:var(--text3);font-style:italic">← firebase auth</span></div>
+              <div style="padding-left:16px">├── privacy-policy.html</div>
+              <div style="padding-left:16px">└── scentra-backend/ <span style="color:var(--blue);font-style:italic">← spring boot</span></div>
+              <div style="padding-left:36px">├── src/main/java/</div>
+              <div style="padding-left:36px">└── pom.xml</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── TERMS PAGE ── -->
-    <div class="page-content" id="page-terms">
-      <div style="margin-bottom:28px">
-        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:4px">Legal & Policies</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Terms & Conditions</h2>
+    <!-- ══ API REFERENCE ══ -->
+    <div class="pc" id="page-api">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);margin-bottom:4px">Integrations</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">API Reference</h2>
       </div>
-      <div style="display:flex;flex-direction:column;gap:18px" id="terms-list"></div>
-    </div>
-
-    <!-- ── RESOURCES PAGE ── -->
-    <div class="page-content" id="page-resources">
-      <div style="margin-bottom:28px">
-        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:4px">Downloads & Links</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Brand Assets</h2>
-      </div>
-      <div class="grid-2">
+      <div class="g2">
         <div>
           <div class="card" style="margin-bottom:16px">
-            <div class="card-title" style="margin-bottom:16px">Logo & Identity</div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--pink3)">🖼</div><div><div class="resource-name">Scentra Logo Pack</div><div class="resource-desc">SVG, PNG · Light & dark variants</div></div><span class="resource-arrow">↗</span></div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--pink3)">🎨</div><div><div class="resource-name">Brand Color Guide</div><div class="resource-desc">HEX, RGB, CMYK values</div></div><span class="resource-arrow">↗</span></div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--pink3)">🔤</div><div><div class="resource-name">Typography Kit</div><div class="resource-desc">Playfair Display · Cormorant · Jost</div></div><span class="resource-arrow">↗</span></div>
+            <div class="ct" style="margin-bottom:5px">Razorpay Endpoints</div>
+            <div class="cs" style="margin-bottom:16px">Payment processing — live key active</div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">/v1/orders</span><span class="api-desc">Create order</span><div class="api-status live"></div></div>
+            <div class="api-endpoint"><span class="api-method method-get">GET</span><span class="api-path">/v1/payments/:id</span><span class="api-desc">Fetch payment</span><div class="api-status live"></div></div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">/v1/refunds</span><span class="api-desc">Issue refund</span><div class="api-status live"></div></div>
+          </div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:5px">Firebase Auth</div>
+            <div class="cs" style="margin-bottom:16px">Google sign-in enabled</div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">/identitytoolkit/v3/signInWithPassword</span><span class="api-desc">Email login</span><div class="api-status live"></div></div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">/identitytoolkit/v3/signInWithIdp</span><span class="api-desc">Google OAuth</span><div class="api-status live"></div></div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">/identitytoolkit/v3/getOobConfirmationCode</span><span class="api-desc">Password reset</span><div class="api-status live"></div></div>
           </div>
           <div class="card">
-            <div class="card-title" style="margin-bottom:16px">Marketing Materials</div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--blue2)">📸</div><div><div class="resource-name">Product Photography</div><div class="resource-desc">Hi-res images · White bg · Lifestyle</div></div><span class="resource-arrow">↗</span></div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--blue2)">📱</div><div><div class="resource-name">Social Media Templates</div><div class="resource-desc">Instagram · Stories · Reels covers</div></div><span class="resource-arrow">↗</span></div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--blue2)">🖨</div><div><div class="resource-name">Print-Ready Flyers</div><div class="resource-desc">A4, A5 templates · Editable PDF</div></div><span class="resource-arrow">↗</span></div>
+            <div class="ct" style="margin-bottom:5px">Formspree</div>
+            <div class="cs" style="margin-bottom:16px">Contact form backend</div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">https://formspree.io/f/xykdqggb</span><span class="api-desc">Submit contact</span><div class="api-status live"></div></div>
           </div>
         </div>
         <div>
           <div class="card" style="margin-bottom:16px">
-            <div class="card-title" style="margin-bottom:16px">Sales & Operations</div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--green2)">📊</div><div><div class="resource-name">Wholesale Price List</div><div class="resource-desc">Current catalogue with trade prices</div></div><span class="resource-arrow">↗</span></div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--green2)">📦</div><div><div class="resource-name">Packaging Guide</div><div class="resource-desc">Dimensions, weights, MOQ details</div></div><span class="resource-arrow">↗</span></div>
-            <div class="resource-item"><div class="resource-icon" style="background:var(--green2)">📄</div><div><div class="resource-name">Product Spec Sheets</div><div class="resource-desc">Ingredients, certifications, labels</div></div><span class="resource-arrow">↗</span></div>
+            <div class="ct" style="margin-bottom:5px">Spring Boot Backend</div>
+            <div class="cs" style="margin-bottom:16px">Internal API — localhost:8080 in dev</div>
+            <div class="api-endpoint"><span class="api-method method-get">GET</span><span class="api-path">/api/products</span><span class="api-desc">List all</span><div class="api-status pending"></div></div>
+            <div class="api-endpoint"><span class="api-method method-post">POST</span><span class="api-path">/api/orders</span><span class="api-desc">Create order</span><div class="api-status pending"></div></div>
+            <div class="api-endpoint"><span class="api-method method-get">GET</span><span class="api-path">/api/coupons/validate</span><span class="api-desc">Validate code</span><div class="api-status pending"></div></div>
+            <div class="api-endpoint"><span class="api-method method-put">PUT</span><span class="api-path">/api/products/:id</span><span class="api-desc">Update product</span><div class="api-status pending"></div></div>
+            <div style="margin-top:12px;background:var(--amber2);border:1px solid rgba(125,90,10,.2);border-radius:10px;padding:12px;font-size:.76rem;color:var(--amber)">⚠ Backend not yet deployed. Endpoints are planned. Status: <strong>In Development</strong></div>
           </div>
           <div class="card">
-            <div class="card-title" style="margin-bottom:14px">Important Contacts</div>
-            <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="background:var(--surface2);border-radius:11px;padding:14px">
-                <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:4px">Founder & Director</div>
-                <div style="font-size:.86rem;color:var(--text);margin-bottom:2px">Priyasha Dutta</div>
-                <div style="font-size:.76rem;color:var(--text3)">priyashad89@gmail.com</div>
-              </div>
-              <div style="background:var(--surface2);border-radius:11px;padding:14px">
-                <div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px">Business Enquiries</div>
-                <div style="font-size:.86rem;color:var(--text);margin-bottom:2px">Scentra Candles</div>
-                <div style="font-size:.76rem;color:var(--text3)">Instagram: @scentra_candle</div>
-              </div>
+            <div class="ct" style="margin-bottom:14px">Active Coupon Codes</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-radius:9px"><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--maroon)">SCENTRA10</span><span style="font-size:.74rem;color:var(--text3)">10% off</span><span class="tag tag-new">Active</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-radius:9px"><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--maroon)">WELCOME20</span><span style="font-size:.74rem;color:var(--text3)">20% off</span><span class="tag tag-new">Active</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-radius:9px"><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--maroon)">FLAT50</span><span style="font-size:.74rem;color:var(--text3)">₹50 off</span><span class="tag tag-new">Active</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-radius:9px"><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--maroon)">MOOD15</span><span style="font-size:.74rem;color:var(--text3)">15% off</span><span class="tag tag-new">Active</span></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:var(--surface2);border-radius:9px"><span style="font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--maroon)">HOLI100</span><span style="font-size:.74rem;color:var(--text3)">₹100 off</span><span class="tag tag-update">Seasonal</span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── EVENTS PAGE ── -->
-    <div class="page-content" id="page-events">
-      <div style="margin-bottom:28px">
-        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:4px">Schedule</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Events & Launches</h2>
+    <!-- ══ DEV NOTES ══ -->
+    <div class="pc" id="page-notes">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--purple);margin-bottom:4px">Personal</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Dev Notes</h2>
+        <p style="font-size:.82rem;color:var(--text3);margin-top:5px">Your private scratchpad. Notes are saved in this session.</p>
       </div>
-      <div class="grid-2">
-        <div class="card">
-          <div class="card-title" style="margin-bottom:18px">Upcoming Events</div>
-          <div id="events-full-list"></div>
+      <div class="g2">
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:14px">📝 Quick Note</div>
+            <textarea id="note-input" rows="6" placeholder="Write a note, paste a snippet, jot a todo…" style="width:100%;background:var(--surface2);border:1.5px solid var(--border2);border-radius:11px;padding:12px 14px;color:var(--text);font-size:.84rem;line-height:1.65;resize:vertical;outline:none"></textarea>
+            <div style="display:flex;gap:8px;margin-top:10px">
+              <input id="note-title" type="text" placeholder="Note title…" style="flex:1;background:var(--surface2);border:1.5px solid var(--border2);border-radius:10px;padding:9px 13px;color:var(--text);font-size:.82rem;outline:none"/>
+              <button onclick="addNote()" style="padding:9px 20px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:#fff;border:none;border-radius:10px;font-size:.74rem;letter-spacing:.1em">Save ✦</button>
+            </div>
+          </div>
+          <div id="notes-list"></div>
         </div>
-        <div class="card">
-          <div class="card-title" style="margin-bottom:14px">Product Launch Calendar</div>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--surface2);border-radius:12px;border-left:3px solid var(--pink)">
-              <div style="text-align:center;min-width:44px"><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--pink);line-height:1">15</div><div style="font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">Jul</div></div>
-              <div><div style="font-size:.86rem;color:var(--text);margin-bottom:2px">Monsoon Collection Drops</div><div style="font-size:.74rem;color:var(--text3)">Collaborator early access starts 12 Jul</div></div>
-            </div>
-            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--surface2);border-radius:12px;border-left:3px solid var(--gold)">
-              <div style="text-align:center;min-width:44px"><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);line-height:1">01</div><div style="font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">Aug</div></div>
-              <div><div style="font-size:.86rem;color:var(--text);margin-bottom:2px">Travel Tins Launch</div><div style="font-size:.74rem;color:var(--text3)">8 scents · Wholesale pricing available</div></div>
-            </div>
-            <div style="display:flex;gap:14px;align-items:center;padding:14px;background:var(--surface2);border-radius:12px;border-left:3px solid var(--green)">
-              <div style="text-align:center;min-width:44px"><div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--green);line-height:1">20</div><div style="font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em">Oct</div></div>
-              <div><div style="font-size:.86rem;color:var(--text);margin-bottom:2px">Diwali Gift Sets</div><div style="font-size:.74rem;color:var(--text3)">Bulk orders open from 5 Oct</div></div>
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="ct" style="margin-bottom:14px">🐛 Bug Tracker</div>
+            <div id="bug-list"></div>
+          </div>
+          <div class="card">
+            <div class="ct" style="margin-bottom:14px">💡 Ideas Parking Lot</div>
+            <div style="display:flex;flex-direction:column;gap:8px" id="ideas-list">
+              <div style="background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:.8rem;color:var(--text2);border-left:3px solid var(--purple)">Product filter by scent family — add tags per candle in the products array</div>
+              <div style="background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:.8rem;color:var(--text2);border-left:3px solid var(--blue)">Wishlist feature — localStorage array of product IDs, persist across sessions</div>
+              <div style="background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:.8rem;color:var(--text2);border-left:3px solid var(--gold)">Email receipt after Razorpay success — trigger via Formspree or backend</div>
+              <div style="background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:.8rem;color:var(--text2);border-left:3px solid var(--green)">Candle quiz — 5 questions → recommend a product based on mood answers</div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ── CONTACT PAGE ── -->
-    <div class="page-content" id="page-contact">
-      <div style="margin-bottom:28px">
+    <!-- ══ CHANGELOG ══ -->
+    <div class="pc" id="page-changelog">
+      <div style="margin-bottom:26px">
+        <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:4px">History</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Changelog</h2>
+      </div>
+      <div style="max-width:720px" id="changelog-list"></div>
+    </div>
+
+    <!-- ══ CONTACT ══ -->
+    <div class="pc" id="page-contact">
+      <div style="margin-bottom:26px">
         <div style="font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--pink);margin-bottom:4px">Support</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Contact Scentra</h2>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--text)">Contact Admin</h2>
       </div>
-      <div class="grid-2">
-        <div>
-          <div class="card" style="margin-bottom:16px">
-            <div class="card-title" style="margin-bottom:16px">Send a Message</div>
-            <div style="margin-bottom:14px">
-              <label style="display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Subject</label>
-              <select id="ct-subject" style="width:100%;padding:11px 14px;background:var(--surface2);border:1.5px solid var(--border2);border-radius:11px;color:var(--text);font-family:'Jost',sans-serif;font-size:.86rem;outline:none">
-                <option>General Enquiry</option>
-                <option>Order / Stock Issue</option>
-                <option>Brand Asset Request</option>
-                <option>Event Collaboration</option>
-                <option>Loyalty Points Query</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div style="margin-bottom:14px">
-              <label style="display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Message</label>
-              <textarea id="ct-msg" rows="5" placeholder="Write your message here…" style="width:100%;padding:11px 14px;background:var(--surface2);border:1.5px solid var(--border2);border-radius:11px;color:var(--text);font-family:'Jost',sans-serif;font-size:.86rem;outline:none;resize:vertical"></textarea>
-            </div>
-            <button onclick="sendContactMsg()" id="ct-btn" style="width:100%;padding:13px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:#fff;border:none;border-radius:12px;font-family:'Jost',sans-serif;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;transition:all .2s">Send Message ✦</button>
-            <div id="ct-success" style="display:none;margin-top:12px;background:var(--green2);border:1px solid rgba(76,175,128,.3);border-radius:10px;padding:12px;font-size:.8rem;color:var(--green);text-align:center">✦ Message sent! We'll reply within 24 hours.</div>
+      <div class="g2">
+        <div class="card">
+          <div class="ct" style="margin-bottom:16px">Send Message to Admin</div>
+          <div style="margin-bottom:12px">
+            <label style="display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Subject</label>
+            <select id="ct-subject" style="width:100%;padding:11px 14px;background:var(--surface2);border:1.5px solid var(--border2);border-radius:11px;color:var(--text);font-size:.86rem;outline:none">
+              <option>Bug Report</option><option>Feature Ready for Review</option><option>Deployment Question</option><option>Request Clarification</option><option>Other</option>
+            </select>
           </div>
+          <div style="margin-bottom:12px">
+            <label style="display:block;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:6px">Message</label>
+            <textarea id="ct-msg" rows="5" placeholder="Write your message…" style="width:100%;padding:11px 14px;background:var(--surface2);border:1.5px solid var(--border2);border-radius:11px;color:var(--text);font-size:.86rem;outline:none;resize:vertical"></textarea>
+          </div>
+          <button onclick="sendMsg()" id="ct-btn" style="width:100%;padding:12px;background:linear-gradient(135deg,var(--maroon),var(--maroon2));color:#fff;border:none;border-radius:12px;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase">Send Message ✦</button>
+          <div id="ct-ok" style="display:none;margin-top:12px;background:var(--green2);border:1px solid rgba(46,125,82,.3);border-radius:10px;padding:12px;font-size:.8rem;color:var(--green);text-align:center">✦ Sent! Admin will reply within 24 hours.</div>
         </div>
         <div>
-          <div class="card" style="margin-bottom:16px">
-            <div class="card-title" style="margin-bottom:14px">Direct Contacts</div>
-            <div style="display:flex;flex-direction:column;gap:12px">
-              <div class="contact-info-item" style="display:flex;gap:13px;align-items:flex-start;background:var(--surface2);padding:16px;border-radius:13px">
-                <span style="font-size:1.3rem">📧</span>
-                <div><div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:3px">Email</div><div style="font-size:.86rem;color:var(--text2)">priyashad89@gmail.com</div></div>
-              </div>
-              <div style="display:flex;gap:13px;align-items:flex-start;background:var(--surface2);padding:16px;border-radius:13px">
-                <span style="font-size:1.3rem">📱</span>
-                <div><div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:3px">Instagram</div><div style="font-size:.86rem;color:var(--text2)">@scentra_candle</div></div>
-              </div>
-              <div style="display:flex;gap:13px;align-items:flex-start;background:var(--surface2);padding:16px;border-radius:13px">
-                <span style="font-size:1.3rem">📍</span>
-                <div><div style="font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:3px">Studio</div><div style="font-size:.86rem;color:var(--text2)">3A Rabindrapally, Kolkata, WB 700122</div></div>
-              </div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="ct" style="margin-bottom:14px">Direct Contact</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📧</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Admin Email</div><div style="font-size:.84rem;color:var(--text2)">priyashad89@gmail.com</div></div></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📱</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Instagram</div><div style="font-size:.84rem;color:var(--text2)">@scentra_candle</div></div></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📍</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Studio</div><div style="font-size:.84rem;color:var(--text2)">3A Rabindrapally, Kolkata, WB 700122</div></div></div>
             </div>
           </div>
           <div class="card">
-            <div class="card-title" style="margin-bottom:4px">Response Times</div>
-            <div class="card-sub" style="margin-bottom:14px">Our typical reply schedule</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">General enquiries</span><span style="color:var(--green)">Within 24 hrs</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Urgent / stock issues</span><span style="color:var(--amber)">Within 6 hrs</span></div>
-              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:9px 0"><span style="color:var(--text2)">Custom order requests</span><span style="color:var(--blue)">2–3 business days</span></div>
+            <div class="ct" style="margin-bottom:4px">Response Times</div>
+            <div class="cs" style="margin-bottom:14px">Typical reply schedule</div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Bug reports</span><span style="color:var(--red)">Within 6 hrs</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:8px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">General messages</span><span style="color:var(--green)">Within 24 hrs</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;padding:8px 0"><span style="color:var(--text2)">Feature discussions</span><span style="color:var(--blue)">2–3 business days</span></div>
             </div>
           </div>
         </div>
@@ -1135,434 +843,410 @@ html.dark-mode .notif-panel-clear{color:var(--pink)}
 </div><!-- /dashboard -->
 
 <script>
-/* ══════════════════════════════
-   CURSOR
-══════════════════════════════ */
+/* ══ CURSOR ══ */
 const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
-window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.transform=`translate(${mx-5}px,${my-5}px)`;});
-(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.transform=`translate(${rx-17}px,${ry-17}px)`;requestAnimationFrame(loop);})();
+window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.transform=`translate(${mx-5}px,${my-5}px)`});
+(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;cr.style.transform=`translate(${rx-17}px,${ry-17}px)`;requestAnimationFrame(loop)})();
 
-/* ══════════════════════════════
-   COLLABORATOR ACCOUNTS
-   (In production, move to Firebase Auth)
-══════════════════════════════ */
-const COLLABORATORS = [
-  {
-    email:    'priyashad89@gmail.com',
-    password: 'Scentra@Admin2025',
-    code:     'SCN-ADMN-0000',
-    name:     'Priyasha Dutta',
-    role:     'Founder & Director',
-    tier:     'Platinum',
-    points:   1200,
-    memberId: 'SCN-ADMN-0000',
-  },
-  {
-    email:    'pritam@partner.com',
-    password: 'pritam@2025',
-    code:     'SCN-DEVV-0042',
-    name:     'Collaborator One',
-    role:     'Gold Partner',
-    tier:     'Gold',
-    points:   740,
-    memberId: 'SCN-DEVV-0042',
-  },
-  }
+/* ══ MEMBERS ══ */
+const MEMBERS=[
+  {email:'priyashad89@gmail.com',password:'Scentra@Admin2025',code:'SCN-ADMN-0000',name:'Priyasha Dutta',role:'Founder & Admin',memberId:'SCN-ADMN-0000'},
+  {email:'dev@scentra.in',password:'Dev@Scentra2025',code:'SCN-DEV-0001',name:'Lead Developer',role:'Developer — Full Stack',memberId:'SCN-DEV-0001'},
+];
+let CU=null;
 
-let currentUser = null;
-
-/* ══════════════════════════════
-   CLOCK
-══════════════════════════════ */
-function updateClock(){
-  const now=new Date();
-  document.getElementById('topbar-clock').textContent=now.toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
-}
+/* ══ CLOCK ══ */
+function updateClock(){document.getElementById('tb-clock').textContent=new Date().toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
 updateClock();setInterval(updateClock,30000);
 
-/* ══════════════════════════════
-   FORMAT ACCESS CODE INPUT
-══════════════════════════════ */
-function formatCode(el){
-  let v=el.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
-  if(v.length>3)v=v.slice(0,3)+'-'+v.slice(3);
-  if(v.length>8)v=v.slice(0,8)+'-'+v.slice(8);
-  if(v.length>13)v=v.slice(0,13);
-  el.value=v;
-}
-
-function togglePw(id,btn){
-  const inp=document.getElementById(id);
-  if(inp.type==='password'){inp.type='text';btn.textContent='🙈';}
-  else{inp.type='password';btn.textContent='👁';}
-}
-
-/* ══════════════════════════════
-   LOGIN
-══════════════════════════════ */
-function showLoginErr(msg){
-  const el=document.getElementById('login-err');
-  el.textContent=msg;el.style.display='block';
-}
-function hideLoginErr(){document.getElementById('login-err').style.display='none';}
+/* ══ LOGIN HELPERS ══ */
+function fmtCode(el){let v=el.value.toUpperCase().replace(/[^A-Z0-9]/g,'');if(v.length>3)v=v.slice(0,3)+'-'+v.slice(3);if(v.length>8)v=v.slice(0,8)+'-'+v.slice(8);if(v.length>13)v=v.slice(0,13);el.value=v}
+function togglePw(){const i=document.getElementById('l-pass');i.type=i.type==='password'?'text':'password'}
+function showErr(m){const e=document.getElementById('lerr');e.textContent=m;e.style.display='block'}
+function hideErr(){document.getElementById('lerr').style.display='none'}
 
 function doLogin(){
-  hideLoginErr();
-  const email  = document.getElementById('l-email').value.trim().toLowerCase();
-  const pass   = document.getElementById('l-pass').value;
-  const code   = document.getElementById('l-code').value.trim().toUpperCase();
-
-  // Basic validation
-  if(!email||!pass||!code){
-    showLoginErr('Please fill in all three fields to continue.');
-    if(!email)document.getElementById('l-email').classList.add('err');
-    if(!pass) document.getElementById('l-pass').classList.add('err');
-    if(!code) document.getElementById('l-code').classList.add('err');
-    return;
-  }
+  hideErr();
+  const email=document.getElementById('l-email').value.trim().toLowerCase();
+  const pass=document.getElementById('l-pass').value;
+  const code=document.getElementById('l-code').value.trim().toUpperCase();
+  if(!email||!pass||!code){showErr('Please fill in all three fields.');['l-email','l-pass','l-code'].forEach(id=>{if(!document.getElementById(id).value)document.getElementById(id).classList.add('err')});return}
   ['l-email','l-pass','l-code'].forEach(id=>document.getElementById(id).classList.remove('err'));
-
-  // Show spinner
-  const btn=document.getElementById('btn-login');
-  document.getElementById('login-label').style.display='none';
-  document.getElementById('login-spinner').style.display='block';
-  btn.disabled=true;
-
-  // Simulate auth delay
+  const btn=document.getElementById('lbtn');
+  document.getElementById('llbl').style.display='none';document.getElementById('lspin').style.display='block';btn.disabled=true;
   setTimeout(()=>{
-    const user = COLLABORATORS.find(u=>
-      u.email.toLowerCase()===email &&
-      u.password===pass &&
-      u.code===code
-    );
-
-    if(!user){
-      document.getElementById('login-label').style.display='block';
-      document.getElementById('login-spinner').style.display='none';
-      btn.disabled=false;
-
-      // Specific error message
-      const emailMatch=COLLABORATORS.find(u=>u.email.toLowerCase()===email);
-      if(!emailMatch) showLoginErr('No collaborator account found for this email address.');
-      else showLoginErr('Incorrect password or access code. Please check and try again.');
-      return;
-    }
-
-    // Success — boot dashboard
-    currentUser=user;
-    bootDashboard(user);
-  }, 1600);
+    const u=MEMBERS.find(m=>m.email.toLowerCase()===email&&m.password===pass&&m.code===code);
+    if(!u){document.getElementById('llbl').style.display='block';document.getElementById('lspin').style.display='none';btn.disabled=false;showErr(MEMBERS.find(m=>m.email.toLowerCase()===email)?'Incorrect password or access code.':'No member account found for this email.');return}
+    CU=u;bootDashboard(u);
+  },1500);
 }
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('login-page').style.display!=='none')doLogin()});
 
-// Enter key support
-document.addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&document.getElementById('login-page').style.display!=='none'){doLogin();}
-});
-
-/* ══════════════════════════════
-   BOOT DASHBOARD
-══════════════════════════════ */
-function bootDashboard(user){
+/* ══ BOOT ══ */
+function bootDashboard(u){
   document.getElementById('login-page').style.display='none';
   document.getElementById('dashboard').style.display='block';
-
-  // Set user info
-  const initial=user.name[0].toUpperCase();
-  document.getElementById('sb-avatar').textContent=initial;
-  document.getElementById('sb-name').textContent=user.name;
-  document.getElementById('sb-role').textContent=user.role;
-  document.getElementById('welcome-name').textContent=`Hello, ${user.name.split(' ')[0]} ✦`;
-  document.getElementById('welcome-date').textContent=
-    new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-
-  // Loyalty card data
-  document.getElementById('lc-name').textContent=user.name;
-  document.getElementById('lc-tier').textContent=user.tier+' Partner';
-  document.getElementById('lc-id').textContent='MEMBER ID: '+user.memberId;
-  document.getElementById('lc-points').textContent=user.points;
-  document.getElementById('ov-points').textContent=user.points;
-  const pct=Math.min(Math.round((user.points/1000)*100),100);
-  document.getElementById('lc-bar-pct').textContent=pct+'%';
-  setTimeout(()=>document.getElementById('lc-bar').style.width=pct+'%',400);
-
-  // Render all data
-  renderAnnouncements();
-  renderOverviewAnnouncements();
-  renderUpdates();
-  renderTerms();
-  renderEvents();
-  renderOverviewEvents();
-  renderNotifications();
+  document.getElementById('sb-av').textContent=u.name[0];
+  document.getElementById('sb-name').textContent=u.name;
+  document.getElementById('sb-role').textContent=u.role;
+  document.getElementById('welcome-name').textContent=`Hello, ${u.name.split(' ')[0]} ✦`;
+  document.getElementById('welcome-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  renderAll();
 }
 
-/* ══════════════════════════════
-   DATA
-══════════════════════════════ */
+/* ══ DATA ══ */
+const FEATURES=[
+  {id:1,emoji:'🌙',title:'Dark Mode Toggle',desc:'Full dark/light theme switcher added to the main nav. Persists via localStorage across sessions and syncs to the Members Portal.',type:'feature',date:'10 Jun 2025',version:'v2.4',isNew:true},
+  {id:2,emoji:'🛒',title:'Shopping Cart & Checkout Flow',desc:'Multi-item cart drawer with quantity controls, subtotal, coupon validation, and Razorpay checkout integration.',type:'feature',date:'5 Jun 2025',version:'v2.3',isNew:true},
+  {id:3,emoji:'🔐',title:'Firebase Google Sign-In',desc:'Login page with Firebase Auth. Google OAuth enabled. Session persistence active.',type:'feature',date:'1 Jun 2025',version:'v2.2',isNew:false},
+  {id:4,emoji:'📱',title:'Full Mobile Responsive Layout',desc:'All sections — hero, shop, cart, modals — now fully responsive down to 320px viewport.',type:'update',date:'28 May 2025',version:'v2.1',isNew:false},
+  {id:5,emoji:'🐛',title:'Cart Quantity Bug Fix',desc:'Fixed issue where qty input above 9 triggered duplicate order modal on iOS Safari.',type:'bug',date:'25 May 2025',version:'v2.1.1',isNew:false},
+  {id:6,emoji:'🎨',title:'Scroll Reveal Animations',desc:'IntersectionObserver-based reveal system added to all sections. Cards stagger naturally as they enter viewport.',type:'design',date:'20 May 2025',version:'v2.0',isNew:false},
+  {id:7,emoji:'🏷',title:'Coupon System',desc:'5 coupon codes: SCENTRA10, WELCOME20, FLAT50, MOOD15, HOLI100. Validated client-side with visual feedback.',type:'feature',date:'15 May 2025',version:'v1.9',isNew:false},
+];
+let activeFilter='all';
+
 const ANNOUNCEMENTS=[
-  {id:1,title:'New Pricing for Wholesale Orders — Effective July 2025',body:'We are updating our wholesale pricing structure to reflect improved packaging and quality upgrades. New rates will be shared in the Wholesale Price List by 25 June. Existing orders placed before 30 June will honour the current rates.',tag:'update',color:'#6eb5e8',date:'10 Jun 2025',from:'Priyasha Dutta',unread:true},
-  {id:2,title:'Website Relaunch — Scentra.in is Live!',body:'Our brand new website is now live at scentra.in. It features the full product catalogue, a collaborator login portal, and direct Razorpay checkout. Please share with your networks. Feedback is welcome!',tag:'new',color:'#4caf80',date:'5 Jun 2025',from:'Priyasha Dutta',unread:true},
-  {id:3,title:'Urgent: Revised Collaborator Agreement — Action Required',body:'We have updated our Collaborator Partnership Agreement to include clauses on social media guidelines, product photography usage rights, and minimum order commitments. All active collaborators must review and acknowledge the new terms by 30 June 2025.',tag:'urgent',color:'#e57373',date:'1 Jun 2025',from:'Priyasha Dutta',unread:true},
-  {id:4,title:'Monsoon Collection — Collaborator Preview Event',body:'You are invited to an exclusive online preview of our upcoming Monsoon Collection on 30 June 2025 at 7 PM IST. Samples will be dispatched to Gold & Platinum partners ahead of the call.',tag:'info',color:'#e8a030',date:'28 May 2025',from:'Priyasha Dutta',unread:false},
-  {id:5,title:'Loyalty Programme Launched — Earn Points from Today',body:'We have officially launched the Scentra Loyalty Programme for all collaborators. You start with 500 base points. Points are earned on every purchase, review, and referral. Check your Loyalty Card section for details.',tag:'new',color:'#c9a84c',date:'20 May 2025',from:'Priyasha Dutta',unread:false},
+  {id:1,title:'New Pricing for Wholesale Orders — Effective July 2025',body:'We are updating our wholesale pricing structure to reflect improved packaging and quality upgrades. New rates will be shared by 25 June.',color:'#6eb5e8',tag:'update',date:'10 Jun 2025',from:'Priyasha Dutta',unread:true},
+  {id:2,title:'Scentra Website Relaunch — Live!',body:'The new Scentra site is live. Full catalogue, cart, Firebase auth, Razorpay checkout, and Members Portal all deployed.',color:'#4caf80',tag:'new',date:'5 Jun 2025',from:'Priyasha Dutta',unread:true},
+  {id:3,title:'Urgent: Collaborator Agreement Updated',body:'New T&C added covering social media guidelines and photography usage rights. All members must acknowledge before 30 June.',color:'#e57373',tag:'urgent',date:'1 Jun 2025',from:'Priyasha Dutta',unread:true},
+  {id:4,title:'Monsoon Collection Preview — 30 June',body:'Online preview call on 30 June at 7 PM IST. Developer should have the new product section ready by then.',color:'#e8a030',tag:'info',date:'28 May 2025',from:'Priyasha Dutta',unread:false},
 ];
 
-const UPDATES=[
-  {emoji:'🕯',name:'Petrichor Dreams — Restocked',desc:'Back in stock after popular demand. Fresh batch poured. Available for bulk orders.',date:'8 Jun 2025',tag:'new'},
-  {emoji:'🆕',name:'Travel Tin Range — Preview',desc:'Compact 50g tins coming August 2025. Samples available to Gold+ partners on request.',date:'5 Jun 2025',tag:'update'},
-  {emoji:'📦',name:'New Packaging — Premium Black Box',desc:'All orders above ₹1000 now ship in our new premium matte black gift box at no extra cost.',date:'1 Jun 2025',tag:'update'},
-  {emoji:'⚠️',name:'Chai & Cardamom — Low Stock Alert',desc:'Only 40 units remaining. Order before 20 June to guarantee availability.',date:'28 May 2025',tag:'info'},
-  {emoji:'🎨',name:'Label Redesign — All Products',desc:'Updated labels with improved ingredient listing and a QR code linking to product story.',date:'22 May 2025',tag:'update'},
+const REQUESTS=[
+  {id:1,title:'Add a Candle Quiz to the Homepage',body:'I want a fun "find your scent" quiz — 4–5 questions about mood, occasion, season — and it recommends a candle at the end. Should be a popup or a dedicated section.',priority:'High',type:'feature',date:'10 Jun 2025',status:null},
+  {id:2,title:'Product Page for Each Candle',body:'Each candle should have its own page with full description, ingredient list, burn time, care instructions, and review section. Separate URLs would be great.',priority:'High',type:'feature',date:'8 Jun 2025',status:null},
+  {id:3,title:'Add WhatsApp Quick Order Button',body:'A floating WhatsApp button that pre-fills a message with the product name when tapped on any product card. Makes ordering easier for customers on mobile.',priority:'Medium',type:'update',date:'6 Jun 2025',status:'discussed'},
+  {id:4,title:'Change Hero Section Font on Mobile',body:'The hero title "Light a Candle for Every Mood" is too large on small screens and gets clipped. Please reduce font size below 480px.',priority:'Low',type:'design',date:'3 Jun 2025',status:'approved'},
+  {id:5,title:'Email Confirmation After Purchase',body:'After a successful Razorpay payment, the customer should receive an email confirmation with order details. Can we use Formspree or a backend endpoint for this?',priority:'Medium',type:'feature',date:'1 Jun 2025',status:null},
 ];
 
-const TERMS_DOCS=[
-  {
-    title:'Collaborator Partnership Agreement',version:'v2.1',effective:'1 July 2025',
-    accepted:false,id:'terms-1',
-    body:`<h4>1. Scope of Partnership</h4><p>This agreement governs the relationship between Scentra Candles ("Company") and the registered Collaborator ("Partner"). It applies to all resale, promotion, and co-branding activities.</p>
-<h4>2. Pricing & Margins</h4><p>Partners receive wholesale pricing as outlined in the current Price List. Margins range from 25–40% depending on order volume and tier. Prices are reviewed quarterly.</p>
-<ul><li>Minimum order: ₹2,000 per transaction</li><li>Payment: 50% advance for new partners, net-30 for established ones</li><li>Shipping: Covered by Scentra for orders above ₹5,000</li></ul>
-<h4>3. Brand Usage</h4><p>Partners may use Scentra brand assets strictly for promotional purposes. Modification of logos, altering product images, or co-branding without written approval is prohibited.</p>
-<h4>4. Social Media Guidelines</h4><p>When posting about Scentra products, partners must tag @scentra_candle and use approved hashtags. Misleading claims about ingredients or benefits are strictly prohibited and may result in termination of partnership.</p>
-<h4>5. Confidentiality</h4><p>All pricing, formulations, and business communications shared within this portal are confidential and must not be disclosed to third parties.</p>`
-  },
-  {
-    title:'Privacy & Data Policy',version:'v1.3',effective:'1 May 2025',
-    accepted:true,id:'terms-2',
-    body:`<h4>1. Data We Collect</h4><p>We collect your name, email, contact details, and order history for operational purposes only. We do not sell data to third parties.</p>
-<h4>2. Communication</h4><p>By registering as a collaborator, you consent to receive announcements, product updates, and policy changes via email and this portal.</p>
-<h4>3. Portal Security</h4><p>Your access code is unique and must not be shared. We reserve the right to revoke access if misuse is detected. Always log out from shared devices.</p>
-<ul><li>Passwords must be changed every 6 months</li><li>Two-factor access code is mandatory for all logins</li></ul>`
-  },
-  {
-    title:'Shipping & Returns Policy (Wholesale)',version:'v1.0',effective:'1 March 2025',
-    accepted:true,id:'terms-3',
-    body:`<h4>1. Dispatch Timeline</h4><p>Orders are dispatched within 2–3 business days for standard partners and within 24 hours for Gold & Platinum tier members.</p>
-<h4>2. Returns</h4><p>Damaged or defective products may be returned within 7 days of receipt with photographic evidence. We will replace or credit the item.</p>
-<h4>3. Liability</h4><p>Scentra is not liable for delays caused by courier partners. Tracking will be shared for all orders.</p>`
-  },
+const ROADMAP=[
+  {phase:'Current Sprint',color:'var(--green)',badge:'Active',badgeColor:'var(--green2)',items:[
+    {n:'01',title:'Members Portal',desc:'Developer + admin dashboard — you are here.'},
+    {n:'02',title:'Dark Mode Sync',desc:'Shared theme across all pages via localStorage.'},
+    {n:'03',title:'Mobile Responsive Fixes',desc:'Final pass on cart and checkout on iOS.'},
+  ]},
+  {phase:'Next Sprint',color:'var(--blue)',badge:'Planned',badgeColor:'var(--blue2)',items:[
+    {n:'04',title:'Individual Product Pages',desc:'Dedicated URL per candle with full info.'},
+    {n:'05',title:'Candle Quiz Feature',desc:'Mood-based scent recommendation widget.'},
+    {n:'06',title:'Email Confirmation Flow',desc:'Post-payment email via backend or Formspree.'},
+  ]},
+  {phase:'Backlog',color:'var(--text3)',badge:'Future',badgeColor:'var(--surface2)',items:[
+    {n:'07',title:'WhatsApp Quick Order',desc:'Floating CTA that pre-fills product details.'},
+    {n:'08',title:'Admin CMS Panel',desc:'Web UI for Priyasha to update products without code.'},
+    {n:'09',title:'Product Reviews Backend',desc:'Persist reviews server-side instead of client arrays.'},
+  ]},
 ];
 
-const EVENTS_DATA=[
-  {day:'30',month:'Jun',name:'Monsoon Collection Preview Call',detail:'Online video call · 7 PM IST · Invitation sent to registered email'},
-  {day:'15',month:'Jul',name:'Monsoon Collection Public Launch',detail:'Early access for Gold+ partners from 12 July'},
-  {day:'01',month:'Aug',name:'Travel Tins Range Launch',detail:'Wholesale pre-orders open from 25 July'},
-  {day:'20',month:'Oct',name:'Diwali Gift Set Launch',detail:'Bulk order window opens 5 October · Limited quantities'},
+const CHECKLIST=[
+  {status:'done',title:'Setup Razorpay live key',desc:'rzp_live_SMQTjtfUT3u3zz — tested & live'},
+  {status:'done',title:'Firebase Auth with Google',desc:'Sign-in flow complete on login.html'},
+  {status:'done',title:'Dark mode toggle',desc:'Synced via localStorage across all pages'},
+  {status:'done',title:'Formspree contact form',desc:'xykdqggb — tested & receiving submissions'},
+  {status:'wip',title:'Spring Boot backend',desc:'Endpoints defined — deployment pending'},
+  {status:'todo',title:'Individual product pages',desc:'Next sprint — route structure planned'},
+  {status:'todo',title:'Admin CMS panel',desc:'Backlog — needs full design spec'},
+];
+
+const BUGS=[
+  {title:'Cart qty input — iOS Safari',desc:'Qty above 9 triggers duplicate modal.',status:'Resolved',priority:'High'},
+  {title:'Mobile nav overflow at 360px',desc:'Nav links wrap onto 3 lines on very small screens.',status:'Open',priority:'Medium'},
+  {title:'Dark mode flash on hard reload',desc:'Brief white flash on first paint when dark mode is saved.',status:'Open',priority:'Low'},
+];
+
+const CHANGELOG=[
+  {version:'v2.4',date:'10 Jun 2025',changes:['Added dark mode toggle to main nav','Synced theme across Members Portal via localStorage','New feature banner system in portal overview']},
+  {version:'v2.3',date:'5 Jun 2025',changes:['Shopping cart drawer with quantity controls','Coupon validation system (5 codes)','Razorpay multi-item checkout flow']},
+  {version:'v2.2',date:'1 Jun 2025',changes:['Firebase Authentication with Google sign-in','Login page (login.html) with full flow','Session persistence via Firebase SDK']},
+  {version:'v2.1',date:'28 May 2025',changes:['Full mobile responsive layout down to 320px','Cart and modal responsive fixes','iOS Safari qty bug fix']},
+  {version:'v2.0',date:'20 May 2025',changes:['Scroll reveal animation system','IntersectionObserver on all sections','About section left/right slide animations']},
+  {version:'v1.9',date:'15 May 2025',changes:['Coupon system with 5 codes','Order modal with Razorpay integration','Product grid filter by mood and price']},
 ];
 
 const NOTIFS=[
-  {icon:'📋',bg:'var(--amber2)',title:'New terms require your acceptance',time:'2 hours ago'},
-  {icon:'📢',bg:'var(--red2)',title:'Urgent announcement posted',time:'1 day ago'},
-  {icon:'🏅',bg:'var(--gold2)',title:'You earned 80 loyalty points',time:'3 days ago'},
-  {icon:'🆕',bg:'var(--blue2)',title:'5 product updates available',time:'5 days ago'},
+  {icon:'📋',bg:'var(--purple2)',title:'4 new admin requests need review',time:'2 hours ago'},
+  {icon:'✨',bg:'var(--pink3)',title:'Dark mode feature deployed',time:'1 day ago'},
+  {icon:'🐛',bg:'var(--red2)',title:'2 open bugs in tracker',time:'3 days ago'},
+  {icon:'📢',bg:'var(--blue2)',title:'3 unread announcements',time:'5 days ago'},
 ];
 
-/* ══════════════════════════════
-   RENDER FUNCTIONS
-══════════════════════════════ */
-const TAG_HTML={
-  new:'<span class="tag tag-new">✦ New</span>',
-  update:'<span class="tag tag-update">↑ Update</span>',
-  urgent:'<span class="tag tag-urgent">⚠ Urgent</span>',
-  info:'<span class="tag tag-info">● Info</span>',
-  loyalty:'<span class="tag tag-loyalty">★ Loyalty</span>',
-};
+/* ══ RENDER ══ */
+const TAGSHTML={feature:'<span class="tag tag-feature">✦ Feature</span>',update:'<span class="tag tag-update">↑ Update</span>',bug:'<span class="tag tag-bug">🐛 Bug Fix</span>',design:'<span class="tag tag-design">🎨 Design</span>',new:'<span class="tag tag-new">✦ New</span>',urgent:'<span class="tag tag-urgent">⚠ Urgent</span>',info:'<span class="tag tag-info">● Info</span>'};
+
+function renderAll(){
+  renderLatestFeatureBanner();
+  renderFeatureList();
+  renderAnnouncements();
+  renderRequests();
+  renderRoadmap();
+  renderChecklist();
+  renderChangelog();
+  renderNotifications();
+  renderOverviewRequests();
+  renderOverviewAnnouncements();
+  renderOverviewChecklist();
+  renderBugs();
+  renderNotes();
+  updateStats();
+}
+
+function renderLatestFeatureBanner(){
+  const f=FEATURES[0];
+  document.getElementById('ov-nf-title').textContent=f.emoji+' '+f.title;
+  document.getElementById('ov-nf-desc').textContent=f.desc;
+  document.getElementById('ov-nf-ver').textContent=f.version;
+  document.getElementById('ov-nf-type').textContent=f.type.charAt(0).toUpperCase()+f.type.slice(1);
+  document.getElementById('ov-nf-date').textContent=f.date;
+}
+
+function renderFeatureList(){
+  const list=document.getElementById('feature-list');
+  const filtered=activeFilter==='all'?FEATURES:FEATURES.filter(f=>f.type===activeFilter);
+  list.innerHTML=filtered.map(f=>`
+    <div class="feature-item ${f.type}" style="animation:fadeUp .4s ease both">
+      <div class="fi-icon" style="background:${f.type==='feature'?'var(--purple2)':f.type==='update'?'var(--blue2)':f.type==='bug'?'var(--red2)':'var(--pink3)'}">${f.emoji}</div>
+      <div style="flex:1">
+        <div class="fi-title">${f.title}${f.isNew?' <span class="tag tag-new" style="font-size:.58rem;padding:1px 7px">NEW</span>':''}</div>
+        <div class="fi-desc">${f.desc}</div>
+        <div class="fi-meta">${TAGSHTML[f.type]||''}<span style="font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--text3)">${f.version}</span><span class="fi-date">${f.date}</span></div>
+      </div>
+    </div>`).join('');
+  document.getElementById('nf-badge').textContent=FEATURES.filter(f=>f.isNew).length||'';
+}
+
+function filterFeatures(type,el){
+  activeFilter=type;
+  document.querySelectorAll('#feature-filters button').forEach(b=>b.style.opacity='0.45');
+  el.style.opacity='1';
+  renderFeatureList();
+}
 
 function renderAnnouncements(){
-  const list=document.getElementById('announcements-list');
+  const list=document.getElementById('ann-list');
   const unread=ANNOUNCEMENTS.filter(a=>a.unread).length;
-  document.getElementById('ann-count').textContent=`${unread} unread · ${ANNOUNCEMENTS.length} total`;
+  document.getElementById('ann-badge').textContent=unread||'';
   list.innerHTML=ANNOUNCEMENTS.map(a=>`
-    <div class="announcement" id="ann-${a.id}">
-      <div class="announcement-stripe" style="background:${a.color}"></div>
-      <div class="announcement-top">
-        <div>
-          ${TAG_HTML[a.tag]||''}
-          <div class="announcement-title">${a.title}</div>
-        </div>
-        ${a.unread?'<div class="announcement-unread" title="Unread"></div>':''}
+    <div class="ann">
+      <div class="ann-stripe" style="background:${a.color}"></div>
+      <div class="ann-top">
+        <div>${TAGSHTML[a.tag]||''}<div class="ann-title">${a.title}</div></div>
+        ${a.unread?'<div class="ann-unread"></div>':''}
       </div>
-      <div class="announcement-body">${a.body}</div>
-      <div class="announcement-meta">
-        <span class="announcement-date">${a.date}</span>
-        <span class="announcement-from">Posted by: ${a.from}</span>
-        ${a.unread?`<button onclick="markRead(${a.id})" style="margin-left:auto;font-size:.66rem;color:var(--pink);background:none;border:none;border-bottom:1px solid rgba(232,121,154,.3)">Mark as read</button>`:''}
+      <div class="ann-body">${a.body}</div>
+      <div class="ann-meta">
+        <span class="ann-date">${a.date}</span>
+        <span style="font-size:.68rem;color:var(--text3)">Posted by: ${a.from}</span>
+        ${a.unread?`<button onclick="markRead(${a.id})" style="margin-left:auto;font-size:.66rem;color:var(--maroon);background:none;border:none;border-bottom:1px solid rgba(107,26,42,.3)">Mark read</button>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function markRead(id){const a=ANNOUNCEMENTS.find(x=>x.id===id);if(a)a.unread=false;renderAnnouncements();renderOverviewAnnouncements()}
+
+function renderRequests(){
+  const list=document.getElementById('req-list');
+  const open=REQUESTS.filter(r=>!r.status);
+  document.getElementById('req-badge').textContent=open.length||'';
+  list.innerHTML=REQUESTS.map(r=>`
+    <div class="request-card">
+      <div style="display:flex;gap:16px">
+        <div style="width:3px;flex-shrink:0;background:${r.type==='feature'?'var(--purple)':r.type==='design'?'var(--pink)':r.type==='update'?'var(--blue)':'var(--amber)'};border-radius:3px;margin:-22px 0"></div>
+        <div style="flex:1">
+          <div class="rc-top">
+            <div>${TAGSHTML[r.type]||''}<div class="rc-title">${r.title}</div></div>
+            <span class="rc-priority tag ${r.priority==='High'?'tag-urgent':r.priority==='Medium'?'tag-info':'tag-update'}">${r.priority}</span>
+          </div>
+          <div class="rc-body">${r.body}</div>
+          <div class="rc-meta">
+            <span class="rc-from">From: Priyasha Dutta</span>
+            <span class="rc-date">${r.date}</span>
+          </div>
+          ${r.status
+            ?`<div class="rc-status ${r.status==='approved'?'approved':r.status==='rejected'?'rejected':'discussed'}">${r.status==='approved'?'✅ Approved':r.status==='rejected'?'❌ Rejected':'🗓 Will Discuss Later'}</div>`
+            :`<div class="rc-actions">
+              <button class="rc-btn approve" onclick="respondRequest(${r.id},'approved')">✅ Approve</button>
+              <button class="rc-btn reject" onclick="respondRequest(${r.id},'rejected')">❌ Reject</button>
+              <button class="rc-btn discuss" onclick="respondRequest(${r.id},'discussed')">🗓 Discuss Later</button>
+            </div>`}
+        </div>
+      </div>
+    </div>`).join('');
+  // Summary
+  const approved=REQUESTS.filter(r=>r.status==='approved').length;
+  const rejected=REQUESTS.filter(r=>r.status==='rejected').length;
+  const discussed=REQUESTS.filter(r=>r.status==='discussed').length;
+  const pending=REQUESTS.filter(r=>!r.status).length;
+  document.getElementById('req-summary').innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;padding:9px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Total Requests</span><span style="font-weight:600;color:var(--text)">${REQUESTS.length}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;padding:9px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Pending Response</span><span style="font-weight:600;color:var(--amber)">${pending}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;padding:9px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Approved</span><span style="font-weight:600;color:var(--green)">${approved}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;padding:9px 0;border-bottom:1px solid var(--border)"><span style="color:var(--text2)">Will Discuss</span><span style="font-weight:600;color:var(--amber)">${discussed}</span></div>
+      <div style="display:flex;justify-content:space-between;font-size:.82rem;padding:9px 0"><span style="color:var(--text2)">Rejected</span><span style="font-weight:600;color:var(--red)">${rejected}</span></div>
+    </div>`;
+}
+
+function respondRequest(id,status){
+  const r=REQUESTS.find(x=>x.id===id);
+  if(r){r.status=status;renderRequests();renderOverviewRequests();updateStats()}
+}
+
+function renderRoadmap(){
+  document.getElementById('roadmap-list').innerHTML=ROADMAP.map(p=>`
+    <div class="roadmap-phase">
+      <div class="phase-header">
+        <div class="phase-dot" style="background:${p.color}"></div>
+        <span class="phase-name">${p.phase}</span>
+        <span class="phase-badge" style="background:${p.badgeColor};color:${p.color}">${p.badge}</span>
+      </div>
+      ${p.items.map(i=>`
+        <div class="roadmap-item">
+          <span class="ri-num">${i.n}</span>
+          <div><div class="ri-title">${i.title}</div><div class="ri-desc">${i.desc}</div></div>
+        </div>`).join('')}
+    </div>`).join('');
+
+  const bars=[
+    {label:'Features Built',val:72,color:'var(--pink)'},
+    {label:'Mobile Polish',val:88,color:'var(--green)'},
+    {label:'Backend Ready',val:30,color:'var(--blue)'},
+    {label:'Tests Passing',val:55,color:'var(--purple)'},
+  ];
+  document.getElementById('perf-bars').innerHTML=bars.map(b=>`
+    <div class="perf-row">
+      <span class="perf-label">${b.label}</span>
+      <div class="perf-bar-track"><div class="perf-bar-fill" style="width:0%;background:${b.color}" data-val="${b.val}"></div></div>
+      <span class="perf-val">${b.val}%</span>
+    </div>`).join('');
+  setTimeout(()=>{document.querySelectorAll('.perf-bar-fill').forEach(b=>b.style.width=b.dataset.val+'%')},300);
+}
+
+function renderChecklist(){
+  const html=CHECKLIST.map(c=>`
+    <div class="checklist-item">
+      <div class="ci-check ${c.status}">${c.status==='done'?'✓':c.status==='wip'?'…':''}</div>
+      <div><div class="ci-title">${c.title}</div><div class="ci-desc">${c.desc}</div></div>
+    </div>`).join('');
+  document.getElementById('checklist-full').innerHTML=html;
+}
+
+function renderOverviewChecklist(){
+  document.getElementById('ov-checklist').innerHTML=CHECKLIST.slice(0,4).map(c=>`
+    <div class="checklist-item">
+      <div class="ci-check ${c.status}">${c.status==='done'?'✓':c.status==='wip'?'…':''}</div>
+      <div><div class="ci-title" style="font-size:.82rem">${c.title}</div></div>
+    </div>`).join('');
+}
+
+function renderChangelog(){
+  document.getElementById('changelog-list').innerHTML=CHANGELOG.map(v=>`
+    <div style="margin-bottom:28px;animation:fadeUp .4s ease both">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)">
+        <span style="font-family:'JetBrains Mono',monospace;font-size:.92rem;color:var(--maroon);font-weight:600">${v.version}</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:.9rem;font-style:italic;color:var(--text3)">${v.date}</span>
+      </div>
+      ${v.changes.map(c=>`
+        <div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--text2)">
+          <span style="color:var(--green);flex-shrink:0">+</span>${c}
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function renderNotifications(){
+  document.getElementById('notif-list').innerHTML=NOTIFS.map(n=>`
+    <div class="ni2"><div class="ni2-icon" style="background:${n.bg}">${n.icon}</div><div><div class="ni2-title">${n.title}</div><div class="ni2-time">${n.time}</div></div></div>`).join('');
+}
+
+function renderOverviewRequests(){
+  const pending=REQUESTS.filter(r=>!r.status).slice(0,3);
+  document.getElementById('ov-pending-lbl').textContent=`${pending.length} pending`;
+  document.getElementById('ov-requests').innerHTML=pending.map(r=>`
+    <div style="padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
+      <div style="width:8px;height:8px;border-radius:50%;background:${r.type==='feature'?'var(--purple)':'var(--amber)'};flex-shrink:0;margin-top:5px"></div>
+      <div>
+        <div style="font-size:.83rem;color:var(--text);margin-bottom:2px">${r.title}</div>
+        <div style="display:flex;gap:8px;align-items:center">${TAGSHTML[r.type]||''}<span style="font-size:.68rem;color:var(--text3)">${r.date}</span></div>
       </div>
     </div>`).join('');
 }
 
 function renderOverviewAnnouncements(){
-  const wrap=document.getElementById('ov-announcements');
-  const top=ANNOUNCEMENTS.slice(0,3);
-  wrap.innerHTML=top.map(a=>`
-    <div style="padding:13px 0;border-bottom:1px solid var(--border);display:flex;gap:11px;align-items:flex-start">
-      <div style="width:8px;height:8px;border-radius:50%;background:${a.color};flex-shrink:0;margin-top:5px;${a.unread?'':'opacity:.3'}"></div>
-      <div>
-        <div style="font-size:.84rem;color:var(--text);margin-bottom:3px">${a.title}</div>
-        <div style="font-size:.7rem;color:var(--text3)">${a.date}</div>
-      </div>
+  document.getElementById('ov-announcements').innerHTML=ANNOUNCEMENTS.slice(0,3).map(a=>`
+    <div style="padding:11px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start">
+      <div style="width:7px;height:7px;border-radius:50%;background:${a.color};flex-shrink:0;margin-top:5px;${a.unread?'':'opacity:.3'}"></div>
+      <div><div style="font-size:.83rem;color:var(--text);margin-bottom:2px">${a.title}</div><div style="font-size:.7rem;color:var(--text3)">${a.date}</div></div>
     </div>`).join('');
 }
 
-function renderUpdates(){
-  const list=document.getElementById('updates-list');
-  list.innerHTML=UPDATES.map(u=>`
-    <div class="update-item">
-      <div class="update-img">${u.emoji}</div>
-      <div>
-        <div class="update-title">${u.name}</div>
-        <div class="update-desc">${u.desc}</div>
-        <div style="display:flex;align-items:center;gap:10px">
-          ${TAG_HTML[u.tag]||''}
-          <span class="update-date">${u.date}</span>
-        </div>
+function renderBugs(){
+  document.getElementById('bug-list').innerHTML=BUGS.map(b=>`
+    <div style="padding:12px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <div style="font-size:.84rem;color:var(--text)">${b.title}</div>
+        <span class="tag ${b.status==='Open'?'tag-urgent':'tag-new'}" style="font-size:.58rem">${b.status}</span>
       </div>
+      <div style="font-size:.74rem;color:var(--text3)">${b.desc}</div>
     </div>`).join('');
 }
 
-function renderTerms(){
-  const list=document.getElementById('terms-list');
-  const badge=document.getElementById('terms-badge');
-  const needAction=TERMS_DOCS.filter(t=>!t.accepted).length;
-  if(badge)badge.textContent=needAction||'';
-  if(needAction===0&&badge)badge.style.display='none';
+let savedNotes=[];
+function addNote(){
+  const title=document.getElementById('note-title').value.trim()||'Untitled Note';
+  const body=document.getElementById('note-input').value.trim();
+  if(!body)return;
+  savedNotes.unshift({title,body,date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})});
+  document.getElementById('note-input').value='';document.getElementById('note-title').value='';
+  renderNotes();
+}
+function renderNotes(){
+  document.getElementById('notes-list').innerHTML=savedNotes.length?savedNotes.map((n,i)=>`
+    <div class="card" style="margin-bottom:12px;animation:fadeUp .3s ease both">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div style="font-family:'Playfair Display',serif;font-size:.92rem;color:var(--text)">${n.title}</div>
+        <button onclick="deleteNote(${i})" style="background:none;border:none;font-size:.8rem;color:var(--text3);opacity:.55">✕</button>
+      </div>
+      <div style="font-size:.8rem;color:var(--text2);line-height:1.65;margin-bottom:8px">${n.body}</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:var(--text3)">${n.date}</div>
+    </div>`).join(''):'<div style="padding:20px;text-align:center;font-size:.8rem;color:var(--text3);font-family:\'Cormorant Garamond\',serif;font-style:italic">No notes yet ✦</div>';
+}
+function deleteNote(i){savedNotes.splice(i,1);renderNotes()}
 
-  list.innerHTML=TERMS_DOCS.map(t=>`
-    <div class="terms-doc">
-      <div class="terms-doc-header">
-        <span class="terms-doc-title">${t.title}</span>
-        <span class="terms-doc-version">${t.version}</span>
-      </div>
-      <div class="terms-doc-body">${t.body}</div>
-      <div class="terms-doc-footer">
-        <span class="terms-effective">Effective: ${t.effective}</span>
-        ${t.accepted
-          ?'<span class="btn-accepted">✓ Accepted</span>'
-          :`<button class="btn-accept" onclick="acceptTerms('${t.id}')">Accept & Acknowledge ✦</button>`}
-      </div>
-    </div>`).join('');
+function updateStats(){
+  document.getElementById('ov-nf-count').textContent=FEATURES.filter(f=>f.isNew).length;
+  document.getElementById('ov-req-count').textContent=REQUESTS.filter(r=>!r.status).length;
 }
 
-function renderEvents(){
-  const full=document.getElementById('events-full-list');
-  if(full)full.innerHTML=EVENTS_DATA.map(e=>`
-    <div class="event-item">
-      <div class="event-date-box">
-        <div class="event-day">${e.day}</div>
-        <div class="event-month">${e.month}</div>
-      </div>
-      <div>
-        <div class="event-name">${e.name}</div>
-        <div class="event-detail">${e.detail}</div>
-      </div>
-    </div>`).join('');
+function copyCode(btn,id){
+  const el=document.getElementById('code-'+id);
+  const text=el.innerText;
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent='✓ Copied';setTimeout(()=>btn.textContent='⎘ Copy',2000)}).catch(()=>{btn.textContent='⎘ Copy'});
 }
 
-function renderOverviewEvents(){
-  const wrap=document.getElementById('ov-events');
-  if(wrap)wrap.innerHTML=EVENTS_DATA.slice(0,2).map(e=>`
-    <div class="event-item">
-      <div class="event-date-box">
-        <div class="event-day">${e.day}</div>
-        <div class="event-month">${e.month}</div>
-      </div>
-      <div>
-        <div class="event-name" style="font-size:.84rem">${e.name}</div>
-        <div class="event-detail" style="font-size:.72rem">${e.detail}</div>
-      </div>
-    </div>`).join('');
+function revealKey(id,val){
+  const el=document.getElementById(id);
+  if(el.classList.contains('env-masked')){el.textContent=val;el.classList.remove('env-masked')}
+  else{el.textContent='••••••••••••••••••••••';el.classList.add('env-masked')}
 }
 
-function renderNotifications(){
-  const list=document.getElementById('notif-list');
-  list.innerHTML=NOTIFS.map(n=>`
-    <div class="notif-item">
-      <div class="notif-item-icon" style="background:${n.bg}">${n.icon}</div>
-      <div>
-        <div class="notif-item-title">${n.title}</div>
-        <div class="notif-item-time">${n.time}</div>
-      </div>
-    </div>`).join('');
-}
-
-/* ══════════════════════════════
-   ACTIONS
-══════════════════════════════ */
-function markRead(id){
-  const a=ANNOUNCEMENTS.find(x=>x.id===id);
-  if(a)a.unread=false;
-  renderAnnouncements();
-  renderOverviewAnnouncements();
-  // Update badge
-  const unread=ANNOUNCEMENTS.filter(a=>a.unread).length;
-  const badge=document.getElementById('ann-badge');
-  if(badge){badge.textContent=unread;if(!unread)badge.style.display='none';}
-}
-
-function acceptTerms(id){
-  const t=TERMS_DOCS.find(x=>x.id===id);
-  if(t){t.accepted=true;renderTerms();}
-}
-
-function sendContactMsg(){
-  const msg=document.getElementById('ct-msg').value.trim();
-  if(!msg){document.getElementById('ct-msg').style.borderColor='var(--red)';return;}
-  document.getElementById('ct-msg').style.borderColor='';
-  document.getElementById('ct-btn').textContent='Sending…';
-  document.getElementById('ct-btn').disabled=true;
-  setTimeout(()=>{
-    document.getElementById('ct-success').style.display='block';
-    document.getElementById('ct-btn').textContent='Send Message ✦';
-    document.getElementById('ct-btn').disabled=false;
-    document.getElementById('ct-msg').value='';
-    setTimeout(()=>document.getElementById('ct-success').style.display='none',5000);
-  },1200);
-}
-
-/* ══════════════════════════════
-   NAVIGATION
-══════════════════════════════ */
-const PAGE_TITLES={
-  overview:'Dashboard',announcements:'Announcements',loyalty:'Loyalty Card',
-  updates:'Product Updates',terms:'Terms & Policies',
-  resources:'Brand Assets',events:'Events & Launches',contact:'Contact Scentra'
-};
-
-function showPage(page,navEl){
-  document.querySelectorAll('.page-content').forEach(p=>p.classList.remove('active'));
+/* ══ NAV ══ */
+const PAGE_TITLES={overview:'Dashboard',features:'New Features',announcements:'Announcements',requests:'Request Board',roadmap:'Roadmap',devkit:'Dev Toolkit',api:'API Reference',notes:'Dev Notes',changelog:'Changelog',contact:'Contact Admin'};
+function showPage(page,el){
+  document.querySelectorAll('.pc').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+page).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  if(navEl)navEl.classList.add('active');
-  document.getElementById('topbar-title').textContent=PAGE_TITLES[page]||page;
-  // Close mobile sidebar
-  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('tb-title').textContent=PAGE_TITLES[page]||page;
+  document.getElementById('sidebar').classList.remove('open');
+  if(page==='roadmap')setTimeout(()=>{document.querySelectorAll('.perf-bar-fill').forEach(b=>b.style.width=b.dataset.val+'%')},300);
 }
-
-function toggleSidebar(){
-  document.getElementById('sidebar').classList.toggle('mobile-open');
-}
-
-function toggleNotif(){
-  document.getElementById('notif-panel').classList.toggle('open');
-}
-function clearNotifs(){
-  document.getElementById('notif-list').innerHTML='<div style="padding:20px;text-align:center;font-size:.8rem;color:var(--text3);font-family:\'Cormorant Garamond\',serif;font-style:italic">All caught up ✦</div>';
-  document.querySelector('.notif-dot').style.display='none';
-}
-document.addEventListener('click',e=>{
-  const panel=document.getElementById('notif-panel');
-  const btn=document.getElementById('btn-notif');
-  if(panel&&!panel.contains(e.target)&&!btn.contains(e.target))panel.classList.remove('open');
-});
-
-function signOut(){
-  currentUser=null;
-  document.getElementById('dashboard').style.display='none';
-  document.getElementById('login-page').style.display='flex';
-  document.getElementById('l-email').value='';
-  document.getElementById('l-pass').value='';
-  document.getElementById('l-code').value='';
-}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+function toggleNotif(){document.getElementById('notif-panel').classList.toggle('open')}
+function clearNotifs(){document.getElementById('notif-list').innerHTML='<div style="padding:20px;text-align:center;font-size:.8rem;color:var(--text3);font-family:\'Cormorant Garamond\',serif;font-style:italic">All caught up ✦</div>';document.querySelector('.ndot').style.display='none'}
+document.addEventListener('click',e=>{const p=document.getElementById('notif-panel'),b=document.getElementById('btn-notif');if(p&&!p.contains(e.target)&&!b.contains(e.target))p.classList.remove('open')});
+function sendMsg(){const m=document.getElementById('ct-msg').value.trim();if(!m){document.getElementById('ct-msg').style.borderColor='var(--red)';return}document.getElementById('ct-msg').style.borderColor='';const btn=document.getElementById('ct-btn');btn.textContent='Sending…';btn.disabled=true;setTimeout(()=>{document.getElementById('ct-ok').style.display='block';btn.textContent='Send Message ✦';btn.disabled=false;document.getElementById('ct-msg').value='';setTimeout(()=>document.getElementById('ct-ok').style.display='none',5000)},1200)}
+function signOut(){CU=null;document.getElementById('dashboard').style.display='none';document.getElementById('login-page').style.display='flex';['l-email','l-pass','l-code'].forEach(id=>document.getElementById(id).value='')}
 </script>
 </body>
 </html>
