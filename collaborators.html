@@ -7,7 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
-<script>(function(){if(localStorage.getItem('scentra_theme')==='dark')document.documentElement.classList.add('dark-mode');})();</script>
+<script>
+// Apply dark mode & session BEFORE paint — zero flash
+(function(){
+  if(localStorage.getItem('scentra_theme')==='dark')
+    document.documentElement.classList.add('dark-mode');
+})();
+</script>
 <style>
 /* ══════════════════════════════ PALETTE ══════════════════════════════ */
 :root{
@@ -397,7 +403,7 @@ html.dark-mode .np-clear{color:var(--pink)}
     <div class="code-hint"><span style="flex-shrink:0;margin-top:1px">✦</span><span>Your <strong>Scentra Access Code</strong> is issued by Priyasha Dutta and delivered to your registered email on onboarding.</span></div>
     <div class="login-err" id="lerr"></div>
     <button class="btn-login" id="lbtn" onclick="doLogin()"><span id="llbl">Enter Portal ✦</span><div class="lspinner" id="lspin"></div></button>
-    <p class="login-note">Access issues? Email <a href="mailto:priyashad89@gmail.com">priyashad89@gmail.com</a></p>
+    <p class="login-note">Access issues? Email <a href="/cdn-cgi/l/email-protection#2353514a5a42504b42471b1a63444e424a4f0d404c4e"><span class="__cf_email__" data-cfemail="3d4d4f54445c4e555c5905047d5a505c5451135e5250">[email&#160;protected]</span></a></p>
   </div>
 </div>
 
@@ -666,7 +672,7 @@ html.dark-mode .np-clear{color:var(--pink)}
             <div class="env-row"><span class="env-key">FORMSPREE_ENDPOINT</span><span class="env-val">https://formspree.io/f/xykdqggb</span></div>
             <div class="env-row"><span class="env-key">FIREBASE_PROJECT</span><span class="env-val">scentra-candles</span></div>
             <div class="env-row"><span class="env-key">FIREBASE_API_KEY</span><span class="env-val env-masked" id="fbkey">••••••••••••••••••••••</span><button class="env-reveal" onclick="revealKey('fbkey','AIzaSyExample123')">Reveal</button></div>
-            <div class="env-row"><span class="env-key">ADMIN_EMAIL</span><span class="env-val">priyashad89@gmail.com</span></div>
+            <div class="env-row"><span class="env-key">ADMIN_EMAIL</span><span class="env-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5d5d7ccdcc4d6cdc4c19d9ce5c2c8c4ccc98bc6cac8">[email&#160;protected]</a></span></div>
             <div class="env-row"><span class="env-key">INSTAGRAM_HANDLE</span><span class="env-val">@scentra_candle</span></div>
           </div>
           <div class="card" style="margin-bottom:16px">
@@ -821,7 +827,7 @@ html.dark-mode .np-clear{color:var(--pink)}
           <div class="card" style="margin-bottom:14px">
             <div class="ct" style="margin-bottom:14px">Direct Contact</div>
             <div style="display:flex;flex-direction:column;gap:10px">
-              <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📧</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Admin Email</div><div style="font-size:.84rem;color:var(--text2)">priyashad89@gmail.com</div></div></div>
+              <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📧</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Admin Email</div><div style="font-size:.84rem;color:var(--text2)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="40303229392133282124787900272d21292c6e232f2d">[email&#160;protected]</a></div></div></div>
               <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📱</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Instagram</div><div style="font-size:.84rem;color:var(--text2)">@scentra_candle</div></div></div>
               <div style="display:flex;gap:12px;align-items:flex-start;background:var(--surface2);padding:14px;border-radius:12px"><span style="font-size:1.2rem">📍</span><div><div style="font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink);margin-bottom:2px">Studio</div><div style="font-size:.84rem;color:var(--text2)">3A Rabindrapally, Kolkata, WB 700122</div></div></div>
             </div>
@@ -842,7 +848,7 @@ html.dark-mode .np-clear{color:var(--pink)}
   </div><!-- /main -->
 </div><!-- /dashboard -->
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ══ CURSOR ══ */
 const cd=document.getElementById('cd'),cr=document.getElementById('cr');
 let mx=0,my=0,rx=0,ry=0;
@@ -852,9 +858,74 @@ window.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cd.style.trans
 /* ══ MEMBERS ══ */
 const MEMBERS=[
   {email:'priyashad89@gmail.com',password:'Scentra@Admin2025',code:'SCN-ADMN-0000',name:'Priyasha Dutta',role:'Founder & Admin',memberId:'SCN-ADMN-0000'},
-  {email:'dev@scentra.in',password:'Dev@Scentra2025',code:'SCN-DEVV-0001',name:'Lead Developer',role:'Developer — Full Stack',memberId:'SCN-DEV-0001'},
+  {email:'dev@scentra.in',password:'Dev@Scentra2025',code:'SCN-DEV-0001',name:'Lead Developer',role:'Developer — Full Stack',memberId:'SCN-DEV-0001'},
 ];
 let CU=null;
+
+/* ══ PERSISTENCE HELPERS ══
+   Everything is stored under 'scentra_portal_*' keys.
+   Session key holds the logged-in member's email.
+   Data keys hold mutable state: request statuses,
+   read announcements, saved notes, active page.
+═════════════════════════════════════════════════ */
+const SK = 'scentra_portal_session';   // who is logged in
+const DK = 'scentra_portal_data';      // all mutable portal data
+
+function saveSession(email){
+  localStorage.setItem(SK, email);
+}
+function clearSession(){
+  localStorage.removeItem(SK);
+}
+function getSession(){
+  return localStorage.getItem(SK);
+}
+
+function loadPortalData(){
+  try{ return JSON.parse(localStorage.getItem(DK)) || {}; }
+  catch(e){ return {}; }
+}
+function savePortalData(patch){
+  const existing = loadPortalData();
+  const merged = Object.assign({}, existing, patch);
+  localStorage.setItem(DK, JSON.stringify(merged));
+}
+
+/* Restore mutable state into live arrays from localStorage */
+function hydrateState(){
+  const d = loadPortalData();
+  // Request statuses
+  if(d.requestStatuses){
+    REQUESTS.forEach(r=>{
+      if(d.requestStatuses[r.id] !== undefined)
+        r.status = d.requestStatuses[r.id];
+    });
+  }
+  // Announcement read states
+  if(d.readAnnouncements){
+    ANNOUNCEMENTS.forEach(a=>{
+      if(d.readAnnouncements.includes(a.id))
+        a.unread = false;
+    });
+  }
+  // Saved notes
+  if(d.savedNotes) savedNotes = d.savedNotes;
+  // Active page
+  if(d.activePage) pendingPage = d.activePage;
+  // Active feature filter
+  if(d.activeFilter) activeFilter = d.activeFilter;
+}
+
+/* Persist the current state snapshot */
+function persistState(){
+  const requestStatuses = {};
+  REQUESTS.forEach(r=>{ requestStatuses[r.id] = r.status; });
+  const readAnnouncements = ANNOUNCEMENTS.filter(a=>!a.unread).map(a=>a.id);
+  savePortalData({ requestStatuses, readAnnouncements, savedNotes, activePage: currentPage, activeFilter });
+}
+
+let currentPage = 'overview';
+let pendingPage = 'overview';
 
 /* ══ CLOCK ══ */
 function updateClock(){document.getElementById('tb-clock').textContent=new Date().toLocaleString('en-IN',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}
@@ -878,7 +949,9 @@ function doLogin(){
   setTimeout(()=>{
     const u=MEMBERS.find(m=>m.email.toLowerCase()===email&&m.password===pass&&m.code===code);
     if(!u){document.getElementById('llbl').style.display='block';document.getElementById('lspin').style.display='none';btn.disabled=false;showErr(MEMBERS.find(m=>m.email.toLowerCase()===email)?'Incorrect password or access code.':'No member account found for this email.');return}
-    CU=u;bootDashboard(u);
+    CU=u;
+    saveSession(u.email); // ← persist login
+    bootDashboard(u);
   },1500);
 }
 document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('login-page').style.display!=='none')doLogin()});
@@ -892,7 +965,20 @@ function bootDashboard(u){
   document.getElementById('sb-role').textContent=u.role;
   document.getElementById('welcome-name').textContent=`Hello, ${u.name.split(' ')[0]} ✦`;
   document.getElementById('welcome-date').textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  // Restore all saved state from localStorage before rendering
+  hydrateState();
   renderAll();
+
+  // Restore last active page
+  const restoreTo = pendingPage || 'overview';
+  const navEl = document.querySelector(`.ni[onclick*="'${restoreTo}'"]`);
+  showPage(restoreTo, navEl);
+
+  // Show "session restored" toast if this was an auto-login
+  if(u._autoLogin){
+    showToast(`Welcome back, ${u.name.split(' ')[0]} ✦ Session restored.`);
+  }
 }
 
 /* ══ DATA ══ */
@@ -1043,7 +1129,7 @@ function renderAnnouncements(){
     </div>`).join('');
 }
 
-function markRead(id){const a=ANNOUNCEMENTS.find(x=>x.id===id);if(a)a.unread=false;renderAnnouncements();renderOverviewAnnouncements()}
+function markRead(id){const a=ANNOUNCEMENTS.find(x=>x.id===id);if(a)a.unread=false;renderAnnouncements();renderOverviewAnnouncements();persistState();}
 
 function renderRequests(){
   const list=document.getElementById('req-list');
@@ -1090,7 +1176,7 @@ function renderRequests(){
 
 function respondRequest(id,status){
   const r=REQUESTS.find(x=>x.id===id);
-  if(r){r.status=status;renderRequests();renderOverviewRequests();updateStats()}
+  if(r){r.status=status;renderRequests();renderOverviewRequests();updateStats();persistState();}
 }
 
 function renderRoadmap(){
@@ -1198,7 +1284,7 @@ function addNote(){
   if(!body)return;
   savedNotes.unshift({title,body,date:new Date().toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})});
   document.getElementById('note-input').value='';document.getElementById('note-title').value='';
-  renderNotes();
+  renderNotes();persistState();
 }
 function renderNotes(){
   document.getElementById('notes-list').innerHTML=savedNotes.length?savedNotes.map((n,i)=>`
@@ -1211,7 +1297,7 @@ function renderNotes(){
       <div style="font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:var(--text3)">${n.date}</div>
     </div>`).join(''):'<div style="padding:20px;text-align:center;font-size:.8rem;color:var(--text3);font-family:\'Cormorant Garamond\',serif;font-style:italic">No notes yet ✦</div>';
 }
-function deleteNote(i){savedNotes.splice(i,1);renderNotes()}
+function deleteNote(i){savedNotes.splice(i,1);renderNotes();persistState();}
 
 function updateStats(){
   document.getElementById('ov-nf-count').textContent=FEATURES.filter(f=>f.isNew).length;
@@ -1237,16 +1323,47 @@ function showPage(page,el){
   document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
   if(el)el.classList.add('active');
+  else{const auto=document.querySelector(`.ni[onclick*="'${page}'"]`);if(auto)auto.classList.add('active');}
   document.getElementById('tb-title').textContent=PAGE_TITLES[page]||page;
   document.getElementById('sidebar').classList.remove('open');
   if(page==='roadmap')setTimeout(()=>{document.querySelectorAll('.perf-bar-fill').forEach(b=>b.style.width=b.dataset.val+'%')},300);
+  currentPage=page;
+  persistState();
 }
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
 function toggleNotif(){document.getElementById('notif-panel').classList.toggle('open')}
 function clearNotifs(){document.getElementById('notif-list').innerHTML='<div style="padding:20px;text-align:center;font-size:.8rem;color:var(--text3);font-family:\'Cormorant Garamond\',serif;font-style:italic">All caught up ✦</div>';document.querySelector('.ndot').style.display='none'}
 document.addEventListener('click',e=>{const p=document.getElementById('notif-panel'),b=document.getElementById('btn-notif');if(p&&!p.contains(e.target)&&!b.contains(e.target))p.classList.remove('open')});
 function sendMsg(){const m=document.getElementById('ct-msg').value.trim();if(!m){document.getElementById('ct-msg').style.borderColor='var(--red)';return}document.getElementById('ct-msg').style.borderColor='';const btn=document.getElementById('ct-btn');btn.textContent='Sending…';btn.disabled=true;setTimeout(()=>{document.getElementById('ct-ok').style.display='block';btn.textContent='Send Message ✦';btn.disabled=false;document.getElementById('ct-msg').value='';setTimeout(()=>document.getElementById('ct-ok').style.display='none',5000)},1200)}
-function signOut(){CU=null;document.getElementById('dashboard').style.display='none';document.getElementById('login-page').style.display='flex';['l-email','l-pass','l-code'].forEach(id=>document.getElementById(id).value='')}
+
+function signOut(){
+  clearSession();
+  CU=null;
+  document.getElementById('dashboard').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  ['l-email','l-pass','l-code'].forEach(id=>document.getElementById(id).value='');
+  showToast('Signed out. Your data is saved for next login. ✦');
+}
+
+/* ══ TOAST ══ */
+function showToast(msg,duration){
+  duration=duration||3800;
+  let t=document.getElementById('portal-toast');
+  if(!t){t=document.createElement('div');t.id='portal-toast';t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--maroon);color:#fff;padding:11px 24px;border-radius:40px;font-size:.8rem;letter-spacing:.06em;z-index:99999;opacity:0;transition:all .35s cubic-bezier(.16,1,.3,1);pointer-events:none;white-space:nowrap;box-shadow:0 8px 30px rgba(107,26,42,.35)';document.body.appendChild(t);}
+  t.textContent=msg;
+  requestAnimationFrame(function(){t.style.opacity='1';t.style.transform='translateX(-50%) translateY(0)'});
+  clearTimeout(t._timer);
+  t._timer=setTimeout(function(){t.style.opacity='0';t.style.transform='translateX(-50%) translateY(10px)'},duration);
+}
+
+/* ══ AUTO-LOGIN ON PAGE LOAD ══ */
+(function checkAutoLogin(){
+  var savedEmail=getSession();
+  if(savedEmail){
+    var u=MEMBERS.find(function(m){return m.email.toLowerCase()===savedEmail.toLowerCase()});
+    if(u){u._autoLogin=true;CU=u;bootDashboard(u);return;}
+  }
+})();
 </script>
 </body>
 </html>
