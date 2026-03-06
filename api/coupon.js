@@ -6,7 +6,13 @@ module.exports = function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { code } = req.body || {};
+  let body = req.body;
+
+if (typeof body === "string") {
+  body = JSON.parse(body);
+}
+
+const { code } = body || {};
   if (!code) return res.status(200).json({ valid: false, message: 'No code provided' });
 
   // Load coupons from environment variables
