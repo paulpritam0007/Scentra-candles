@@ -358,6 +358,14 @@ const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
 /*Coupons*/
 let appliedCoupon = null;
 
+function showCouponMsg(msg, type) {
+  const el = document.getElementById('coupon-msg');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'coupon-msg coupon-msg--' + type;
+  el.style.display = 'block';
+}
+
 function applyCoupon() {
   const input = document.getElementById('co-coupon');
   const code  = input.value.trim().toUpperCase();
@@ -808,22 +816,3 @@ updateCartUI();
 
   startAuto();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
