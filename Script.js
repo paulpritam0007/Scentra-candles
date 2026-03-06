@@ -27,34 +27,34 @@ ring.style.top = e.clientY + 'px';
 
 /* ── PRODUCTS DATA ── */
 const products = [
-  { id:1, name:'Bourbon Vanilla', image:'Bourbon Vanilla.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
-  { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
-  { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
-  { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:299, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
-  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'happy', price:629, priceRange:'Umid', burn:'12hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
-  { id:6, name:'tiny love buds', image:'Heart Rose.jpeg', mood:'romantic', price:399, priceRange:'mid', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
-  { id:7, name:'Sweet tooth', image:'Laddoo (6pcs).jpeg', mood:'calm', price:399, priceRange:'mid', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
-  { id:8, name:'The love pillar', image:'milky-chocobar.jpeg', mood:'romantic', price:399, priceRange:'mid', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
-  { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:399, priceRange:'mid', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
-  { id:10, name:'Teddy Candles', image:'Teddy Candles.jpeg', mood:'energetic', price:399, priceRange:'mid', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
-  { id:11, name:'The Shoreline Shot', image:'Ocean galaxy.jpeg', mood:'happy', price:350, priceRange:'mid', burn:'9hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
-  { id:12, name:'Petals in Pine', image:'Wooden Candles.jpeg', mood:'spiritual', price:499, priceRange:'mid', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:13, name:'Better Together', image:'better-together.jpeg', mood:'romantic', price:349, priceRange:'mid', burn:'6hr+', desc:'Beautiful male and female sculpture candle together.', color:'#fdf6e3' },
-  { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:350, priceRange:'mid', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:429, priceRange:'mid', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:16, name:'Petal Peony', image:'petal-peony.jpeg', mood:'spiritual', price:350, priceRange:'mid', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:399, priceRange:'mid', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:18, name:'Chai & Chill', image:'Chai biscuit Candle.jpeg', mood:'happy', price:299, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:19, name:'Daisy Vibe', image:'Daisy Vibe.jpeg', mood:'calm', price:299, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:20, name:'Cinderella Cart', image:'Cinderellas-cart.jpeg', mood:'energetic', price:499, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:21, name:'Roses and Mogra', image:'rose-and-mogra.jpeg', mood:'spiritual', price:550, priceRange:'Umid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:22, name:'Spooky Friends', image:'Spooky friends.jpeg', mood:'energetic', price:429, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:23, name:'Christmas carousel', image:'Christmas carousel.jpeg', mood:'happy', price:449, priceRange:'mid', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:24, name:'Walk the Plank', image:'walk-the-plank.jpeg', mood:'energetic', price:499, priceRange:'mid', burn:'7hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
-  { id:25, name:'Blushing Heart Blooms', image:'blushing-heart-blooms.jpeg', mood:'romantic', price:449, priceRange:'mid', burn:'9hr+', desc:'Heart-shaped floral candle designed for gifting, date nights, and special celebrations.', color:'#ffe4ee' },
-  { id:26, name:'Sweetheart Stack', image:'sweetheart-stack.jpeg', mood:'happy', price:399, priceRange:'mid', burn:'8hr+', desc:'Layered dessert-inspired design with warm vanilla notes and playful charm.', color:'#fff1e8' },
-  { id:27, name:'Flower Petal Signature Jar', image:'Flower petal with jar.jpeg', mood:'calm', price:'Umid', priceRange:'mid', burn:'20hr+', desc:'Premium jar candle with soft floral fragrance and longer burn for cozy evenings.', color:'#f7f0ff' },
-  { id:28, name:'Fragrance Discovery Pack (5 pcs)', image:'Fragrance Candles(pack of 5).jpeg', mood:'happy', price:799, priceRange:'Umid', burn:'15hr+', desc:'A set of five mini signature candles to explore multiple Scentra moods at once.', color:'#f9f3df' },
+  { id:1, name:'Bourbon Vanilla', image:'Bourbon Vanilla.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
+  { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
+  { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
+  { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
+  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'happy', price:529, priceRange:'mid', burn:'12hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
+  { id:6, name:'tiny love buds', image:'Heart Rose.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
+  { id:7, name:'Sweet tooth', image:'Laddoo (6pcs).jpeg', mood:'calm', price:299, priceRange:'budget', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
+  { id:8, name:'The love pillar', image:'milky-chocobar.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
+  { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
+  { id:10, name:'Teddy Candles', image:'Teddy Candles.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'50hr', desc:'Espresso, cardamom, and grapefruit — your perfect morning ritual.', color:'#fbe9e7' },
+  { id:11, name:'The Shoreline Shot', image:'Ocean galaxy.jpeg', mood:'happy', price:250, priceRange:'budget', burn:'9hr', desc:'Sacred lotus, frankincense, and camphor for meditation and prayer.', color:'#f3e5f5' },
+  { id:12, name:'Petals in Pine', image:'Wooden Candles.jpeg', mood:'spiritual', price:399, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:13, name:'Better Together', image:'better-together.jpeg', mood:'romantic', price:249, priceRange:'budget', burn:'6hr+', desc:'Beautiful male and female sculpture candle together.', color:'#fdf6e3' },
+  { id:14, name:'Golden Petal Aroma', image:'golden-petal-aroma.jpeg', mood:'romantic', price:250, priceRange:'budget', burn:'8hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:15, name:'Beauty and Elegance', image:'beauty-and-elegance.jpeg', mood:'spiritual', price:329, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:16, name:'Petal Peony', image:'petal-peony.jpeg', mood:'spiritual', price:250, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:17, name:'Springtime Bundle', image:'springtime-bundle.jpeg', mood:'spiritual', price:299, priceRange:'budget', burn:'60hr', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:18, name:'Chai & Chill', image:'Chai biscuit Candle.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:19, name:'Daisy Vibe', image:'Daisy Vibe.jpeg', mood:'calm', price:199, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:20, name:'Cinderella Cart', image:'Cinderellas-cart.jpeg', mood:'energetic', price:399, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:21, name:'Roses and Mogra', image:'rose-and-mogra.jpeg', mood:'spiritual', price:450, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:22, name:'Spooky Friends', image:'Spooky friends.jpeg', mood:'energetic', price:329, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:23, name:'Christmas carousel', image:'Christmas carousel.jpeg', mood:'happy', price:349, priceRange:'budget', burn:'4hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:24, name:'Walk the Plank', image:'walk-the-plank.jpeg', mood:'energetic', price:399, priceRange:'budget', burn:'7hr+', desc:'Amber, sandalwood, and tuberose — a devotional experience in wax.', color:'#fdf6e3' },
+  { id:25, name:'Blushing Heart Blooms', image:'blushing-heart-blooms.jpeg', mood:'romantic', price:349, priceRange:'budget', burn:'9hr+', desc:'Heart-shaped floral candle designed for gifting, date nights, and special celebrations.', color:'#ffe4ee' },
+  { id:26, name:'Sweetheart Stack', image:'sweetheart-stack.jpeg', mood:'happy', price:299, priceRange:'budget', burn:'8hr+', desc:'Layered dessert-inspired design with warm vanilla notes and playful charm.', color:'#fff1e8' },
+  { id:27, name:'Flower Petal Signature Jar', image:'Flower petal with jar.jpeg', mood:'calm', price:499, priceRange:'mid', burn:'20hr+', desc:'Premium jar candle with soft floral fragrance and longer burn for cozy evenings.', color:'#f7f0ff' },
+  { id:28, name:'Fragrance Discovery Pack (5 pcs)', image:'Fragrance Candles(pack of 5).jpeg', mood:'happy', price:699, priceRange:'mid', burn:'15hr+', desc:'A set of five mini signature candles to explore multiple Scentra moods at once.', color:'#f9f3df' },
 ];
 
 let activeMood = 'all';
@@ -87,6 +87,7 @@ grid.innerHTML += `
            <div class="product-price">₹${p.price}</div>
            <div class="product-burn">🕐 ${p.burn}</div>
          </div>
+         <button class="btn-buy" onclick="openModal(${p.id})">Order Now</button>
          <button class="btn-cart-add" data-cart-id="${p.id}" onclick="addToCart(${p.id})">+ Add to Bag</button>
        </div>
      </div>`;
@@ -355,87 +356,92 @@ if (window.innerWidth > 900) closeMobileMenu();
 
 /* ── CART SYSTEM ── */
 const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
-/*Coupons*/
+/* ── COUPON CODES ── */
+const COUPONS = {
+'SCENTRA10':  { discount: 10, type: 'percent',  label: '10% off your order' },
+'WELCOME20':  { discount: 20, type: 'percent',  label: '20% off for new customers' },
+'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
+'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
+'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
+'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's Day."},
+};
+
 let appliedCoupon = null;
 
-function showCouponMsg(msg, type) {
-  const el = document.getElementById('coupon-msg');
-  if (!el) return;
-  el.textContent = msg;
-  el.className = 'coupon-msg coupon-msg--' + type;
-  el.style.display = 'block';
+function applyCoupon() {
+const input = document.getElementById('co-coupon');
+const code  = input.value.trim().toUpperCase();
+const msgEl = document.getElementById('coupon-msg');
+const rowEl = document.getElementById('coupon-discount-row');
+const totalEl = document.getElementById('checkout-grand-total');
+
+if (!code) {
+showCouponMsg('Please enter a coupon code.', 'error');
+return;
 }
 
-function applyCoupon() {
-  const input = document.getElementById('co-coupon');
-  const code  = input.value.trim().toUpperCase();
+const coupon = COUPONS[code];
 
-  if (!code) {
-    showCouponMsg('Please enter a coupon code.', 'error');
-    return;
-  }
+if (!coupon) {
+appliedCoupon = null;
+input.classList.add('co-error');
+showCouponMsg('Invalid coupon code. Please try again.', 'error');
+rowEl.style.display = 'none';
+recalcTotal();
+return;
+}
 
-  showCouponMsg('Checking coupon…', 'info');
+// Valid coupon
+appliedCoupon = { code, ...coupon };
+input.classList.remove('co-error');
+input.classList.add('coupon-valid');
+input.readOnly = true;
 
-  fetch('/api/coupon', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (!data.valid) {
-      appliedCoupon = null;
-      input.classList.add('co-error');
-      showCouponMsg('Invalid coupon code. Please try again.', 'error');
-      document.getElementById('coupon-discount-row').style.display = 'none';
-      recalcTotal();
-      return;
-    }
-    appliedCoupon = {
-      code:     data.code,
-      type:     data.type,
-      discount: data.amount
-    };
-    input.classList.remove('co-error');
-    input.classList.add('coupon-valid');
-    input.readOnly = true;
-    showCouponMsg('✦ ' + data.message, 'success');
-    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-    const discountAmt = data.type === 'percent'
-      ? Math.round(subtotal * data.amount / 100)
-      : Math.min(data.amount, subtotal);
-    document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
-    document.getElementById('coupon-discount-row').style.display = 'flex';
-    recalcTotal();
-  })
-  .catch(() => {
-    showCouponMsg('Could not validate coupon. Try again.', 'error');
-  });
+// Show success message
+showCouponMsg('✦ ' + coupon.label + ' applied!', 'success');
+
+// Show discount row
+const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+const discountAmt = coupon.type === 'percent'
+? Math.round(subtotal * coupon.discount / 100)
+: Math.min(coupon.discount, subtotal);
+
+document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
+rowEl.style.display = 'flex';
+
+recalcTotal();
 }
 
 function removeCoupon() {
-  appliedCoupon = null;
-  const input = document.getElementById('co-coupon');
-  input.value = '';
-  input.readOnly = false;
-  input.classList.remove('coupon-valid', 'co-error');
-  document.getElementById('coupon-msg').style.display = 'none';
-  document.getElementById('coupon-discount-row').style.display = 'none';
-  recalcTotal();
+appliedCoupon = null;
+const input = document.getElementById('co-coupon');
+input.value   = '';
+input.readOnly = false;
+input.classList.remove('coupon-valid', 'co-error');
+document.getElementById('coupon-msg').style.display = 'none';
+document.getElementById('coupon-discount-row').style.display = 'none';
+recalcTotal();
 }
 
 function recalcTotal() {
-  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-  let discount = 0;
-  if (appliedCoupon) {
-    discount = appliedCoupon.type === 'percent'
-      ? Math.round(subtotal * appliedCoupon.discount / 100)
-      : Math.min(appliedCoupon.discount, subtotal);
-  }
-  const final = Math.max(0, subtotal - discount);
-  const el = document.getElementById('checkout-grand-total');
-  if (el) el.textContent = '₹' + final;
+const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+let discount = 0;
+if (appliedCoupon) {
+discount = appliedCoupon.type === 'percent'
+? Math.round(subtotal * appliedCoupon.discount / 100)
+: Math.min(appliedCoupon.discount, subtotal);
+}
+const final = Math.max(0, subtotal - discount);
+const el = document.getElementById('checkout-grand-total');
+if (el) el.textContent = '₹' + final;
+}
+
+function showCouponMsg(msg, type) {
+const el = document.getElementById('coupon-msg');
+if (!el) return;
+el.textContent  = msg;
+el.className    = 'coupon-msg ' + type;
+el.style.display = 'block';
 }
 
 let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
@@ -815,4 +821,4 @@ updateCartUI();
   });
 
   startAuto();
-});
+})();
