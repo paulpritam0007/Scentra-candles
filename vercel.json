@@ -1,0 +1,6 @@
+{
+  "functions": {
+    "api/login.js": { "runtime": "nodejs20.x" },
+    "api/coupon.js": { "runtime": "nodejs20.x" }
+  }
+}
