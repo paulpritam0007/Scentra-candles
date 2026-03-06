@@ -88,7 +88,7 @@ grid.innerHTML += `
            <div class="product-burn">🕐 ${p.burn}</div>
          </div>
          <button class="btn-buy" onclick="openModal(${p.id})">Order Now</button>
-         <button class="btn-cart-add" data-cart-id="${p.id}" onclick="addToCart(${p.id})">+ Add to Bag</button>
+         <button class="btn-cart-add" data-cart-id="${p.id}" onclick="addToCart(${p.id})" style="display:block;width:100%;margin-top:8px;">+ Add to Bag</button>
        </div>
      </div>`;
 });
@@ -822,3 +822,4 @@ updateCartUI();
 
   startAuto();
 })();
+
