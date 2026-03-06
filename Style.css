@@ -84,6 +84,9 @@ body.dark-mode .value-icon        { background: rgba(232,121,154,.12); }
 
 /* Shop */
 body.dark-mode #pricing           { background: #0e0608; }
+body.dark-mode #announcements     { background: #12070e; }
+body.dark-mode .announcement-card { background: #1e0d14; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+body.dark-mode .feature-pill      { background: rgba(232,121,154,0.12); color: #f2a7bb; border-color: rgba(232,121,154,0.3); }
 body.dark-mode .filter-sep        { background: rgba(255,255,255,0.08); }
 body.dark-mode .filter-btn        { border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.45); }
 body.dark-mode .filter-btn:hover,
@@ -598,6 +601,63 @@ body, body * {
     margin-bottom: 4px;
   }
   .value-text p { font-size: 0.84rem; color: var(--text-light); line-height: 1.6; }
+
+  /* ── ANNOUNCEMENTS ── */
+  #announcements { background: #fff7fb; }
+  .announcement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    margin-top: 26px;
+  }
+  .announcement-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 8px 30px rgba(107,26,42,0.08);
+  }
+  .announcement-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 12px;
+  }
+  .announcement-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--maroon-dark);
+    margin: 6px 0;
+  }
+  .announcement-card p {
+    color: var(--text-light);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .announcement-badge {
+    display: inline-block;
+    border-radius: 999px;
+    background: var(--pink-light);
+    color: var(--maroon);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+  }
+  .feature-points {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .feature-pill {
+    background: rgba(107,26,42,0.08);
+    color: var(--maroon-dark);
+    border: 1px solid rgba(107,26,42,0.15);
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+  }
 
   /* ── PRICING ── */
   #pricing { background: var(--cream); }
