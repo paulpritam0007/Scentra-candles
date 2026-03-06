@@ -1011,14 +1011,13 @@ function bootDashboard(u){
 
 /* ══ DATA ══ */
 const FEATURES=[
-  {id:1,emoji:'🔑',title:'Password now Encrypted', desc:"Website's members portal is now completely encrypted. Do message the developer for Email, Passkey and Access code to enter.",type:'update',date:'06 March 2025',version:'v2.3',isNew:true},
-  {id:2,emoji:'🌙',title:'Dark Mode Toggle',desc:'Full dark/light theme switcher added to the main nav. Persists via localStorage across sessions and syncs to the Members Portal.',type:'feature',date:'05 March 2025',version:'v2.4',isNew:true},
-  {id:3,emoji:'🛒',title:'Shopping Cart & Checkout Flow',desc:'Multi-item cart drawer with quantity controls, subtotal, coupon validation, and Razorpay checkout integration.',type:'feature',date:'05 March 2025',version:'v2.3',isNew:false},
-  {id:4,emoji:'🔐',title:'Firebase Google Sign-In',desc:'Login page with Firebase Auth. Google OAuth enabled. Session persistence active.',type:'feature',date:'04 March 2025',version:'v2.2',isNew:false},
-  {id:5,emoji:'📱',title:'Full Mobile Responsive Layout',desc:'All sections: hero, shop, cart, modals now fully responsive down to 320px viewport.',type:'update',date:'04 March 2025',version:'v2.1',isNew:false},
-  {id:6,emoji:'🐛',title:'Cart Quantity Bug Fix',desc:'Fixed issue where qty input above 9 triggered duplicate order modal on iOS Safari.',type:'bug',date:'04 March 2025',version:'v2.1.1',isNew:false},
-  {id:7,emoji:'🎨',title:'Scroll Reveal Animations',desc:'IntersectionObserver-based reveal system added to all sections. Cards stagger naturally as they enter viewport.',type:'design',date:'03 March 2025',version:'v2.0',isNew:false},
-  {id:8,emoji:'🏷',title:'Coupon System',desc:'5 coupon codes: SCENTRA10, WELCOME20, FLAT50, MOOD15, HOLI100. Validated client-side with visual feedback.',type:'feature',date:'01 March 2025',version:'v1.9',isNew:false},
+  {id:1,emoji:'🔐',title:'Password is now Encrypted',desc:'The Members Portal Passwords are now encrypted. Contact the SDE to get the Email, Passkeys and Access code to get enter.',type:'update',date:'06 March 2025',version:'v2.4',isNew:true},
+  {id:1,emoji:'🌙',title:'Dark Mode Toggle',desc:'Full dark/light theme switcher added to the main nav. Persists via localStorage across sessions and syncs to the Members Portal.',type:'feature',date:'05 March 2025',version:'v2.4',isNew:true},
+  {id:3,emoji:'🔐',title:'Firebase Google Sign-In',desc:'Login page with Firebase Auth. Google OAuth enabled. Session persistence active.',type:'feature',date:'04 March 2025',version:'v2.2',isNew:false},
+  {id:4,emoji:'📱',title:'Full Mobile Responsive Layout',desc:'All sections: hero, shop, cart, modals now fully responsive down to 320px viewport.',type:'update',date:'04 March 2025',version:'v2.1',isNew:false},
+  {id:5,emoji:'🐛',title:'Cart Quantity Bug Fix',desc:'Fixed issue where qty input above 9 triggered duplicate order modal on iOS Safari.',type:'bug',date:'04 March 2025',version:'v2.1.1',isNew:false},
+  {id:6,emoji:'🎨',title:'Scroll Reveal Animations',desc:'IntersectionObserver-based reveal system added to all sections. Cards stagger naturally as they enter viewport.',type:'design',date:'03 March 2025',version:'v2.0',isNew:false},
+  {id:7,emoji:'🏷',title:'Coupon System',desc:'5 coupon codes: SCENTRA10, WELCOME20, FLAT50, MOOD15, HOLI100. Validated client-side with visual feedback.',type:'feature',date:'01 March 2025',version:'v1.9',isNew:false},
 ];
 let activeFilter='all';
 
