@@ -363,6 +363,7 @@ const COUPONS = {
 'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
 'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
 'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
+'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's Day."},
 };
 
 let appliedCoupon = null;
@@ -821,6 +822,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
