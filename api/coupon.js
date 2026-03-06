@@ -6,7 +6,18 @@ module.exports = function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { code } = req.body || {};
+  let payload = req.body || {};
+
+  // In some runtimes req.body can arrive as a JSON string.
+  if (typeof payload === 'string') {
+    try {
+      payload = JSON.parse(payload);
+    } catch (_) {
+      payload = {};
+    }
+  }
+
+  const { code } = payload;
   if (!code) return res.status(200).json({ valid: false, message: 'No code provided' });
 
   // Load coupons from environment variables
@@ -22,6 +33,13 @@ module.exports = function handler(req, res) {
     const [couponCode, amount, type] = entry.split(':');
     return { code: couponCode, amount: Number(amount), type };
   });
+
+  if (!COUPONS.length) {
+    return res.status(200).json({
+      valid: false,
+      message: 'No coupons are configured on the server'
+    });
+  }
 
   const match = COUPONS.find(c => c.code === code.toUpperCase().trim());
 
