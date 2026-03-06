@@ -1759,6 +1759,43 @@ color: #922b21; cursor: pointer; margin-left: 8px;
 padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
 }
 .remove-coupon-btn:hover { background: rgba(192,57,43,0.08); }
+/* ── Carousel ── */
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 32px 0 20px;
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
+}
+.carousel-track .announcement-card {
+  min-width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.carousel-dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(107, 26, 42, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  padding: 0;
+}
+.carousel-dots .dot.active {
+  background: #6b1a2a;
+  transform: scale(1.3);
+}
+
 
 
 
