@@ -437,61 +437,6 @@ function showCouponMsg(msg, type) {
   el.className = 'coupon-msg ' + type;
   el.style.display = 'block';
 }
-return;
-}
-
-// Valid coupon
-appliedCoupon = { code, ...coupon };
-input.classList.remove('co-error');
-input.classList.add('coupon-valid');
-input.readOnly = true;
-
-// Show success message
-showCouponMsg('✦ ' + coupon.label + ' applied!', 'success');
-
-// Show discount row
-const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-const discountAmt = coupon.type === 'percent'
-? Math.round(subtotal * coupon.discount / 100)
-: Math.min(coupon.discount, subtotal);
-
-document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
-rowEl.style.display = 'flex';
-
-recalcTotal();
-}
-
-function removeCoupon() {
-appliedCoupon = null;
-const input = document.getElementById('co-coupon');
-input.value   = '';
-input.readOnly = false;
-input.classList.remove('coupon-valid', 'co-error');
-document.getElementById('coupon-msg').style.display = 'none';
-document.getElementById('coupon-discount-row').style.display = 'none';
-recalcTotal();
-}
-
-function recalcTotal() {
-const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-let discount = 0;
-if (appliedCoupon) {
-discount = appliedCoupon.type === 'percent'
-? Math.round(subtotal * appliedCoupon.discount / 100)
-: Math.min(appliedCoupon.discount, subtotal);
-}
-const final = Math.max(0, subtotal - discount);
-const el = document.getElementById('checkout-grand-total');
-if (el) el.textContent = '₹' + final;
-}
-
-function showCouponMsg(msg, type) {
-const el = document.getElementById('coupon-msg');
-if (!el) return;
-el.textContent  = msg;
-el.className    = 'coupon-msg ' + type;
-el.style.display = 'block';
-}
 
 let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
 let selectedPaymentMethod = 'razorpay';
@@ -871,6 +816,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
