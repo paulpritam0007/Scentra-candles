@@ -24,6 +24,14 @@ cur.style.top = e.clientY + 'px';
 ring.style.left = e.clientX + 'px';
 ring.style.top = e.clientY + 'px';
 });
+// Check if the device has a mouse before initializing
+if (window.matchMedia("(pointer: fine)").matches) {
+  // Your cursor follower initialization code here
+  document.addEventListener('mousemove', (e) => {
+    moveCursor(e);
+  });
+}
+
 
 /* ── PRODUCTS DATA ── */
 const products = [
