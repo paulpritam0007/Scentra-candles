@@ -1762,7 +1762,7 @@ padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
 /* ── Carousel ── */
 .carousel-wrapper {
   position: relative;
-  width: 100%;
+  width: 92%;
   max-width: 420px;
   margin: 32px auto 20px;
   overflow: hidden;
@@ -1780,13 +1780,22 @@ padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 24px 20px 28px;
+  padding: 24px 16px 28px;
+}
+.carousel-track .announcement-card h3 {
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  margin: 10px 0 6px;
+}
+.carousel-track .announcement-card p {
+  font-size: clamp(0.78rem, 3vw, 0.92rem);
+  line-height: 1.55;
+  max-width: 300px;
 }
 .carousel-track .announcement-card img {
   display: block;
   margin: 16px auto 0;
-  width: 220px;
-  height: 300px;
+  width: clamp(140px, 55vw, 220px);
+  height: clamp(180px, 70vw, 300px);
   object-fit: cover;
   border-radius: 14px;
   box-shadow: 0 8px 28px rgba(107,26,42,0.15);
@@ -1798,6 +1807,7 @@ padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  padding-bottom: 4px;
 }
 .carousel-dots .dot {
   width: 10px;
@@ -1807,11 +1817,32 @@ padding: 2px 6px; border-radius: 4px; transition: background 0.15s;
   border: none;
   cursor: pointer;
   padding: 0;
+  /* Larger tap target on mobile */
+  position: relative;
   transition: background 0.3s, transform 0.3s;
+}
+.carousel-dots .dot::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
 }
 .carousel-dots .dot.active {
   background: #6b1a2a;
   transform: scale(1.35);
+}
+
+/* ── Mobile tweaks ── */
+@media (max-width: 480px) {
+  .carousel-wrapper {
+    width: 96%;
+  }
+  .carousel-track .announcement-card {
+    padding: 18px 12px 22px;
+  }
+  .carousel-dots .dot {
+    width: 9px;
+    height: 9px;
+  }
 }
 
 
