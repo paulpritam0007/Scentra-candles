@@ -1,11 +1,7 @@
 {
   "functions": {
-    "api/login.js": {
-      "runtime": "nodejs20.x"
+    "api/*.js": {
+      "runtime": "nodejs18.x"
     }
-  },
-  "routes": [
-    { "src": "/api/login", "dest": "/api/login.js" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
+  }
 }
