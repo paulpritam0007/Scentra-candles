@@ -27,12 +27,12 @@ ring.style.top = e.clientY + 'px';
 
 /* ── PRODUCTS DATA ── */
 const products = [
-  { id:1, name:'Bourbon Vanilla', image:'Bourbon Vanilla.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
-  { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
-  { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'romantic', price:199, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
-  { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:199, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
-  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'happy', price:529, priceRange:'mid', burn:'12hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
-  { id:6, name:'tiny love buds', image:'Heart Rose.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
+  { id:1, name:'Bourbon Vanilla', image:'Bourbon Vanilla.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'6hr+', desc:'Vegan soy-coconut wax for a clean burn | Fragrance:French Bourbon, vanilla beans, and creamy woods | Cotton wicks for a natural flame | Added flavour:Mandarin Orange', color:'#fce4ec' },
+  { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
+  { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
+  { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:299, priceRange:'budget', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
+  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'happy', price:629, priceRange:'mid', burn:'12hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
+  { id:6, name:'tiny love buds', image:'Heart Rose.jpeg', mood:'romantic', price:399, priceRange:'mid', burn:'42hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
   { id:7, name:'Sweet tooth', image:'Laddoo (6pcs).jpeg', mood:'calm', price:299, priceRange:'budget', burn:'40hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
   { id:8, name:'The love pillar', image:'milky-chocobar.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'32hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
   { id:9, name:'Rubiks Candle', image:'Rubiks candle.jpeg', mood:'energetic', price:299, priceRange:'budget', burn:'38hr', desc:'Peppermint, rosemary, and black pepper to ignite your energy.', color:'#fff3e0' },
@@ -822,6 +822,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
