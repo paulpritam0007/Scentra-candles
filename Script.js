@@ -368,6 +368,25 @@ function applyCoupon() {
   }
 
   showCouponMsg('Checking coupon…', 'info');
+  function showCouponMsg(text, type) {
+  const msgEl = document.getElementById('coupon-msg');
+  if (!msgEl) return;
+
+  msgEl.textContent = text;
+  msgEl.style.display = 'block';
+  
+  // Reset classes
+  msgEl.className = 'coupon-status'; 
+  
+  // Add specific style based on type (error, success, info)
+  if (type === 'error') {
+    msgEl.style.color = '#d32f2f'; // Red
+  } else if (type === 'success') {
+    msgEl.style.color = '#2e7d32'; // Green
+  } else {
+    msgEl.style.color = '#6b1a2a'; // Default theme color
+  }
+}
 
   fetch('/api/coupon', {
     method: 'POST',
@@ -807,7 +826,8 @@ updateCartUI();
   });
 
   startAuto();
-})();
+}
+
 
 
 
