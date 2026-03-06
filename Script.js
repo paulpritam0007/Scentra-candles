@@ -15,22 +15,36 @@ function toggleTheme() {
     });
   }
 })();
+
 /* ── CURSOR ── */
 const cur = document.getElementById('cursor');
 const ring = document.getElementById('cursor-ring');
-document.addEventListener('mousemove', e => {
-cur.style.left = e.clientX + 'px';
-cur.style.top = e.clientY + 'px';
-ring.style.left = e.clientX + 'px';
-ring.style.top = e.clientY + 'px';
-});
-// Check if the device has a mouse before initializing
-if (window.matchMedia("(pointer: fine)").matches) {
-  // Your cursor follower initialization code here
-  document.addEventListener('mousemove', (e) => {
-    moveCursor(e);
-  });
+
+// Function to check if the device is a mobile/touch device or Android
+function isMobileOrAndroid() {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
+    return isAndroid || isTouch;
 }
+
+if (!isMobileOrAndroid()) {
+    // Only add the event listener and show elements if NOT on mobile/Android
+    document.addEventListener('mousemove', e => {
+        if (cur && ring) {
+            cur.style.display = 'block';
+            ring.style.display = 'block';
+            cur.style.left = e.clientX + 'px';
+            cur.style.top = e.clientY + 'px';
+            ring.style.left = e.clientX + 'px';
+            ring.style.top = e.clientY + 'px';
+        }
+    });
+} else {
+    // Explicitly hide them on mobile/Android devices
+    if (cur) cur.style.display = 'none';
+    if (ring) ring.style.display = 'none';
+}
+
 
 
 /* ── PRODUCTS DATA ── */
