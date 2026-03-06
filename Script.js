@@ -430,14 +430,6 @@ function recalcTotal() {
   if (el) el.textContent = '₹' + final;
 }
 
-function showCouponMsg(msg, type) {
-  const el = document.getElementById('coupon-msg');
-  if (!el) return;
-  el.textContent = msg;
-  el.className = 'coupon-msg ' + type;
-  el.style.display = 'block';
-}
-
 let cart = JSON.parse(localStorage.getItem('scentra_cart') || '[]');
 let selectedPaymentMethod = 'razorpay';
 
@@ -816,6 +808,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
