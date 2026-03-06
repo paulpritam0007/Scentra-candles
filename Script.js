@@ -355,8 +355,21 @@ if (window.innerWidth > 900) closeMobileMenu();
 
 /* ── CART SYSTEM ── */
 const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
-/* ── COUPON CODES ── */
-function validateCoupon(code) {
+/*Coupons*/
+let appliedCoupon = null;
+
+function applyCoupon() {
+  const input = document.getElementById('co-coupon');
+  const code  = input.value.trim().toUpperCase();
+
+  if (!code) {
+    showCouponMsg('Please enter a coupon code.', 'error');
+    return;
+  }
+
+  // Show loading state
+  showCouponMsg('Checking coupon…', 'info');
+
   fetch('/api/coupon', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -364,25 +377,42 @@ function validateCoupon(code) {
   })
   .then(r => r.json())
   .then(data => {
-    if (data.valid) {
-      // Apply discount
-      applyCoupon(data.amount, data.type);
-      showCouponSuccess(data.message);
-    } else {
-      showCouponError('Invalid coupon code');
+    if (!data.valid) {
+      appliedCoupon = null;
+      input.classList.add('co-error');
+      showCouponMsg('Invalid coupon code. Please try again.', 'error');
+      document.getElementById('coupon-discount-row').style.display = 'none';
+      recalcTotal();
+      return;
     }
+
+    // Valid — map API response to the shape recalcTotal() expects
+    appliedCoupon = {
+      code:     data.code,
+      type:     data.type,           // "percent" or "flat"
+      discount: data.amount          // the number e.g. 10, 50, 100
+    };
+
+    input.classList.remove('co-error');
+    input.classList.add('coupon-valid');
+    input.readOnly = true;
+
+    showCouponMsg('✦ ' + data.message, 'success');
+
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const discountAmt = data.type === 'percent'
+      ? Math.round(subtotal * data.amount / 100)
+      : Math.min(data.amount, subtotal);
+
+    document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
+    document.getElementById('coupon-discount-row').style.display = 'flex';
+
+    recalcTotal();
   })
-  .catch(() => showCouponError('Could not validate coupon. Try again.'));
+  .catch(() => {
+    showCouponMsg('Could not validate coupon. Try again.', 'error');
+  });
 }
-
-let appliedCoupon = null;
-
-function applyCoupon() {
-const input = document.getElementById('co-coupon');
-const code  = input.value.trim().toUpperCase();
-const msgEl = document.getElementById('coupon-msg');
-const rowEl = document.getElementById('coupon-discount-row');
-const totalEl = document.getElementById('checkout-grand-total');
 
 if (!code) {
 showCouponMsg('Please enter a coupon code.', 'error');
@@ -831,6 +861,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
