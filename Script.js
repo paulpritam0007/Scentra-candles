@@ -361,26 +361,82 @@ let appliedCoupon = null;
 function applyCoupon() {
   const input = document.getElementById('co-coupon');
   const code  = input.value.trim().toUpperCase();
-  
+
+  if (!code) {
+    showCouponMsg('Please enter a coupon code.', 'error');
+    return;
+  }
+
+  showCouponMsg('Checking coupon…', 'info');
+
+  fetch('/api/coupon', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (!data.valid) {
+      appliedCoupon = null;
+      input.classList.add('co-error');
+      showCouponMsg('Invalid coupon code. Please try again.', 'error');
+      document.getElementById('coupon-discount-row').style.display = 'none';
+      recalcTotal();
+      return;
+    }
+    appliedCoupon = {
+      code:     data.code,
+      type:     data.type,
+      discount: data.amount
+    };
+    input.classList.remove('co-error');
+    input.classList.add('coupon-valid');
+    input.readOnly = true;
+    showCouponMsg('✦ ' + data.message, 'success');
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const discountAmt = data.type === 'percent'
+      ? Math.round(subtotal * data.amount / 100)
+      : Math.min(data.amount, subtotal);
+    document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
+    document.getElementById('coupon-discount-row').style.display = 'flex';
+    recalcTotal();
   })
   .catch(() => {
     showCouponMsg('Could not validate coupon. Try again.', 'error');
   });
 }
 
-if (!code) {
-showCouponMsg('Please enter a coupon code.', 'error');
-return;
+function removeCoupon() {
+  appliedCoupon = null;
+  const input = document.getElementById('co-coupon');
+  input.value = '';
+  input.readOnly = false;
+  input.classList.remove('coupon-valid', 'co-error');
+  document.getElementById('coupon-msg').style.display = 'none';
+  document.getElementById('coupon-discount-row').style.display = 'none';
+  recalcTotal();
 }
 
-const coupon = COUPONS[code];
+function recalcTotal() {
+  const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  let discount = 0;
+  if (appliedCoupon) {
+    discount = appliedCoupon.type === 'percent'
+      ? Math.round(subtotal * appliedCoupon.discount / 100)
+      : Math.min(appliedCoupon.discount, subtotal);
+  }
+  const final = Math.max(0, subtotal - discount);
+  const el = document.getElementById('checkout-grand-total');
+  if (el) el.textContent = '₹' + final;
+}
 
-if (!coupon) {
-appliedCoupon = null;
-input.classList.add('co-error');
-showCouponMsg('Invalid coupon code. Please try again.', 'error');
-rowEl.style.display = 'none';
-recalcTotal();
+function showCouponMsg(msg, type) {
+  const el = document.getElementById('coupon-msg');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = 'coupon-msg ' + type;
+  el.style.display = 'block';
+}
 return;
 }
 
@@ -815,6 +871,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
