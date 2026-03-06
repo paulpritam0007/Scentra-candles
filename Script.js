@@ -361,53 +361,7 @@ let appliedCoupon = null;
 function applyCoupon() {
   const input = document.getElementById('co-coupon');
   const code  = input.value.trim().toUpperCase();
-
-  if (!code) {
-    showCouponMsg('Please enter a coupon code.', 'error');
-    return;
-  }
-
-  // Show loading state
-  showCouponMsg('Checking coupon…', 'info');
-
-  fetch('/api/coupon', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ code })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (!data.valid) {
-      appliedCoupon = null;
-      input.classList.add('co-error');
-      showCouponMsg('Invalid coupon code. Please try again.', 'error');
-      document.getElementById('coupon-discount-row').style.display = 'none';
-      recalcTotal();
-      return;
-    }
-
-    // Valid — map API response to the shape recalcTotal() expects
-    appliedCoupon = {
-      code:     data.code,
-      type:     data.type,           // "percent" or "flat"
-      discount: data.amount          // the number e.g. 10, 50, 100
-    };
-
-    input.classList.remove('co-error');
-    input.classList.add('coupon-valid');
-    input.readOnly = true;
-
-    showCouponMsg('✦ ' + data.message, 'success');
-
-    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-    const discountAmt = data.type === 'percent'
-      ? Math.round(subtotal * data.amount / 100)
-      : Math.min(data.amount, subtotal);
-
-    document.getElementById('coupon-discount-amount').textContent = '−₹' + discountAmt;
-    document.getElementById('coupon-discount-row').style.display = 'flex';
-
-    recalcTotal();
+  
   })
   .catch(() => {
     showCouponMsg('Could not validate coupon. Try again.', 'error');
@@ -861,6 +815,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
