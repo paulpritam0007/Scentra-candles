@@ -20,6 +20,341 @@ gtag('config', 'G-JLEBV8JP9X');
 <link rel="icon" type="image/png" href="logo.jpeg">
 </head>
 <body>
+<!--
+  ════════════════════════════════════════════════════════
+  SCENTRA CANDLES — INTRO LIGHTING ANIMATION
+  ════════════════════════════════════════════════════════
+  PASTE THIS BLOCK just after <body> opens in your index.html
+  The overlay sits on top of everything, plays the animation,
+  then fades away revealing your site as normal.
+  ════════════════════════════════════════════════════════
+-->
+
+<!-- ░░ INTRO OVERLAY ░░ -->
+<div id="intro-overlay">
+
+  <!-- Dark vignette that covers the whole page -->
+  <div id="intro-darkness"></div>
+
+  <!-- The candle (centre screen, invisible until lit) -->
+  <div id="intro-candle">
+    <div class="candle-body">
+      <div class="candle-drip d1"></div>
+      <div class="candle-drip d2"></div>
+    </div>
+    <div class="candle-wick"></div>
+    <div class="candle-flame" id="candle-flame">
+      <div class="flame-outer"></div>
+      <div class="flame-inner"></div>
+      <div class="flame-core"></div>
+      <div class="flame-glow"></div>
+    </div>
+  </div>
+
+  <!-- Hand + matchstick entering from bottom-right -->
+  <div id="intro-hand">
+    <!-- SVG hand holding matchstick -->
+    <svg id="hand-svg" viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- matchstick stick -->
+      <rect id="match-stick" x="72" y="20" width="5" height="80" rx="2" fill="#c8a87a"/>
+      <!-- matchstick head -->
+      <ellipse id="match-head" cx="74.5" cy="20" rx="7" ry="9" fill="#e05a2b"/>
+      <!-- match flame on tip -->
+      <g id="match-flame" opacity="0">
+        <ellipse cx="74.5" cy="8" rx="6" ry="9" fill="#ffdd44" opacity="0.9"/>
+        <ellipse cx="74.5" cy="10" rx="3.5" ry="6" fill="#ff8c00"/>
+        <ellipse cx="74.5" cy="12" rx="2" ry="3" fill="#fff"/>
+      </g>
+      <!-- simplified hand -->
+      <g fill="#d4956a" stroke="#b87a50" stroke-width="1">
+        <!-- palm -->
+        <rect x="40" y="100" width="70" height="75" rx="18"/>
+        <!-- thumb -->
+        <ellipse cx="38" cy="118" rx="14" ry="22" transform="rotate(-20 38 118)"/>
+        <!-- finger 1 -->
+        <rect x="45" y="72" width="18" height="52" rx="9"/>
+        <!-- finger 2 -->
+        <rect x="66" y="65" width="18" height="58" rx="9"/>
+        <!-- finger 3 -->
+        <rect x="87" y="70" width="17" height="54" rx="9"/>
+        <!-- finger 4 (pinky) -->
+        <rect x="106" y="85" width="14" height="44" rx="7"/>
+        <!-- knuckle shading -->
+        <ellipse cx="54" cy="123" rx="4" ry="3" fill="#b87a50" opacity="0.3"/>
+        <ellipse cx="75" cy="123" rx="4" ry="3" fill="#b87a50" opacity="0.3"/>
+        <ellipse cx="96" cy="123" rx="4" ry="3" fill="#b87a50" opacity="0.3"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Strike spark burst (plays once) -->
+  <div id="strike-sparks">
+    <span></span><span></span><span></span>
+    <span></span><span></span><span></span>
+  </div>
+
+</div>
+<!-- ░░ END INTRO OVERLAY ░░ -->
+
+
+<style>
+/* ══ INTRO OVERLAY ══════════════════════════════════════ */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none; /* site remains interactive after reveal */
+  overflow: hidden;
+}
+
+/* Full-screen darkness */
+#intro-darkness {
+  position: absolute;
+  inset: 0;
+  background: #0a0604;
+  transition: opacity 1.6s ease;
+}
+
+/* ── CANDLE ── */
+#intro-candle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -30%) scale(1.1);
+  width: 60px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.candle-body {
+  width: 44px;
+  margin: 0 auto;
+  height: 120px;
+  background: linear-gradient(135deg, #f5e6c8 0%, #e8c87a 40%, #c8a040 100%);
+  border-radius: 6px 6px 4px 4px;
+  position: relative;
+  box-shadow: inset -6px 0 12px rgba(0,0,0,0.2);
+}
+
+.candle-drip {
+  position: absolute;
+  background: #f0d898;
+  border-radius: 0 0 50% 50%;
+}
+.candle-drip.d1 { width: 10px; height: 18px; top: -6px; left: 6px; }
+.candle-drip.d2 { width: 8px;  height: 14px; top: -4px; right: 8px; }
+
+.candle-wick {
+  width: 3px;
+  height: 14px;
+  background: #2a1a0a;
+  margin: 0 auto;
+  border-radius: 2px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ── FLAME ── */
+.candle-flame {
+  position: relative;
+  width: 30px;
+  margin: -4px auto 0;
+  height: 48px;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.candle-flame.lit {
+  opacity: 1;
+  transform: scaleY(1);
+  animation: flicker 1.8s ease-in-out infinite alternate;
+}
+
+.flame-glow {
+  position: absolute;
+  inset: -40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,180,40,0.35) 0%, transparent 70%);
+  animation: glowPulse 1.4s ease-in-out infinite alternate;
+}
+
+.flame-outer {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 30px; height: 48px;
+  background: radial-gradient(ellipse at 50% 80%, #ff9800 0%, #ff5722 50%, transparent 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+}
+
+.flame-inner {
+  position: absolute;
+  bottom: 2px; left: 50%;
+  transform: translateX(-50%);
+  width: 18px; height: 34px;
+  background: radial-gradient(ellipse at 50% 80%, #ffdd44 0%, #ffa726 60%, transparent 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+}
+
+.flame-core {
+  position: absolute;
+  bottom: 4px; left: 50%;
+  transform: translateX(-50%);
+  width: 8px; height: 16px;
+  background: radial-gradient(ellipse, #fff9e6 0%, #fffde7 60%, transparent 100%);
+  border-radius: 50%;
+}
+
+@keyframes flicker {
+  0%   { transform: scaleY(1)    scaleX(1)    rotate(-1deg); }
+  25%  { transform: scaleY(1.05) scaleX(0.96) rotate(1deg);  }
+  50%  { transform: scaleY(0.96) scaleX(1.03) rotate(-0.5deg); }
+  75%  { transform: scaleY(1.08) scaleX(0.95) rotate(1.5deg); }
+  100% { transform: scaleY(1.02) scaleX(1.01) rotate(-1deg); }
+}
+
+@keyframes glowPulse {
+  from { opacity: 0.6; transform: scale(0.9); }
+  to   { opacity: 1;   transform: scale(1.1); }
+}
+
+/* ── HAND ── */
+#intro-hand {
+  position: absolute;
+  bottom: -30px;
+  right: -40px;
+  width: 200px;
+  transform: translate(260px, 260px) rotate(-30deg);
+  transform-origin: bottom right;
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#hand-svg {
+  width: 100%;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.6));
+}
+
+#intro-hand.enter {
+  transform: translate(30px, 20px) rotate(-20deg);
+}
+
+#intro-hand.strike {
+  transform: translate(calc(50vw - 180px), calc(-50vh + 240px)) rotate(-35deg);
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#intro-hand.retreat {
+  transform: translate(300px, 300px) rotate(-15deg);
+  transition: transform 1.4s cubic-bezier(0.55, 0.06, 0.68, 0.19);
+}
+
+/* ── STRIKE SPARKS ── */
+#strike-sparks {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: 0; height: 0;
+  pointer-events: none;
+}
+
+#strike-sparks span {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #ffdd44;
+  opacity: 0;
+}
+
+#strike-sparks.burst span:nth-child(1) { animation: spark 0.5s 0.0s ease-out forwards; transform: translate(0,-30px); }
+#strike-sparks.burst span:nth-child(2) { animation: spark 0.5s 0.05s ease-out forwards; transform: translate(25px,-20px); background:#ff8c00; }
+#strike-sparks.burst span:nth-child(3) { animation: spark 0.5s 0.02s ease-out forwards; transform: translate(-28px,-18px); }
+#strike-sparks.burst span:nth-child(4) { animation: spark 0.5s 0.07s ease-out forwards; transform: translate(18px,22px); background:#fff; }
+#strike-sparks.burst span:nth-child(5) { animation: spark 0.5s 0.03s ease-out forwards; transform: translate(-20px,20px); background:#ff8c00; }
+#strike-sparks.burst span:nth-child(6) { animation: spark 0.5s 0.06s ease-out forwards; transform: translate(32px,10px); }
+
+@keyframes spark {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: var(--end, translate(0,-40px)) scale(0); }
+}
+
+/* ── SITE REVEAL ── */
+#intro-overlay.reveal #intro-darkness {
+  opacity: 0;
+}
+
+#intro-overlay.done {
+  display: none;
+}
+</style>
+
+
+<script>
+(function() {
+  // ── Prevent double-running ──
+  if (sessionStorage.getItem('scentra_intro_seen')) {
+    document.getElementById('intro-overlay').style.display = 'none';
+    return;
+  }
+
+  const overlay   = document.getElementById('intro-overlay');
+  const darkness  = document.getElementById('intro-darkness');
+  const candle    = document.getElementById('intro-candle');
+  const flame     = document.getElementById('candle-flame');
+  const hand      = document.getElementById('intro-hand');
+  const matchFlame = document.getElementById('match-flame');
+  const sparks    = document.getElementById('strike-sparks');
+
+  const t = (ms) => new Promise(r => setTimeout(r, ms));
+
+  async function playIntro() {
+    // 1. Start dark — hand slides in from bottom-right
+    await t(400);
+    hand.classList.add('enter');
+
+    // 2. Hand reaches position — match ignites
+    await t(2200);
+    matchFlame.style.opacity = '1';
+    matchFlame.style.transition = 'opacity 0.3s';
+
+    // 3. Hand moves up toward candle wick
+    await t(600);
+    hand.classList.remove('enter');
+    hand.classList.add('strike');
+
+    // 4. At wick — spark burst + candle lights
+    await t(1300);
+    sparks.classList.add('burst');
+    candle.style.opacity = '1';
+    await t(150);
+    flame.classList.add('lit');
+    matchFlame.style.opacity = '0';
+
+    // 5. Hand retreats
+    await t(600);
+    hand.classList.remove('strike');
+    hand.classList.add('retreat');
+
+    // 6. Candle glow expands — darkness lifts
+    await t(900);
+    overlay.classList.add('reveal');
+
+    // 7. Clean up
+    await t(1800);
+    overlay.classList.add('done');
+    sessionStorage.setItem('scentra_intro_seen', '1');
+  }
+
+  // Run after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', playIntro);
+  } else {
+    playIntro();
+  }
+})();
+</script>
 
 <!-- CURSOR -->
 <div id="cursor"></div>
