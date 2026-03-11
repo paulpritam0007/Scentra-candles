@@ -53,7 +53,7 @@ const products = [
   { id:2, name:'English Lavender', image:'English Lavender.jpeg', mood:'romantic', price:199, priceRange:'affordable', burn:'6hr+', desc:'Includes: gentle bouquet of herbaceous rosemary and earthy sage, complemented by subtle undertones of warm tonka bean and soft musk in the base notes', color:'#f8bbd0' },
   { id:3, name:'Romantic Rose', image:'Romantic Rose.jpeg', mood:'romantic', price:199, priceRange:'affordable', burn:'6hr+', desc:'Sun-kissed citrus and fresh florals to lift your spirits instantly.', color:'#fff9c4' },
   { id:4, name:'Royal Oud', image:'Royal Oud.jpeg', mood:'happy', price:199, priceRange:'affordable', burn:'6hrs+', desc:'Bergamot, lemon zest, and sweet peach for your brightest days.', color:'#fffde7' },
-  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'happy', price:529, priceRange:'Umid', burn:'10hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
+  { id:5, name:'Very berry strawberry', image:'Strawberry Macrons Candle.jpeg', mood:'happy', price:529, priceRange:'umid', burn:'10hr', desc:'Petrichor and soft musk — a gentle companion on quiet, rainy days.', color:'#e3f2fd' },
   { id:6, name:'tiny love buds', image:'Heart Rose.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'10hr', desc:'Smoky vetiver, grey amber, and violet for introspective evenings.', color:'#ede7f6' },
   { id:7, name:'Sweet tooth', image:'Laddoo (6pcs).jpeg', mood:'calm', price:299, priceRange:'budget', burn:'10hr', desc:'White sage, eucalyptus, and cedar for a perfectly still mind.', color:'#e8f5e9' },
   { id:8, name:'The love pillar', image:'milky-chocobar.jpeg', mood:'romantic', price:299, priceRange:'budget', burn:'10hr', desc:'Sea salt, driftwood, and light musk to find your inner peace.', color:'#e0f7fa' },
@@ -76,7 +76,7 @@ const products = [
   { id:25, name:'Blushing Heart Blooms', image:'blushing-heart-blooms.jpeg', mood:'romantic', price:349, priceRange:'mid', burn:'5hr+', desc:'Heart-shaped floral candle designed for gifting, date nights, and special celebrations.', color:'#ffe4ee' },
   { id:26, name:'Sweetheart Stack', image:'sweetheart-stack.jpeg', mood:'happy', price:299, priceRange:'budget', burn:'5hr', desc:'Layered dessert-inspired design with warm vanilla notes and playful charm.', color:'#fff1e8' },
   { id:27, name:'Flower Petal Signature Jar', image:'Flower petal with jar.jpeg', mood:'calm', price:499, priceRange:'mid', burn:'5hr+', desc:'Premium jar candle with soft floral fragrance and longer burn for cozy evenings.', color:'#f7f0ff' },
-  { id:28, name:'Fragrance Discovery Pack (5 pcs)', image:'Fragrance Candles(pack of 5).jpeg', mood:'happy', price:699, priceRange:'Umid', burn:'5hr+', desc:'A set of five mini signature candles to explore multiple Scentra moods at once.', color:'#f9f3df' },
+  { id:28, name:'Fragrance Discovery Pack (5 pcs)', image:'Fragrance Candles(pack of 5).jpeg', mood:'happy', price:699, priceRange:'umid', burn:'5hr+', desc:'A set of five mini signature candles to explore multiple Scentra moods at once.', color:'#f9f3df' },
 ];
 
 let activeMood = 'all';
@@ -844,6 +844,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
