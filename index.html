@@ -332,16 +332,13 @@ gtag('config', 'G-JLEBV8JP9X');
     glow.classList.add('bloom');
     await wait(600);
 
-    // 6. Darkness lifts — site reveals 0 → 100
+    // 6. Darkness lifts AND candle fades out simultaneously
     dark.classList.add('lift');
-    await wait(3000);
-
-    // 7. Candle fades out gracefully
-    wrap.style.transition = 'opacity 1s ease';
+    wrap.style.transition = 'opacity 1.2s ease';
     wrap.style.opacity = '0';
-    glow.style.transition = 'opacity 1s ease';
+    glow.style.transition = 'opacity 1.2s ease';
     glow.style.opacity = '0';
-    await wait(1100);
+    await wait(2000);
 
     // 8. Done — remove overlay entirely
     intro.classList.add('done');
