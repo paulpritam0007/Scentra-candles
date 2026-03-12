@@ -742,6 +742,20 @@ amount:      orderData.total * 100,
 currency:    'INR',
 name:        'Scentra Candles',
 description: 'Order ' + orderData.orderId,
+config: {
+    display: {
+      blocks: {
+        upi: {
+          name: 'Pay via UPI',
+          instruments: [
+            { method: 'upi', flows: ['qr', 'intent', 'collect'] }
+          ]
+        }
+      },
+      sequence: ['block.upi', 'netbanking', 'card', 'wallet'],
+      preferences: { show_default_blocks: true }
+    }
+ },
 prefill: {
 name:    orderData.fname + ' ' + orderData.lname,
 email:   orderData.email,
@@ -847,6 +861,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
