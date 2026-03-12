@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.scentracandles.twa",
+        "sha256_cert_fingerprints": ["28:C6:CF:58:21:25:95:41:88:D3:D4:46:B7:60:26:69:C5:24:60:A3:59:9C:24:AB:81:19:35:F3:E4:AE:B0:BF"]
+      }
+    }]
