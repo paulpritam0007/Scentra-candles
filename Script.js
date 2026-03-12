@@ -1,3 +1,6 @@
+const paymentSound = new Audio('brand-music.mp3');
+paymentSound.preload = 'auto';
+paymentSound.load();
 /*Dark mode*/
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark-mode');
@@ -797,17 +800,6 @@ document.getElementById('success-order-id').textContent = orderId;
 }
 
 updateCartUI();
-//Audio after payment
-document.addEventListener(
-  "click",
-  () => {
-    paymentSound.play().then(() => {
-      paymentSound.pause();
-      paymentSound.currentTime = 0;
-    }).catch(()=>{});
-  },
-  { once: true }
-);
 // ── Announcement Carousel ──
 (function () {
   const track  = document.getElementById('carousel-track');
@@ -863,6 +855,7 @@ document.addEventListener(
 
   startAuto();
 })();
+
 
 
 
