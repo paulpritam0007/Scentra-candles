@@ -389,6 +389,7 @@ const COUPONS = {
 'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
 'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's day"},
 'COLLAB15':{ discount: 15, type: 'percent', label:"15% off only for our Collaborator!"},
+'TEST200': { discount: 197, type: 'flat', label:"test is live!"},
 };
 
 let appliedCoupon = null;
@@ -855,6 +856,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
