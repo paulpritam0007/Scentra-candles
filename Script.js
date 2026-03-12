@@ -1,4 +1,4 @@
-import { paymentSound } from "@/utils/preloadAudio";
+import { paymentSound } from "@src/utils/preloadAudio.js";
 /*Dark mode*/
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark-mode');
@@ -864,6 +864,7 @@ document.addEventListener(
 
   startAuto();
 })();
+
 
 
 
