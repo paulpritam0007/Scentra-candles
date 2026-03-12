@@ -349,11 +349,11 @@ wrap.style.opacity = '0';
 
 await wait(1200);
     // 8. Done — remove overlay instantly, no leftover layer
-intro.style.transition = 'none';
-intro.style.pointerEvents = 'none';
-intro.classList.add('done');
-sessionStorage.setItem('scn_candle_intro', '1');
-
+    intro.style.transition = 'none';
+    intro.style.pointerEvents = 'none';
+    intro.classList.add('done');
+    sessionStorage.setItem('scn_candle_intro', '1');
+  } 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);
   } else {
