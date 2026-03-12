@@ -749,14 +749,6 @@ contact: orderData.phone
 },
 theme: { color: '#6b1a2a' },
 handler: async function(response) {
-// 🔔 Play payment success sound instantly
-  paymentSound.currentTime = 0;
-  paymentSound.play().catch(()=>{});
-
-  // 📳 Optional vibration (mobile)
-  if (navigator.vibrate) {
-     navigator.vibrate([120, 50, 120]);
-  }
 try {
 await fetch(STORE_FORM_ENDPOINT, {
 method: 'POST',
@@ -855,6 +847,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
