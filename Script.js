@@ -381,15 +381,6 @@ if (window.innerWidth > 900) closeMobileMenu();
 /* ── CART SYSTEM ── */
 const STORE_FORM_ENDPOINT = 'https://formspree.io/f/xykdqggb';
 /* ── COUPON CODES ── */
-const COUPONS = {
-'SCENTRA10':  { discount: 10, type: 'percent',  label: '10% off your order' },
-'WELCOME20':  { discount: 20, type: 'percent',  label: '20% off for new customers' },
-'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
-'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
-'TEST100':  { discount: 197, type: 'flat',    label: '₹100 off on festive orders' },
-'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's day"},
-'COLLAB15':{ discount: 15, type: 'percent', label:"15% off only for our Collaborator!"},
-};
 
 let appliedCoupon = null;
 
@@ -855,6 +846,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
