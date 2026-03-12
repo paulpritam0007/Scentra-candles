@@ -1,4 +1,5 @@
-9/*Dark mode*/
+import { paymentSound } from "@/utils/preloadAudio";
+/*Dark mode*/
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark-mode');
   document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
@@ -746,6 +747,14 @@ contact: orderData.phone
 },
 theme: { color: '#6b1a2a' },
 handler: async function(response) {
+// 🔔 Play payment success sound instantly
+  paymentSound.currentTime = 0;
+  paymentSound.play().catch(()=>{});
+
+  // 📳 Optional vibration (mobile)
+  if (navigator.vibrate) {
+     navigator.vibrate([120, 50, 120]);
+  }
 try {
 await fetch(STORE_FORM_ENDPOINT, {
 method: 'POST',
@@ -789,6 +798,17 @@ document.getElementById('success-order-id').textContent = orderId;
 }
 
 updateCartUI();
+//Audio after payment
+document.addEventListener(
+  "click",
+  () => {
+    paymentSound.play().then(() => {
+      paymentSound.pause();
+      paymentSound.currentTime = 0;
+    }).catch(()=>{});
+  },
+  { once: true }
+);
 // ── Announcement Carousel ──
 (function () {
   const track  = document.getElementById('carousel-track');
@@ -844,6 +864,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
