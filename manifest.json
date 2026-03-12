@@ -1,0 +1,39 @@
+{
+  "name": "Scentra Candles",
+  "short_name": "Scentra",
+  "description": "Handcrafted candles for every mood — shop Scentra's signature collection.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0604",
+  "theme_color": "#6b1a2a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/icons/screenshot_1.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/icons/screenshot_1.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["shopping", "lifestyle"]
+}
