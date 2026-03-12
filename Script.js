@@ -1,4 +1,4 @@
-/*Dark mode*/
+9/*Dark mode*/
 function toggleTheme() {
   const isDark = document.body.classList.toggle('dark-mode');
   document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
@@ -384,8 +384,8 @@ const COUPONS = {
 'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
 'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
 'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
-'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's Day."},
-'ROSE200': { discount: 198, type: 'flat', label: "Enjoy! Your discount has captured."},
+'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's day"},
+'COLLAB15':{ discount: 15, type: 'percent', label:"15% off only for our Collaborator!"},
 };
 
 let appliedCoupon = null;
