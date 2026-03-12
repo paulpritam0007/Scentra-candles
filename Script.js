@@ -386,10 +386,9 @@ const COUPONS = {
 'WELCOME20':  { discount: 20, type: 'percent',  label: '20% off for new customers' },
 'FLAT50':     { discount: 50, type: 'flat',     label: '₹50 flat off' },
 'MOOD15':    { discount: 15, type: 'percent',  label: '15% off — special code' },
-'HOLI100':  { discount: 100, type: 'flat',    label: '₹100 off on festive orders' },
+'TEST100':  { discount: 197, type: 'flat',    label: '₹100 off on festive orders' },
 'WOMEN15': { discount: 15, type: 'percent', label: "15% off on Women's day"},
 'COLLAB15':{ discount: 15, type: 'percent', label:"15% off only for our Collaborator!"},
-'TEST200': { discount: 197, type: 'flat', label:"test is live!"},
 };
 
 let appliedCoupon = null;
@@ -856,6 +855,7 @@ updateCartUI();
 
   startAuto();
 })();
+
 
 
 
