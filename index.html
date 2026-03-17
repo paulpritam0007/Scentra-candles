@@ -1518,22 +1518,37 @@ Your bag is empty. Add items to begin.
 /* ── MOBILE ── */
 @media (max-width: 660px) {
   .scnc-layout { grid-template-columns: 1fr; }
+
+  /* Vis panel stacks on top, candle centred and much bigger */
   .scnc-vis-panel {
     border-radius: 28px 28px 0 0;
-    padding: 24px 20px 20px;
-    flex-direction: row; gap: 20px;
+    padding: 28px 20px 20px;
+    flex-direction: column;
     align-items: center;
+    gap: 14px;
   }
-  .scnc-candle-scene { width: 80px; }
-  #scnc-svg { width: 80px; height: 172px; }
-  .scnc-summary-chips { flex-direction: row; flex-wrap: wrap; margin-top: 0; }
-  .scnc-vis-label { display: none; }
+  .scnc-candle-scene {
+    width: 140px;        /* was 80px — now full original size */
+  }
+  #scnc-svg {
+    width: 140px;        /* was 80px */
+    height: 300px;       /* was 172px — full height restored */
+  }
+  .scnc-summary-chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 0;
+  }
+  .scnc-vis-label { display: block; }  /* show the "Your Candle" label again */
   .scnc-form-panel { padding: 24px 20px 28px; }
   .scnc-color-grid { grid-template-columns: repeat(4, 1fr); }
   .scnc-scent-grid { grid-template-columns: repeat(3, 1fr); }
   #scnc-entry { padding: 40px 24px 36px; }
 }
 @media (max-width: 420px) {
+  .scnc-candle-scene { width: 120px; }   /* slight reduction only on very small screens */
+  #scnc-svg { width: 120px; height: 258px; }
   .scnc-color-grid { grid-template-columns: repeat(3, 1fr); }
   .scnc-scent-grid { grid-template-columns: repeat(2, 1fr); }
 }
