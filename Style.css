@@ -208,6 +208,11 @@ body, body * {
 
   /* ── CURSOR ── */
   body { cursor: none; }
+  /* ── Fix: keep custom cursor visible above the popup overlay ── */
+  #cursor,
+  #cursor-ring {
+    z-index: 999999 !important;
+  }
   #cursor {
     width: 12px; height: 12px;
     background: var(--maroon);
