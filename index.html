@@ -1702,50 +1702,133 @@ function scncIsLight(hex) {
 }
 
 /* ── PLACE ORDER ── */
-function scncPlaceOrder() {
-  const notes = document.getElementById('scnc-notes').value.trim();
-  const description = `Custom Candle: ${scnc.colorName} wax, ${scnc.scent} fragrance${notes ? ' | Notes: ' + notes : ''}`;
-  const amount = 29900; // ₹299 in paise
 
-  const options = {
-    key:         'rzp_live_SMQTjtfUT3u3zz',
-    amount:      amount,
-    currency:    'INR',
-    name:        'Scentra Candles',
-    description: description,
-    prefill:     {},
-    theme:       { color: '#6b1a2a' },
-    handler: function(response) {
-      scncClose();
-      // Send order summary to Formspree
-      fetch('https://formspree.io/f/xykdqggb', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          _subject:       'Custom Candle Order — Scentra',
-          wax_colour:     scnc.colorName,
-          fragrance:      scnc.scent,
-          notes:          notes || 'None',
-          payment_id:     response.razorpay_payment_id,
-          amount:         '₹299',
-          order_date:     new Date().toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' }),
-        })
-      }).catch(() => {});
-      // Show toast
-      if (typeof showToast === 'function') {
-        showToast('Custom candle ordered! 🕯️ We\'ll pour it just for you.');
-      } else {
-        alert('Order placed! Your custom Scentra candle will be poured just for you. ✦');
-      }
-    },
-    modal: { ondismiss: () => {} }
+     function scncPlaceOrder() {
+  const notes = document.getElementById('scnc-notes').value.trim();
+
+  // ── Pre-fill the checkout form with custom candle details ──
+  const checkoutFields = {
+    'co-addr1': `Custom Candle Order`,
+    'co-notes': [
+      `🕯️ CUSTOM CANDLE ORDER`,
+      `Wax Colour: ${scnc.colorName}`,
+      `Fragrance: ${scnc.scentEmoji} ${scnc.scent}`,
+      notes ? `Special Instructions: ${notes}` : ''
+    ].filter(Boolean).join('\n')
   };
 
-  if (typeof Razorpay !== 'undefined') {
-    new Razorpay(options).open();
-  } else {
-    alert('Payment system loading — please try again in a moment.');
+  // Write into checkout fields if they exist
+  Object.entries(checkoutFields).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
+  });
+
+  // ── Add a virtual "Custom Candle" item to the cart ──
+  // This puts it into the cart array so checkout sees it correctly
+  const customProduct = {
+    id:    'custom-' + Date.now(),
+    name:  `Custom Candle — ${scnc.colorName}, ${scnc.scent}`,
+    image: '',
+    price: 299,
+    mood:  'custom',
+    qty:   1,
+    isCustom: true,
+    customDetails: {
+      color:     scnc.colorName,
+      fragrance: scnc.scent,
+      emoji:     scnc.scentEmoji,
+      notes:     notes
+    }
+  };
+
+  // Push into the existing cart array
+  if (typeof cart !== 'undefined') {
+    // Remove any previous custom order so there's no duplicate
+    const existing = cart.findIndex(i => i.isCustom);
+    if (existing > -1) cart.splice(existing, 1);
+    cart.push(customProduct);
+    if (typeof saveCart === 'function') saveCart();
+    if (typeof updateCartUI === 'function') updateCartUI();
   }
+
+  // ── Close popup, open checkout directly ──
+  scncClose();
+
+  // Brief delay so popup close animation finishes first
+  setTimeout(() => {
+    if (typeof openCheckout === 'function') {
+      openCheckout();
+
+      // After checkout opens, re-stamp the notes field
+      // (populateCheckoutSummary() overwrites some fields)
+      setTimeout(() => {
+        const notesEl = document.getElementById('co-notes');
+        if (notesEl && notesEl.value === '') {
+          notesEl.value = checkoutFields['co-notes'];
+        }
+
+        // Also highlight the custom item in the checkout summary
+        const rows = document.getElementById('checkout-items-rows');
+        if (rows) {
+          const customRow = document.createElement('div');
+          customRow.className = 'checkout-item-row';
+          customRow.style.cssText = `
+            background: rgba(107,26,42,.04);
+            border-radius: 10px;
+            padding: 10px 12px;
+            border: 1px solid rgba(107,26,42,.12);
+            margin-bottom: 8px;
+          `;
+          customRow.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+              <div>
+                <div style="font-family:'Playfair Display',serif; font-size:.88rem; color:#1a0a0a; margin-bottom:3px;">
+                  🕯️ Custom Candle
+                </div>
+                <div style="font-size:.72rem; color:#9e6370; line-height:1.5;">
+                  ${scnc.colorName} wax · ${scnc.scentEmoji} ${scnc.scent}
+                  ${notes ? '<br><em>' + notes + '</em>' : ''}
+                </div>
+              </div>
+              <span style="font-family:'Playfair Display',serif; font-size:.95rem; color:#6b1a2a; font-weight:700; white-space:nowrap;">₹299</span>
+            </div>
+          `;
+          // Prepend so it appears at the top of the order summary
+          rows.prepend(customRow);
+        }
+      }, 150);
+    } else {
+      // Fallback: open Razorpay directly if checkout modal not found
+      const description = `Custom Candle: ${scnc.colorName} wax, ${scnc.scent} fragrance${notes ? ' | ' + notes : ''}`;
+      const options = {
+        key:         'rzp_live_SMQTjtfUT3u3zz',
+        amount:      29900,
+        currency:    'INR',
+        name:        'Scentra Candles',
+        description: description,
+        theme:       { color: '#6b1a2a' },
+        handler: function(response) {
+          fetch('https://formspree.io/f/xykdqggb', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              _subject:   'Custom Candle Order — Scentra',
+              wax_colour: scnc.colorName,
+              fragrance:  scnc.scent,
+              notes:      notes || 'None',
+              payment_id: response.razorpay_payment_id,
+              amount:     '₹299',
+            })
+          }).catch(() => {});
+          if (typeof showToast === 'function') {
+            showToast('Custom candle ordered! 🕯️ We\'ll pour it just for you.');
+          }
+        },
+        modal: { ondismiss: () => {} }
+      };
+      if (typeof Razorpay !== 'undefined') new Razorpay(options).open();
+    }
+  }, 350);
 }
 
 /* ── INIT: show every page load ── */
