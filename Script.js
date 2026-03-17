@@ -537,19 +537,18 @@ list.innerHTML = cart.map(item =>
 '</div></div>'
 ).join('');
 }
-
 function changeQty(id, delta) {
-const item = cart.find(i => i.id === id);
-if (!item) return;
-item.qty += delta;
-if (item.qty <= 0) removeFromCart(id);
-else { saveCart(); updateCartUI(); }
+  const item = cart.find(i => i.id == id); // == not === so string/number both match
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) removeFromCart(id);
+  else { saveCart(); updateCartUI(); }
 }
 
 function removeFromCart(id) {
-cart = cart.filter(i => i.id !== id);
-saveCart();
-updateCartUI();
+  cart = cart.filter(i => i.id != id); // != not !== so string/number both match
+  saveCart();
+  updateCartUI();
 }
 
 function openCart() {
