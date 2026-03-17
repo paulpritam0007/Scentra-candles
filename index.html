@@ -1748,5 +1748,142 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <!-- ════ END CUSTOMISE CANDLE POPUP ════ -->
+<!-- ════ CUSTOMISE CANDLE TRIGGER BUTTON ════
+     Paste this AFTER the candle customiser popup code,
+     just before </body>
+════════════════════════════════════════════ -->
+<button id="scnc-trigger-btn" onclick="scncReopen()" title="Create your own candle">
+  <span class="scnc-trigger-icon">🕯️</span>
+  <span class="scnc-trigger-label">Customise</span>
+</button>
+
+<style>
+#scnc-trigger-btn {
+  position: fixed;
+  bottom: 100px;          /* sits just above your existing cart FAB */
+  right: 24px;
+  z-index: 7999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #4a0f1a, #6b1a2a);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(107,26,42,.5),
+              0 0 0 1px rgba(255,255,255,.08);
+  transition: all .25s cubic-bezier(.34,1.2,.64,1);
+  animation: scncTriggerBounceIn .6s cubic-bezier(.34,1.4,.64,1) 1s both;
+}
+#scnc-trigger-btn:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 14px 36px rgba(107,26,42,.65),
+              0 0 0 1px rgba(255,255,255,.12);
+}
+#scnc-trigger-btn:active { transform: scale(.97); }
+
+.scnc-trigger-icon {
+  font-size: 1.35rem;
+  animation: scncTriggerFlicker 2.8s ease-in-out infinite alternate;
+  display: block;
+}
+@keyframes scncTriggerFlicker {
+  0%   { transform: scale(1)    rotate(-2deg); }
+  50%  { transform: scale(1.1)  rotate(2deg);  }
+  100% { transform: scale(.96)  rotate(-1deg); }
+}
+.scnc-trigger-label {
+  font-family: 'Jost', sans-serif;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .85;
+}
+
+/* Pulse ring to draw attention */
+#scnc-trigger-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 24px;
+  border: 2px solid rgba(232,121,154,.5);
+  animation: scncTriggerPulse 2.5s ease-in-out infinite;
+}
+@keyframes scncTriggerPulse {
+  0%,100% { opacity: 0;   transform: scale(1);    }
+  50%      { opacity: .6; transform: scale(1.06); }
+}
+@keyframes scncTriggerBounceIn {
+  from { opacity: 0; transform: translateY(40px) scale(.8); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);  }
+}
+
+/* On mobile, keep it compact so it doesn't crowd the cart FAB */
+@media (max-width: 480px) {
+  #scnc-trigger-btn {
+    bottom: 90px;
+    right: 18px;
+    padding: 10px 12px;
+    border-radius: 16px;
+  }
+  .scnc-trigger-label { display: none; }
+  .scnc-trigger-icon  { font-size: 1.2rem; }
+}
+</style>
+
+<script>
+function scncReopen() {
+  const overlay = document.getElementById('scnc-overlay');
+  const popup   = document.getElementById('scnc-popup');
+  const entry   = document.getElementById('scnc-entry');
+  const builder = document.getElementById('scnc-builder');
+
+  if (!overlay || !popup) return;
+
+  // Reset to entry screen
+  entry.classList.add('active');
+  builder.classList.remove('active');
+
+  // Reset builder state
+  document.querySelectorAll('.scnc-color-btn').forEach(b => b.classList.remove('active'));
+  const defaultColor = document.querySelector('.scnc-color-btn[data-color="#f5f0e8"]');
+  if (defaultColor) defaultColor.classList.add('active');
+
+  document.querySelectorAll('.scnc-scent-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('scnc-next-2').disabled = true;
+
+  // Reset steps back to 1
+  [1,2,3].forEach(i => {
+    const s = document.getElementById('scnc-step-' + i);
+    if (s) { s.style.display = i === 1 ? 'flex' : 'none'; s.style.flexDirection = 'column'; }
+  });
+
+  // Reset chip labels
+  document.getElementById('scnc-chip-color-lbl').textContent = 'Ivory White';
+  document.getElementById('scnc-chip-scent-lbl').textContent = 'No scent yet';
+  document.getElementById('scnc-chip-dot').style.background  = '#f0f0f0';
+  document.getElementById('scnc-label-scent').textContent    = 'CUSTOM';
+
+  // Show overlay + popup
+  overlay.style.display  = 'block';
+  overlay.style.opacity  = '0';
+  popup.style.display    = 'block';
+  popup.style.opacity    = '0';
+  popup.style.transform  = 'translate(-50%,-50%) scale(.94)';
+  popup.style.transition = 'opacity .35s ease, transform .45s cubic-bezier(.34,1.2,.64,1)';
+
+  requestAnimationFrame(() => {
+    overlay.style.transition = 'opacity .35s ease';
+    overlay.style.opacity    = '1';
+    popup.style.opacity      = '1';
+    popup.style.transform    = 'translate(-50%,-50%) scale(1)';
+  });
+}
+</script>
+<!-- ════ END CUSTOMISE TRIGGER ════ -->
 </body>
 </html>
