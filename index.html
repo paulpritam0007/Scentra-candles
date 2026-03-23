@@ -1880,19 +1880,6 @@ function scncIsLight(hex) {
   }, 350);
 }
 
-/* ── INIT: show every page load ── */
-// (Remove the sessionStorage check if you want it every single visit,
-//  or add one back if you want once-per-session.)
-document.addEventListener('DOMContentLoaded', () => {
-  // Wait for candle intro to finish first (approx 4.5s)
-  const delay = sessionStorage.getItem('scn_candle_intro') ? 800 : 5200;
-  setTimeout(() => {
-    document.getElementById('scnc-overlay').style.display = 'block';
-    document.getElementById('scnc-popup').style.display   = 'block';
-    document.getElementById('scnc-step-1').style.display  = 'flex';
-    document.getElementById('scnc-step-1').style.flexDirection = 'column';
-  }, delay);
-});
 </script>
 <!-- ════ END CUSTOMISE CANDLE POPUP ════ -->
 <!-- ════ CUSTOMISE CANDLE TRIGGER BUTTON ════
