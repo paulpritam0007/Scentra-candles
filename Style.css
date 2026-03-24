@@ -3572,6 +3572,30 @@ footer a:hover { color: var(--s-pink) !important; }
   justify-content: center !important;
   gap: 16px !important; 
 }
+/* ══════════════════════════════════════════════════════
+   LAYOUT OVERRIDE: Hide Announcements & Reorder Sections
+══════════════════════════════════════════════════════ */
+
+/* 1. Completely hide the announcements carousel */
+#announcements {
+  display: none !important;
+}
+
+/* 2. Turn the body into a flex-column to enable section reordering */
+body {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 3. Force the visual order of the main sections */
+/* Adjust these numbers if you have a header/footer that needs specific placement */
+nav { order: 1 !important; }
+#home { order: 2 !important; }
+#pricing { order: 3 !important; } /* Shop section moves UP */
+#about { order: 4 !important; }   /* About section moves DOWN */
+#reviews { order: 5 !important; }
+#contact { order: 6 !important; }
+
 
 
 
