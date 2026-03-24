@@ -3535,7 +3535,43 @@ footer a:hover { color: var(--s-pink) !important; }
   .reviews-layout { gap: 28px !important; }
   .contact-layout { gap: 28px !important; }
 }
+/* ══════════════════════════════════════════════════════
+   HERO OVERRIDE: Centered Banner, Hidden Cards
+══════════════════════════════════════════════════════ */
+#home {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
 
+/* Hide the 4 floating candle cards completely */
+.hero-visual,
+.candle-showcase {
+  display: none !important;
+}
+
+/* Center the text content and constrain the width for readability */
+.hero-text {
+  align-items: center !important;
+  padding: 80px 20px !important;
+  width: 100% !important;
+  max-width: 800px !important;
+}
+
+/* Ensure the paragraph text is centered within the new layout */
+.hero-sub {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* If you have multiple buttons, this keeps them centered nicely */
+.hero-buttons, 
+.hero-text > div {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 16px !important; 
+}
 
 
 
