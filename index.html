@@ -50,7 +50,8 @@ gtag('config', 'G-JLEBV8JP9X');
     justify-content: center;
     overflow: hidden;
     pointer-events: all;
-    transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Sped up from 1s to 0.5s */
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #scn-video-overlay {
@@ -67,7 +68,8 @@ gtag('config', 'G-JLEBV8JP9X');
     height: 100%;
     object-fit: cover; /* Cinematic full-screen */
     opacity: 0;
-    transition: opacity 0.8s ease;
+    /* Sped up from 0.8s to 0.4s */
+    transition: opacity 0.4s ease;
 }
 
 #scn-main-video.visible {
@@ -75,7 +77,6 @@ gtag('config', 'G-JLEBV8JP9X');
 }
 
 /* ── THE WHITE FLASH ── */
-/* Matches the final frame of your Namaste video */
 #scn-transition-flash {
     position: absolute;
     inset: 0;
@@ -83,7 +84,8 @@ gtag('config', 'G-JLEBV8JP9X');
     opacity: 0;
     z-index: 10;
     pointer-events: none;
-    transition: opacity 0.4s ease;
+    /* Sped up from 0.4s to 0.2s */
+    transition: opacity 0.2s ease;
 }
 
 /* ── FINAL EXIT ── */
@@ -114,6 +116,9 @@ body.intro-active {
 
     async function startIntro() {
         try {
+            // Speed up the actual video playback by 25%
+            video.playbackRate = 1.25; 
+            
             // Show video & play
             video.classList.add('visible');
             await video.play();
@@ -123,11 +128,10 @@ body.intro-active {
                 completeIntro();
             };
 
-            // Safety fallback: if video gets stuck or is too long
-            // Your video is ~11 seconds
+            // Safety fallback adjusted from 12s to 9s since the video is playing faster
             setTimeout(() => {
                 if (!container.classList.contains('exit')) completeIntro();
-            }, 12000);
+            }, 9000);
 
         } catch (err) {
             console.error("Video play failed:", err);
@@ -139,17 +143,19 @@ body.intro-active {
         // Step A: Trigger the white flash to bridge to the white site
         flash.style.opacity = "1";
 
+        // Reduced delay from 500ms to 250ms
         setTimeout(() => {
             // Step B: Fade out the entire overlay
             container.classList.add('exit');
             document.body.classList.remove('intro-active');
 
+            // Reduced delay from 1000ms to 500ms
             setTimeout(() => {
                 // Step C: Remove from DOM
                 container.style.display = 'none';
                 sessionStorage.setItem('scn_vid_intro_seen', '1');
-            }, 1000);
-        }, 500);
+            }, 500); 
+        }, 250); 
     }
 
     // Run when ready
