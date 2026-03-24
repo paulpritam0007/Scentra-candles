@@ -3596,7 +3596,20 @@ nav { order: 1 !important; }
 #reviews { order: 5 !important; }
 #contact { order: 6 !important; }
 
+/* ══════════════════════════════════════════════════════
+   FOOTER FIX: Push to absolute bottom
+══════════════════════════════════════════════════════ */
 
+footer, #footer {
+  order: 99 !important; /* Forces it after all other sections */
+  margin-top: auto !important; /* Ensures it stays at bottom on short pages */
+}
+
+/* Ensure the body expands to fill the screen height */
+html, body {
+  min-height: 100vh !important;
+  margin: 0 !important;
+}
 
 
 
