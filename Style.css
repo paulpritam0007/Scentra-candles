@@ -3875,3 +3875,49 @@ footer h4, footer .footer-logo, #footer h3 {
 footer a, footer p {
   color: rgba(245, 240, 225, 0.7) !important; /* Muted beige */
 
+/* ══════════════════════════════════════════════════════
+   SCENTRA GEOMETRIC BUTTON OVERHAUL
+══════════════════════════════════════════════════════ */
+
+/* 1. CYLINDRICAL RECTANGLES (Contact & My Account) 
+   These are usually in the Nav or specific CTA areas */
+.nav-cta, .nav-links a.nav-cta, .btn-contact, #my-account-btn {
+  border-radius: 50px !important; /* Creates the cylindrical/pill shape */
+  padding: 10px 28px !important;
+  border: 1.5px solid var(--s-maroon) !important;
+}
+
+/* 2. PERFECT CIRCLES (Add to Cart & Customise) 
+   Note: For a perfect circle, the button must have 
+   equal width and height. */
+.btn-cart-add, .btn-customise, .add-to-cart-btn {
+  width: 80px !important;
+  height: 80px !important;
+  border-radius: 50% !important; /* Creates the perfect circle */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  padding: 0 !important; /* Remove padding to keep circle shape */
+  font-size: 0.6rem !important; /* Smaller text to fit inside circle */
+  line-height: 1.2 !important;
+  letter-spacing: 0.05em !important;
+  aspect-ratio: 1 / 1 !important;
+  
+  /* Floating Ritual Effect */
+  box-shadow: 0 4px 10px rgba(128, 0, 0, 0.15) !important;
+}
+
+/* Center the text inside the circle buttons so it wraps nicely */
+.btn-cart-add {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+}
+
+/* 3. HOVER ANIMATION FOR CIRCLES */
+.btn-cart-add:hover, .btn-customise:hover {
+  transform: scale(1.05) rotate(5deg) !important; /* Subtle ritual spin */
+  background: var(--s-beige) !important;
+  color: var(--s-maroon) !important;
+}
+
