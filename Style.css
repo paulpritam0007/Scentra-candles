@@ -349,6 +349,7 @@ body, body * {
     font-size: 1.7rem;
     color: var(--maroon);
     letter-spacing: 0.04em;
+    text-align: center;
   }
   .nav-logo span { color: var(--pink-deep); }
   .nav-links { display: flex; gap: 40px; list-style: none; }
