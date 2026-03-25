@@ -301,7 +301,7 @@ nav {
    BUTTONS
 ══════════════════════════════════════ */
 .btn-primary {
-  background: var(--maroon); color: #fff;
+  background: var(--maroon); color: #6b1a2a;
   padding: 14px 40px; border-radius: 50px;
   border: none; font-family: 'Jost', sans-serif;
   font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
