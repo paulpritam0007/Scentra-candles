@@ -806,73 +806,128 @@ document.getElementById('success-order-id').textContent = orderId;
 }
 
 updateCartUI();
-// ── Announcement Carousel ──
-(function () {
-  const track  = document.getElementById('carousel-track');
-  const dotsEl = document.getElementById('carousel-dots');
-  if (!track || !dotsEl) return;
 
-  const cards = track.querySelectorAll('.announcement-card');
-  const total = cards.length;
-  let current = 0;
-  let timer;
 
-  // Build dots
-  cards.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-    dot.addEventListener('click', () => {
-      goTo(i);
-      resetAuto(); // clicking a dot resets the auto-timer
-    });
-    dotsEl.appendChild(dot);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ══════════════════════════════════════
+   CUSTOMISE CANDLE POPUP LOGIC
+══════════════════════════════════════ */
+const scnc = { colorName: 'Ivory White', colorHex: '#f5f0e8', scent: '', scentEmoji: '' };
+
+function scncShowBuilder() {
+  document.getElementById('scnc-entry').classList.remove('active');
+  document.getElementById('scnc-builder').classList.add('active');
+}
+
+function scncClose() {
+  const overlay = document.getElementById('scnc-overlay');
+  const popup   = document.getElementById('scnc-popup');
+  if (overlay) overlay.style.display = 'none';
+  if (popup)   popup.style.display   = 'none';
+  document.body.style.overflow = '';
+}
+
+function scncGoStep(n) {
+  [1,2,3].forEach(i => {
+    const s = document.getElementById('scnc-step-' + i);
+    if (s) s.style.display = i === n ? 'flex' : 'none';
   });
+}
 
-  function goTo(index) {
-    current = (index + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    dotsEl.querySelectorAll('.dot').forEach((d, i) => {
-      d.classList.toggle('active', i === current);
-    });
-  }
+function scncAddToCart() {
+  const notes = (document.getElementById('scnc-notes') || {}).value || '';
+  const customProduct = {
+    id: 9999, name: 'Custom Candle — ' + scnc.colorName + ', ' + scnc.scent,
+    image: '', price: 299, mood: 'custom', qty: 1, isCustom: true,
+    customDetails: { color: scnc.colorName, fragrance: scnc.scent, emoji: scnc.scentEmoji, notes }
+  };
+  const existing = cart.findIndex(i => i.isCustom);
+  if (existing > -1) cart.splice(existing, 1);
+  cart.push(customProduct);
+  saveCart();
+  updateCartUI();
+  scncClose();
+  setTimeout(() => { openCheckout(); }, 350);
+}
 
-  function next() { goTo(current + 1); }
+function scncReopen() {
+  const overlay = document.getElementById('scnc-overlay');
+  const popup   = document.getElementById('scnc-popup');
+  if (!overlay || !popup) return;
+  document.getElementById('scnc-entry').classList.add('active');
+  document.getElementById('scnc-builder').classList.remove('active');
+  scncGoStep(1);
+  document.querySelectorAll('.scnc-color-btn').forEach(b => b.classList.remove('active'));
+  const defaultColor = document.querySelector('.scnc-color-btn[data-color="#f5f0e8"]');
+  if (defaultColor) defaultColor.classList.add('active');
+  document.querySelectorAll('.scnc-scent-btn').forEach(b => b.classList.remove('active'));
+  const next2 = document.getElementById('scnc-next-2');
+  if (next2) next2.disabled = true;
+  overlay.style.display = 'block';
+  popup.style.display   = 'block';
+  document.body.style.overflow = 'hidden';
+}
 
-  function startAuto() { timer = setInterval(next, 3500); }
-  function stopAuto()  { clearInterval(timer); }
-  function resetAuto() { stopAuto(); startAuto(); }
+// Colour selection
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.scnc-color-btn');
+  if (!btn) return;
+  document.querySelectorAll('.scnc-color-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  scnc.colorName = btn.dataset.name;
+  scnc.colorHex  = btn.dataset.color;
+  const chipLbl  = document.getElementById('scnc-chip-color-lbl');
+  const chipDot  = document.getElementById('scnc-chip-dot');
+  const waxEl    = document.getElementById('scnc-wax');
+  const waxLight = document.getElementById('scnc-wax-light');
+  const waxDark  = document.getElementById('scnc-wax-dark');
+  if (chipLbl) chipLbl.textContent = scnc.colorName;
+  if (chipDot) chipDot.style.background = scnc.colorHex;
+  if (waxLight) waxLight.setAttribute('stop-color', scnc.colorHex);
+  if (waxDark)  waxDark.setAttribute('stop-color', scnc.colorHex);
+  if (waxEl)   waxEl.setAttribute('fill', 'url(#scnc-wax-grad)');
+});
 
-  // Pause on hover
-  track.addEventListener('mouseenter', stopAuto);
-  track.addEventListener('mouseleave', startAuto);
+// Scent selection
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.scnc-scent-btn');
+  if (!btn) return;
+  document.querySelectorAll('.scnc-scent-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  scnc.scent      = btn.dataset.scent;
+  scnc.scentEmoji = btn.dataset.emoji;
+  const chipLbl  = document.getElementById('scnc-chip-scent-lbl');
+  const labelEl  = document.getElementById('scnc-label-scent');
+  const next2    = document.getElementById('scnc-next-2');
+  if (chipLbl) chipLbl.textContent = scnc.scent;
+  if (labelEl) labelEl.textContent = scnc.scent.toUpperCase().slice(0,8);
+  if (next2)   next2.disabled = false;
+});
 
-  // Touch swipe
-  let startX = 0;
-  track.addEventListener('touchstart', e => {
-    startX = e.touches[0].clientX;
-    stopAuto();
-  }, { passive: true });
-  track.addEventListener('touchend', e => {
-    const diff = startX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) diff > 0 ? next() : goTo(current - 1);
-    startAuto();
-  });
-
-  startAuto();
+// Show popup on first visit
+(function() {
+  if (sessionStorage.getItem('scnc_popup_seen')) return;
+  sessionStorage.setItem('scnc_popup_seen', '1');
+  setTimeout(() => {
+    const overlay = document.getElementById('scnc-overlay');
+    const popup   = document.getElementById('scnc-popup');
+    if (overlay && popup) {
+      overlay.style.display = 'block';
+      popup.style.display   = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+  }, 2000);
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
