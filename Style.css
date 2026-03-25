@@ -382,6 +382,7 @@ body, body * {
     padding-top: 72px;
     position: relative;
     overflow: hidden;
+    text-align: center;
   }
   .hero-bg-blob {
     position: absolute;
