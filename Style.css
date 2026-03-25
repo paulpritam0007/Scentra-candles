@@ -463,18 +463,6 @@ body, body * {
     gap: 20px;
     transform: rotate(3deg);
   }
-  .hero-candle-card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 28px 20px;
-    text-align: center;
-    box-shadow: 0 8px 40px rgba(107,26,42,0.1);
-    transition: transform 0.3s;
-    animation: float 4s ease-in-out infinite;
-  }
-  .hero-candle-card:nth-child(2) { animation-delay: 0.5s; margin-top: 30px; }
-  .hero-candle-card:nth-child(3) { animation-delay: 1s; }
-  .hero-candle-card:nth-child(4) { animation-delay: 1.5s; margin-top: -20px; }
   @keyframes float {
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
