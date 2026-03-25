@@ -4040,3 +4040,57 @@ header .btn-primary {
 .btn-cart-add span, .btn-customise span {
     display: inline-block !important;
 }
+/* ══════════════════════════════════════════════════════
+   NAVBAR ALIGNMENT: CONTACT & MY ACCOUNT
+══════════════════════════════════════════════════════ */
+
+/* 1. Force the Navbar to align all items to the center line */
+nav, .navbar, header .container {
+    display: flex !important;
+    align-items: center !important; /* Vertical center */
+    justify-content: flex-end !important; /* Push buttons to the right */
+    gap: 15px !important; /* Space between the oval buttons */
+    height: 80px !important; /* Adjust based on your logo height */
+}
+
+/* 2. Standardize the Button Wrapper */
+.nav-right, .header-actions, .auth-buttons {
+    display: flex !important;
+    flex-direction: row !important; /* Ensure they don't stack */
+    align-items: center !important;
+    gap: 12px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 3. Final Oval Shape & Alignment Fix */
+.nav-links a.nav-cta, 
+.nav-links a[href*="contact"], 
+.nav-links a[href*="account"],
+.btn-contact,
+#my-account-btn {
+    /* Resetting any weird margins that cause jumping */
+    margin: 0 !important; 
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    
+    /* The Oval Geometry */
+    height: 38px !important;
+    padding: 0 25px !important;
+    border-radius: 100px !important;
+    
+    /* Typography */
+    font-size: 0.65rem !important;
+    letter-spacing: 0.12em !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+}
+
+/* 4. Theme Toggle / Icon Alignment */
+/* Ensure the moon/sun icon also sits on the same center line */
+#theme-toggle, .theme-icon-wrapper {
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
