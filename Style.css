@@ -3154,3 +3154,62 @@ nav, .navbar, header .container {
     display: flex !important;
     align-items: center !important;
 }
+/* ══════════════════════════════════════════════════════
+   NAVBAR ALIGNMENT & OVAL BUTTON OVERRIDE
+══════════════════════════════════════════════════════ */
+
+/* 1. Perfect Vertical & Horizontal Alignment for the Nav */
+nav {
+  display: flex !important;
+  align-items: center !important;            /* Centers everything vertically */
+  justify-content: space-between !important; /* Keeps Logo left, Links right */
+  padding: 0 40px !important;
+  height: 80px !important;                   /* Adjust this if you want a thicker/thinner bar */
+}
+
+/* 2. Align all the links inside the container */
+.nav-links {
+  display: flex !important;
+  align-items: center !important;            /* Forces links and buttons to the same vertical center line */
+  gap: 28px !important;                      /* Space between the normal text links */
+  margin: 0 !important;
+}
+
+/* 3. Standardize normal nav links so they don't jump on hover */
+.nav-links a:not(.nav-cta) {
+  display: inline-flex !important;
+  align-items: center !important;
+  height: auto !important;
+  padding: 5px 0 !important;
+  line-height: 1 !important;
+}
+
+/* 4. The Perfect Oval Shape for the Nav Button */
+.nav-links a.nav-cta,
+.nav-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  
+  /* Geometry for the Oval/Pill shape */
+  height: 44px !important;                   /* Fixed height */
+  padding: 0 36px !important;                /* Wide side padding stretches it into an oval */
+  border-radius: 100px !important;           /* Extreme border-radius creates perfect curves */
+  
+  white-space: nowrap !important;            /* Stops text from wrapping to two lines */
+  margin-left: 10px !important;              /* Extra breathing room before the button */
+  line-height: 1 !important;
+  
+  /* Inherit your existing colors */
+  background: var(--s-maroon) !important;
+  color: #ffffff !important;
+  border: 1.5px solid var(--s-maroon) !important;
+}
+
+/* 5. Ensure the Theme Toggle aligns perfectly with the new layout */
+#theme-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 16px !important;
+}
