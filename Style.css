@@ -3610,6 +3610,89 @@ html, body {
   min-height: 100vh !important;
   margin: 0 !important;
 }
+/* ══════════════════════════════════════════════════════
+   SCENTRA: ANCIENT HINDU RITUAL OVERHAUL
+══════════════════════════════════════════════════════ */
+
+:root {
+  /* Brand Palette */
+  --s-white:  #FFFFFF;
+  --s-beige:  #F5F0E1; /* Chandan / Sandalwood tint */
+  --s-pink:   #E8A0B5; /* Soft Lotus Pink */
+  --s-maroon: #800000; /* Deep Kumkum Maroon */
+  --s-gold:   #D4AF37; /* Sacred Brass/Gold */
+  
+  /* Layout Overrides */
+  --s-ivory: var(--s-beige) !important;
+  --s-ink: var(--s-maroon) !important;
+  --s-ink-2: #4A2B2B !important; /* Earthy brown-maroon for text */
+}
+
+/* 2. FIX: Image Scaling (No more "half" images) */
+.product-img {
+  aspect-ratio: 4 / 5 !important; /* Elegant vertical portrait ratio */
+  background: var(--s-white) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  border-bottom: 1px solid rgba(128, 0, 0, 0.1) !important;
+}
+
+.product-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* Shows the WHOLE product/crockery without cropping */
+  padding: 15px !important; /* Space so crockery doesn't touch the edges */
+  transition: transform 0.8s ease !important;
+}
+
+/* 3. CULTURAL TOUCHES: The "Shlok" & Ritual Feel */
+.product-card::after {
+  content: "— Includes a Sacred Gita Shlok —" !important;
+  display: block !important;
+  font-family: var(--s-italic) !important;
+  font-size: 0.65rem !important;
+  color: var(--s-gold) !important;
+  text-align: center !important;
+  padding-bottom: 12px !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Greeting Card Badge */
+.product-mood-badge {
+  background: var(--s-pink) !important;
+  color: var(--s-white) !important;
+  border: none !important;
+  font-size: 0.5rem !important;
+  padding: 4px 10px !important;
+  border-radius: 50px !important; /* Soft pill shape for the card notice */
+}
+
+/* Ancient Typography Refresh */
+h1, h2, h3, .nav-logo {
+  color: var(--s-maroon) !important;
+  text-transform: uppercase !important;
+}
+
+/* Button Stylings */
+.btn-primary, .btn-cart-add {
+  background: var(--s-maroon) !important;
+  color: var(--s-white) !important;
+  border: 1px solid var(--s-maroon) !important;
+}
+
+.btn-primary:hover {
+  background: transparent !important;
+  color: var(--s-maroon) !important;
+}
+
+/* Page Background */
+body {
+  background-color: var(--s-beige) !important;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px) !important;
+  background-size: 40px 40px !important; /* Subtle "mandala" dot grid effect */
+}
 
 
 
