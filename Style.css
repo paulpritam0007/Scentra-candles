@@ -277,7 +277,7 @@ nav {
   max-width: 720px;
 }
 .hero-eyebrow {
-  font-size: 0.65rem; text-transform: uppercase;
+  font-size: 1rem; text-transform: uppercase;
   color: var(--pink-light); margin-bottom: 24px;
   text-shadow: 0 1px 4px rgba(0,0,0,0.4);
 }
@@ -301,7 +301,7 @@ nav {
    BUTTONS
 ══════════════════════════════════════ */
 .btn-primary {
-  background: var(--maroon); color: #6b1a2a;
+  background: var(--beige); color: #6b1a2a;
   padding: 14px 40px; border-radius: 50px;
   border: none; font-family: 'Jost', sans-serif;
   font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
