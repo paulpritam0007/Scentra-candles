@@ -3803,5 +3803,75 @@ footer h4, footer .footer-logo, #footer h3 {
 /* Footer Links & Text */
 footer a, footer p {
   color: rgba(245, 240, 225, 0.7) !important; /* Muted beige */
+/* ══════════════════════════════════════════════════════
+   SCENTRA LUXURY BUTTONS & DEEP RITUAL FOOTER
+══════════════════════════════════════════════════════ */
 
+/* 1. THE BUTTONS: Minimalist, Serif, Ritual-Ready */
+.btn-primary, .btn-cart-add, .btn-contact, .btn-outline {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 32px !important;
+  font-family: var(--s-display) !important; /* Elegant Serif */
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  border-radius: 0 !important; /* Sharp corners = Ancient/High-end */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Primary/Cart Buttons: Solid Maroon with Gold hairline */
+.btn-primary, .btn-cart-add, .btn-contact {
+  background: var(--s-maroon) !important;
+  color: var(--s-white) !important;
+  border: 1px solid var(--s-maroon) !important;
+  box-shadow: 0 4px 15px rgba(128, 0, 0, 0.1) !important;
+}
+
+.btn-primary:hover, .btn-cart-add:hover, .btn-contact:hover {
+  background: transparent !important;
+  color: var(--s-maroon) !important;
+  border-color: var(--s-maroon) !important;
+  box-shadow: none !important;
+}
+
+/* Secondary/Outline Buttons: Delicate Rose/Beige */
+.btn-outline {
+  background: transparent !important;
+  color: var(--s-maroon) !important;
+  border: 1px solid var(--s-maroon) !important;
+}
+
+.btn-outline:hover {
+  background: var(--s-maroon) !important;
+  color: var(--s-white) !important;
+}
+
+/* 2. THE FOOTER: Deep "Kumkum" Anchor */
+footer, #footer {
+  background-color: #2D0000 !important; /* Deepest Maroon - Darker than rest */
+  color: var(--s-beige) !important; /* Sandalwood text on dark bg */
+  padding: 80px 40px 40px !important;
+  border-top: 1px solid var(--s-gold) !important; /* Brass divider line */
+  text-align: center !important;
+}
+
+/* Footer Headings */
+footer h4, footer .footer-logo, #footer h3 {
+  color: var(--s-gold) !important;
+  font-family: var(--s-display) !important;
+  letter-spacing: 0.15em !important;
+  text-transform: uppercase !important;
+  margin-bottom: 25px !important;
+}
+
+/* Footer Links & Text */
+footer a, footer p {
+  color: rgba(245, 240, 225, 0.7) !important; /* Muted beige */
 
