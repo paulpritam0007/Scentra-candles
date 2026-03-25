@@ -3988,3 +3988,55 @@ footer a, footer p {
   align-items: center !important;
   width: 100% !important;
 }
+/* ══════════════════════════════════════════════════════
+   SCENTRA OVAL/CYLINDRICAL BUTTON OVERHAUL
+══════════════════════════════════════════════════════ */
+
+/* 1. TOP NAV BUTTONS (Contact & My Account) */
+.nav-links a.nav-cta, 
+.nav-links a[href*="contact"], 
+.nav-links a[href*="account"],
+header .btn-primary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;            /* Fixed height */
+    padding: 0 35px !important;         /* Wide padding creates the oval */
+    border-radius: 100px !important;    /* Extreme radius for perfect curves */
+    width: auto !important;             /* Allow width to grow with text */
+    white-space: nowrap !important;
+    border: 1px solid var(--s-maroon) !important;
+}
+
+/* 2. FLOATING & PRODUCT BUTTONS (Customise & Add to Cart) */
+/* This converts the square/circles into wide Ovals */
+.btn-cart-add, 
+.btn-customise, 
+[class*="customise"], 
+.add-to-cart-btn,
+.floating-cart-icon {
+    width: auto !important;             /* Kill the square width */
+    min-width: 140px !important;        /* Minimum width to ensure oval look */
+    height: 50px !important;            /* Shorter height */
+    border-radius: 100px !important;    /* Smooth cylindrical ends */
+    aspect-ratio: auto !important;      /* Undo any circle constraints */
+    display: inline-flex !important;
+    flex-direction: row !important;     /* Horizontal text */
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 25px !important;
+    gap: 8px !important;
+}
+
+/* 3. FIX FOR THE FLOATING ICONS (Bottom Right) */
+/* If you want the bottom right icons to be ovals instead of squares */
+.customise-trigger, .cart-trigger {
+    border-radius: 50px !important;
+    width: 120px !important; 
+    height: 50px !important;
+}
+
+/* Ensure the text inside buttons doesn't stack vertically */
+.btn-cart-add span, .btn-customise span {
+    display: inline-block !important;
+}
