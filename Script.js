@@ -916,18 +916,3 @@ document.addEventListener('click', function(e) {
   if (labelEl) labelEl.textContent = scnc.scent.toUpperCase().slice(0,8);
   if (next2)   next2.disabled = false;
 });
-
-// Show popup on first visit
-(function() {
-  if (sessionStorage.getItem('scnc_popup_seen')) return;
-  sessionStorage.setItem('scnc_popup_seen', '1');
-  setTimeout(() => {
-    const overlay = document.getElementById('scnc-overlay');
-    const popup   = document.getElementById('scnc-popup');
-    if (overlay && popup) {
-      overlay.style.display = 'block';
-      popup.style.display   = 'block';
-      document.body.style.overflow = 'hidden';
-    }
-  }, 2000);
-})();
