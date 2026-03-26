@@ -13,7 +13,7 @@ gtag('config', 'G-JLEBV8JP9X');
 <meta name="description" content="Handcrafted soy candles in Kolkata. Mood-based fragrances for romance, calm, happiness and relaxation. Shop Scentra candles online.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scentra | India's Own Heritage</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cinzel+Decorative:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <link rel="stylesheet" href="Style.css">
 <link rel="icon" type="image/png" href="icon-192.png">
@@ -37,6 +37,181 @@ gtag('config', 'G-JLEBV8JP9X');
 </div>
 
 <style>
+/* ============================================================
+   SCENTRA — Sacred India Overhaul Styles
+   ============================================================ */
+
+/* Parchment noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Typography */
+h1, h2, h3, h4, .hero-title, .section-title, .nav-logo, .footer-logo {
+  font-family: 'Cinzel', serif !important;
+  letter-spacing: 0.06em;
+}
+.nav-logo, .footer-logo {
+  font-family: 'Cinzel Decorative', serif !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.12em;
+}
+p, li, label, .section-sub, .hero-sub, .perk__label,
+.about-text p, .value-text p, .contact-item p {
+  font-family: 'Crimson Text', serif !important;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.section-tag, .filter-label, .filter-btn, .nav-links a,
+.hero-eyebrow, .perks-section__subtitle {
+  font-family: 'Jost', sans-serif !important;
+}
+
+/* Ceremonial greeting bar */
+.scn-namaste-bar {
+  width: 100%;
+  text-align: center;
+  padding: 0.45rem 1rem;
+  background: var(--maroon, #6b1a2a);
+  font-family: 'Crimson Text', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  letter-spacing: 0.18em;
+  color: rgba(253, 245, 230, 0.85);
+  position: relative;
+  z-index: 999;
+}
+.scn-namaste-bar span { font-style: normal; margin: 0 0.5rem; opacity: 0.5; }
+
+/* Lotus divider overriding existing .divider */
+.divider {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.75rem !important;
+  margin: 1.2rem auto 1.8rem !important;
+  width: 100% !important;
+  max-width: 420px !important;
+  height: auto !important;
+  background: none !important;
+  border: none !important;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  opacity: 0.3;
+}
+.divider::before { background: linear-gradient(to right, transparent, var(--maroon, #6b1a2a), transparent); }
+.divider::after  { background: linear-gradient(to left,  transparent, var(--maroon, #6b1a2a), transparent); }
+
+/* Shloka of the Day card */
+.scn-shloka-card {
+  max-width: 780px;
+  margin: 0 auto 1rem;
+  padding: 2.5rem 3rem;
+  background: rgba(253, 245, 230, 0.6);
+  border: 1px solid rgba(107, 26, 42, 0.18);
+  border-radius: 2px;
+  text-align: center;
+  position: relative;
+  backdrop-filter: blur(2px);
+}
+.scn-shloka-card::before, .scn-shloka-card::after {
+  content: '✦';
+  position: absolute;
+  top: 0.75rem;
+  font-size: 0.65rem;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.4;
+}
+.scn-shloka-card::before { left: 1rem; }
+.scn-shloka-card::after  { right: 1rem; }
+.scn-shloka-card__eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.65;
+  margin-bottom: 1.2rem;
+}
+.scn-shloka-card__sanskrit {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  line-height: 1.9;
+  color: var(--maroon, #6b1a2a);
+  margin-bottom: 1rem;
+  letter-spacing: 0.03em;
+}
+.scn-shloka-card__translation {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.98rem;
+  color: var(--text-light, #7a5c62);
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 0.85rem;
+}
+.scn-shloka-card__ref {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.45;
+}
+.scn-shloka-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.75rem; margin: 0 0 1.5rem; width: 100%;
+}
+.scn-shloka-divider__line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(107,26,42,0.3), transparent);
+}
+
+/* Post-purchase shloka */
+.scn-order-shloka {
+  margin-top: 1.5rem;
+  padding: 1.5rem 1.75rem;
+  background: rgba(253, 245, 230, 0.55);
+  border: 1px solid rgba(107, 26, 42, 0.15);
+  border-radius: 2px;
+  text-align: center;
+}
+.scn-order-shloka__label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.55;
+  margin-bottom: 0.75rem;
+}
+.scn-order-shloka__text {
+  font-family: 'Crimson Text', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--maroon, #6b1a2a);
+  line-height: 1.8;
+}
+.scn-order-shloka__ref {
+  margin-top: 0.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--text-light, #7a5c62);
+  opacity: 0.55;
+}
+
+/* Intro */
 #scn-intro-container {
   position: fixed; inset: 0; z-index: 9999999;
   background: #000; display: flex; align-items: center; justify-content: center;
@@ -47,10 +222,7 @@ gtag('config', 'G-JLEBV8JP9X');
   position: relative; width: 100%; height: 100%;
   display: flex; align-items: center; justify-content: center;
 }
-#scn-main-video {
-  width: 100%; height: 100%; object-fit: cover; opacity: 0;
-  transition: opacity 0.4s ease;
-}
+#scn-main-video { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.4s ease; }
 #scn-main-video.visible { opacity: 1; }
 #scn-transition-flash {
   position: absolute; inset: 0; background: #fdfaf5; opacity: 0;
@@ -58,6 +230,53 @@ gtag('config', 'G-JLEBV8JP9X');
 }
 #scn-intro-container.exit { opacity: 0; pointer-events: none; }
 body.intro-active { overflow: hidden; }
+
+/* Perks */
+#perks { background: var(--beige-warm, #faf9f7); }
+.perks-section { padding: 5rem 2rem; text-align: center; }
+.perks-section__title {
+  font-family: 'Cinzel', serif !important;
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 400; letter-spacing: 0.08em; color: var(--maroon); margin-bottom: 0.4rem;
+}
+.perks-section__subtitle {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 0.68rem; font-weight: 300; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--text-light); margin-bottom: 3rem;
+}
+.perks-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 2rem 1rem; max-width: 860px; margin: 0 auto;
+}
+.perk {
+  display: flex; flex-direction: column; align-items: center; gap: 0.9rem;
+  opacity: 0; transform: translateY(16px); animation: perkFadeUp 0.5s ease forwards;
+}
+.perk:nth-child(1) { animation-delay: 0.05s; }
+.perk:nth-child(2) { animation-delay: 0.12s; }
+.perk:nth-child(3) { animation-delay: 0.19s; }
+.perk:nth-child(4) { animation-delay: 0.26s; }
+.perk:nth-child(5) { animation-delay: 0.33s; }
+@keyframes perkFadeUp { to { opacity: 1; transform: translateY(0); } }
+.perk__icon {
+  width: 88px; height: 88px; border-radius: 16px;
+  border: 1px solid rgba(107, 26, 42, 0.18);
+  background: rgba(253, 245, 230, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.perk:hover .perk__icon { border-color: rgba(107, 26, 42, 0.4); transform: translateY(-3px); }
+.perk__icon svg { width: 42px; height: 42px; }
+.perk__label {
+  font-family: 'Crimson Text', serif !important;
+  font-size: 0.88rem; color: var(--text-light); line-height: 1.55; max-width: 108px;
+}
+@media (max-width: 700px) { .perks-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 440px) { .perks-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) {
+  .scn-shloka-card { padding: 1.75rem 1.25rem; }
+  .scn-shloka-card__sanskrit { font-size: 1rem; }
+}
 </style>
 
 <script>
@@ -67,8 +286,8 @@ body.intro-active { overflow: hidden; }
     return;
   }
   const container = document.getElementById('scn-intro-container');
-  const video = document.getElementById('scn-main-video');
-  const flash = document.getElementById('scn-transition-flash');
+  const video     = document.getElementById('scn-main-video');
+  const flash     = document.getElementById('scn-transition-flash');
   document.body.classList.add('intro-active');
 
   async function startIntro() {
@@ -76,15 +295,10 @@ body.intro-active { overflow: hidden; }
       video.playbackRate = 1.25;
       video.classList.add('visible');
       await video.play();
-      video.onended = () => { completeIntro(); };
-      setTimeout(() => {
-        if (!container.classList.contains('exit')) completeIntro();
-      }, 9000);
-    } catch (err) {
-      completeIntro();
-    }
+      video.onended = () => completeIntro();
+      setTimeout(() => { if (!container.classList.contains('exit')) completeIntro(); }, 9000);
+    } catch (err) { completeIntro(); }
   }
-
   function completeIntro() {
     flash.style.opacity = "1";
     setTimeout(() => {
@@ -96,18 +310,19 @@ body.intro-active { overflow: hidden; }
       }, 500);
     }, 250);
   }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', startIntro);
-  } else {
-    startIntro();
-  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startIntro);
+  else startIntro();
 })();
 </script>
 
 <!-- CURSOR -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
+
+<!-- CEREMONIAL GREETING BAR -->
+<div class="scn-namaste-bar">
+  <span>✦</span> नमस्ते &nbsp;·&nbsp; स्वागतम् &nbsp;·&nbsp; Welcome to Scentra <span>✦</span>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -156,12 +371,38 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
+<!-- SHLOKA OF THE DAY -->
+<section id="shloka-section" style="padding: 4rem 2rem 2rem; background: var(--beige-warm, #faf9f7);">
+  <div class="scn-shloka-card reveal">
+    <div class="scn-shloka-card__eyebrow">✦ &nbsp; Shloka of the Day &nbsp; ✦</div>
+    <div class="scn-shloka-divider">
+      <div class="scn-shloka-divider__line"></div>
+      <svg width="26" height="26" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;opacity:0.5;">
+        <path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)"/>
+        <path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)"/>
+        <path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)"/>
+        <path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)"/>
+        <circle cx="14" cy="14" r="2.2" fill="var(--maroon,#6b1a2a)"/>
+      </svg>
+      <div class="scn-shloka-divider__line" style="background:linear-gradient(to left,transparent,rgba(107,26,42,0.3),transparent);"></div>
+    </div>
+    <p class="scn-shloka-card__sanskrit" id="shloka-sanskrit">
+      यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।<br>
+      अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥
+    </p>
+    <p class="scn-shloka-card__translation" id="shloka-translation">
+      "Whenever righteousness declines and unrighteousness rises,<br>I manifest Myself, O Bharata."
+    </p>
+    <div class="scn-shloka-card__ref" id="shloka-ref">— Bhagavad Gita, Chapter 4, Verse 7</div>
+  </div>
+</section>
+
 <!-- SHOP -->
 <section id="pricing">
   <div class="reveal">
     <span class="section-tag">Our Collection</span>
     <h2 class="section-title">Find Your Candle</h2>
-    <div class="divider"></div>
+    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
     <p class="section-sub">Sort by mood, price, or let your heart decide. Every candle tells a story.</p>
   </div>
   <div class="filter-bar reveal">
@@ -206,7 +447,7 @@ body.intro-active { overflow: hidden; }
   <div class="about-text reveal">
     <span class="section-tag">Our Story</span>
     <h2 class="section-title">Scent is the language<br>of the <em>soul</em></h2>
-    <div class="divider"></div>
+    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
     <p class="section-sub"><strong>Hello Consumer!</strong><br> My name is <em>Priyasha Dutta</em><br> Managing Director | Founder of Scentra Candles<br>Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment — turning an ordinary evening into something special.</p>
     <div class="about-values">
       <div class="value-item">
@@ -230,18 +471,15 @@ body.intro-active { overflow: hidden; }
   <div class="reveal">
     <span class="section-tag">Customer Love</span>
     <h2 class="section-title">What people are saying</h2>
-    <div class="divider"></div>
+    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
   </div>
   <div class="reviews-layout">
     <div class="review-form-wrap">
       <h3>Leave a Review</h3>
       <p>Share your experience with our candles</p>
       <div class="star-input" id="star-input">
-        <span data-val="1">★</span>
-        <span data-val="2">★</span>
-        <span data-val="3">★</span>
-        <span data-val="4">★</span>
-        <span data-val="5">★</span>
+        <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span>
+        <span data-val="4">★</span><span data-val="5">★</span>
       </div>
       <div class="form-group">
         <label>Your Name</label>
@@ -249,9 +487,7 @@ body.intro-active { overflow: hidden; }
       </div>
       <div class="form-group">
         <label>Product</label>
-        <select id="r-product">
-          <option value="">Select a candle...</option>
-        </select>
+        <select id="r-product"><option value="">Select a candle...</option></select>
       </div>
       <div class="form-group">
         <label>Your Review</label>
@@ -270,7 +506,7 @@ body.intro-active { overflow: hidden; }
   <div class="reveal">
     <span class="section-tag">Get In Touch</span>
     <h2 class="section-title">We'd love to hear<br>from you</h2>
-    <div class="divider"></div>
+    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
     <p class="section-sub">Questions, custom orders, or just want to say "Hello! we're here."</p>
   </div>
   <div class="contact-layout">
@@ -324,38 +560,28 @@ body.intro-active { overflow: hidden; }
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- PERKS SECTION — paste CSS into Style.css, not here          -->
-<!-- ============================================================ -->
+<!-- PERKS SECTION -->
 <section id="perks">
   <div class="perks-section">
-    <h2 class="perks-section__title">At your service</h2>
-    <p class="perks-section__subtitle">Every order, every time</p>
-
+    <h2 class="perks-section__title">At Your Service</h2>
+    <p class="perks-section__subtitle">✦ &nbsp; Every order, every time &nbsp; ✦</p>
     <div class="perks-grid">
-
-      <!-- Free Shipping -->
       <div class="perk">
         <div class="perk__icon">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="9" y="13" width="26" height="20" rx="3" stroke="var(--maroon)" stroke-width="1.2"/>
             <path d="M9 18h26" stroke="var(--maroon)" stroke-width="1.2"/>
             <path d="M14 26h6M14 30h10" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
-            <path d="M30 7l4 6" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
-            <path d="M22 7v5" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
-            <path d="M14 7l-4 6" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M30 7l4 6M22 7v5M14 7l-4 6" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
           </svg>
         </div>
         <span class="perk__label">Free shipping on orders over ₹800</span>
       </div>
-
-      <!-- Gift Box -->
       <div class="perk">
         <div class="perk__icon">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="10" y="10" width="24" height="28" rx="3" stroke="var(--maroon)" stroke-width="1.2"/>
-            <path d="M10 17h24" stroke="var(--maroon)" stroke-width="1.2"/>
-            <path d="M22 10v7" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M10 17h24M22 10v7" stroke="var(--maroon)" stroke-width="1.2"/>
             <path d="M16 23h12M16 27h8" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
             <circle cx="30" cy="30" r="5" fill="var(--beige-warm)" stroke="var(--maroon)" stroke-width="1.1"/>
             <path d="M28 30l1.5 1.5L32 28" stroke="var(--maroon)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
@@ -363,8 +589,6 @@ body.intro-active { overflow: hidden; }
         </div>
         <span class="perk__label">Free gift box with every order</span>
       </div>
-
-      <!-- Try Before You Buy -->
       <div class="perk">
         <div class="perk__icon">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -377,8 +601,6 @@ body.intro-active { overflow: hidden; }
         </div>
         <span class="perk__label">Try before you buy — fragrances</span>
       </div>
-
-      <!-- Two Free Samples -->
       <div class="perk">
         <div class="perk__icon">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -387,14 +609,11 @@ body.intro-active { overflow: hidden; }
             <path d="M9 21h11M24 21h11" stroke="var(--pink)" stroke-width="1" stroke-linecap="round"/>
             <circle cx="14.5" cy="9.5" r="2" stroke="var(--pink)" stroke-width="1"/>
             <circle cx="29.5" cy="9.5" r="2" stroke="var(--pink)" stroke-width="1"/>
-            <path d="M14.5 11.5v2.5M29.5 11.5v2.5" stroke="var(--pink)" stroke-width="1" stroke-linecap="round"/>
-            <path d="M17 36l5-3 5 3" stroke="var(--pink)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14.5 11.5v2.5M29.5 11.5v2.5M17 36l5-3 5 3" stroke="var(--pink)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <span class="perk__label">Two free samples with all orders</span>
       </div>
-
-      <!-- Welcome Gift -->
       <div class="perk">
         <div class="perk__icon">
           <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -405,15 +624,24 @@ body.intro-active { overflow: hidden; }
         </div>
         <span class="perk__label">Welcome gift for new customers</span>
       </div>
-
     </div>
   </div>
 </section>
-<!-- ============================================================ -->
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Scentra<span>✦</span></div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:0.6rem;margin:0.75rem auto 1rem;max-width:280px;opacity:0.3;">
+    <div style="flex:1;height:1px;background:rgba(253,245,230,0.5);"></div>
+    <svg width="16" height="16" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="#fdf5e6"/>
+      <path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="#fdf5e6"/>
+      <path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="#fdf5e6"/>
+      <path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="#fdf5e6"/>
+      <circle cx="14" cy="14" r="2.2" fill="#fdf5e6"/>
+    </svg>
+    <div style="flex:1;height:1px;background:rgba(253,245,230,0.5);"></div>
+  </div>
   <p>© 2023 Scentra Candles. Handcrafted with love in Kolkata, West Bengal, India.</p>
   <p style="color:rgba(255,255,255,0.25);font-size:0.72rem;">Pure soy · Natural wicks · No synthetics<br>Made with ❤️ by <em>Pritam Paul</em></p>
 </footer>
@@ -425,18 +653,12 @@ body.intro-active { overflow: hidden; }
     <h3>Order Candle</h3>
     <p style="font-size:0.83rem;color:var(--text-light);margin-bottom:0">Complete your purchase securely via Razorpay</p>
     <div class="modal-product-info" id="modal-product-info"></div>
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" id="order-name" placeholder="Full name">
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="order-email" placeholder="your@email.com">
-    </div>
+    <div class="form-group"><label>Your Name</label><input type="text" id="order-name" placeholder="Full name"></div>
+    <div class="form-group"><label>Email</label><input type="email" id="order-email" placeholder="your@email.com"></div>
     <div class="qty-input">
       <label>Quantity:</label>
       <input type="number" id="order-qty" value="1" min="1" max="20" onchange="updateTotal()">
-      <span id="order-total" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--maroon);"></span>
+      <span id="order-total" style="font-family:'Cinzel',serif;font-size:1.1rem;color:var(--maroon);"></span>
     </div>
     <button class="btn-pay" onclick="initiatePayment()">Pay with Razorpay ✦</button>
     <p class="pay-note">Secured by Razorpay · 100% safe & encrypted</p>
@@ -445,7 +667,7 @@ body.intro-active { overflow: hidden; }
 
 <!-- CART FAB -->
 <button class="cart-fab" id="cart-fab" onclick="openCart()">
-  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="26" height="26">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#fdf5e6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24">
     <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
     <line x1="3" y1="6" x2="21" y2="6"/>
     <path d="M16 10a4 4 0 01-8 0"/>
@@ -487,7 +709,18 @@ body.intro-active { overflow: hidden; }
       <h3>Order Placed!</h3>
       <p>Thank you! We've received your order and will be in touch shortly.</p>
       <div class="order-id-badge">Order ID: <strong id="success-order-id">—</strong></div>
-      <button class="btn-checkout" onclick="closeCheckout()" style="max-width:220px;margin:0 auto;">Back to Shop ✦</button>
+
+      <!-- POST-PURCHASE SHLOKA -->
+      <div class="scn-order-shloka">
+        <div class="scn-order-shloka__label">✦ &nbsp; Wisdom for Your Light &nbsp; ✦</div>
+        <p class="scn-order-shloka__text">
+          "तेजस्वि नावधीतमस्तु मा विद्विषावहै।"<br>
+          <em style="font-size:0.9rem;opacity:0.75;">May what we kindle together illuminate us both.<br>May we never turn against one another.</em>
+        </p>
+        <div class="scn-order-shloka__ref">— Taittiriya Upanishad</div>
+      </div>
+
+      <button class="btn-checkout" onclick="closeCheckout()" style="max-width:220px;margin:1.5rem auto 0;">Back to Shop ✦</button>
     </div>
     <div id="checkout-form-wrap">
       <div class="checkout-header">
@@ -499,10 +732,7 @@ body.intro-active { overflow: hidden; }
         <div class="checkout-items-summary">
           <h4>Your Order</h4>
           <div id="checkout-items-rows"></div>
-          <div class="checkout-total-row">
-            <span>Total</span>
-            <span id="checkout-grand-total">₹0</span>
-          </div>
+          <div class="checkout-total-row"><span>Total</span><span id="checkout-grand-total">₹0</span></div>
         </div>
         <div class="checkout-section-label">Delivery Details</div>
         <div class="co-form-grid">
@@ -597,9 +827,9 @@ body.intro-active { overflow: hidden; }
             <rect x="18" y="122" width="104" height="148" rx="14" ry="14" fill="url(#scnc-jar-grad)" pointer-events="none"/>
             <rect x="14" y="116" width="112" height="14" rx="7" ry="7" fill="rgba(190,190,200,0.45)" stroke="rgba(200,200,220,0.6)" stroke-width="1.5"/>
             <rect id="scnc-label-bg" x="30" y="185" width="80" height="46" rx="6" fill="rgba(255,255,255,0.72)" stroke="rgba(107,26,42,0.18)" stroke-width="1"/>
-            <text id="scnc-label-brand" x="70" y="202" text-anchor="middle" font-family="'Playfair Display',serif" font-size="9" fill="#6b1a2a" font-style="italic">Scentra</text>
+            <text id="scnc-label-brand" x="70" y="202" text-anchor="middle" font-family="'Cinzel',serif" font-size="9" fill="#6b1a2a">Scentra</text>
             <text id="scnc-label-scent" x="70" y="218" text-anchor="middle" font-family="'Jost',sans-serif" font-size="7.5" fill="#9e6370" letter-spacing="1.5">CUSTOM</text>
-            <text id="scnc-label-sub" x="70" y="228" text-anchor="middle" font-family="'Jost',sans-serif" font-size="6" fill="#c4a0a8" letter-spacing="0.8">soy wax candle</text>
+            <text id="scnc-label-sub" x="70" y="228" text-anchor="middle" font-family="'Crimson Text',serif" font-size="6" fill="#c4a0a8" letter-spacing="0.8">soy wax candle</text>
           </svg>
         </div>
         <div class="scnc-chips">
@@ -607,9 +837,7 @@ body.intro-active { overflow: hidden; }
             <span class="scnc-chip-dot" id="scnc-chip-dot" style="background:#f0f0f0;"></span>
             <span id="scnc-chip-color-lbl">Ivory White</span>
           </div>
-          <div class="scnc-chip">
-            <span id="scnc-chip-scent-lbl">No scent yet</span>
-          </div>
+          <div class="scnc-chip"><span id="scnc-chip-scent-lbl">No scent yet</span></div>
         </div>
       </div>
       <div class="scnc-form-panel">
@@ -672,6 +900,117 @@ body.intro-active { overflow: hidden; }
   <span class="scnc-trigger-icon">🕯️</span>
   <span class="scnc-trigger-label">Customise</span>
 </button>
+
+<!-- SHLOKA ROTATION + SPIRITUAL RESONANCE INJECTION -->
+<script>
+// ── Shloka rotation ──────────────────────────────────────────
+const SCN_SHLOKAS = [
+  {
+    sanskrit: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।<br>अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥",
+    translation: '"Whenever righteousness declines and unrighteousness rises,<br>I manifest Myself, O Bharata."',
+    ref: "— Bhagavad Gita, Chapter 4, Verse 7"
+  },
+  {
+    sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+    translation: '"You have the right to perform your duty,<br>but not to the fruits thereof."',
+    ref: "— Bhagavad Gita, Chapter 2, Verse 47"
+  },
+  {
+    sanskrit: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।<br>अहं त्वा सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥",
+    translation: '"Abandon all duties and take refuge in Me alone.<br>I shall liberate you from all sins; do not grieve."',
+    ref: "— Bhagavad Gita, Chapter 18, Verse 66"
+  },
+  {
+    sanskrit: "तमेव भान्तमनुभाति सर्वं<br>तस्य भासा सर्वमिदं विभाति।",
+    translation: '"Everything shines only after that shining light;<br>by its light alone is all this illumined."',
+    ref: "— Mundaka Upanishad, 2.2.10"
+  },
+  {
+    sanskrit: "असतो मा सद्गमय।<br>तमसो मा ज्योतिर्गमय।",
+    translation: '"Lead me from the unreal to the real.<br>Lead me from darkness to light."',
+    ref: "— Brihadaranyaka Upanishad, 1.3.28"
+  }
+];
+
+function scnLoadDailyShloka() {
+  const d = new Date();
+  const idx = (d.getFullYear() * 365 + d.getMonth() * 31 + d.getDate()) % SCN_SHLOKAS.length;
+  const s = SCN_SHLOKAS[idx];
+  const sanskrit = document.getElementById('shloka-sanskrit');
+  const trans    = document.getElementById('shloka-translation');
+  const ref      = document.getElementById('shloka-ref');
+  if (sanskrit) sanskrit.innerHTML = s.sanskrit;
+  if (trans)    trans.innerHTML    = s.translation;
+  if (ref)      ref.textContent    = s.ref;
+}
+
+// ── Spiritual Resonance injection into product cards ─────────
+const SCN_RESONANCE = {
+  "sandalwood": "Chandan (Sandalwood) has been used in Hindu puja rituals for millennia — anointing temple idols, calming the mind during meditation, and connecting the devotee to the divine. Its earthy warmth is the scent of consecrated space.",
+  "jasmine":    "Mogra (Jasmine) garlands adorn deities in temples across Bharat, offered at dawn as the purest of flowers. In Ayurveda, its fragrance is believed to open the heart chakra and dissolve anxiety.",
+  "rose":       "The rose holds sacred place in both Shaiva and Vaishnava traditions — offered at shrines, distilled into attar, and woven into garlands for weddings and worship. Its scent evokes Bhakti, the path of love.",
+  "oud":        "Agarwood (Oud) has been burned as incense in temples and royal courts since the Vedic age. Known as 'liquid gold,' its deep, resinous smoke is said to purify the atmosphere and elevate consciousness.",
+  "lavender":   "Lavender's calming essence mirrors the practice of Trataka — the yogic act of focused gaze — stilling the restless mind and drawing awareness inward toward the Atman.",
+  "vanilla":    "Vanilla's sweet warmth echoes the richness of Panchamrita — the sacred five-nectar offering of milk, yogurt, honey, ghee, and sugar — a reminder that sweetness itself is a form of the divine.",
+  "citrus":     "Citrus fragrances recall the freshness of dawn pujas, the scent of freshly squeezed nimbu (lemon) offerings, and the brightness of a new day — invoking Surya, the solar deity.",
+  "patchouli":  "Patchouli's earthy, grounding aroma connects to the element of Prithvi (Earth) — one of the Pancha Mahabhutas. It was historically used to protect sacred textiles and manuscripts during long journeys."
+};
+
+function scnInjectResonance() {
+  const cards = document.querySelectorAll('.product-card, .product-item, [data-scent]');
+  cards.forEach(card => {
+    const scent = (card.dataset.scent || card.innerText || '').toLowerCase();
+    const key = Object.keys(SCN_RESONANCE).find(k => scent.includes(k));
+    if (!key || card.querySelector('.scn-spiritual-resonance')) return;
+    const desc = card.querySelector('.product-desc, .product-description, p');
+    if (!desc) return;
+    const block = document.createElement('div');
+    block.className = 'scn-spiritual-resonance';
+    block.innerHTML = `
+      <div class="scn-spiritual-resonance__label">✦ Spiritual Resonance</div>
+      <p class="scn-spiritual-resonance__text">${SCN_RESONANCE[key]}</p>
+    `;
+    desc.after(block);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  scnLoadDailyShloka();
+  // Observe for dynamically rendered product cards
+  const observer = new MutationObserver(() => scnInjectResonance());
+  const grid = document.getElementById('products-grid');
+  if (grid) observer.observe(grid, { childList: true, subtree: true });
+  setTimeout(scnInjectResonance, 800);
+});
+</script>
+
+<!-- Spiritual Resonance styles -->
+<style>
+.scn-spiritual-resonance {
+  margin-top: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border-left: 2px solid rgba(107, 26, 42, 0.25);
+  background: rgba(253, 245, 230, 0.45);
+  border-radius: 0 2px 2px 0;
+}
+.scn-spiritual-resonance__label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.6;
+  margin-bottom: 0.3rem;
+}
+.scn-spiritual-resonance__text {
+  font-family: 'Crimson Text', serif !important;
+  font-size: 0.82rem !important;
+  font-style: italic;
+  color: var(--text-light, #7a5c62);
+  line-height: 1.6;
+  margin: 0 !important;
+}
+</style>
 
 <script src="Script.js"></script>
 </body>
