@@ -427,7 +427,11 @@ body.intro-active { overflow: hidden; }
       <button class="filter-btn" data-filter="price" data-value="premium">₹1000+</button>
     </div>
   </div>
-  <div class="products-grid" id="products-grid"></div>
+  <div class="products-grid collapsed" id="products-grid"></div>
+
+<div style="text-align: center; margin-top: 3rem; width: 100%;">
+  <button id="see-more-btn" class="btn-primary" onclick="toggleShop()">See More</button>
+</div>
 </section>
 
 <!-- ABOUT -->
@@ -1010,8 +1014,32 @@ document.addEventListener('DOMContentLoaded', () => {
   line-height: 1.6;
   margin: 0 !important;
 }
+/* ============================================================
+   SHOP EXPAND/COLLAPSE LOGIC
+   ============================================================ */
+#products-grid.collapsed > *:nth-child(n+7) {
+  display: none;
+}
 </style>
+<script>
+  function toggleShop() {
+    const grid = document.getElementById("products-grid");
+    const btnText = document.getElementById("see-more-btn");
 
+    if (grid.classList.contains("collapsed")) {
+      // Expand the shop
+      grid.classList.remove("collapsed");
+      btnText.innerHTML = "See Less ✦";
+    } else {
+      // Collapse the shop
+      grid.classList.add("collapsed");
+      btnText.innerHTML = "See More ✦";
+      
+      // Smoothly scroll back to the top of the shop section
+      document.getElementById("pricing").scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+</script>
 <script src="Script.js"></script>
 </body>
 </html>
