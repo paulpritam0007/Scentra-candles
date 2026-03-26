@@ -140,16 +140,15 @@ body.intro-active { overflow: hidden; }
   <a href="login.html" onclick="closeMobileMenu()" class="nav-cta-mobile">My Account</a>
 </div>
 
-<!-- HOME (Banner Style — full viewport, text centered over image space) -->
+<!-- HOME -->
 <section id="home">
-  <!-- Image slot: place your banner image as a background via CSS or add an <img> here -->
   <div class="hero-image-slot">
-  <img src="banner-image.png" class="hero-banner-img" alt="Scentra Candles">
+    <img src="banner-image.png" class="hero-banner-img" alt="Scentra Candles">
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-text">
     <div class="hero-eyebrow">✦ "आत्मदीपो भव।" ✦</div>
-    <h1 class="hero-title">The Sacred Essence of Ancient <em>Bharat</em></em></h1>
+    <h1 class="hero-title">The Sacred Essence of Ancient <em>Bharat</em></h1>
     <p class="hero-sub">A sensory journey of sacred light and forgotten textures that brings our rich heritage home.</p>
     <div class="hero-btns">
       <a href="#pricing" class="btn-primary">Shop Now</a>
@@ -324,206 +323,94 @@ body.intro-active { overflow: hidden; }
     </form>
   </div>
 </section>
-<!-- PERKS SECTION -->
-  <section id="perks" style="background: var(--beige-warm, #faf9f7);">
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>At Your Service — Perks Section</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: #faf9f7;
-      font-family: 'Jost', sans-serif;
-      color: #1a1a1a;
-    }
+<!-- ============================================================ -->
+<!-- PERKS SECTION — paste CSS into Style.css, not here          -->
+<!-- ============================================================ -->
+<section id="perks">
+  <div class="perks-section">
+    <h2 class="perks-section__title">At your service</h2>
+    <p class="perks-section__subtitle">Every order, every time</p>
 
-    .perks-section {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
+    <div class="perks-grid">
 
-    .perks-section__title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      color: #1a1a1a;
-      margin-bottom: 0.4rem;
-    }
-
-    .perks-section__subtitle {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 3.5rem;
-    }
-
-    .perks-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 2rem 1rem;
-      max-width: 860px;
-      margin: 0 auto;
-    }
-
-    @media (max-width: 700px) {
-      .perks-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    @media (max-width: 440px) {
-      .perks-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .perk {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.9rem;
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.5s ease forwards;
-    }
-
-    .perk:nth-child(1) { animation-delay: 0.05s; }
-    .perk:nth-child(2) { animation-delay: 0.12s; }
-    .perk:nth-child(3) { animation-delay: 0.19s; }
-    .perk:nth-child(4) { animation-delay: 0.26s; }
-    .perk:nth-child(5) { animation-delay: 0.33s; }
-
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .perk__icon {
-      width: 88px;
-      height: 88px;
-      border-radius: 16px;
-      border: 1px solid #e5e2dc;
-      background: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .perk:hover .perk__icon {
-      border-color: #c8c3bb;
-      transform: translateY(-3px);
-    }
-
-    .perk__icon svg {
-      width: 42px;
-      height: 42px;
-    }
-
-    .perk__label {
-      font-size: 0.75rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: #666;
-      line-height: 1.55;
-      max-width: 108px;
-    }
-  </style>
-</head>
-<body>
-
-<section class="perks-section">
-  <h2 class="perks-section__title">At your service</h2>
-  <p class="perks-section__subtitle">Every order, every time</p>
-
-  <div class="perks-grid">
-
-    <!-- Free Shipping -->
-    <div class="perk">
-      <div class="perk__icon">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="9" y="13" width="26" height="20" rx="3" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M9 18h26" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M14 26h6M14 30h10" stroke="#999" stroke-width="1.1" stroke-linecap="round"/>
-          <path d="M30 7l4 6" stroke="#aaa" stroke-width="1.1" stroke-linecap="round"/>
-          <path d="M22 7v5" stroke="#aaa" stroke-width="1.1" stroke-linecap="round"/>
-          <path d="M14 7l-4 6" stroke="#aaa" stroke-width="1.1" stroke-linecap="round"/>
-        </svg>
+      <!-- Free Shipping -->
+      <div class="perk">
+        <div class="perk__icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="13" width="26" height="20" rx="3" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M9 18h26" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M14 26h6M14 30h10" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M30 7l4 6" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M22 7v5" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M14 7l-4 6" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="perk__label">Free shipping on orders over ₹800</span>
       </div>
-      <span class="perk__label">Free shipping on orders over $80</span>
-    </div>
 
-    <!-- Gift Box -->
-    <div class="perk">
-      <div class="perk__icon">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="24" height="28" rx="3" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M10 17h24" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M22 10v7" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M16 23h12M16 27h8" stroke="#999" stroke-width="1.1" stroke-linecap="round"/>
-          <circle cx="30" cy="30" r="5" fill="#fff" stroke="#1a1a1a" stroke-width="1.1"/>
-          <path d="M28 30l1.5 1.5L32 28" stroke="#1a1a1a" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <!-- Gift Box -->
+      <div class="perk">
+        <div class="perk__icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="24" height="28" rx="3" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M10 17h24" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M22 10v7" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M16 23h12M16 27h8" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+            <circle cx="30" cy="30" r="5" fill="var(--beige-warm)" stroke="var(--maroon)" stroke-width="1.1"/>
+            <path d="M28 30l1.5 1.5L32 28" stroke="var(--maroon)" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="perk__label">Free gift box with every order</span>
       </div>
-      <span class="perk__label">Free gift box with every order</span>
-    </div>
 
-    <!-- Try Before You Buy -->
-    <div class="perk">
-      <div class="perk__icon">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="17" cy="22" rx="6" ry="14" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M17 8c3 0 8 2 8 14s-5 14-8 14" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M11 15h12M11 29h12" stroke="#999" stroke-width="1" stroke-linecap="round"/>
-          <path d="M31 16l3 4-3 4" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M34 20H27" stroke="#aaa" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 1.5"/>
-        </svg>
+      <!-- Try Before You Buy -->
+      <div class="perk">
+        <div class="perk__icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="17" cy="22" rx="6" ry="14" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M17 8c3 0 8 2 8 14s-5 14-8 14" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M11 15h12M11 29h12" stroke="var(--pink)" stroke-width="1" stroke-linecap="round"/>
+            <path d="M31 16l3 4-3 4" stroke="var(--maroon)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M34 20H27" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round" stroke-dasharray="2 1.5"/>
+          </svg>
+        </div>
+        <span class="perk__label">Try before you buy — fragrances</span>
       </div>
-      <span class="perk__label">Try before you buy — fragrances</span>
-    </div>
 
-    <!-- Two Free Samples -->
-    <div class="perk">
-      <div class="perk__icon">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="9" y="14" width="11" height="18" rx="2.5" stroke="#1a1a1a" stroke-width="1.2"/>
-          <rect x="24" y="14" width="11" height="18" rx="2.5" stroke="#1a1a1a" stroke-width="1.2"/>
-          <path d="M9 21h11M24 21h11" stroke="#999" stroke-width="1" stroke-linecap="round"/>
-          <circle cx="14.5" cy="9.5" r="2" stroke="#aaa" stroke-width="1"/>
-          <circle cx="29.5" cy="9.5" r="2" stroke="#aaa" stroke-width="1"/>
-          <path d="M14.5 11.5v2.5M29.5 11.5v2.5" stroke="#aaa" stroke-width="1" stroke-linecap="round"/>
-          <path d="M17 36l5-3 5 3" stroke="#aaa" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <!-- Two Free Samples -->
+      <div class="perk">
+        <div class="perk__icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="9" y="14" width="11" height="18" rx="2.5" stroke="var(--maroon)" stroke-width="1.2"/>
+            <rect x="24" y="14" width="11" height="18" rx="2.5" stroke="var(--maroon)" stroke-width="1.2"/>
+            <path d="M9 21h11M24 21h11" stroke="var(--pink)" stroke-width="1" stroke-linecap="round"/>
+            <circle cx="14.5" cy="9.5" r="2" stroke="var(--pink)" stroke-width="1"/>
+            <circle cx="29.5" cy="9.5" r="2" stroke="var(--pink)" stroke-width="1"/>
+            <path d="M14.5 11.5v2.5M29.5 11.5v2.5" stroke="var(--pink)" stroke-width="1" stroke-linecap="round"/>
+            <path d="M17 36l5-3 5 3" stroke="var(--pink)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="perk__label">Two free samples with all orders</span>
       </div>
-      <span class="perk__label">Two free samples with all orders</span>
-    </div>
 
-    <!-- Welcome Gift -->
-    <div class="perk">
-      <div class="perk__icon">
-        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M22 8l2.5 7h7.5l-6 4.5 2.5 7L22 22l-6.5 4.5 2.5-7-6-4.5H20L22 8z" stroke="#1a1a1a" stroke-width="1.2" stroke-linejoin="round"/>
-          <path d="M22 26v10" stroke="#aaa" stroke-width="1.1" stroke-linecap="round"/>
-          <path d="M17 36h10" stroke="#1a1a1a" stroke-width="1.2" stroke-linecap="round"/>
-        </svg>
+      <!-- Welcome Gift -->
+      <div class="perk">
+        <div class="perk__icon">
+          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 8l2.5 7h7.5l-6 4.5 2.5 7L22 22l-6.5 4.5 2.5-7-6-4.5H20L22 8z" stroke="var(--maroon)" stroke-width="1.2" stroke-linejoin="round"/>
+            <path d="M22 26v10" stroke="var(--pink)" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M17 36h10" stroke="var(--maroon)" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="perk__label">Welcome gift for new customers</span>
       </div>
-      <span class="perk__label">Welcome gift for new customers</span>
-    </div>
 
+    </div>
   </div>
 </section>
+<!-- ============================================================ -->
 
-</body>
-</html>
-  </section>
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Scentra<span>✦</span></div>
