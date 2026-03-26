@@ -1241,6 +1241,89 @@ document.addEventListener('DOMContentLoaded', () => {
 @media (max-width: 440px) {
   .scn-reels-grid { grid-template-columns: 1fr; max-width: 320px; }
 }
+/* Container and Grid Setup */
+.scn-reels-grid {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px 10px;
+  scrollbar-width: none; /* Hide scrollbar for Chrome/Safari */
+  perspective: 1000px;
+}
+
+.scn-reels-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card Sizing (Product Card feel) */
+.scn-reel-card {
+  flex: 0 0 160px; /* Adjust this width to match your product cards */
+  max-width: 160px;
+  text-decoration: none;
+  scroll-snap-align: center;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  opacity: 0.5; /* Default faded state */
+  transform: scale(0.9); /* Default smaller state */
+}
+
+/* Thumbnail Styling */
+.scn-reel-thumb {
+  position: relative;
+  aspect-ratio: 9/16; /* Reel vertical ratio */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.scn-reel-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Focus Effect: The item in the center */
+/* Note: For pure CSS focus on scroll, we use intersection observer or standard hover for desktop. 
+   On mobile, we'll use a simple "active" state or let the scroll-snap do the work. */
+
+.scn-reel-card:hover, 
+.scn-reel-card:focus-within {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Captions */
+.scn-reel-caption {
+  text-align: left;
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
+
+.scn-reel-name {
+  display: block;
+  font-weight: bold;
+  color: var(--maroon, #6b1a2a);
+}
+
+.scn-reel-quote {
+  display: block;
+  font-style: italic;
+  color: #666;
+  line-height: 1.2;
+}
+
+/* Responsive adjustment for Desktop */
+@media (min-width: 768px) {
+  .scn-reels-grid {
+    justify-content: center;
+    overflow-x: visible;
+  }
+  .scn-reel-card {
+    opacity: 1;
+    transform: scale(1);
+    flex: 0 0 200px;
+  }
+}
 .scn-spiritual-resonance {
   margin-top: 0.75rem;
   padding: 0.75rem 0.9rem;
@@ -1290,6 +1373,25 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById("pricing").scrollIntoView({ behavior: 'smooth' });
     }
   }
+  const cards = document.querySelectorAll('.scn-reel-card');
+  const observerOptions = {
+    root: document.querySelector('.scn-reels-grid'),
+    threshold: 0.7 // Card must be 70% visible to be "focused"
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = "1";
+        entry.target.style.transform = "scale(1.05)";
+      } else {
+        entry.target.style.opacity = "0.5";
+        entry.target.style.transform = "scale(0.9)";
+      }
+    });
+  }, observerOptions);
+
+  cards.forEach(card => observer.observe(card));
 </script>
 <script src="Script.js"></script>
 </body>
