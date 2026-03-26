@@ -442,8 +442,9 @@ body.intro-active { overflow: hidden; }
     </a>
 
     <!-- REEL 2 -->
-    <a class="scn-reel-card" href="https://www.instagram.com/reel/YOUR_REEL_ID_2/" target="_blank" rel="noopener noreferrer">
+    <a class="scn-reel-card" href="#" target="_blank" rel="noopener noreferrer">
       <div class="scn-reel-thumb">
+        <div class="scn-image-container">
         <img src="reel-thumb-2.jpg" alt="Customer testimonial reel 2">
         <div class="scn-reel-play">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -501,6 +502,25 @@ body.intro-active { overflow: hidden; }
     </svg>
     Follow @scentra_candle for more
   </a>
+  <a class="scn-reel-card" href="#">
+  <div class="scn-reel-thumb">
+    <div class="scn-image-container">
+      <img src="reel-thumb-2.jpg" alt="Scentra Stories" onerror="this.style.display='none'">
+      
+      <div class="scn-placeholder-content">
+        <span class="placeholder-icon">✨</span>
+        <span class="placeholder-text">Coming Soon</span>
+      </div>
+    </div>
+    
+    <div class="scn-reel-play">...</div>
+    <div class="scn-reel-ig-badge">...</div>
+  </div>
+  <div class="scn-reel-caption">
+    <span class="scn-reel-name">@scentra_candle</span>
+    <span class="scn-reel-quote">"Capturing sacred moments..."</span>
+  </div>
+</a>
 
 </section>
 <!-- SHOP -->
@@ -1323,6 +1343,60 @@ document.addEventListener('DOMContentLoaded', () => {
     transform: scale(1);
     flex: 0 0 200px;
   }
+}
+/* Container for the image to handle the "blank" state */
+.scn-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: linear-gradient(145deg, #f3ede4, #e8dfd2); /* Warm Sacred Beige */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Elegant Placeholder Styling */
+.scn-placeholder-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.6;
+}
+
+.placeholder-icon {
+  font-size: 24px;
+  filter: sepia(1) saturate(2);
+}
+
+.placeholder-text {
+  font-family: serif;
+  font-style: italic;
+  font-size: 0.75rem;
+  color: #6b1a2a; /* Your maroon color */
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* Ensure the image covers the area if it DOES exist */
+.scn-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+/* Small Card Sizing (Product Card Feel) */
+.scn-reel-card {
+  flex: 0 0 160px; /* Force product card width on mobile */
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px; /* Inner padding like a product card */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 .scn-spiritual-resonance {
   margin-top: 0.75rem;
