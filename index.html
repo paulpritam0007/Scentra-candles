@@ -1126,6 +1126,121 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Spiritual Resonance styles -->
 <style>
+/* ── Testimonial Reels ───────────────────────── */
+.scn-reels-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+
+.scn-reel-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(107, 26, 42, 0.12);
+  background: rgba(253, 245, 230, 0.5);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.scn-reel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(107, 26, 42, 0.12);
+}
+
+.scn-reel-thumb {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--maroon, #6b1a2a);
+}
+.scn-reel-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.scn-reel-card:hover .scn-reel-thumb img {
+  transform: scale(1.04);
+}
+
+.scn-reel-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.08);
+  transition: background 0.2s ease;
+}
+.scn-reel-card:hover .scn-reel-play {
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.scn-reel-ig-badge {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: rgba(107, 26, 42, 0.75);
+  color: #fdf5e6;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  backdrop-filter: blur(4px);
+}
+
+.scn-reel-caption {
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.scn-reel-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.65;
+}
+.scn-reel-quote {
+  font-family: 'Crimson Text', serif;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--text-light, #7a5c62);
+  line-height: 1.5;
+}
+
+.scn-ig-follow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--maroon, #6b1a2a);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(107, 26, 42, 0.25);
+  padding-bottom: 2px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.scn-ig-follow:hover { opacity: 1; }
+
+@media (max-width: 700px) {
+  .scn-reels-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 440px) {
+  .scn-reels-grid { grid-template-columns: 1fr; max-width: 320px; }
+}
 .scn-spiritual-resonance {
   margin-top: 0.75rem;
   padding: 0.75rem 0.9rem;
