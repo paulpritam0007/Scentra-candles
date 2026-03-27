@@ -981,11 +981,11 @@ body.intro-active { overflow: hidden; }
 <script>
 // ── Shloka rotation ──────────────────────────────────────────
 const SCN_SHLOKAS = [
-  {
-    sanskrit: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।<br>अभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥",
-    translation: '"Whenever righteousness declines and unrighteousness rises,<br>I manifest Myself, O Bharata."',
-    ref: "— Bhagavad Gita, Chapter 4, Verse 7"
-  },
+ {
+    sanskrit: "जितात्मन: प्रशान्तस्य परमात्मा समाहित: |<br>शीतोष्णसुखदु:खेषु तथा मानापमानयो: || ",
+    translation: '''The yogis who have conquered the mind rise above the dualities of cold and heat, joy and sorrow, and honor and dishonor. Such yogis remain peaceful and steadfast in their devotion to God.''',
+    ref: "— Bhagavad Gita: Chapter 6, Verse 7"
+  }
   {
     sanskrit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
     translation: '"You have the right to perform your duty,<br>but not to the fruits thereof."',
@@ -1031,25 +1031,24 @@ const SCN_SHLOKAS = [
     translation: '''The Supreme Divine Personality said: O scion of Bharat, these are the saintly virtues of those endowed with a divine nature—fearlessness, purity of mind, steadfastness in spiritual knowledge, charity, control of the senses, sacrifice, study of the sacred books, austerity, and straightforwardness; non-violence, truthfulness, absence of anger, renunciation, peacefulness, restraint from fault-finding, compassion toward all living beings, absence of covetousness, gentleness, modesty, and lack of fickleness; vigor, forgiveness, fortitude, cleanliness, bearing enmity toward none, and absence of vanity.''',
     ref: "— Bhagavad Gita: Chapter 16, Verse 1"
   }
-  {
-    sanskrit: "जितात्मन: प्रशान्तस्य परमात्मा समाहित: |<br>शीतोष्णसुखदु:खेषु तथा मानापमानयो: || ",
-    translation: '''The yogis who have conquered the mind rise above the dualities of cold and heat, joy and sorrow, and honor and dishonor. Such yogis remain peaceful and steadfast in their devotion to God.''',
-    ref: "— Bhagavad Gita: Chapter 6, Verse 7"
-  }
 ];
 
 function scnLoadDailyShloka() {
-  const d = new Date();
-  const idx = (d.getFullYear() * 365 + d.getMonth() * 31 + d.getDate()) % SCN_SHLOKAS.length;
-  const s = SCN_SHLOKAS[idx];
+  const d     = new Date();
+  const start = new Date(d.getFullYear(), 0, 0);
+  const dayOfYear = Math.floor((d - start) / 86_400_000); // ms in a day
+
+  const idx = dayOfYear % SCN_SHLOKAS.length;
+  const s   = SCN_SHLOKAS[idx];
+
   const sanskrit = document.getElementById('shloka-sanskrit');
   const trans    = document.getElementById('shloka-translation');
   const ref      = document.getElementById('shloka-ref');
+
   if (sanskrit) sanskrit.innerHTML = s.sanskrit;
   if (trans)    trans.innerHTML    = s.translation;
   if (ref)      ref.textContent    = s.ref;
 }
-
 // ── Spiritual Resonance injection into product cards ─────────
 const SCN_RESONANCE = {
   "sandalwood": "Chandan (Sandalwood) has been used in Hindu puja rituals for millennia — anointing temple idols, calming the mind during meditation, and connecting the devotee to the divine. Its earthy warmth is the scent of consecrated space.",
