@@ -391,6 +391,78 @@ body.intro-active { overflow: hidden; }
     <div class="scn-shloka-card__ref" id="shloka-ref"></div>
     </div>
     </section>
+<!-- SHOP -->
+<section id="pricing">
+  <div class="reveal">
+    <span class="section-tag">Our Collection</span>
+    <h2 class="section-title">Find Your Candle</h2>
+    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
+    <p class="section-sub">Sort by mood, price, or let your heart decide. Every candle tells a story.</p>
+  </div>
+  <div class="filter-bar reveal">
+    <span class="filter-label">Mood:</span>
+    <div class="filter-group" id="mood-filters">
+      <button class="filter-btn active" data-filter="mood" data-value="all">All</button>
+      <button class="filter-btn" data-filter="mood" data-value="romantic">Romantic</button>
+      <button class="filter-btn" data-filter="mood" data-value="happy">Happy</button>
+      <button class="filter-btn" data-filter="mood" data-value="sad">Sad</button>
+      <button class="filter-btn" data-filter="mood" data-value="calm">Calm</button>
+      <button class="filter-btn" data-filter="mood" data-value="energetic">Energetic</button>
+      <button class="filter-btn" data-filter="mood" data-value="spiritual">Spiritual</button>
+    </div>
+    <div class="filter-sep"></div>
+    <span class="filter-label">Price:</span>
+    <div class="filter-group" id="price-filters">
+      <button class="filter-btn active" data-filter="price" data-value="all">All</button>
+      <button class="filter-btn" data-filter="price" data-value="affordable">Under ₹200</button>
+      <button class="filter-btn" data-filter="price" data-value="budget">₹200-₹300</button>
+      <button class="filter-btn" data-filter="price" data-value="mid">₹300-₹500</button>
+      <button class="filter-btn" data-filter="price" data-value="umid">₹500–₹1000</button>
+      <button class="filter-btn" data-filter="price" data-value="premium">₹1000+</button>
+    </div>
+  </div>
+  <div class="products-grid collapsed" id="products-grid"></div>
+
+<div style="text-align: center; margin-top: 3rem; width: 100%;">
+  <button id="see-more-btn" class="btn-primary" onclick="toggleShop()">See More</button>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-img-wrap">
+      <img src="image-1.jpeg" height="700" alt="Priyasha Dutta - Founder of Scentra">
+      <div class="about-accent">Est.<br>2023<br>✦ Pure<br>Soy</div>
+    </div>
+    <div class="about-stats">
+      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-label">Mood Collections</div></div>
+      <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Happy Customers</div></div>
+      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Natural Soy Wax</div></div>
+      <div class="stat-card"><div class="stat-num">6hrs+</div><div class="stat-label">Avg. Burn Time</div></div>
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <span class="section-tag">Our Story</span>
+    <h2 class="section-title">Our First Candle<br>in a <em>Crockery</em></h2>
+    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
+    <p class="section-sub"><strong>Hello Consumer!</strong><br> My name is <em>Priyasha Dutta.</em><br>Founder of Scentra Candles<br>Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment — turning an ordinary evening into something special. This is the First candle I've made in a small crockery soup bowl. The scent I used - white jasmine in the soy wax and a small drop of rose fragrance for the flower on the top.</p>
+    <div class="about-values">
+      <div class="value-item">
+        <div class="value-icon">🌿</div>
+        <div class="value-text"><h4>100% Natural Ingredients</h4><p>Every candle is crafted with pure soy wax, natural wicks, and premium fragrance oils — no synthetics, no shortcuts.</p></div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🎨</div>
+        <div class="value-text"><h4>Mood-Matched Scents</h4><p>Our master perfumer curates each fragrance to resonate with specific emotional states, creating a genuine sensory experience.</p></div>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">💝</div>
+        <div class="value-text"><h4>Handpoured with Care</h4><p>Each candle is poured in small batches by hand, ensuring consistency and the kind of quality only human attention can provide.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- TESTIMONIAL REELS SECTION -->
 <section id="testimonials" style="padding: 4rem 2rem; background: var(--beige-warm, #faf9f7); text-align: center;">
 
@@ -464,79 +536,6 @@ body.intro-active { overflow: hidden; }
   </a>
 
 </section>
-<!-- SHOP -->
-<section id="pricing">
-  <div class="reveal">
-    <span class="section-tag">Our Collection</span>
-    <h2 class="section-title">Find Your Candle</h2>
-    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
-    <p class="section-sub">Sort by mood, price, or let your heart decide. Every candle tells a story.</p>
-  </div>
-  <div class="filter-bar reveal">
-    <span class="filter-label">Mood:</span>
-    <div class="filter-group" id="mood-filters">
-      <button class="filter-btn active" data-filter="mood" data-value="all">All</button>
-      <button class="filter-btn" data-filter="mood" data-value="romantic">Romantic</button>
-      <button class="filter-btn" data-filter="mood" data-value="happy">Happy</button>
-      <button class="filter-btn" data-filter="mood" data-value="sad">Sad</button>
-      <button class="filter-btn" data-filter="mood" data-value="calm">Calm</button>
-      <button class="filter-btn" data-filter="mood" data-value="energetic">Energetic</button>
-      <button class="filter-btn" data-filter="mood" data-value="spiritual">Spiritual</button>
-    </div>
-    <div class="filter-sep"></div>
-    <span class="filter-label">Price:</span>
-    <div class="filter-group" id="price-filters">
-      <button class="filter-btn active" data-filter="price" data-value="all">All</button>
-      <button class="filter-btn" data-filter="price" data-value="affordable">Under ₹200</button>
-      <button class="filter-btn" data-filter="price" data-value="budget">₹200-₹300</button>
-      <button class="filter-btn" data-filter="price" data-value="mid">₹300-₹500</button>
-      <button class="filter-btn" data-filter="price" data-value="umid">₹500–₹1000</button>
-      <button class="filter-btn" data-filter="price" data-value="premium">₹1000+</button>
-    </div>
-  </div>
-  <div class="products-grid collapsed" id="products-grid"></div>
-
-<div style="text-align: center; margin-top: 3rem; width: 100%;">
-  <button id="see-more-btn" class="btn-primary" onclick="toggleShop()">See More</button>
-</div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-visual reveal">
-    <div class="about-img-wrap">
-      <img src="image-1.jpeg" height="700" alt="Priyasha Dutta - Founder of Scentra">
-      <div class="about-accent">Est.<br>2023<br>✦ Pure<br>Soy</div>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card"><div class="stat-num">12+</div><div class="stat-label">Mood Collections</div></div>
-      <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label">Happy Customers</div></div>
-      <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Natural Soy Wax</div></div>
-      <div class="stat-card"><div class="stat-num">6hrs+</div><div class="stat-label">Avg. Burn Time</div></div>
-    </div>
-  </div>
-  <div class="about-text reveal">
-    <span class="section-tag">Our Story</span>
-    <h2 class="section-title">Our First Candle<br>in a<em>Crockery</em></h2>
-    <div class="divider"><svg width="20" height="20" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 3C14 3 9.5 9 14 13.5C18.5 9 14 3 14 3Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M3 14C3 14 9 9.5 13.5 14C9 18.5 3 14 3 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M25 14C25 14 19 9.5 14.5 14C19 18.5 25 14 25 14Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><path d="M14 25C14 25 9.5 19 14 14.5C18.5 19 14 25 14 25Z" fill="var(--maroon,#6b1a2a)" opacity="0.5"/><circle cx="14" cy="14" r="2" fill="var(--maroon,#6b1a2a)" opacity="0.6"/></svg></div>
-    <p class="section-sub"><strong>Hello Consumer!</strong><br> My name is <em>Priyasha Dutta</em><br>Founder of Scentra Candles<br>Scentra began in a small bedroom in 2023, born from the belief that the right scent can transform any moment — turning an ordinary evening into something special. This is the First candle I've made in a small crockery soup bowl. The scent I used - white jasmine in the soy wax and a small drop of rose fragrance for the flower on the top.</p>
-    <div class="about-values">
-      <div class="value-item">
-        <div class="value-icon">🌿</div>
-        <div class="value-text"><h4>100% Natural Ingredients</h4><p>Every candle is crafted with pure soy wax, natural wicks, and premium fragrance oils — no synthetics, no shortcuts.</p></div>
-      </div>
-      <div class="value-item">
-        <div class="value-icon">🎨</div>
-        <div class="value-text"><h4>Mood-Matched Scents</h4><p>Our master perfumer curates each fragrance to resonate with specific emotional states, creating a genuine sensory experience.</p></div>
-      </div>
-      <div class="value-item">
-        <div class="value-icon">💝</div>
-        <div class="value-text"><h4>Handpoured with Care</h4><p>Each candle is poured in small batches by hand, ensuring consistency and the kind of quality only human attention can provide.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- REVIEWS -->
 <section id="reviews">
   <div class="reveal">
