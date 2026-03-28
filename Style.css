@@ -1157,3 +1157,131 @@ footer p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
     grid-template-columns: repeat(2, 1fr);
   }
 }
+/* ══════════════════════════════════════════
+   SCENTRA — SACRED FLAME CURSOR
+   Replaces the plain dot cursor with an
+   animated diya flame that flickers
+══════════════════════════════════════════ */
+
+/* Hide default cursor everywhere */
+*, *::before, *::after { cursor: none !important; }
+
+/* ── Main cursor: tiny diya flame SVG ── */
+#scn-cursor-flame {
+  position: fixed;
+  top: 0; left: 0;
+  width: 28px; height: 36px;
+  pointer-events: none;
+  z-index: 999999;
+  transform: translate(-200px, -200px);
+  transition: transform 0.04s linear;
+  will-change: transform;
+}
+
+/* The flame SVG layers */
+#scn-cursor-flame .cf-outer {
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 20px; height: 30px;
+  background: radial-gradient(ellipse at 50% 90%,
+    #E8799A 0%,
+    #C8425A 35%,
+    #6B1A2A 75%,
+    transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: scnCfFlicker 1.6s ease-in-out infinite alternate;
+}
+#scn-cursor-flame .cf-mid {
+  position: absolute;
+  bottom: 2px; left: 50%;
+  transform: translateX(-50%);
+  width: 13px; height: 20px;
+  background: radial-gradient(ellipse at 50% 88%,
+    #FAF7F2 0%,
+    #F2C4A0 50%,
+    #E8799A 90%,
+    transparent 100%);
+  border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+  animation: scnCfFlicker 1.4s ease-in-out infinite alternate-reverse;
+}
+#scn-cursor-flame .cf-core {
+  position: absolute;
+  bottom: 5px; left: 50%;
+  transform: translateX(-50%);
+  width: 5px; height: 8px;
+  background: radial-gradient(ellipse, #fff 0%, #FAF7F2 100%);
+  border-radius: 50%;
+}
+
+/* Glow behind the flame */
+#scn-cursor-flame .cf-glow {
+  position: absolute;
+  bottom: -4px; left: 50%;
+  transform: translateX(-50%);
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(232, 121, 154, 0.45) 0%,
+    rgba(107, 26, 42, 0.18) 55%,
+    transparent 100%);
+  animation: scnCfGlow 1.8s ease-in-out infinite alternate;
+  filter: blur(3px);
+}
+
+@keyframes scnCfFlicker {
+  0%   { transform: translateX(-50%) scaleY(1)    scaleX(1)    rotate(-2deg); }
+  25%  { transform: translateX(-50%) scaleY(1.08) scaleX(0.93) rotate(2deg);  }
+  50%  { transform: translateX(-50%) scaleY(0.95) scaleX(1.05) rotate(-1deg); }
+  75%  { transform: translateX(-50%) scaleY(1.1)  scaleX(0.91) rotate(1.5deg);}
+  100% { transform: translateX(-50%) scaleY(1.02) scaleX(0.97) rotate(-2deg); }
+}
+@keyframes scnCfGlow {
+  from { opacity: 0.5; transform: translateX(-50%) scale(0.85); }
+  to   { opacity: 1;   transform: translateX(-50%) scale(1.2);  }
+}
+
+/* ── Trailing ring: soft lotus petal outline ── */
+#scn-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 38px; height: 38px;
+  pointer-events: none;
+  z-index: 999998;
+  transform: translate(-200px, -200px);
+  transition: transform 0.22s ease;
+  will-change: transform;
+}
+#scn-cursor-ring svg {
+  width: 100%; height: 100%;
+  animation: scnRingBreath 2.4s ease-in-out infinite alternate;
+}
+@keyframes scnRingBreath {
+  from { opacity: 0.45; transform: scale(0.9) rotate(0deg);   }
+  to   { opacity: 0.85; transform: scale(1.06) rotate(15deg); }
+}
+
+/* ── Hover state: flame grows, ring pulses ── */
+body.scn-hovering #scn-cursor-flame .cf-outer {
+  width: 24px; height: 36px;
+  transition: width 0.2s, height 0.2s;
+}
+body.scn-hovering #scn-cursor-ring svg {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* ── Click burst ── */
+.scn-cursor-burst {
+  position: fixed;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--s-maroon, #6B1A2A);
+  pointer-events: none;
+  z-index: 999997;
+  animation: scnBurst 0.45s ease-out forwards;
+}
+@keyframes scnBurst {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+}
