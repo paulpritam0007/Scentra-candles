@@ -1407,6 +1407,108 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cards.forEach(card => observer.observe(card));
 </script>
+<script>
+/* ══════════════════════════════════════════
+   SCENTRA SACRED FLAME CURSOR
+══════════════════════════════════════════ */
+(function () {
+  /* ── Build flame element ── */
+  const flame = document.createElement('div');
+  flame.id = 'scn-cursor-flame';
+  flame.innerHTML = `
+    <div class="cf-glow"></div>
+    <div class="cf-outer"></div>
+    <div class="cf-mid"></div>
+    <div class="cf-core"></div>
+  `;
+
+  /* ── Build lotus ring ── */
+  const ring = document.createElement('div');
+  ring.id = 'scn-cursor-ring';
+  ring.innerHTML = `
+    <svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+      <!-- 8 lotus petals, drawn as thin ellipses rotated around center -->
+      <g fill="none" stroke="#6B1A2A" stroke-width="0.8" opacity="0.65">
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(0   19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(45  19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(90  19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(135 19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(180 19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(225 19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(270 19 19)"/>
+        <ellipse cx="19" cy="19" rx="3.5" ry="9" transform="rotate(315 19 19)"/>
+        <!-- Inner circle -->
+        <circle cx="19" cy="19" r="4" stroke="#E8799A" stroke-width="0.6"/>
+      </g>
+      <!-- Tiny dot in the very centre -->
+      <circle cx="19" cy="19" r="1.2" fill="#6B1A2A" opacity="0.7"/>
+    </svg>
+  `;
+
+  document.body.appendChild(flame);
+  document.body.appendChild(ring);
+
+  /* ── Position tracking ── */
+  let mx = -200, my = -200;
+  let rx = -200, ry = -200;
+
+  window.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    // Flame tip is centred on cursor, offset up so flame tip = pointer
+    flame.style.transform = `translate(${mx - 14}px, ${my - 34}px)`;
+  });
+
+  /* Smooth ring follows with lag */
+  (function loopRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 19}px, ${ry - 19}px)`;
+    requestAnimationFrame(loopRing);
+  })();
+
+  /* ── Hover state ── */
+  document.addEventListener('mouseover', e => {
+    if (e.target.closest('a, button, [onclick], input, select, textarea, label')) {
+      document.body.classList.add('scn-hovering');
+    }
+  });
+  document.addEventListener('mouseout', e => {
+    if (e.target.closest('a, button, [onclick], input, select, textarea, label')) {
+      document.body.classList.remove('scn-hovering');
+    }
+  });
+
+  /* ── Click burst: 6 particles scatter ── */
+  document.addEventListener('click', e => {
+    const count = 6;
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement('div');
+      p.className = 'scn-cursor-burst';
+      const angle = (360 / count) * i;
+      const dist  = 18 + Math.random() * 14;
+      const dx    = Math.cos(angle * Math.PI / 180) * dist + 'px';
+      const dy    = Math.sin(angle * Math.PI / 180) * dist + 'px';
+      p.style.cssText = `
+        left: ${e.clientX - 3}px;
+        top:  ${e.clientY - 3}px;
+        --dx: ${dx};
+        --dy: ${dy};
+        background: ${i % 2 === 0 ? '#6B1A2A' : '#E8799A'};
+      `;
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 460);
+    }
+  });
+
+  /* ── Hide on mobile / touch ── */
+  if (window.matchMedia('(pointer: coarse)').matches) {
+    flame.style.display = 'none';
+    ring.style.display  = 'none';
+    document.querySelectorAll('*').forEach(el => el.style.cursor = '');
+  }
+})();
+</script>
 <script src="Script.js"></script>
 </body>
 </html>
