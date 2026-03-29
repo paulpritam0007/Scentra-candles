@@ -1,4 +1,31 @@
-module.exports = function handler(req, res) {
+// At the top of api/login.js, add this simple in-memory rate limiter
+const attempts = new Map();
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const key  = ip;
+  const prev = attempts.get(key) || { count: 0, first: now };
+
+  // Reset window after 15 minutes
+  if (now - prev.first > 15 * 60 * 1000) {
+    attempts.set(key, { count: 1, first: now });
+    return false;
+  }
+
+  // Block after 10 attempts in 15 minutes
+  if (prev.count >= 10) return true;
+
+  attempts.set(key, { count: prev.count + 1, first: prev.first });
+  return false;
+}
+
+// Then inside your handler, before checking credentials:
+export default function handler(req, res) {
+  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ success: false, error: 'Too many attempts. Try again later.' });
+  }
+  module.exports = function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -47,3 +74,5 @@ module.exports = function handler(req, res) {
     user: { email: match.email, name: match.name, role: match.role },
   });
 };
+
+}
