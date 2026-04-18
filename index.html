@@ -266,6 +266,10 @@ p, li, label, .section-sub, .hero-sub, .perk__label,
   flex-shrink: 0;
 }
 .scn-partner-logo:hover { opacity: 1; }
+.scn-partners-track {
+  transform: translateX(0);
+  animation: scnPartnersScroll 28s linear infinite;
+}
 @keyframes scnPartnersScroll {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
@@ -528,21 +532,22 @@ body.intro-active { overflow: hidden; }
 <section class="scn-partners-section">
   <div class="scn-partners-title">✦ &nbsp; Partners &nbsp; ✦</div>
   <div class="scn-partners-track-wrap">
-    <div class="scn-partners-track" id="scn-partners-track">
-      <img class="scn-partner-logo" src="chaculture.jpeg" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <!-- Duplicate set for seamless loop -->
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-      <img class="scn-partner-logo" src="" alt="Partner">
-    </div>
+   <div class="scn-partners-track" id="scn-partners-track">
+  <!-- Original set -->
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="chaculture.jpeg" alt="Partner">
+  <!-- Exact duplicate for seamless reset -->
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+  <img class="scn-partner-logo" src="" alt="Partner">
+</div>
   </div>
 </section>
 <!-- TESTIMONIAL REELS SECTION -->
