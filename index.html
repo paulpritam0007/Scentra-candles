@@ -210,6 +210,66 @@ p, li, label, .section-sub, .hero-sub, .perk__label,
   color: var(--text-light, #7a5c62);
   opacity: 0.55;
 }
+/*Partner's Section*/
+/* ── Partners Strip ── */
+.scn-partners-section {
+  padding: 2.5rem 0 2rem;
+  background: transparent;
+  text-align: center;
+}
+.scn-partners-title {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--maroon, #6b1a2a);
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+.scn-partners-track-wrap {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.scn-partners-track-wrap::before,
+.scn-partners-track-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+.scn-partners-track-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, var(--beige-warm, #faf9f7), transparent);
+}
+.scn-partners-track-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, var(--beige-warm, #faf9f7), transparent);
+}
+.scn-partners-track {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  width: max-content;
+  animation: scnPartnersScroll 28s linear infinite;
+}
+.scn-partners-track:hover { animation-play-state: paused; }
+.scn-partner-logo {
+  height: auto;
+  max-height: 48px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.55;
+  transition: opacity 0.25s ease;
+  flex-shrink: 0;
+}
+.scn-partner-logo:hover { opacity: 1; }
+@keyframes scnPartnersScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
 
 /* Intro */
 #scn-intro-container {
@@ -460,6 +520,28 @@ body.intro-active { overflow: hidden; }
         <div class="value-icon">💝</div>
         <div class="value-text"><h4>Handpoured with Care</h4><p>Each candle is poured in small batches by hand, ensuring consistency and the kind of quality only human attention can provide.</p></div>
       </div>
+    </div>
+  </div>
+</section>
+<!--Partner's Section-->
+  <!-- PARTNERS -->
+<section class="scn-partners-section">
+  <div class="scn-partners-title">✦ &nbsp; Partners &nbsp; ✦</div>
+  <div class="scn-partners-track-wrap">
+    <div class="scn-partners-track" id="scn-partners-track">
+      <img class="scn-partner-logo" src="chaculture.png" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <!-- Duplicate set for seamless loop -->
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
+      <img class="scn-partner-logo" src="" alt="Partner">
     </div>
   </div>
 </section>
